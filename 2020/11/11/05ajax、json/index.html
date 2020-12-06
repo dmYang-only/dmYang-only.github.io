@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/xxb/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dmyang-only.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="AJAXASynchronous JavaScript And XML 异步的JavaScript和XML 基于JQuery的ajax通过out.print(result) 得到结果  1&lt;label for&#x3D;&quot;username&quot;&gt;&lt;&#x2F;label&gt;&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;username&amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ajax&amp;json">
+<meta property="og:url" content="https://dmyang-only.github.io/2020/11/11/05ajax%E3%80%81json/index.html">
+<meta property="og:site_name" content="哈哈哈">
+<meta property="og:description" content="AJAXASynchronous JavaScript And XML 异步的JavaScript和XML 基于JQuery的ajax通过out.print(result) 得到结果  1&lt;label for&#x3D;&quot;username&quot;&gt;&lt;&#x2F;label&gt;&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;username&amp;qu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-11T04:33:33.000Z">
+<meta property="article:modified_time" content="2020-12-06T14:39:55.780Z">
+<meta property="article:author" content="dmYang">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://dmyang-only.github.io/2020/11/11/05ajax%E3%80%81json/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ajax&json | 哈哈哈</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">哈哈哈</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录美好日常</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/05ajax%E3%80%81json/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哈哈哈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ajax&json
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:39:55" itemprop="dateModified" datetime="2020-12-06T22:39:55+08:00">2020-12-06</time>
+              </span>
+
+          
+            <span id="/2020/11/11/05ajax%E3%80%81json/" class="post-meta-item leancloud_visitors" data-flag-title="ajax&json" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><p>ASynchronous JavaScript And XML <strong>异步的JavaScript和XML</strong></p>
+<h4 id="基于JQuery的ajax"><a href="#基于JQuery的ajax" class="headerlink" title="基于JQuery的ajax"></a>基于JQuery的ajax</h4><p><strong>通过<code>out.print(result)</code> 得到结果</strong></p>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span> <span class="attr">onblur</span>=<span class="string">&quot;validate();&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter out=resp.getWriter();</span><br><span class="line">        String username=req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;admin&quot;</span>.equals(username))&#123;</span><br><span class="line">            <span class="comment">//输出字符串给请求者</span></span><br><span class="line"><span class="comment">//            out.print(&quot;true&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//            out.print(&quot;false&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:<span class="string">&#x27;ajaxServlet&#x27;</span>,</span><br><span class="line">            type:<span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">     		data:<span class="string">&#x27;username=&#x27;</span>+username, <span class="comment">//相当于同步请求的URL&quot;ajaxServlet?username=admin&quot;</span></span><br><span class="line">            success:<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">                <span class="comment">// if (result===&#x27;true&#x27;)&#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;else &#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;</span></span><br><span class="line">                $(<span class="string">&quot;#msg&quot;</span>).html(result);</span><br><span class="line">            &#125;,</span><br><span class="line">            error:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="string">&quot;执行失败&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="get-post-简化"><a href="#get-post-简化" class="headerlink" title="get()/post()简化"></a>get()/post()简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get()简化</span></span><br><span class="line">$.get(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//post()简化</span></span><br><span class="line">$.post(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="load-方法简化"><a href="#load-方法简化" class="headerlink" title="load()方法简化"></a>load()方法简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).load(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&quot;username=&quot;</span>+username)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>JavaScript Object Notation  <strong>JavaScript对象表示法</strong></p>
+<p><strong>类似于Map的表示方式</strong></p>
+<ul>
+<li>json多用于存储和交换文本信息的语法</li>
+<li>进行数据的传输</li>
+<li>json比XML更小、更快、更易解析</li>
+</ul>
+<h4 id="1、基本格式"><a href="#1、基本格式" class="headerlink" title="1、基本格式"></a>1、基本格式</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本格式</span></span><br><span class="line">const person = &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;;</span><br><span class="line"><span class="comment">// var name=person[&quot;name&quot;];</span></span><br><span class="line">alert(person.name);</span><br><span class="line"></span><br><span class="line">const ps = [</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">];</span><br><span class="line">alert(ps[2].name);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:&#123; &#125; &#125;</span></span><br><span class="line">const pears = &#123;</span><br><span class="line">    &quot;person&quot;: &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">&#125;;</span><br><span class="line">alert(pears.person.age);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:[ &#123;&#125;, &#123;&#125;, &#123;&#125; ] &#125;</span></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;: [</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">alert(peas2.person2[2].name);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、遍历"><a href="#2、遍历" class="headerlink" title="2、遍历"></a>2、遍历</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历</span></span><br><span class="line"><span class="comment">// for in</span></span><br><span class="line">for (const key in person)&#123;</span><br><span class="line">    alert(key+&quot;:&quot;+person[key])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;:[</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    const person=peas2.person2[i];</span><br><span class="line">    for (const key in person)&#123;</span><br><span class="line">        alert(key+&quot;:&quot;+person[key])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    alert(peas2.person2[i].name+&quot;,&quot;+peas2.person2[i].age+&quot;,&quot;+peas2.person2[i].gender);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、json字符串"><a href="#3、json字符串" class="headerlink" title="3、json字符串"></a>3、json字符串</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const person=&#x27;&#123;&quot;name&quot;: &quot;李四&quot;, &quot;age&quot;: 12, &quot;gender&quot;: true&#125;&#x27;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将JSON对象转换为JSON字符串</span></span><br><span class="line">person3=JSON.stringify(person)</span><br><span class="line">alert(person3);</span><br><span class="line"></span><br><span class="line"><span class="comment">// //将json字符串转化为JSON对象</span></span><br><span class="line">const person2=JSON.parse(person);</span><br><span class="line">alert(person2.name);</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、转化4种方法"><a href="#4、转化4种方法" class="headerlink" title="4、转化4种方法"></a>4、转化4种方法</h4><h5 id="（1）从Servlet获得Json字符串"><a href="#（1）从Servlet获得Json字符串" class="headerlink" title="（1）从Servlet获得Json字符串"></a>（1）从Servlet获得Json字符串</h5><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jsonStr=<span class="string">&quot;&#123;\&quot;flag\&quot;:true,\&quot;msg\&quot;:\&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;\&quot;&#125;&quot;</span>;</span><br><span class="line">out.print(jsonStr);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="（2）json字符串转化为json对象"><a href="#（2）json字符串转化为json对象" class="headerlink" title="（2）json字符串转化为json对象"></a>（2）json字符串转化为json对象</h5><ul>
+<li><pre><code class="java">resp.setContentType(&quot;application/json; charset=UTF-8&quot;);
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;java</span><br><span class="line">  result &#x3D; JSON.parse(result)</span><br><span class="line">  $(&quot;#msg&quot;).html(result.flag + &quot;---&quot; + result.msg);</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+<li><pre><code class="json">$.getJSON(&#39;jsonServlet&#39;,&#123;username:username&#125;,function (data) &#123;
+    $(&quot;#msg&quot;).html(data.flag + &quot;---&quot; + data.msg);
+&#125;)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;json</span><br><span class="line">  url: &#39;jsonServlet&#39;,</span><br><span class="line">  type: &#39;get&#39;,</span><br><span class="line">  data: &#123;&#39;username&#39;:username&#125;, &#x2F;&#x2F;相当于同步请求的URL&quot;ajaxServlet?username&#x3D;admin&quot;</span><br><span class="line">  dataType:&quot;json&quot;,</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<h4 id="5、Gson"><a href="#5、Gson" class="headerlink" title="5、Gson"></a>5、Gson</h4><p><strong>可为多种形式的对象（List,对象，Map…）转化为json字符串</strong></p>
+<p>导入gson-2.2.4.jar</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">&quot;flag&quot;</span>,<span class="keyword">true</span>);</span><br><span class="line">map.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;&quot;</span>);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line">String data=gson.toJson(map);</span><br><span class="line">out.print(data);</span><br></pre></td></tr></table></figure>
+
+<p>通过前端传过来的name进行搜索，将集合转化为Json字符串，再传到前端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String name = req.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">List&lt;Book&gt; bookList = <span class="keyword">new</span> BookService().findBookByName(name);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line"><span class="comment">//创建Json字符串</span></span><br><span class="line">String json = gson.toJson(bookList);</span><br><span class="line"><span class="comment">//传回请求者</span></span><br><span class="line">resp.getWriter().write(json);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    type: <span class="string">&quot;get&quot;</span>,</span><br><span class="line">    <span class="comment">//新建一个名为SearchNameAjaxServlet的servlet,URL如下</span></span><br><span class="line">    url: <span class="string">&quot;searchNameAjax&quot;</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        <span class="comment">//传递的参数</span></span><br><span class="line">        <span class="string">&quot;name&quot;</span>: content,</span><br><span class="line">        <span class="string">&quot;time&quot;</span>: time</span><br><span class="line">    &#125;,<span class="comment">//&quot;info=&quot;+content+&quot;&amp;time=&quot;+time</span></span><br><span class="line">    dataType: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//拼接html</span></span><br><span class="line">        <span class="comment">//var res = data.split(&quot;,&quot;);</span></span><br><span class="line">        <span class="keyword">var</span> html = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">            <span class="comment">//每一个div还有鼠标移出、移入点击事件</span></span><br><span class="line">            html += <span class="string">&quot;&lt;div onmousedown=&#x27;setSearch_onclick(this)&#x27; onmouseout=&#x27;changeBackColor_out(this)&#x27; onmouseover=&#x27;changeBackColor_over(this)&#x27;&gt;&quot;</span></span><br><span class="line">                + data[i].name + <span class="string">&quot;&lt;/div&gt;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).html(html);</span><br><span class="line">        <span class="comment">//显示为块级元素</span></span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).css(<span class="string">&quot;display&quot;</span>, <span class="string">&quot;block&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/11/05%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" rel="prev" title="常用sql函数">
+      <i class="fa fa-chevron-left"></i> 常用sql函数
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" rel="next" title="异常控制">
+      异常控制 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#AJAX"><span class="nav-number">1.</span> <span class="nav-text">AJAX</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EJQuery%E7%9A%84ajax"><span class="nav-number">1.1.</span> <span class="nav-text">基于JQuery的ajax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#get-post-%E7%AE%80%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">get()&#x2F;post()简化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#load-%E6%96%B9%E6%B3%95%E7%AE%80%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">load()方法简化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON"><span class="nav-number">2.</span> <span class="nav-text">JSON</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">1、基本格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E9%81%8D%E5%8E%86"><span class="nav-number">2.2.</span> <span class="nav-text">2、遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81json%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.3.</span> <span class="nav-text">3、json字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E8%BD%AC%E5%8C%964%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">4、转化4种方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E4%BB%8EServlet%E8%8E%B7%E5%BE%97Json%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.4.1.</span> <span class="nav-text">（1）从Servlet获得Json字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%882%EF%BC%89json%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.4.2.</span> <span class="nav-text">（2）json字符串转化为json对象</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81Gson"><span class="nav-number">2.5.</span> <span class="nav-text">5、Gson</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">dmYang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dmYang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"3yUHSIVcvAXbCdkoYrymjwj6-gzGzoHsz","app_key":"gbHBsfxQBzu06Wn4HCjc3fnY","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xxb/anime.min.js"></script>
+  <script src="/xxb/velocity/velocity.min.js"></script>
+  <script src="/xxb/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

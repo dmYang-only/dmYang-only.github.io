@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/xxb/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dmyang-only.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1、多表查询union all (加法) 列数、列类型必须相同 SELECT *FROM t1 UNION SELECT FROM t2;SELECT *FROM t1 *UNION ALL** SELECT *FROM t2; 2、连接查询select *from emp,dept –笛卡尔积 （1）选出有用的数据有外键连接 SELECT *FROM emp,dept WHERE emp.dep">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多表查询">
+<meta property="og:url" content="https://dmyang-only.github.io/2020/11/11/03%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/index.html">
+<meta property="og:site_name" content="哈哈哈">
+<meta property="og:description" content="1、多表查询union all (加法) 列数、列类型必须相同 SELECT *FROM t1 UNION SELECT FROM t2;SELECT *FROM t1 *UNION ALL** SELECT *FROM t2; 2、连接查询select *from emp,dept –笛卡尔积 （1）选出有用的数据有外键连接 SELECT *FROM emp,dept WHERE emp.dep">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200819180155720.png">
+<meta property="article:published_time" content="2020-11-11T04:33:33.000Z">
+<meta property="article:modified_time" content="2020-12-06T14:48:13.132Z">
+<meta property="article:author" content="dmYang">
+<meta property="article:tag" content="MySql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200819180155720.png">
+
+<link rel="canonical" href="https://dmyang-only.github.io/2020/11/11/03%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>多表查询 | 哈哈哈</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">哈哈哈</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录美好日常</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/03%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哈哈哈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多表查询
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:48:13" itemprop="dateModified" datetime="2020-12-06T22:48:13+08:00">2020-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/03%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" class="post-meta-item leancloud_visitors" data-flag-title="多表查询" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1、多表查询"><a href="#1、多表查询" class="headerlink" title="1、多表查询"></a>1、多表查询</h3><p><strong>union all</strong> (加法)</p>
+<p>列数、列类型必须相同</p>
+<p>SELECT *FROM t1 <strong>UNION</strong> SELECT <em>FROM t2;<br>SELECT *FROM t1 *</em>UNION ALL** SELECT *FROM t2;</p>
+<h3 id="2、连接查询"><a href="#2、连接查询" class="headerlink" title="2、连接查询"></a>2、连接查询</h3><p>select *from <strong>emp,dept</strong> –笛卡尔积</p>
+<h4 id="（1）选出有用的数据"><a href="#（1）选出有用的数据" class="headerlink" title="（1）选出有用的数据"></a>（1）<strong>选出有用的数据</strong></h4><p><strong>有外键连接</strong></p>
+<p>SELECT *FROM emp,dept <strong>WHERE</strong> <strong>emp.deptno=dept.deptno</strong>;</p>
+<p>查询各个部门的人数，求显示部门名称，人数，只显示三个人以上的部门<br>SELECT dname,COUNT(<em>) FROM <strong>emp,dept</strong> <strong>WHERE emp.deptno=dept.deptno</strong> <strong>GROUP BY</strong> dname HAVING COUNT(</em>)&gt;3;</p>
+<h4 id="（2）三表连接查询"><a href="#（2）三表连接查询" class="headerlink" title="（2）三表连接查询"></a>（2）三表连接查询</h4><p><strong>select</strong> scores.studentno,studentname,scores.courseno,coursename,score <strong>from</strong> <strong>scores</strong>,<strong>studnetinfo</strong>,<strong>course</strong>  <strong>where</strong> scores.studentno=studentinfo.studentno <strong>and</strong> scores.courseno=course.courseno</p>
+<p><strong>select</strong> scores.studentno,studentname,scores.courseno,coursename,score <strong>from</strong> scores <strong>innere</strong> <strong>join</strong> studentinfro <strong>on</strong> scores.studentno=studentifno.studentno <strong>inner</strong> <strong>join</strong> course <strong>on</strong> scores.courseno = course.courseno;</p>
+<h4 id="（3）不等查询"><a href="#（3）不等查询" class="headerlink" title="（3）不等查询"></a>（3）不等查询</h4><p><strong>无外键连接</strong></p>
+<p>查询各个员工的编号，姓名，职位，工资，工资等级<br>SELECT empno,ename,job,sal,grade <strong>FROM</strong> emp,salarygrade *<em>WHERE sal&gt;=losalary AND sal&lt;hisalary**</em>;*</p>
+<h3 id="3、内连接"><a href="#3、内连接" class="headerlink" title="3、内连接"></a>3、内连接</h3><p>组合两个表中的记录，返回关联字段相符的记录，也就是<strong>返回两个表的交集（阴影）部分</strong></p>
+<p><strong>inner join</strong></p>
+<p>SELECT empno,ename,job,e.deptno,dname FROM emp e <strong>INNER JOIN</strong> dept d <strong>ON</strong> e.deptno=d.deptno;</p>
+<h3 id="4、外连接"><a href="#4、外连接" class="headerlink" title="4、外连接"></a>4、外连接</h3><p><strong>outer join</strong></p>
+<h4 id="（1）左外连接"><a href="#（1）左外连接" class="headerlink" title="（1）左外连接"></a>（1）左外连接</h4><p><strong>left outer join</strong></p>
+<p><strong>左表不符合条件的也显示出来</strong>–null</p>
+<p>SELECT empno,ename,job,e.deptno,dname FROM emp e <strong>left outer join</strong> dept d <strong>ON</strong> e.deptno=d.deptno;</p>
+<h4 id="（2）右外连接"><a href="#（2）右外连接" class="headerlink" title="（2）右外连接"></a>（2）右外连接</h4><p><strong>right outer join</strong></p>
+<p><strong>右表不符合条件的也显示出来</strong></p>
+<p>SELECT empno,ename,job,e.deptno,dname FROM emp e <strong>right outer join</strong> dept d <strong>ON</strong> e.deptno=d.deptno;</p>
+<h3 id="5、自然连接"><a href="#5、自然连接" class="headerlink" title="5、自然连接"></a>5、自然连接</h3><p><strong>两个关系表中进行连接的必须是相同的属性列（名字相同），无须添加连接条件，并且在结果中消除重复的属性列。</strong></p>
+<p>select *from emp <strong>natural</strong> <strong>join</strong> dept; </p>
+<table>
+<thead>
+<tr>
+<th>denptno(连接)</th>
+<th>deptname</th>
+<th>deptssss</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>sss</td>
+<td>44</td>
+</tr>
+<tr>
+<td>2</td>
+<td>sss11</td>
+<td>4442</td>
+</tr>
+<tr>
+<td>3</td>
+<td>fs</td>
+<td>2424</td>
+</tr>
+</tbody></table>
+<h3 id="6、子查询"><a href="#6、子查询" class="headerlink" title="6、子查询"></a>6、子查询</h3><h4 id="（1）子查询结果为单行单列"><a href="#（1）子查询结果为单行单列" class="headerlink" title="（1）子查询结果为单行单列"></a>（1）子查询结果为单行单列</h4><p>SELECT deptno FROM dept WHERE dname=’SALES’;</p>
+<p>SELECT*FROM emp WHERE deptno=30;</p>
+<p>一步完成</p>
+<p>SELECT *FROM emp WHERE <strong>deptno=</strong>(SELECT deptno FROM dept WHERE dname=’SALES’);</p>
+<p>使用俩表连接</p>
+<p>SELECT emp.*FROM emp I<strong>NNER JOIN</strong> dept <strong>ON</strong> emp.deptno=dept.deptno <strong>WHERE</strong> dname=’SALES’;</p>
+<h4 id="（2）子查询结果为单列多行"><a href="#（2）子查询结果为单列多行" class="headerlink" title="（2）子查询结果为单列多行"></a>（2）子查询结果为单列多行</h4><p>查询工资大于3000的员工，来自哪些部门的名字<br>SELECT deptno FROM emp WHERE sal&gt;2000;—&gt;10,20,30<br>SELECT dname FROM dept WHERE deptno IN (10,20,30);</p>
+<p>SELECT dname FROM dept <strong>WHERE</strong> deptno <strong>IN</strong>(SELECT deptno FROM emp WHERE sal&gt;2000);</p>
+<h4 id="（3）子查询结果为多行多列"><a href="#（3）子查询结果为多行多列" class="headerlink" title="（3）子查询结果为多行多列"></a>（3）子查询结果为多行多列</h4><p><strong>找出虚拟表，并当成俩表连接查询</strong></p>
+<p>select 查询字段 from(子查询) 表别名 where 条件.3</p>
+<p>查询出2011年以后入职的员工<br>SELECT *FROM emp WHERE hiredate&gt;=’1982-1-1’;</p>
+<p>SELECT e.<em>,d.dname FROM dept d,(**SELECT <em>FROM emp WHERE hiredate&gt;=’1982-1-1</em></em>‘) e <strong>WHERE d.deptno=e.deptno;</strong>  </p>
+<p>例子：– 有俩个直接下属的员工信息<br>SELECT mgr,COUNT(*) FROM emp GROUP BY mgr;</p>
+<p>– 1有俩个下属以上<br>SELECT mgr FROM emp GROUP BY mgr HAVING COUNT(*)&gt;2;</p>
+<p>– 查询以上俩个编号的员工信息<br>SELECT <em>FROM emp WHERE empno IN(SELECT mgr FROM emp GROUP BY mgr HAVING COUNT(</em>)&gt;2);</p>
+<h3 id="7、自连接"><a href="#7、自连接" class="headerlink" title="7、自连接"></a>7、自连接</h3><p><strong>单表</strong></p>
+<p>求7369员工编号、姓名、经理编号和经理姓名</p>
+<p>SELECT e1.empno,e1.ename,e1.mgr,e2.ename FROM emp e1,emp e2 WHERE <strong>e1.mgr=e2.empno</strong> AND e1.empno=7369;</p>
+<h3 id="8、备份与还原"><a href="#8、备份与还原" class="headerlink" title="8、备份与还原"></a>8、备份与还原</h3><p>备份格式：dos: mysqldump -u用户名 -p密码 数据库&gt;文件的路径</p>
+<p>还原格式：mysql中的命令，需要登录后操作</p>
+<p>​                    <strong>use 数据库； source 导入文件的路径</strong></p>
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200819180155720.png" alt="image-20200819180155720"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySql/" rel="tag"># MySql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/11/04jsp/" rel="prev" title="jsp">
+      <i class="fa fa-chevron-left"></i> jsp
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/11/03IO%E6%B5%81/" rel="next" title="IO流">
+      IO流 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.</span> <span class="nav-text">1、多表查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.</span> <span class="nav-text">2、连接查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E9%80%89%E5%87%BA%E6%9C%89%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">2.1.</span> <span class="nav-text">（1）选出有用的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E4%B8%89%E8%A1%A8%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.2.</span> <span class="nav-text">（2）三表连接查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E4%B8%8D%E7%AD%89%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.3.</span> <span class="nav-text">（3）不等查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.</span> <span class="nav-text">3、内连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">4.</span> <span class="nav-text">4、外连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">4.1.</span> <span class="nav-text">（1）左外连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">4.2.</span> <span class="nav-text">（2）右外连接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">5、自然连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">6.</span> <span class="nav-text">6、子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%AD%90%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E4%B8%BA%E5%8D%95%E8%A1%8C%E5%8D%95%E5%88%97"><span class="nav-number">6.1.</span> <span class="nav-text">（1）子查询结果为单行单列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%AD%90%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E4%B8%BA%E5%8D%95%E5%88%97%E5%A4%9A%E8%A1%8C"><span class="nav-number">6.2.</span> <span class="nav-text">（2）子查询结果为单列多行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E5%AD%90%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E4%B8%BA%E5%A4%9A%E8%A1%8C%E5%A4%9A%E5%88%97"><span class="nav-number">6.3.</span> <span class="nav-text">（3）子查询结果为多行多列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81%E8%87%AA%E8%BF%9E%E6%8E%A5"><span class="nav-number">7.</span> <span class="nav-text">7、自连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F"><span class="nav-number">8.</span> <span class="nav-text">8、备份与还原</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">dmYang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dmYang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"3yUHSIVcvAXbCdkoYrymjwj6-gzGzoHsz","app_key":"gbHBsfxQBzu06Wn4HCjc3fnY","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xxb/anime.min.js"></script>
+  <script src="/xxb/velocity/velocity.min.js"></script>
+  <script src="/xxb/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

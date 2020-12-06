@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/xxb/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dmyang-only.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="常用SQL技巧1、SQL执行顺序 select  from join where group by having  order by  limit   执行顺序 1234567891011121314151617FROM	&lt;left_table&gt;ON 		&lt;join_condition&gt;&lt;join_type&gt;		JOIN	&lt;right_table&gt;W">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用sql函数">
+<meta property="og:url" content="https://dmyang-only.github.io/2020/11/11/05%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="哈哈哈">
+<meta property="og:description" content="常用SQL技巧1、SQL执行顺序 select  from join where group by having  order by  limit   执行顺序 1234567891011121314151617FROM	&lt;left_table&gt;ON 		&lt;join_condition&gt;&lt;join_type&gt;		JOIN	&lt;right_table&gt;W">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-11T04:33:33.000Z">
+<meta property="article:modified_time" content="2020-12-06T14:48:50.765Z">
+<meta property="article:author" content="dmYang">
+<meta property="article:tag" content="MySql">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://dmyang-only.github.io/2020/11/11/05%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>常用sql函数 | 哈哈哈</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">哈哈哈</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录美好日常</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/05%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哈哈哈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常用sql函数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:48:50" itemprop="dateModified" datetime="2020-12-06T22:48:50+08:00">2020-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/05%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" class="post-meta-item leancloud_visitors" data-flag-title="常用sql函数" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="常用SQL技巧"><a href="#常用SQL技巧" class="headerlink" title="常用SQL技巧"></a>常用SQL技巧</h3><h4 id="1、SQL执行顺序"><a href="#1、SQL执行顺序" class="headerlink" title="1、SQL执行顺序"></a>1、SQL执行顺序</h4><blockquote>
+<p>select  from join where group by having  order by  limit </p>
+</blockquote>
+<p><strong>执行顺序</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">FROM	&lt;left_table&gt;</span><br><span class="line"></span><br><span class="line">ON 		&lt;join_condition&gt;</span><br><span class="line"></span><br><span class="line">&lt;join_type&gt;		JOIN	&lt;right_table&gt;</span><br><span class="line"></span><br><span class="line">WHERE		&lt;where_condition&gt;</span><br><span class="line"></span><br><span class="line">GROUP BY 	&lt;group_by_list&gt;</span><br><span class="line"></span><br><span class="line">HAVING		&lt;having_condition&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span>		&lt;<span class="keyword">select</span> <span class="keyword">list</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span>	&lt;order_by_condition&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">LIMIT</span>		&lt;limit_params&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2、正则表达式"><a href="#2、正则表达式" class="headerlink" title="2、正则表达式"></a>2、正则表达式</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> <span class="keyword">name</span> regexp <span class="string">&#x27;^T&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> <span class="keyword">name</span> regexp <span class="string">&#x27;2$&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> <span class="keyword">name</span> regexp <span class="string">&#x27;[uvw]&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>^</td>
+<td>在字符串开始处进行匹配</td>
+</tr>
+<tr>
+<td>$</td>
+<td>在字符串末尾处进行匹配</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配任意单个字符, 包括换行符</td>
+</tr>
+<tr>
+<td>[…]</td>
+<td>匹配出括号内的任意字符</td>
+</tr>
+<tr>
+<td>[^…]</td>
+<td>匹配不出括号内的任意字符</td>
+</tr>
+<tr>
+<td>a*</td>
+<td>匹配零个或者多个a(包括空串)</td>
+</tr>
+<tr>
+<td>a+</td>
+<td>匹配一个或者多个a(不包括空串)</td>
+</tr>
+<tr>
+<td>a?</td>
+<td>匹配零个或者一个a</td>
+</tr>
+<tr>
+<td>a1|a2</td>
+<td>匹配a1或a2</td>
+</tr>
+<tr>
+<td>a(m)</td>
+<td>匹配m个a</td>
+</tr>
+<tr>
+<td>a(m,)</td>
+<td>至少匹配m个a</td>
+</tr>
+<tr>
+<td>a(m,n)</td>
+<td>匹配m个a 到 n个a</td>
+</tr>
+<tr>
+<td>a(,n)</td>
+<td>匹配0到n个a</td>
+</tr>
+<tr>
+<td>(…)</td>
+<td>将模式元素组成单一元素</td>
+</tr>
+</tbody></table>
+<h4 id="3、常用函数"><a href="#3、常用函数" class="headerlink" title="3、常用函数"></a>3、常用函数</h4><h5 id="3-1-数字函数"><a href="#3-1-数字函数" class="headerlink" title="3.1 数字函数"></a>3.1 数字函数</h5><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>作 用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>abs</td>
+<td>求绝对值</td>
+</tr>
+<tr>
+<td>sqrt</td>
+<td>求二次方根</td>
+</tr>
+<tr>
+<td>mod</td>
+<td>求余数</td>
+</tr>
+<tr>
+<td>ceil 和 CEILING</td>
+<td>两个函数功能相同，都是返回不小于参数的最小整数，即向上取整</td>
+</tr>
+<tr>
+<td>floor</td>
+<td>向下取整，返回值转化为一个BIGINT</td>
+</tr>
+<tr>
+<td>RAND</td>
+<td>生成一个0~1之间的随机数，传入整数参数是，用来产生重复序列</td>
+</tr>
+<tr>
+<td>ROUND</td>
+<td>对所传参数进行四舍五入</td>
+</tr>
+<tr>
+<td>SIGN</td>
+<td>返回参数的符号</td>
+</tr>
+<tr>
+<td>POW 和 POWER</td>
+<td>两个函数的功能相同，都是所传参数的次方的结果值</td>
+</tr>
+<tr>
+<td>sin</td>
+<td>求正弦值</td>
+</tr>
+<tr>
+<td>asin</td>
+<td>求反正弦值，与函数 SIN 互为反函数</td>
+</tr>
+<tr>
+<td>COS</td>
+<td>求余弦值</td>
+</tr>
+<tr>
+<td>ACOS</td>
+<td>求反余弦值，与函数 COS 互为反函数</td>
+</tr>
+<tr>
+<td>TAN</td>
+<td>求正切值</td>
+</tr>
+<tr>
+<td>ATAN</td>
+<td>求反正切值，与函数 TAN 互为反函数</td>
+</tr>
+<tr>
+<td>COT</td>
+<td>求余切值</td>
+</tr>
+</tbody></table>
+<h5 id="3-2-字符串函数"><a href="#3-2-字符串函数" class="headerlink" title="3.2 字符串函数"></a>3.2 字符串函数</h5><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>作 用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LENGTH</td>
+<td>计算字符串长度函数，返回字符串的字节长度</td>
+</tr>
+<tr>
+<td>CONCAT</td>
+<td>合并字符串函数，返回结果为连接参数产生的字符串，参数可以使一个或多个</td>
+</tr>
+<tr>
+<td>INSERT</td>
+<td>替换字符串函数</td>
+</tr>
+<tr>
+<td>LOWER</td>
+<td>将字符串中的字母转换为小写</td>
+</tr>
+<tr>
+<td>UPPER</td>
+<td>将字符串中的字母转换为大写</td>
+</tr>
+<tr>
+<td>LEFT</td>
+<td>从左侧字截取符串，返回字符串左边的若干个字符  left(‘javass’,4)</td>
+</tr>
+<tr>
+<td>RIGHT</td>
+<td>从右侧字截取符串，返回字符串右边的若干个字符</td>
+</tr>
+<tr>
+<td>TRIM</td>
+<td>删除字符串左右两侧的空格</td>
+</tr>
+<tr>
+<td>REPLACE</td>
+<td>字符串替换函数，返回替换后的新字符串</td>
+</tr>
+<tr>
+<td>SUBSTRING</td>
+<td>索引从1 开始，截取字符串，返回从指定位置开始的指定长度的字符换  substring(‘javahello’,1,4)</td>
+</tr>
+<tr>
+<td>REVERSE</td>
+<td>字符串反转（逆序）函数，返回与原始字符串顺序相反的字符串</td>
+</tr>
+</tbody></table>
+<h6 id="1、合并concat"><a href="#1、合并concat" class="headerlink" title="1、合并concat"></a>1、合并concat</h6><p>concat(a,b,c)  合并</p>
+<p>select empno,ename,<strong>concat(empno,ename)</strong> from emp;</p>
+<p>select concatt(‘hello’,’world’)</p>
+<h6 id="2、length"><a href="#2、length" class="headerlink" title="2、length()"></a>2、length()</h6><p>select *from emp where length(ename)=5;</p>
+<h6 id="3、strcmp"><a href="#3、strcmp" class="headerlink" title="3、strcmp()"></a>3、strcmp()</h6><p>相同返回0，大于返回1，小于返回</p>
+<h5 id="3-3-日期函数"><a href="#3-3-日期函数" class="headerlink" title="3.3 日期函数"></a>3.3 日期函数</h5><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>作 用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CURDATE 和 CURRENT_DATE</td>
+<td>两个函数作用相同，返回当前系统的日期值</td>
+</tr>
+<tr>
+<td>CURTIME 和 CURRENT_TIME</td>
+<td>两个函数作用相同，返回当前系统的时间值</td>
+</tr>
+<tr>
+<td>NOW 和  SYSDATE</td>
+<td>两个函数作用相同，返回当前系统的日期和时间值</td>
+</tr>
+<tr>
+<td>MONTH</td>
+<td>获取指定日期中的月份</td>
+</tr>
+<tr>
+<td>MONTHNAME</td>
+<td>获取指定日期中的月份英文名称</td>
+</tr>
+<tr>
+<td>DAYNAME</td>
+<td>获取指定曰期对应的星期几的英文名称</td>
+</tr>
+<tr>
+<td>DAYOFWEEK</td>
+<td>获取指定日期对应的一周的索引位置值</td>
+</tr>
+<tr>
+<td>WEEK</td>
+<td>获取指定日期是一年中的第几周，返回值的范围是否为 0〜52 或 1〜53</td>
+</tr>
+<tr>
+<td>DAYOFYEAR</td>
+<td>获取指定曰期是一年中的第几天，返回值范围是1~366</td>
+</tr>
+<tr>
+<td>DAYOFMONTH</td>
+<td>获取指定日期是一个月中是第几天，返回值范围是1~31</td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td>获取年份，返回值范围是 1970〜2069</td>
+</tr>
+<tr>
+<td>TIME_TO_SEC</td>
+<td>将时间参数转换为秒数</td>
+</tr>
+<tr>
+<td>SEC_TO_TIME</td>
+<td>将秒数转换为时间，与TIME_TO_SEC 互为反函数</td>
+</tr>
+<tr>
+<td>DATE_ADD 和 ADDDATE</td>
+<td>两个函数功能相同，都是向日期添加指定的时间间隔</td>
+</tr>
+<tr>
+<td>DATE_SUB 和 SUBDATE</td>
+<td>两个函数功能相同，都是向日期减去指定的时间间隔</td>
+</tr>
+<tr>
+<td>ADDTIME</td>
+<td>时间加法运算，在原始时间上添加指定的时间</td>
+</tr>
+<tr>
+<td>SUBTIME</td>
+<td>时间减法运算，在原始时间上减去指定的时间</td>
+</tr>
+<tr>
+<td>DATEDIFF</td>
+<td>获取两个日期之间间隔，返回参数 1 减去参数 2 的值</td>
+</tr>
+<tr>
+<td>DATE_FORMAT</td>
+<td>格式化指定的日期，根据参数返回指定格式的值</td>
+</tr>
+<tr>
+<td>WEEKDAY</td>
+<td>获取指定日期在一周内的对应的工作日索引</td>
+</tr>
+</tbody></table>
+<p>current_date() 、current_time() 、<strong>now</strong>()</p>
+<p><strong>year</strong>(now())、<strong>day</strong>(now())、<strong>hour</strong>(now())</p>
+<p>day of week(now())、day of week(‘2020-8-22’)</p>
+<p><strong>减法:</strong> <strong>datediff</strong> (‘2012-2-20’,’2012-2-22’)</p>
+<p><strong>加法:</strong>  <strong>date_add</strong> (‘2020-2-20’, interval 1 date)</p>
+<h5 id="3-4-聚合函数"><a href="#3-4-聚合函数" class="headerlink" title="3.4 聚合函数"></a>3.4 聚合函数</h5><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MAX</td>
+<td>查询指定列的最大值</td>
+</tr>
+<tr>
+<td>MIN</td>
+<td>查询指定列的最小值</td>
+</tr>
+<tr>
+<td>COUNT</td>
+<td>统计查询结果的行数</td>
+</tr>
+<tr>
+<td>SUM</td>
+<td>求和，返回指定列的总和</td>
+</tr>
+<tr>
+<td>AVG</td>
+<td>求平均值，返回指定列数据的平均值</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySql/" rel="tag"># MySql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/11/05%E9%94%81&%E5%B9%B6%E5%8F%91%E5%8F%82%E6%95%B0/" rel="prev" title="sql锁">
+      <i class="fa fa-chevron-left"></i> sql锁
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/11/05ajax%E3%80%81json/" rel="next" title="ajax&json">
+      ajax&json <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8SQL%E6%8A%80%E5%B7%A7"><span class="nav-number">1.</span> <span class="nav-text">常用SQL技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81SQL%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.1.</span> <span class="nav-text">1、SQL执行顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">2、正则表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">3、常用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-%E6%95%B0%E5%AD%97%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 数字函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 字符串函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1%E3%80%81%E5%90%88%E5%B9%B6concat"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">1、合并concat</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2%E3%80%81length"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">2、length()</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3%E3%80%81strcmp"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">3、strcmp()</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 日期函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4 聚合函数</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">dmYang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dmYang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"3yUHSIVcvAXbCdkoYrymjwj6-gzGzoHsz","app_key":"gbHBsfxQBzu06Wn4HCjc3fnY","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xxb/anime.min.js"></script>
+  <script src="/xxb/velocity/velocity.min.js"></script>
+  <script src="/xxb/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
