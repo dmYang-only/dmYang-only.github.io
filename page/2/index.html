@@ -396,6 +396,304 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/05ajax%E3%80%81json/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哈哈哈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/05ajax%E3%80%81json/" class="post-title-link" itemprop="url">ajax&json</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:39:55" itemprop="dateModified" datetime="2020-12-06T22:39:55+08:00">2020-12-06</time>
+              </span>
+
+          
+            <span id="/2020/11/11/05ajax%E3%80%81json/" class="post-meta-item leancloud_visitors" data-flag-title="ajax&json" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><p>ASynchronous JavaScript And XML <strong>异步的JavaScript和XML</strong></p>
+<h4 id="基于JQuery的ajax"><a href="#基于JQuery的ajax" class="headerlink" title="基于JQuery的ajax"></a>基于JQuery的ajax</h4><p><strong>通过<code>out.print(result)</code> 得到结果</strong></p>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span> <span class="attr">onblur</span>=<span class="string">&quot;validate();&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter out=resp.getWriter();</span><br><span class="line">        String username=req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;admin&quot;</span>.equals(username))&#123;</span><br><span class="line">            <span class="comment">//输出字符串给请求者</span></span><br><span class="line"><span class="comment">//            out.print(&quot;true&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//            out.print(&quot;false&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:<span class="string">&#x27;ajaxServlet&#x27;</span>,</span><br><span class="line">            type:<span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">     		data:<span class="string">&#x27;username=&#x27;</span>+username, <span class="comment">//相当于同步请求的URL&quot;ajaxServlet?username=admin&quot;</span></span><br><span class="line">            success:<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">                <span class="comment">// if (result===&#x27;true&#x27;)&#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;else &#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;</span></span><br><span class="line">                $(<span class="string">&quot;#msg&quot;</span>).html(result);</span><br><span class="line">            &#125;,</span><br><span class="line">            error:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="string">&quot;执行失败&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="get-post-简化"><a href="#get-post-简化" class="headerlink" title="get()/post()简化"></a>get()/post()简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get()简化</span></span><br><span class="line">$.get(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//post()简化</span></span><br><span class="line">$.post(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="load-方法简化"><a href="#load-方法简化" class="headerlink" title="load()方法简化"></a>load()方法简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).load(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&quot;username=&quot;</span>+username)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>JavaScript Object Notation  <strong>JavaScript对象表示法</strong></p>
+<p><strong>类似于Map的表示方式</strong></p>
+<ul>
+<li>json多用于存储和交换文本信息的语法</li>
+<li>进行数据的传输</li>
+<li>json比XML更小、更快、更易解析</li>
+</ul>
+<h4 id="1、基本格式"><a href="#1、基本格式" class="headerlink" title="1、基本格式"></a>1、基本格式</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本格式</span></span><br><span class="line">const person = &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;;</span><br><span class="line"><span class="comment">// var name=person[&quot;name&quot;];</span></span><br><span class="line">alert(person.name);</span><br><span class="line"></span><br><span class="line">const ps = [</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">];</span><br><span class="line">alert(ps[2].name);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:&#123; &#125; &#125;</span></span><br><span class="line">const pears = &#123;</span><br><span class="line">    &quot;person&quot;: &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">&#125;;</span><br><span class="line">alert(pears.person.age);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:[ &#123;&#125;, &#123;&#125;, &#123;&#125; ] &#125;</span></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;: [</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">alert(peas2.person2[2].name);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、遍历"><a href="#2、遍历" class="headerlink" title="2、遍历"></a>2、遍历</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历</span></span><br><span class="line"><span class="comment">// for in</span></span><br><span class="line">for (const key in person)&#123;</span><br><span class="line">    alert(key+&quot;:&quot;+person[key])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;:[</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    const person=peas2.person2[i];</span><br><span class="line">    for (const key in person)&#123;</span><br><span class="line">        alert(key+&quot;:&quot;+person[key])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    alert(peas2.person2[i].name+&quot;,&quot;+peas2.person2[i].age+&quot;,&quot;+peas2.person2[i].gender);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、json字符串"><a href="#3、json字符串" class="headerlink" title="3、json字符串"></a>3、json字符串</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const person=&#x27;&#123;&quot;name&quot;: &quot;李四&quot;, &quot;age&quot;: 12, &quot;gender&quot;: true&#125;&#x27;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将JSON对象转换为JSON字符串</span></span><br><span class="line">person3=JSON.stringify(person)</span><br><span class="line">alert(person3);</span><br><span class="line"></span><br><span class="line"><span class="comment">// //将json字符串转化为JSON对象</span></span><br><span class="line">const person2=JSON.parse(person);</span><br><span class="line">alert(person2.name);</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、转化4种方法"><a href="#4、转化4种方法" class="headerlink" title="4、转化4种方法"></a>4、转化4种方法</h4><h5 id="（1）从Servlet获得Json字符串"><a href="#（1）从Servlet获得Json字符串" class="headerlink" title="（1）从Servlet获得Json字符串"></a>（1）从Servlet获得Json字符串</h5><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jsonStr=<span class="string">&quot;&#123;\&quot;flag\&quot;:true,\&quot;msg\&quot;:\&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;\&quot;&#125;&quot;</span>;</span><br><span class="line">out.print(jsonStr);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="（2）json字符串转化为json对象"><a href="#（2）json字符串转化为json对象" class="headerlink" title="（2）json字符串转化为json对象"></a>（2）json字符串转化为json对象</h5><ul>
+<li><pre><code class="java">resp.setContentType(&quot;application/json; charset=UTF-8&quot;);
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;java</span><br><span class="line">  result &#x3D; JSON.parse(result)</span><br><span class="line">  $(&quot;#msg&quot;).html(result.flag + &quot;---&quot; + result.msg);</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+<li><pre><code class="json">$.getJSON(&#39;jsonServlet&#39;,&#123;username:username&#125;,function (data) &#123;
+    $(&quot;#msg&quot;).html(data.flag + &quot;---&quot; + data.msg);
+&#125;)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;json</span><br><span class="line">  url: &#39;jsonServlet&#39;,</span><br><span class="line">  type: &#39;get&#39;,</span><br><span class="line">  data: &#123;&#39;username&#39;:username&#125;, &#x2F;&#x2F;相当于同步请求的URL&quot;ajaxServlet?username&#x3D;admin&quot;</span><br><span class="line">  dataType:&quot;json&quot;,</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<h4 id="5、Gson"><a href="#5、Gson" class="headerlink" title="5、Gson"></a>5、Gson</h4><p><strong>可为多种形式的对象（List,对象，Map…）转化为json字符串</strong></p>
+<p>导入gson-2.2.4.jar</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">&quot;flag&quot;</span>,<span class="keyword">true</span>);</span><br><span class="line">map.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;&quot;</span>);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line">String data=gson.toJson(map);</span><br><span class="line">out.print(data);</span><br></pre></td></tr></table></figure>
+
+<p>通过前端传过来的name进行搜索，将集合转化为Json字符串，再传到前端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String name = req.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">List&lt;Book&gt; bookList = <span class="keyword">new</span> BookService().findBookByName(name);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line"><span class="comment">//创建Json字符串</span></span><br><span class="line">String json = gson.toJson(bookList);</span><br><span class="line"><span class="comment">//传回请求者</span></span><br><span class="line">resp.getWriter().write(json);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    type: <span class="string">&quot;get&quot;</span>,</span><br><span class="line">    <span class="comment">//新建一个名为SearchNameAjaxServlet的servlet,URL如下</span></span><br><span class="line">    url: <span class="string">&quot;searchNameAjax&quot;</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        <span class="comment">//传递的参数</span></span><br><span class="line">        <span class="string">&quot;name&quot;</span>: content,</span><br><span class="line">        <span class="string">&quot;time&quot;</span>: time</span><br><span class="line">    &#125;,<span class="comment">//&quot;info=&quot;+content+&quot;&amp;time=&quot;+time</span></span><br><span class="line">    dataType: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//拼接html</span></span><br><span class="line">        <span class="comment">//var res = data.split(&quot;,&quot;);</span></span><br><span class="line">        <span class="keyword">var</span> html = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">            <span class="comment">//每一个div还有鼠标移出、移入点击事件</span></span><br><span class="line">            html += <span class="string">&quot;&lt;div onmousedown=&#x27;setSearch_onclick(this)&#x27; onmouseout=&#x27;changeBackColor_out(this)&#x27; onmouseover=&#x27;changeBackColor_over(this)&#x27;&gt;&quot;</span></span><br><span class="line">                + data[i].name + <span class="string">&quot;&lt;/div&gt;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).html(html);</span><br><span class="line">        <span class="comment">//显示为块级元素</span></span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).css(<span class="string">&quot;display&quot;</span>, <span class="string">&quot;block&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哈哈哈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">异常控制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:36:59" itemprop="dateModified" datetime="2020-12-06T22:36:59+08:00">2020-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="异常控制" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、异常"><a href="#一、异常" class="headerlink" title="一、异常"></a>一、异常</h3><p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200730200213622.png" alt="image-20200730200213622"></p>
+<h3 id="1、Throwable"><a href="#1、Throwable" class="headerlink" title="1、Throwable"></a>1、Throwable</h3><blockquote>
+<p>所有的异常都有一个共同的祖先<code>java.lang</code>包中的的<code>Throwable类</code>。</p>
+<p>它有两个重要的子类：<code>Exception(异常)</code>和<code>Error(错误)</code>,二者都是java处理异常的重要子类</p>
+</blockquote>
+<h4 id="1-1-Error"><a href="#1-1-Error" class="headerlink" title="1.1 Error"></a>1.1 Error</h4><blockquote>
+<p><strong>程序无法处理的错误</strong>，表示运行应用程序中较严重问题，表示代码执行时JVM出现的问题。</p>
+<p>如java虚拟机运行错误(VirtualMachineError)、内存溢出(OutofMemoryError)</p>
+<p>这些异常发生时，java虚拟机一般会选择线程终止</p>
+</blockquote>
+<blockquote>
+<p>绝大多数是程序运行时不允许出现的状况。对于设计合理的应用程序来说，即使确实发生了错误，本质上也不应该试图去处理它所引起的异常状况。</p>
+</blockquote>
+<h4 id="1-2-Exception"><a href="#1-2-Exception" class="headerlink" title="1.2 Exception"></a>1.2 Exception</h4><blockquote>
+<p><strong>是程序本身可以处理的异常</strong></p>
+<p><code>Exception</code>类有一个重要的子类<code>RuntimeException</code>。</p>
+<p>该异常由Java虚拟机抛出</p>
+</blockquote>
+<ul>
+<li> <code>ArrithmeticException</code>：算术运算异常，一个整数除以0时，会抛出该异常</li>
+<li><code>ClassNotFoundException</code></li>
+<li><code>NullPointerException</code>：要访问的变量没有引用任何对象时抛出该异常。</li>
+<li><code>IllegalArgumentException</code>：非法参数异常</li>
+<li><code>ArrayIndexOutOfBoundsException</code>：下标越界异常</li>
+</ul>
+<blockquote>
+<p>异常和错误的区别：异常能被程序本身处理，错误无法处理</p>
+</blockquote>
+<h4 id="1-3-处理过程"><a href="#1-3-处理过程" class="headerlink" title="1.3 处理过程"></a>1.3 处理过程</h4><ul>
+<li><p>抛出异常：发生异常，生成异常对象，交给JRE</p>
+</li>
+<li><p>捕获异常：JRE得到异常，寻找相应的代码处理异常</p>
+</li>
+</ul>
+<h4 id="1-4-受检异常和运行异常"><a href="#1-4-受检异常和运行异常" class="headerlink" title="1.4 受检异常和运行异常"></a>1.4 受检异常和运行异常</h4><h5 id="受检异常"><a href="#受检异常" class="headerlink" title="受检异常"></a>受检异常</h5><p>跟程序的上下文环境有关，即使程序设计无误，仍然可能因使用的问题而导致异常。</p>
+<p>Java编译器要求方法必须声明抛出可能发生的受检异常，但是并不要求必须声明抛出未被捕获的运行时异常。</p>
+<h5 id="运行时异常"><a href="#运行时异常" class="headerlink" title="运行时异常"></a>运行时异常</h5><p>表示虚拟机的通常操作中可能遇到的异常，是一种常见的运行错误，只要程序设计得当通常就不会发生。</p>
+<p>当出现这样的异常，可以不处理，总是由虚拟机接管。<code>RuntimeException</code>下的类便都是运行时异常。</p>
+<h4 id="1-5-异常处理总结"><a href="#1-5-异常处理总结" class="headerlink" title="1.5 异常处理总结"></a>1.5 异常处理总结</h4><ul>
+<li><p><code>try块</code>： 用于捕获异常。其后可接零个或多个<code>catch</code>块，如果没有catch块，则必须跟一个<code>finally</code>块。</p>
+</li>
+<li><p><code>catch块</code>：用于处理<code>try</code>捕获到的异常</p>
+</li>
+<li><p><code>finally块</code>：无论是否捕获或处理异常，<code>finally</code>中的语句都会被执行。</p>
+<blockquote>
+<p>当try和finally语句中都有return语句时</p>
+<p>在方法返回之前，finally语句的内容将被执行，</p>
+<p>并且finally语句的返回值将会覆盖原始的返回值。</p>
+</blockquote>
+</li>
+<li><p><code>throw</code>：用于在代码中明确的排除一个异常</p>
+</li>
+<li><p><code>throws</code>：用在方法声明上标明函数可能抛出的各种异常。</p>
+</li>
+</ul>
+<h4 id="1-6-finally块不会被执行的四种情况"><a href="#1-6-finally块不会被执行的四种情况" class="headerlink" title="1.6 finally块不会被执行的四种情况"></a>1.6 finally块不会被执行的四种情况</h4><ul>
+<li>在finally语句块第一行发生了异常。因为在其他行，finally块还是会得到执行</li>
+<li>在前面的代码中用了<code>System.exit(int)</code>已退出程序。 exit是带参函数；若该语句在异常语句之后，finally会执行</li>
+<li>程序所在的线程死亡。</li>
+<li>关闭CPU。</li>
+</ul>
+<h3 id="2、-try-catch-finally"><a href="#2、-try-catch-finally" class="headerlink" title="2、 try-catch-finally"></a>2、 try-catch-finally</h3><ul>
+<li><strong>执行try时，若出现异常后，try语句中后面的语句不再执行</strong></li>
+<li>finally无论有无异常都会执行，无论如何都会执行                 </li>
+<li>catch可捕获多个异常，越是父类放下面（子类异常若在父类异常后面，子类异常不再执行）</li>
+</ul>
+<h3 id="3、异常处理"><a href="#3、异常处理" class="headerlink" title="3、异常处理"></a>3、异常处理</h3><ul>
+<li>抛出RuntimeException及其子类则声明上没有throws</li>
+<li>如果抛出的是Exception及其子类则声明上必须要有throws</li>
+</ul>
+<p>（1）手动抛出异常 throw new Exception();  （代码级别）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> age=<span class="number">100</span>;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(age&gt;<span class="number">120</span>)&#123;    <span class="comment">//抛出异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">&quot;年龄不合理&quot;</span>);   <span class="comment">//手动抛出异常</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">catch</span> (Exception e)&#123;   <span class="comment">//捕获异常</span></span><br><span class="line">    System.out.println(e.getMessage());	<span class="comment">//打印出详细字符串</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）抛出异常：throws(方法级别)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//抛出异常</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> ArithmeticException</span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">1</span>/<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  </span>&#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">         demo1();</span><br><span class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">           e.printStackTrace();	<span class="comment">//打印出堆栈</span></span><br><span class="line">      &#125;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、自定义异常"><a href="#4、自定义异常" class="headerlink" title="4、自定义异常"></a>4、自定义异常</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exception</span> <span class="keyword">extends</span> <span class="title">Throwable</span> </span></span><br><span class="line"><span class="class">    </span></span><br><span class="line"><span class="class">//<span class="title">Exception</span>的无参构造</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">Exception</span>() </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Exception的带参构造</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Exception</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGender</span><span class="params">(String gender)</span><span class="keyword">throws</span> GenderException</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(gender.equals(<span class="string">&quot;男&quot;</span>)|gender.equals(<span class="string">&quot;女&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">this</span>.gender=gender;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> GenderException(<span class="string">&quot;性别只能是男或女&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getGender</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> gender;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//自定义异常</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenderException</span> <span class="keyword">extends</span> <span class="title">Exception</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GenderException</span><span class="params">(String msg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(msg); <span class="comment">//调用父类Exception 构造方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner input=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        Student s=<span class="keyword">new</span> Student();</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入学生性别&quot;</span>);</span><br><span class="line">        String gender=input.next();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            s.setGender(gender);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (GenderException e)&#123;</span><br><span class="line">            System.out.println(e.getMessage());</span><br><span class="line">        &#125;       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、return"><a href="#5、return" class="headerlink" title="5、return"></a>5、return</h3><ul>
+<li><p>执行try，catch，给返回值赋值（暂时不输出）</p>
+</li>
+<li><p>执行finally（在里面加return，上面的return会被覆盖，而且还会掩盖try-catch中的异常）</p>
+</li>
+<li><p>return ，finally中有return语句时，会覆盖try-catch的return语句</p>
+</li>
+</ul>
+<h3 id="6、声明异常范围"><a href="#6、声明异常范围" class="headerlink" title="6、声明异常范围"></a>6、声明异常范围</h3><blockquote>
+<p>子类声明范围不能超过父类声明范围</p>
+</blockquote>
+<ul>
+<li>父类没有声明异常，子类也不能</li>
+<li>不可抛出异常类的父类或上层类</li>
+<li>抛出异常数目不能比原有方法还多</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E5%BA%94%E7%94%A8&%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -693,304 +991,6 @@
 <blockquote>
 <p>决定了innodb重做<strong>日志缓存</strong>的大小，对于可能产生大量更新记录的大事务，增加innodb_log_buffer_size的大小，可以避免innodb在事务提交前就执行不必要的日志写入磁盘操作。</p>
 </blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哈哈哈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">异常控制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:36:59" itemprop="dateModified" datetime="2020-12-06T22:36:59+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="异常控制" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、异常"><a href="#一、异常" class="headerlink" title="一、异常"></a>一、异常</h3><p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200730200213622.png" alt="image-20200730200213622"></p>
-<h3 id="1、Throwable"><a href="#1、Throwable" class="headerlink" title="1、Throwable"></a>1、Throwable</h3><blockquote>
-<p>所有的异常都有一个共同的祖先<code>java.lang</code>包中的的<code>Throwable类</code>。</p>
-<p>它有两个重要的子类：<code>Exception(异常)</code>和<code>Error(错误)</code>,二者都是java处理异常的重要子类</p>
-</blockquote>
-<h4 id="1-1-Error"><a href="#1-1-Error" class="headerlink" title="1.1 Error"></a>1.1 Error</h4><blockquote>
-<p><strong>程序无法处理的错误</strong>，表示运行应用程序中较严重问题，表示代码执行时JVM出现的问题。</p>
-<p>如java虚拟机运行错误(VirtualMachineError)、内存溢出(OutofMemoryError)</p>
-<p>这些异常发生时，java虚拟机一般会选择线程终止</p>
-</blockquote>
-<blockquote>
-<p>绝大多数是程序运行时不允许出现的状况。对于设计合理的应用程序来说，即使确实发生了错误，本质上也不应该试图去处理它所引起的异常状况。</p>
-</blockquote>
-<h4 id="1-2-Exception"><a href="#1-2-Exception" class="headerlink" title="1.2 Exception"></a>1.2 Exception</h4><blockquote>
-<p><strong>是程序本身可以处理的异常</strong></p>
-<p><code>Exception</code>类有一个重要的子类<code>RuntimeException</code>。</p>
-<p>该异常由Java虚拟机抛出</p>
-</blockquote>
-<ul>
-<li> <code>ArrithmeticException</code>：算术运算异常，一个整数除以0时，会抛出该异常</li>
-<li><code>ClassNotFoundException</code></li>
-<li><code>NullPointerException</code>：要访问的变量没有引用任何对象时抛出该异常。</li>
-<li><code>IllegalArgumentException</code>：非法参数异常</li>
-<li><code>ArrayIndexOutOfBoundsException</code>：下标越界异常</li>
-</ul>
-<blockquote>
-<p>异常和错误的区别：异常能被程序本身处理，错误无法处理</p>
-</blockquote>
-<h4 id="1-3-处理过程"><a href="#1-3-处理过程" class="headerlink" title="1.3 处理过程"></a>1.3 处理过程</h4><ul>
-<li><p>抛出异常：发生异常，生成异常对象，交给JRE</p>
-</li>
-<li><p>捕获异常：JRE得到异常，寻找相应的代码处理异常</p>
-</li>
-</ul>
-<h4 id="1-4-受检异常和运行异常"><a href="#1-4-受检异常和运行异常" class="headerlink" title="1.4 受检异常和运行异常"></a>1.4 受检异常和运行异常</h4><h5 id="受检异常"><a href="#受检异常" class="headerlink" title="受检异常"></a>受检异常</h5><p>跟程序的上下文环境有关，即使程序设计无误，仍然可能因使用的问题而导致异常。</p>
-<p>Java编译器要求方法必须声明抛出可能发生的受检异常，但是并不要求必须声明抛出未被捕获的运行时异常。</p>
-<h5 id="运行时异常"><a href="#运行时异常" class="headerlink" title="运行时异常"></a>运行时异常</h5><p>表示虚拟机的通常操作中可能遇到的异常，是一种常见的运行错误，只要程序设计得当通常就不会发生。</p>
-<p>当出现这样的异常，可以不处理，总是由虚拟机接管。<code>RuntimeException</code>下的类便都是运行时异常。</p>
-<h4 id="1-5-异常处理总结"><a href="#1-5-异常处理总结" class="headerlink" title="1.5 异常处理总结"></a>1.5 异常处理总结</h4><ul>
-<li><p><code>try块</code>： 用于捕获异常。其后可接零个或多个<code>catch</code>块，如果没有catch块，则必须跟一个<code>finally</code>块。</p>
-</li>
-<li><p><code>catch块</code>：用于处理<code>try</code>捕获到的异常</p>
-</li>
-<li><p><code>finally块</code>：无论是否捕获或处理异常，<code>finally</code>中的语句都会被执行。</p>
-<blockquote>
-<p>当try和finally语句中都有return语句时</p>
-<p>在方法返回之前，finally语句的内容将被执行，</p>
-<p>并且finally语句的返回值将会覆盖原始的返回值。</p>
-</blockquote>
-</li>
-<li><p><code>throw</code>：用于在代码中明确的排除一个异常</p>
-</li>
-<li><p><code>throws</code>：用在方法声明上标明函数可能抛出的各种异常。</p>
-</li>
-</ul>
-<h4 id="1-6-finally块不会被执行的四种情况"><a href="#1-6-finally块不会被执行的四种情况" class="headerlink" title="1.6 finally块不会被执行的四种情况"></a>1.6 finally块不会被执行的四种情况</h4><ul>
-<li>在finally语句块第一行发生了异常。因为在其他行，finally块还是会得到执行</li>
-<li>在前面的代码中用了<code>System.exit(int)</code>已退出程序。 exit是带参函数；若该语句在异常语句之后，finally会执行</li>
-<li>程序所在的线程死亡。</li>
-<li>关闭CPU。</li>
-</ul>
-<h3 id="2、-try-catch-finally"><a href="#2、-try-catch-finally" class="headerlink" title="2、 try-catch-finally"></a>2、 try-catch-finally</h3><ul>
-<li><strong>执行try时，若出现异常后，try语句中后面的语句不再执行</strong></li>
-<li>finally无论有无异常都会执行，无论如何都会执行                 </li>
-<li>catch可捕获多个异常，越是父类放下面（子类异常若在父类异常后面，子类异常不再执行）</li>
-</ul>
-<h3 id="3、异常处理"><a href="#3、异常处理" class="headerlink" title="3、异常处理"></a>3、异常处理</h3><ul>
-<li>抛出RuntimeException及其子类则声明上没有throws</li>
-<li>如果抛出的是Exception及其子类则声明上必须要有throws</li>
-</ul>
-<p>（1）手动抛出异常 throw new Exception();  （代码级别）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> age=<span class="number">100</span>;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(age&gt;<span class="number">120</span>)&#123;    <span class="comment">//抛出异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">&quot;年龄不合理&quot;</span>);   <span class="comment">//手动抛出异常</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">catch</span> (Exception e)&#123;   <span class="comment">//捕获异常</span></span><br><span class="line">    System.out.println(e.getMessage());	<span class="comment">//打印出详细字符串</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>（2）抛出异常：throws(方法级别)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//抛出异常</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> ArithmeticException</span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">1</span>/<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  </span>&#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">         demo1();</span><br><span class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">           e.printStackTrace();	<span class="comment">//打印出堆栈</span></span><br><span class="line">      &#125;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4、自定义异常"><a href="#4、自定义异常" class="headerlink" title="4、自定义异常"></a>4、自定义异常</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exception</span> <span class="keyword">extends</span> <span class="title">Throwable</span> </span></span><br><span class="line"><span class="class">    </span></span><br><span class="line"><span class="class">//<span class="title">Exception</span>的无参构造</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">Exception</span>() </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Exception的带参构造</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Exception</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGender</span><span class="params">(String gender)</span><span class="keyword">throws</span> GenderException</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(gender.equals(<span class="string">&quot;男&quot;</span>)|gender.equals(<span class="string">&quot;女&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">this</span>.gender=gender;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> GenderException(<span class="string">&quot;性别只能是男或女&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getGender</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> gender;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//自定义异常</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenderException</span> <span class="keyword">extends</span> <span class="title">Exception</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GenderException</span><span class="params">(String msg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(msg); <span class="comment">//调用父类Exception 构造方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner input=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        Student s=<span class="keyword">new</span> Student();</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入学生性别&quot;</span>);</span><br><span class="line">        String gender=input.next();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            s.setGender(gender);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (GenderException e)&#123;</span><br><span class="line">            System.out.println(e.getMessage());</span><br><span class="line">        &#125;       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="5、return"><a href="#5、return" class="headerlink" title="5、return"></a>5、return</h3><ul>
-<li><p>执行try，catch，给返回值赋值（暂时不输出）</p>
-</li>
-<li><p>执行finally（在里面加return，上面的return会被覆盖，而且还会掩盖try-catch中的异常）</p>
-</li>
-<li><p>return ，finally中有return语句时，会覆盖try-catch的return语句</p>
-</li>
-</ul>
-<h3 id="6、声明异常范围"><a href="#6、声明异常范围" class="headerlink" title="6、声明异常范围"></a>6、声明异常范围</h3><blockquote>
-<p>子类声明范围不能超过父类声明范围</p>
-</blockquote>
-<ul>
-<li>父类没有声明异常，子类也不能</li>
-<li>不可抛出异常类的父类或上层类</li>
-<li>抛出异常数目不能比原有方法还多</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/05ajax%E3%80%81json/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哈哈哈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/05ajax%E3%80%81json/" class="post-title-link" itemprop="url">ajax&json</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:39:55" itemprop="dateModified" datetime="2020-12-06T22:39:55+08:00">2020-12-06</time>
-              </span>
-
-          
-            <span id="/2020/11/11/05ajax%E3%80%81json/" class="post-meta-item leancloud_visitors" data-flag-title="ajax&json" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><p>ASynchronous JavaScript And XML <strong>异步的JavaScript和XML</strong></p>
-<h4 id="基于JQuery的ajax"><a href="#基于JQuery的ajax" class="headerlink" title="基于JQuery的ajax"></a>基于JQuery的ajax</h4><p><strong>通过<code>out.print(result)</code> 得到结果</strong></p>
-<blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span> <span class="attr">onblur</span>=<span class="string">&quot;validate();&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter out=resp.getWriter();</span><br><span class="line">        String username=req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;admin&quot;</span>.equals(username))&#123;</span><br><span class="line">            <span class="comment">//输出字符串给请求者</span></span><br><span class="line"><span class="comment">//            out.print(&quot;true&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//            out.print(&quot;false&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:<span class="string">&#x27;ajaxServlet&#x27;</span>,</span><br><span class="line">            type:<span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">     		data:<span class="string">&#x27;username=&#x27;</span>+username, <span class="comment">//相当于同步请求的URL&quot;ajaxServlet?username=admin&quot;</span></span><br><span class="line">            success:<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">                <span class="comment">// if (result===&#x27;true&#x27;)&#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;else &#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;</span></span><br><span class="line">                $(<span class="string">&quot;#msg&quot;</span>).html(result);</span><br><span class="line">            &#125;,</span><br><span class="line">            error:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="string">&quot;执行失败&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="get-post-简化"><a href="#get-post-简化" class="headerlink" title="get()/post()简化"></a>get()/post()简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get()简化</span></span><br><span class="line">$.get(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//post()简化</span></span><br><span class="line">$.post(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="load-方法简化"><a href="#load-方法简化" class="headerlink" title="load()方法简化"></a>load()方法简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).load(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&quot;username=&quot;</span>+username)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>JavaScript Object Notation  <strong>JavaScript对象表示法</strong></p>
-<p><strong>类似于Map的表示方式</strong></p>
-<ul>
-<li>json多用于存储和交换文本信息的语法</li>
-<li>进行数据的传输</li>
-<li>json比XML更小、更快、更易解析</li>
-</ul>
-<h4 id="1、基本格式"><a href="#1、基本格式" class="headerlink" title="1、基本格式"></a>1、基本格式</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本格式</span></span><br><span class="line">const person = &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;;</span><br><span class="line"><span class="comment">// var name=person[&quot;name&quot;];</span></span><br><span class="line">alert(person.name);</span><br><span class="line"></span><br><span class="line">const ps = [</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">];</span><br><span class="line">alert(ps[2].name);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:&#123; &#125; &#125;</span></span><br><span class="line">const pears = &#123;</span><br><span class="line">    &quot;person&quot;: &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">&#125;;</span><br><span class="line">alert(pears.person.age);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:[ &#123;&#125;, &#123;&#125;, &#123;&#125; ] &#125;</span></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;: [</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">alert(peas2.person2[2].name);</span><br></pre></td></tr></table></figure>
-
-<h4 id="2、遍历"><a href="#2、遍历" class="headerlink" title="2、遍历"></a>2、遍历</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历</span></span><br><span class="line"><span class="comment">// for in</span></span><br><span class="line">for (const key in person)&#123;</span><br><span class="line">    alert(key+&quot;:&quot;+person[key])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;:[</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    const person=peas2.person2[i];</span><br><span class="line">    for (const key in person)&#123;</span><br><span class="line">        alert(key+&quot;:&quot;+person[key])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    alert(peas2.person2[i].name+&quot;,&quot;+peas2.person2[i].age+&quot;,&quot;+peas2.person2[i].gender);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3、json字符串"><a href="#3、json字符串" class="headerlink" title="3、json字符串"></a>3、json字符串</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const person=&#x27;&#123;&quot;name&quot;: &quot;李四&quot;, &quot;age&quot;: 12, &quot;gender&quot;: true&#125;&#x27;;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将JSON对象转换为JSON字符串</span></span><br><span class="line">person3=JSON.stringify(person)</span><br><span class="line">alert(person3);</span><br><span class="line"></span><br><span class="line"><span class="comment">// //将json字符串转化为JSON对象</span></span><br><span class="line">const person2=JSON.parse(person);</span><br><span class="line">alert(person2.name);</span><br></pre></td></tr></table></figure>
-
-<h4 id="4、转化4种方法"><a href="#4、转化4种方法" class="headerlink" title="4、转化4种方法"></a>4、转化4种方法</h4><h5 id="（1）从Servlet获得Json字符串"><a href="#（1）从Servlet获得Json字符串" class="headerlink" title="（1）从Servlet获得Json字符串"></a>（1）从Servlet获得Json字符串</h5><blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jsonStr=<span class="string">&quot;&#123;\&quot;flag\&quot;:true,\&quot;msg\&quot;:\&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;\&quot;&#125;&quot;</span>;</span><br><span class="line">out.print(jsonStr);</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h5 id="（2）json字符串转化为json对象"><a href="#（2）json字符串转化为json对象" class="headerlink" title="（2）json字符串转化为json对象"></a>（2）json字符串转化为json对象</h5><ul>
-<li><pre><code class="java">resp.setContentType(&quot;application/json; charset=UTF-8&quot;);
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;java</span><br><span class="line">  result &#x3D; JSON.parse(result)</span><br><span class="line">  $(&quot;#msg&quot;).html(result.flag + &quot;---&quot; + result.msg);</span><br></pre></td></tr></table></figure></code></pre>
-</li>
-<li><pre><code class="json">$.getJSON(&#39;jsonServlet&#39;,&#123;username:username&#125;,function (data) &#123;
-    $(&quot;#msg&quot;).html(data.flag + &quot;---&quot; + data.msg);
-&#125;)
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;json</span><br><span class="line">  url: &#39;jsonServlet&#39;,</span><br><span class="line">  type: &#39;get&#39;,</span><br><span class="line">  data: &#123;&#39;username&#39;:username&#125;, &#x2F;&#x2F;相当于同步请求的URL&quot;ajaxServlet?username&#x3D;admin&quot;</span><br><span class="line">  dataType:&quot;json&quot;,</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ul>
-<h4 id="5、Gson"><a href="#5、Gson" class="headerlink" title="5、Gson"></a>5、Gson</h4><p><strong>可为多种形式的对象（List,对象，Map…）转化为json字符串</strong></p>
-<p>导入gson-2.2.4.jar</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">&quot;flag&quot;</span>,<span class="keyword">true</span>);</span><br><span class="line">map.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;&quot;</span>);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line">String data=gson.toJson(map);</span><br><span class="line">out.print(data);</span><br></pre></td></tr></table></figure>
-
-<p>通过前端传过来的name进行搜索，将集合转化为Json字符串，再传到前端</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String name = req.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">List&lt;Book&gt; bookList = <span class="keyword">new</span> BookService().findBookByName(name);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line"><span class="comment">//创建Json字符串</span></span><br><span class="line">String json = gson.toJson(bookList);</span><br><span class="line"><span class="comment">//传回请求者</span></span><br><span class="line">resp.getWriter().write(json);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    type: <span class="string">&quot;get&quot;</span>,</span><br><span class="line">    <span class="comment">//新建一个名为SearchNameAjaxServlet的servlet,URL如下</span></span><br><span class="line">    url: <span class="string">&quot;searchNameAjax&quot;</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        <span class="comment">//传递的参数</span></span><br><span class="line">        <span class="string">&quot;name&quot;</span>: content,</span><br><span class="line">        <span class="string">&quot;time&quot;</span>: time</span><br><span class="line">    &#125;,<span class="comment">//&quot;info=&quot;+content+&quot;&amp;time=&quot;+time</span></span><br><span class="line">    dataType: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//拼接html</span></span><br><span class="line">        <span class="comment">//var res = data.split(&quot;,&quot;);</span></span><br><span class="line">        <span class="keyword">var</span> html = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">            <span class="comment">//每一个div还有鼠标移出、移入点击事件</span></span><br><span class="line">            html += <span class="string">&quot;&lt;div onmousedown=&#x27;setSearch_onclick(this)&#x27; onmouseout=&#x27;changeBackColor_out(this)&#x27; onmouseover=&#x27;changeBackColor_over(this)&#x27;&gt;&quot;</span></span><br><span class="line">                + data[i].name + <span class="string">&quot;&lt;/div&gt;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).html(html);</span><br><span class="line">        <span class="comment">//显示为块级元素</span></span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).css(<span class="string">&quot;display&quot;</span>, <span class="string">&quot;block&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
 
       
     </div>
@@ -1735,132 +1735,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/06%E8%A7%86%E5%9B%BEview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哈哈哈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/06%E8%A7%86%E5%9B%BEview/" class="post-title-link" itemprop="url">视图</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:48:58" itemprop="dateModified" datetime="2020-12-06T22:48:58+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/06%E8%A7%86%E5%9B%BEview/" class="post-meta-item leancloud_visitors" data-flag-title="视图" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><h4 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h4><blockquote>
-<p>视图是一条select语句执行返回的结果，是一种虚拟存在的表。</p>
-</blockquote>
-<p><strong>作用</strong></p>
-<blockquote>
-<ul>
-<li>简单：使用视图的用户完全不需要关心后面对应的表的结构、关联条件和筛选条件，对用户来说已经是<strong>过滤好的复合条件的结果集。</strong></li>
-<li>安全：<strong>使用视图的用户只能访问他们被允许查询的结果集</strong>，数据库对表的<strong>权限管理</strong>并不能限制到某个行某个列，但是通过视图就可以简单的实现。</li>
-<li>数据独立：一旦视图的结构确定了，可以<strong>屏蔽表结构变化对用户的影响</strong>，源表增加列对视图没有影响；源表修改列名，则可以通过修改视图来解决，不会造成对访问者的影响。</li>
-</ul>
-</blockquote>
-<h4 id="2、创建视图"><a href="#2、创建视图" class="headerlink" title="2、创建视图"></a>2、创建视图</h4><blockquote>
-<p>create 视图名 as (select语句)</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW v_general </span><br><span class="line">AS</span><br><span class="line">SELECT empno,ename,job,mgr,deptno FROM emp;</span><br></pre></td></tr></table></figure>
-
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018202106673.png" alt="image-20201018202106673" style="zoom:80%;" />
-
-
-
-<h4 id="3、更新视图"><a href="#3、更新视图" class="headerlink" title="3、更新视图"></a>3、更新视图</h4><p><strong>更新视图的同时也会更新原有表！！！</strong></p>
-<blockquote>
-<p>update 视图名 set 字段名=‘’  where ..</p>
-</blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018202711004.png" alt="image-20201018202711004" style="zoom:80%;" />
-
-<blockquote>
-<p><strong>修改视图</strong>：alter view 视图名 as (select语句)  </p>
-</blockquote>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203500053.png" alt="image-20201018203500053"></p>
-<blockquote>
-<p>show create view 视图名 </p>
-</blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203846648.png" alt="image-20201018203846648" style="zoom:80%;" />
-
-<blockquote>
-<p>删除视图：drop view 视图名</p>
-</blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203938785.png" alt="image-20201018203938785" style="zoom:80%;" />
-
-<h4 id="4、查看视图"><a href="#4、查看视图" class="headerlink" title="4、查看视图"></a>4、查看视图</h4><blockquote>
-<p>show tables;</p>
-</blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203633852.png" alt="image-20201018203633852" style="zoom:80%;" />
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/06%E6%97%A5%E5%BF%97&%E5%A4%8D%E5%88%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2140,6 +2014,132 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">create database db01;</span><br><span class="line"></span><br><span class="line">user db01;</span><br><span class="line"></span><br><span class="line">create table user(</span><br><span class="line">	id int(11) not null auto_increment,</span><br><span class="line">	name varchar(50) not null,</span><br><span class="line">	sex varchar(1),</span><br><span class="line">	primary key (id)</span><br><span class="line">)engine&#x3D;innodb default charset&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">insert into user(id,name,sex) values(null,&#39;Tom&#39;,&#39;1&#39;);</span><br><span class="line">insert into user(id,name,sex) values(null,&#39;Trigger&#39;,&#39;0&#39;);</span><br><span class="line">insert into user(id,name,sex) values(null,&#39;Dawn&#39;,&#39;1&#39;);</span><br></pre></td></tr></table></figure>
 
 <p>从库中查询</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/06%E8%A7%86%E5%9B%BEview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哈哈哈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/06%E8%A7%86%E5%9B%BEview/" class="post-title-link" itemprop="url">视图</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:48:58" itemprop="dateModified" datetime="2020-12-06T22:48:58+08:00">2020-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/06%E8%A7%86%E5%9B%BEview/" class="post-meta-item leancloud_visitors" data-flag-title="视图" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><h4 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h4><blockquote>
+<p>视图是一条select语句执行返回的结果，是一种虚拟存在的表。</p>
+</blockquote>
+<p><strong>作用</strong></p>
+<blockquote>
+<ul>
+<li>简单：使用视图的用户完全不需要关心后面对应的表的结构、关联条件和筛选条件，对用户来说已经是<strong>过滤好的复合条件的结果集。</strong></li>
+<li>安全：<strong>使用视图的用户只能访问他们被允许查询的结果集</strong>，数据库对表的<strong>权限管理</strong>并不能限制到某个行某个列，但是通过视图就可以简单的实现。</li>
+<li>数据独立：一旦视图的结构确定了，可以<strong>屏蔽表结构变化对用户的影响</strong>，源表增加列对视图没有影响；源表修改列名，则可以通过修改视图来解决，不会造成对访问者的影响。</li>
+</ul>
+</blockquote>
+<h4 id="2、创建视图"><a href="#2、创建视图" class="headerlink" title="2、创建视图"></a>2、创建视图</h4><blockquote>
+<p>create 视图名 as (select语句)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW v_general </span><br><span class="line">AS</span><br><span class="line">SELECT empno,ename,job,mgr,deptno FROM emp;</span><br></pre></td></tr></table></figure>
+
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018202106673.png" alt="image-20201018202106673" style="zoom:80%;" />
+
+
+
+<h4 id="3、更新视图"><a href="#3、更新视图" class="headerlink" title="3、更新视图"></a>3、更新视图</h4><p><strong>更新视图的同时也会更新原有表！！！</strong></p>
+<blockquote>
+<p>update 视图名 set 字段名=‘’  where ..</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018202711004.png" alt="image-20201018202711004" style="zoom:80%;" />
+
+<blockquote>
+<p><strong>修改视图</strong>：alter view 视图名 as (select语句)  </p>
+</blockquote>
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203500053.png" alt="image-20201018203500053"></p>
+<blockquote>
+<p>show create view 视图名 </p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203846648.png" alt="image-20201018203846648" style="zoom:80%;" />
+
+<blockquote>
+<p>删除视图：drop view 视图名</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203938785.png" alt="image-20201018203938785" style="zoom:80%;" />
+
+<h4 id="4、查看视图"><a href="#4、查看视图" class="headerlink" title="4、查看视图"></a>4、查看视图</h4><blockquote>
+<p>show tables;</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203633852.png" alt="image-20201018203633852" style="zoom:80%;" />
+
+
 
       
     </div>

@@ -697,6 +697,104 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02TomCat/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哈哈哈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/02TomCat/" class="post-title-link" itemprop="url">tomcat</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:41:14" itemprop="dateModified" datetime="2020-12-06T22:41:14+08:00">2020-12-06</time>
+              </span>
+
+          
+            <span id="/2020/11/11/02TomCat/" class="post-meta-item leancloud_visitors" data-flag-title="tomcat" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Servlet/Jsp容器，轻量级服务中间件</p>
+<h4 id="idea配置"><a href="#idea配置" class="headerlink" title="idea配置"></a>idea配置</h4><ul>
+<li>导入Tomcat 8.5.3.jar包</li>
+</ul>
+<h4 id="Tomcat主要目录："><a href="#Tomcat主要目录：" class="headerlink" title="Tomcat主要目录："></a>Tomcat主要目录：</h4><ul>
+<li>bin 可执行文件</li>
+<li>lib  tomcat可运行的jar文件</li>
+<li>logs tomcat运行的日志文件</li>
+<li>webapps 存放编写的应用</li>
+</ul>
+<p>URL:统一资源定位符</p>
+<p>URI：统一资源标识符</p>
+<h3 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h3><p>HyperText Transfer Protocol超文件传输协议，传输Html文件</p>
+<p>用于定义Web浏览器与Web服务器之间交换数据的过程及数据本身的格式</p>
+<h3 id="请求部分"><a href="#请求部分" class="headerlink" title="请求部分"></a>请求部分</h3><h4 id="请求消息行"><a href="#请求消息行" class="headerlink" title="请求消息行"></a>请求消息行</h4><ol>
+<li>Get 明文传输，不安全，数据量有限</li>
+<li>Post 暗文传输，安全</li>
+</ol>
+<h4 id="请求消息头"><a href="#请求消息头" class="headerlink" title="请求消息头"></a>请求消息头</h4><p><strong>Tomcat原理</strong></p>
+<p>Servlet是java编写服务器端小程序，功能是交互式浏览和修改数据，生成动态web资源</p>
+<ul>
+<li>请求到达server端，server根据url映射<code>Map&lt;url,servletname&gt;</code>得到相应的servlet</li>
+<li>判断Servlet实例是否存在，不存在则加载和实例化Servlet并调用init方法</li>
+<li>server创建request/response对象，调用servlet的service方法(doXXX方法)</li>
+<li>从request对象获取请求参数，处理将结果给通过response返回</li>
+<li>Server不再需要Servlet时，调用destory()方法</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/01%E6%95%B0%E7%BB%84&%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -924,104 +1022,6 @@
 
 
 
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02TomCat/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哈哈哈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/02TomCat/" class="post-title-link" itemprop="url">tomcat</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:41:14" itemprop="dateModified" datetime="2020-12-06T22:41:14+08:00">2020-12-06</time>
-              </span>
-
-          
-            <span id="/2020/11/11/02TomCat/" class="post-meta-item leancloud_visitors" data-flag-title="tomcat" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Servlet/Jsp容器，轻量级服务中间件</p>
-<h4 id="idea配置"><a href="#idea配置" class="headerlink" title="idea配置"></a>idea配置</h4><ul>
-<li>导入Tomcat 8.5.3.jar包</li>
-</ul>
-<h4 id="Tomcat主要目录："><a href="#Tomcat主要目录：" class="headerlink" title="Tomcat主要目录："></a>Tomcat主要目录：</h4><ul>
-<li>bin 可执行文件</li>
-<li>lib  tomcat可运行的jar文件</li>
-<li>logs tomcat运行的日志文件</li>
-<li>webapps 存放编写的应用</li>
-</ul>
-<p>URL:统一资源定位符</p>
-<p>URI：统一资源标识符</p>
-<h3 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h3><p>HyperText Transfer Protocol超文件传输协议，传输Html文件</p>
-<p>用于定义Web浏览器与Web服务器之间交换数据的过程及数据本身的格式</p>
-<h3 id="请求部分"><a href="#请求部分" class="headerlink" title="请求部分"></a>请求部分</h3><h4 id="请求消息行"><a href="#请求消息行" class="headerlink" title="请求消息行"></a>请求消息行</h4><ol>
-<li>Get 明文传输，不安全，数据量有限</li>
-<li>Post 暗文传输，安全</li>
-</ol>
-<h4 id="请求消息头"><a href="#请求消息头" class="headerlink" title="请求消息头"></a>请求消息头</h4><p><strong>Tomcat原理</strong></p>
-<p>Servlet是java编写服务器端小程序，功能是交互式浏览和修改数据，生成动态web资源</p>
-<ul>
-<li>请求到达server端，server根据url映射<code>Map&lt;url,servletname&gt;</code>得到相应的servlet</li>
-<li>判断Servlet实例是否存在，不存在则加载和实例化Servlet并调用init方法</li>
-<li>server创建request/response对象，调用servlet的service方法(doXXX方法)</li>
-<li>从request对象获取请求参数，处理将结果给通过response返回</li>
-<li>Server不再需要Servlet时，调用destory()方法</li>
-</ul>
 
       
     </div>
