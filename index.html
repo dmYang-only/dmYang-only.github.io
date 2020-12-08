@@ -508,6 +508,371 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/01MySql%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哈哈哈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/01MySql%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-title-link" itemprop="url">存储引擎</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-08 20:21:33" itemprop="dateModified" datetime="2020-12-08T20:21:33+08:00">2020-12-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/01MySql%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-meta-item leancloud_visitors" data-flag-title="存储引擎" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、MySql体系"><a href="#一、MySql体系" class="headerlink" title="一、MySql体系"></a>一、MySql体系</h3><img src="http://qkm6g478k.hn-bkt.clouddn.com/000001.jpg" style="zoom:80%;" />
+
+<p>整个MySQL Server由以下组成</p>
+<ul>
+<li>Connection Pool : 连接池组件</li>
+<li>Management Services &amp; Utilities : 管理服务和工具组件</li>
+<li>SQL Interface : SQL接口组件</li>
+<li>Parser : 查询分析器组件</li>
+<li>Optimizer : 优化器组件</li>
+<li>Caches &amp; Buffers : 缓冲池组件</li>
+<li>Pluggable Storage Engines : 存储引擎</li>
+<li>File System : 文件系统</li>
+</ul>
+<p>1） 连接层</p>
+<p>最上层是一些客户端和链接服务，包含本地sock 通信和大多数基于客户端/服务端工具实现的类似于 TCP/IP的通信。主要完成一些类似于连接处理、授权认证、及相关的安全方案。在该层上引入了线程池的概念，为通过认证安全接入的客户端提供线程。同样在该层上可以实现基于SSL的安全链接。服务器也会为安全接入的每个客户端验证它所具有的操作权限。</p>
+<p>2） 服务层</p>
+<p>第二层架构主要完成大多数的核心服务功能，如SQL接口，并完成缓存的查询，SQL的分析和优化，部分内置函数的执行。所有跨存储引擎的功能也在这一层实现，如 过程、函数等。在该层，服务器会解析查询并创建相应的内部解析树，并对其完成相应的优化如确定表的查询的顺序，是否利用索引等， 最后生成相应的执行操作。如果是select语句，服务器还会查询内部的缓存，如果缓存空间足够大，这样在解决大量读操作的环境中能够很好的提升系统的性能。</p>
+<p>3） 引擎层</p>
+<p>存储引擎层， 存储引擎真正的负责了MySQL中数据的存储和提取，服务器通过API和存储引擎进行通信。不同的存储引擎具有不同的功能，这样我们可以根据自己的需要，来选取合适的存储引擎。</p>
+<p>4）存储层</p>
+<p>数据存储层， 主要是将数据存储在文件系统之上，并完成与存储引擎的交互。</p>
+<p>和其他数据库相比，MySQL有点与众不同，它的架构可以在多种不同场景中应用并发挥良好作用。主要体现在存储引擎上，插件式的存储引擎架构，将查询处理和其他的系统任务以及数据的存储提取分离。这种架构可以根据业务的需求和实际需要选择合适的存储引擎。</p>
+<h3 id="二、存储引擎"><a href="#二、存储引擎" class="headerlink" title="二、存储引擎"></a>二、存储引擎</h3><blockquote>
+<p>存储引擎就是<strong>存储数据，建立索引，更新查询数据</strong>等等技术的实现方式</p>
+<ul>
+<li>针对不同的存储需求可以选择最优的存储引擎。</li>
+<li>存储引擎是基于表的，每张表可以使用不同存储引擎</li>
+</ul>
+</blockquote>
+<h4 id="1、MySql存储引擎"><a href="#1、MySql存储引擎" class="headerlink" title="1、MySql存储引擎"></a>1、MySql存储引擎</h4><blockquote>
+<p>MySQL提供了<strong>插件式</strong>的存储引擎架构。所以MySQL存在多种存储引擎，可以根据需要使用相应引擎，或者编写存储引擎</p>
+<p>MySQL5.0支持的存储引擎包含 ： InnoDB 、MyISAM 、BDB、MEMORY、MERGE、EXAMPLE、NDB Cluster、ARCHIVE、CSV、BLACKHOLE、FEDERATED等</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show engines;</span><br></pre></td></tr></table></figure>
+
+<img src="http://qkm6g478k.hn-bkt.clouddn.com/image-20201019220436964.png" alt="image-20201019220436964" style="zoom:80%;" />
+
+
+
+<h4 id="2、存储引擎特性"><a href="#2、存储引擎特性" class="headerlink" title="2、存储引擎特性"></a>2、存储引擎特性</h4><table>
+<thead>
+<tr>
+<th>特点</th>
+<th>InnoDB</th>
+<th>MyISAM</th>
+<th>MEMORY</th>
+<th>MERGE</th>
+<th>NDB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储限制</td>
+<td>64TB</td>
+<td>有</td>
+<td>有</td>
+<td>没有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>事务安全</td>
+<td>==支持==</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>锁机制</td>
+<td>==行锁(适合高并发)==</td>
+<td>==表锁==</td>
+<td>表锁</td>
+<td>表锁</td>
+<td>行锁</td>
+</tr>
+<tr>
+<td>B树索引</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>哈希索引</td>
+<td></td>
+<td></td>
+<td>支持</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td>支持(5.6版本之后)</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>集群索引</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>数据索引</td>
+<td>支持</td>
+<td></td>
+<td>支持</td>
+<td></td>
+<td>支持</td>
+</tr>
+<tr>
+<td>索引缓存</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>数据可压缩</td>
+<td></td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>空间使用</td>
+<td>高</td>
+<td>低</td>
+<td>N/A</td>
+<td>低</td>
+<td>低</td>
+</tr>
+<tr>
+<td>内存使用</td>
+<td>高</td>
+<td>低</td>
+<td>中等</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>批量插入速度</td>
+<td>低</td>
+<td>高</td>
+<td>高</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>支持外键</td>
+<td>==支持==</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="2-1-InnoDB"><a href="#2-1-InnoDB" class="headerlink" title="2.1 InnoDB"></a>2.1 InnoDB</h5><blockquote>
+<p>InnoDB存储引擎是Mysql的默认存储引擎</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>InnoDB存储引擎提供了具有提交、回滚、崩溃恢复能力的<strong>事务</strong>安全</li>
+<li>支持外键约束</li>
+<li>行锁</li>
+</ul>
+</blockquote>
+<h6 id="事务控制"><a href="#事务控制" class="headerlink" title="事务控制"></a>事务控制</h6><blockquote>
+<p>在提交事务前，所有都会保存在事务日志中，事务日志得到commit命令才会同步到数据库中。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create table goods_innodb(</span><br><span class="line">	id int NOT NULL AUTO_INCREMENT,</span><br><span class="line">	name varchar(20) NOT NULL,</span><br><span class="line">    primary key(id)</span><br><span class="line">)ENGINE&#x3D;innodb DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">start transaction;</span><br><span class="line">insert into goods_innodb(id,name)values(null,&#39;Meta20&#39;);</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h6><blockquote>
+<p>MySQL支持外键的存储引擎只有InnoDB </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">create table country_innodb(</span><br><span class="line">	country_id int NOT NULL AUTO_INCREMENT,</span><br><span class="line">    country_name varchar(100) NOT NULL,</span><br><span class="line">    primary key(country_id)</span><br><span class="line">)ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create table city_innodb(</span><br><span class="line">	city_id int NOT NULL AUTO_INCREMENT,</span><br><span class="line">    city_name varchar(50) NOT NULL,</span><br><span class="line">    country_id int NOT NULL,</span><br><span class="line">    primary key(city_id),</span><br><span class="line">    key idx_fk_country_id(country_id),</span><br><span class="line">    CONSTRAINT &#96;fk_city_country&#96; FOREIGN KEY(country_id) REFERENCES country_innodb(country_id) ON DELETE RESTRICT ON UPDATE CASCADE</span><br><span class="line">)ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">--  子表的外键指定是ON DELETE RESTRICT ON UPDATE CASCADE 方式的， 那么在主表删除记录的时候， 如果子表有对应记录， 则不允许删除， 主表在更新记录的时候， 如果子表有对应记录， 则子表对应更新 。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>删除主表外键：delete from country_innodb where country_id = 1;(失败)</p>
+</blockquote>
+<img src="http://qkm6g478k.hn-bkt.clouddn.com/image-20201019144848845.png" alt="image-20201019144848845" style="zoom:80%;" />
+
+<blockquote>
+<p>更新主表外键：update country_innodb set country_id = 100 where country_id = 1;(子表对应记录也会更新)</p>
+</blockquote>
+<h6 id="存储方式"><a href="#存储方式" class="headerlink" title="存储方式"></a>存储方式</h6><blockquote>
+<ul>
+<li>使用<strong>共享表空间</strong>存储<ul>
+<li>表结构保存在**.frm**文件中</li>
+<li>数据和索引保存在 innodb_data_home_dir 和 innodb_data_file_path定义的表空间中，可以是多个文件。</li>
+</ul>
+</li>
+<li>使用<strong>多表空间</strong>存储<ul>
+<li>表结构存放 <strong>.frm</strong> 文件</li>
+<li>每个表的数据和索引单独保存在 <strong>.ibd</strong> 中。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>cd /var/lib/mysql/</p>
+</blockquote>
+<img src="http://qkm6g478k.hn-bkt.clouddn.com/image-20201019162402194.png" alt="image-20201019162402194" style="zoom:80%;" />
+
+
+
+
+
+<h5 id="2-2-MyISAM"><a href="#2-2-MyISAM" class="headerlink" title="2.2 MyISAM"></a>2.2 MyISAM</h5><blockquote>
+<p>不支持事务、也不支持外键，其优势是<strong>访问速度快</strong></p>
+<p>对事务的完整性没有要求或者以select、insert为主的应用基本上都可以使用这个引擎来创建表 </p>
+</blockquote>
+<h6 id="不支持事务"><a href="#不支持事务" class="headerlink" title="不支持事务"></a>不支持事务</h6><img src="http://qkm6g478k.hn-bkt.clouddn.com/image-20201019224019740.png" alt="image-20201019224019740" style="zoom:80%;" />
+
+<img src="http://qkm6g478k.hn-bkt.clouddn.com/image-20201019224042393.png" alt="image-20201019224042393" style="zoom:80%;" />
+
+<h6 id="文件存储方式"><a href="#文件存储方式" class="headerlink" title="文件存储方式"></a>文件存储方式</h6><blockquote>
+<p>.frm (存储表定义)；</p>
+<p>.MYD(MYData , 存储数据)；</p>
+<p>.MYI(MYIndex , 存储索引)；</p>
+</blockquote>
+<img src="http://qkm6g478k.hn-bkt.clouddn.com/image-20201019174007327.png" alt="image-20201019174007327" style="zoom:80%;" />
+
+
+
+<h5 id="2-3-Memory"><a href="#2-3-Memory" class="headerlink" title="2.3 Memory"></a>2.3 Memory</h5><blockquote>
+<p>每个MEMORY表实际对应一个<strong>磁盘文件</strong>，格式是.frm ，该文件中只存储表的结构</p>
+<p><strong>数据文件</strong>，都是存储在内存中，这样有利于数据的快速处理，提高整个表的效率。</p>
+<p>默认使用<strong>hash索引</strong> ， 但是服务一旦关闭，表中的数据就会丢失。</p>
+</blockquote>
+<h5 id="2-4-Merge"><a href="#2-4-Merge" class="headerlink" title="2.4 Merge"></a>2.4 Merge</h5><blockquote>
+<p><strong>MERGE存储引擎是一组MyISAM表的组合，这些MyISAM表结构必须完全相同</strong></p>
+<p>MERGE表本身并没有存储数据，对MERGE类型的表可以进行select、update、delete操作，这些操作实际上是对内部的MyISAM表进行的。</p>
+</blockquote>
+<h6 id="2-4-1-插入"><a href="#2-4-1-插入" class="headerlink" title="2.4.1 插入"></a>2.4.1 插入</h6><blockquote>
+<p>通过<strong>insert method</strong>子句定义插入的表</p>
+<ul>
+<li>使用<strong>first或 last</strong>值使得插入操作被相应地作用在第一或者最后一个表上</li>
+<li>不定义这个子句或者定义为<strong>no</strong>，表示不能对这个MERGE表执行插入操作</li>
+</ul>
+</blockquote>
+<img src="http://qkm6g478k.hn-bkt.clouddn.com/1556076359503.png" style="zoom:80%;" />
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">create table order_1990(</span><br><span class="line">	order_id int ,</span><br><span class="line">	order_money double(10,2),</span><br><span class="line">	order_address varchar(50),</span><br><span class="line">	primary key (order_id)</span><br><span class="line">)engine &#x3D; myisam default charset&#x3D;utf8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create table order_1991(</span><br><span class="line">	order_id int ,</span><br><span class="line">	order_money double(10,2),</span><br><span class="line">	order_address varchar(50),</span><br><span class="line">	primary key (order_id)</span><br><span class="line">)engine &#x3D; myisam default charset&#x3D;utf8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create table order_all(</span><br><span class="line">	order_id int ,</span><br><span class="line">	order_money double(10,2),</span><br><span class="line">	order_address varchar(50),</span><br><span class="line">	primary key (order_id)</span><br><span class="line">    -- 插入选择最后一张表</span><br><span class="line">)engine &#x3D; merge union &#x3D; (order_1990,order_1991) insert method&#x3D;last --default charset&#x3D;utf8;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert into order_1990 values(1,100.0,&#39;北京&#39;);</span><br><span class="line">insert into order_1990 values(2,100.0,&#39;上海&#39;);</span><br><span class="line"></span><br><span class="line">insert into order_1991 values(10,200.0,&#39;北京&#39;);</span><br><span class="line">insert into order_1991 values(11,200.0,&#39;上海&#39;);</span><br></pre></td></tr></table></figure>
+
+<img src="http://qkm6g478k.hn-bkt.clouddn.com/image-20201019225024416.png" alt="image-20201019225024416" style="zoom:80%;" />
+
+<blockquote>
+<p>往order_all中插入一条记录 ，由于在MERGE表定义时，INSERT_METHOD 选择的是<strong>last</strong>，那么插入的数据会向最后一张表中插入。</p>
+<p>insert into order_all values(100,10000.0,’西安’)；</p>
+</blockquote>
+<img src="http://qkm6g478k.hn-bkt.clouddn.com/image-20201019225435071.png" alt="image-20201019225435071" style="zoom:80%;" />
+
+<h6 id="2-4-2-删除"><a href="#2-4-2-删除" class="headerlink" title="2.4.2 删除"></a>2.4.2 删除</h6><blockquote>
+<p>这个操作只是<strong>删除MERGE表的定义，对内部的表是没有任何影响的</strong>。</p>
+</blockquote>
+<h4 id="3、存储引擎的选择"><a href="#3、存储引擎的选择" class="headerlink" title="3、存储引擎的选择"></a>3、存储引擎的选择</h4><ul>
+<li>InnoDB <ul>
+<li>是Mysql的默认存储引擎，用于事务处理应用程序，支持外键。</li>
+<li>如果应用对事务的完整性有比较高的要求，在<strong>并发条件下要求数据的一致性</strong>，数据操作除了插入和查询以外，还包含很多的更新、删除操作，那么InnoDB存储引擎是比较合适的选择。</li>
+<li>InnoDB存储引擎除了<strong>有效的降低由于删除和更新导致的锁定</strong>， 还可以<strong>确保事务的完整提交和回滚</strong>，对于类似于计费系统或者财务系统等对<strong>数据准确性</strong>要求比较高的系统，InnoDB是最合适的选择。</li>
+</ul>
+</li>
+<li>MyISAM ： 如果应用是以读操作和插入操作为主，只有很少的更新和删除操作，并且对事务的完整性、并发性要求不是很高，那么选择这个存储引擎是非常合适的。</li>
+<li>MEMORY：将所有数据保存在RAM中，在需要快速定位记录和其他类似数据环境下，可以提供几块的访问。<ul>
+<li>MEMORY的缺陷就是对表的大小有限制，太大的表无法缓存在内存中</li>
+<li>其次是要确保表的数据可以恢复，<strong>数据库异常终止后</strong>表中的数据是可以恢复的。</li>
+<li>MEMORY表通常用于<strong>更新不太频繁的小表，用以快速得到访问结果。</strong></li>
+</ul>
+</li>
+<li>MERGE：用于将一系列等同的MyISAM表以逻辑方式组合在一起，并作为一个对象引用他们。<ul>
+<li>MERGE表的优点在于可以突破对单个MyISAM表的大小限制，并且通过<strong>将不同的表分布在多个磁盘上</strong>，可以<strong>有效的改善MERGE表的访问效率</strong>。这对于存储诸如<strong>数据仓储</strong>等VLDB环境十分合适</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/01%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -678,104 +1043,6 @@
 <p>SELECT *FROM emp <strong>LIMIT</strong> 0,3;    – 第一页 (pageno-1)*pagesize<br>SELECT *FROM emp LIMIT 3,3;    – 第二页<br>SELECT *FROM emp LIMIT 6,3;<br>SELECT *FROM emp LIMIT 9,3;<br>SELECT *FROM emp LIMIT 12,3;（8）顺序</p>
 <p>select  from  where    group by   having  order by   limit</p>
 <p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200818203308220.png" alt="image-20200818203308220"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02TomCat/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哈哈哈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/02TomCat/" class="post-title-link" itemprop="url">tomcat</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:41:14" itemprop="dateModified" datetime="2020-12-06T22:41:14+08:00">2020-12-06</time>
-              </span>
-
-          
-            <span id="/2020/11/11/02TomCat/" class="post-meta-item leancloud_visitors" data-flag-title="tomcat" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Servlet/Jsp容器，轻量级服务中间件</p>
-<h4 id="idea配置"><a href="#idea配置" class="headerlink" title="idea配置"></a>idea配置</h4><ul>
-<li>导入Tomcat 8.5.3.jar包</li>
-</ul>
-<h4 id="Tomcat主要目录："><a href="#Tomcat主要目录：" class="headerlink" title="Tomcat主要目录："></a>Tomcat主要目录：</h4><ul>
-<li>bin 可执行文件</li>
-<li>lib  tomcat可运行的jar文件</li>
-<li>logs tomcat运行的日志文件</li>
-<li>webapps 存放编写的应用</li>
-</ul>
-<p>URL:统一资源定位符</p>
-<p>URI：统一资源标识符</p>
-<h3 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h3><p>HyperText Transfer Protocol超文件传输协议，传输Html文件</p>
-<p>用于定义Web浏览器与Web服务器之间交换数据的过程及数据本身的格式</p>
-<h3 id="请求部分"><a href="#请求部分" class="headerlink" title="请求部分"></a>请求部分</h3><h4 id="请求消息行"><a href="#请求消息行" class="headerlink" title="请求消息行"></a>请求消息行</h4><ol>
-<li>Get 明文传输，不安全，数据量有限</li>
-<li>Post 暗文传输，安全</li>
-</ol>
-<h4 id="请求消息头"><a href="#请求消息头" class="headerlink" title="请求消息头"></a>请求消息头</h4><p><strong>Tomcat原理</strong></p>
-<p>Servlet是java编写服务器端小程序，功能是交互式浏览和修改数据，生成动态web资源</p>
-<ul>
-<li>请求到达server端，server根据url映射<code>Map&lt;url,servletname&gt;</code>得到相应的servlet</li>
-<li>判断Servlet实例是否存在，不存在则加载和实例化Servlet并调用init方法</li>
-<li>server创建request/response对象，调用servlet的service方法(doXXX方法)</li>
-<li>从request对象获取请求参数，处理将结果给通过response返回</li>
-<li>Server不再需要Servlet时，调用destory()方法</li>
-</ul>
 
       
     </div>
@@ -1022,6 +1289,104 @@
 
 
 
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02TomCat/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哈哈哈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/02TomCat/" class="post-title-link" itemprop="url">tomcat</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:41:14" itemprop="dateModified" datetime="2020-12-06T22:41:14+08:00">2020-12-06</time>
+              </span>
+
+          
+            <span id="/2020/11/11/02TomCat/" class="post-meta-item leancloud_visitors" data-flag-title="tomcat" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Servlet/Jsp容器，轻量级服务中间件</p>
+<h4 id="idea配置"><a href="#idea配置" class="headerlink" title="idea配置"></a>idea配置</h4><ul>
+<li>导入Tomcat 8.5.3.jar包</li>
+</ul>
+<h4 id="Tomcat主要目录："><a href="#Tomcat主要目录：" class="headerlink" title="Tomcat主要目录："></a>Tomcat主要目录：</h4><ul>
+<li>bin 可执行文件</li>
+<li>lib  tomcat可运行的jar文件</li>
+<li>logs tomcat运行的日志文件</li>
+<li>webapps 存放编写的应用</li>
+</ul>
+<p>URL:统一资源定位符</p>
+<p>URI：统一资源标识符</p>
+<h3 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h3><p>HyperText Transfer Protocol超文件传输协议，传输Html文件</p>
+<p>用于定义Web浏览器与Web服务器之间交换数据的过程及数据本身的格式</p>
+<h3 id="请求部分"><a href="#请求部分" class="headerlink" title="请求部分"></a>请求部分</h3><h4 id="请求消息行"><a href="#请求消息行" class="headerlink" title="请求消息行"></a>请求消息行</h4><ol>
+<li>Get 明文传输，不安全，数据量有限</li>
+<li>Post 暗文传输，安全</li>
+</ol>
+<h4 id="请求消息头"><a href="#请求消息头" class="headerlink" title="请求消息头"></a>请求消息头</h4><p><strong>Tomcat原理</strong></p>
+<p>Servlet是java编写服务器端小程序，功能是交互式浏览和修改数据，生成动态web资源</p>
+<ul>
+<li>请求到达server端，server根据url映射<code>Map&lt;url,servletname&gt;</code>得到相应的servlet</li>
+<li>判断Servlet实例是否存在，不存在则加载和实例化Servlet并调用init方法</li>
+<li>server创建request/response对象，调用servlet的service方法(doXXX方法)</li>
+<li>从request对象获取请求参数，处理将结果给通过response返回</li>
+<li>Server不再需要Servlet时，调用destory()方法</li>
+</ul>
 
       
     </div>
@@ -1638,155 +2003,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/03%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哈哈哈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/03%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" class="post-title-link" itemprop="url">多表查询</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:48:13" itemprop="dateModified" datetime="2020-12-06T22:48:13+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/03%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" class="post-meta-item leancloud_visitors" data-flag-title="多表查询" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1、多表查询"><a href="#1、多表查询" class="headerlink" title="1、多表查询"></a>1、多表查询</h3><p><strong>union all</strong> (加法)</p>
-<p>列数、列类型必须相同</p>
-<p>SELECT *FROM t1 <strong>UNION</strong> SELECT <em>FROM t2;<br>SELECT *FROM t1 *</em>UNION ALL** SELECT *FROM t2;</p>
-<h3 id="2、连接查询"><a href="#2、连接查询" class="headerlink" title="2、连接查询"></a>2、连接查询</h3><p>select *from <strong>emp,dept</strong> –笛卡尔积</p>
-<h4 id="（1）选出有用的数据"><a href="#（1）选出有用的数据" class="headerlink" title="（1）选出有用的数据"></a>（1）<strong>选出有用的数据</strong></h4><p><strong>有外键连接</strong></p>
-<p>SELECT *FROM emp,dept <strong>WHERE</strong> <strong>emp.deptno=dept.deptno</strong>;</p>
-<p>查询各个部门的人数，求显示部门名称，人数，只显示三个人以上的部门<br>SELECT dname,COUNT(<em>) FROM <strong>emp,dept</strong> <strong>WHERE emp.deptno=dept.deptno</strong> <strong>GROUP BY</strong> dname HAVING COUNT(</em>)&gt;3;</p>
-<h4 id="（2）三表连接查询"><a href="#（2）三表连接查询" class="headerlink" title="（2）三表连接查询"></a>（2）三表连接查询</h4><p><strong>select</strong> scores.studentno,studentname,scores.courseno,coursename,score <strong>from</strong> <strong>scores</strong>,<strong>studnetinfo</strong>,<strong>course</strong>  <strong>where</strong> scores.studentno=studentinfo.studentno <strong>and</strong> scores.courseno=course.courseno</p>
-<p><strong>select</strong> scores.studentno,studentname,scores.courseno,coursename,score <strong>from</strong> scores <strong>innere</strong> <strong>join</strong> studentinfro <strong>on</strong> scores.studentno=studentifno.studentno <strong>inner</strong> <strong>join</strong> course <strong>on</strong> scores.courseno = course.courseno;</p>
-<h4 id="（3）不等查询"><a href="#（3）不等查询" class="headerlink" title="（3）不等查询"></a>（3）不等查询</h4><p><strong>无外键连接</strong></p>
-<p>查询各个员工的编号，姓名，职位，工资，工资等级<br>SELECT empno,ename,job,sal,grade <strong>FROM</strong> emp,salarygrade *<em>WHERE sal&gt;=losalary AND sal&lt;hisalary**</em>;*</p>
-<h3 id="3、内连接"><a href="#3、内连接" class="headerlink" title="3、内连接"></a>3、内连接</h3><p>组合两个表中的记录，返回关联字段相符的记录，也就是<strong>返回两个表的交集（阴影）部分</strong></p>
-<p><strong>inner join</strong></p>
-<p>SELECT empno,ename,job,e.deptno,dname FROM emp e <strong>INNER JOIN</strong> dept d <strong>ON</strong> e.deptno=d.deptno;</p>
-<h3 id="4、外连接"><a href="#4、外连接" class="headerlink" title="4、外连接"></a>4、外连接</h3><p><strong>outer join</strong></p>
-<h4 id="（1）左外连接"><a href="#（1）左外连接" class="headerlink" title="（1）左外连接"></a>（1）左外连接</h4><p><strong>left outer join</strong></p>
-<p><strong>左表不符合条件的也显示出来</strong>–null</p>
-<p>SELECT empno,ename,job,e.deptno,dname FROM emp e <strong>left outer join</strong> dept d <strong>ON</strong> e.deptno=d.deptno;</p>
-<h4 id="（2）右外连接"><a href="#（2）右外连接" class="headerlink" title="（2）右外连接"></a>（2）右外连接</h4><p><strong>right outer join</strong></p>
-<p><strong>右表不符合条件的也显示出来</strong></p>
-<p>SELECT empno,ename,job,e.deptno,dname FROM emp e <strong>right outer join</strong> dept d <strong>ON</strong> e.deptno=d.deptno;</p>
-<h3 id="5、自然连接"><a href="#5、自然连接" class="headerlink" title="5、自然连接"></a>5、自然连接</h3><p><strong>两个关系表中进行连接的必须是相同的属性列（名字相同），无须添加连接条件，并且在结果中消除重复的属性列。</strong></p>
-<p>select *from emp <strong>natural</strong> <strong>join</strong> dept; </p>
-<table>
-<thead>
-<tr>
-<th>denptno(连接)</th>
-<th>deptname</th>
-<th>deptssss</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>sss</td>
-<td>44</td>
-</tr>
-<tr>
-<td>2</td>
-<td>sss11</td>
-<td>4442</td>
-</tr>
-<tr>
-<td>3</td>
-<td>fs</td>
-<td>2424</td>
-</tr>
-</tbody></table>
-<h3 id="6、子查询"><a href="#6、子查询" class="headerlink" title="6、子查询"></a>6、子查询</h3><h4 id="（1）子查询结果为单行单列"><a href="#（1）子查询结果为单行单列" class="headerlink" title="（1）子查询结果为单行单列"></a>（1）子查询结果为单行单列</h4><p>SELECT deptno FROM dept WHERE dname=’SALES’;</p>
-<p>SELECT*FROM emp WHERE deptno=30;</p>
-<p>一步完成</p>
-<p>SELECT *FROM emp WHERE <strong>deptno=</strong>(SELECT deptno FROM dept WHERE dname=’SALES’);</p>
-<p>使用俩表连接</p>
-<p>SELECT emp.*FROM emp I<strong>NNER JOIN</strong> dept <strong>ON</strong> emp.deptno=dept.deptno <strong>WHERE</strong> dname=’SALES’;</p>
-<h4 id="（2）子查询结果为单列多行"><a href="#（2）子查询结果为单列多行" class="headerlink" title="（2）子查询结果为单列多行"></a>（2）子查询结果为单列多行</h4><p>查询工资大于3000的员工，来自哪些部门的名字<br>SELECT deptno FROM emp WHERE sal&gt;2000;—&gt;10,20,30<br>SELECT dname FROM dept WHERE deptno IN (10,20,30);</p>
-<p>SELECT dname FROM dept <strong>WHERE</strong> deptno <strong>IN</strong>(SELECT deptno FROM emp WHERE sal&gt;2000);</p>
-<h4 id="（3）子查询结果为多行多列"><a href="#（3）子查询结果为多行多列" class="headerlink" title="（3）子查询结果为多行多列"></a>（3）子查询结果为多行多列</h4><p><strong>找出虚拟表，并当成俩表连接查询</strong></p>
-<p>select 查询字段 from(子查询) 表别名 where 条件.3</p>
-<p>查询出2011年以后入职的员工<br>SELECT *FROM emp WHERE hiredate&gt;=’1982-1-1’;</p>
-<p>SELECT e.<em>,d.dname FROM dept d,(**SELECT <em>FROM emp WHERE hiredate&gt;=’1982-1-1</em></em>‘) e <strong>WHERE d.deptno=e.deptno;</strong>  </p>
-<p>例子：– 有俩个直接下属的员工信息<br>SELECT mgr,COUNT(*) FROM emp GROUP BY mgr;</p>
-<p>– 1有俩个下属以上<br>SELECT mgr FROM emp GROUP BY mgr HAVING COUNT(*)&gt;2;</p>
-<p>– 查询以上俩个编号的员工信息<br>SELECT <em>FROM emp WHERE empno IN(SELECT mgr FROM emp GROUP BY mgr HAVING COUNT(</em>)&gt;2);</p>
-<h3 id="7、自连接"><a href="#7、自连接" class="headerlink" title="7、自连接"></a>7、自连接</h3><p><strong>单表</strong></p>
-<p>求7369员工编号、姓名、经理编号和经理姓名</p>
-<p>SELECT e1.empno,e1.ename,e1.mgr,e2.ename FROM emp e1,emp e2 WHERE <strong>e1.mgr=e2.empno</strong> AND e1.empno=7369;</p>
-<h3 id="8、备份与还原"><a href="#8、备份与还原" class="headerlink" title="8、备份与还原"></a>8、备份与还原</h3><p>备份格式：dos: mysqldump -u用户名 -p密码 数据库&gt;文件的路径</p>
-<p>还原格式：mysql中的命令，需要登录后操作</p>
-<p>​                    <strong>use 数据库； source 导入文件的路径</strong></p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200819180155720.png" alt="image-20200819180155720"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1856,7 +2072,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
