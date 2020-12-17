@@ -161,370 +161,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/10JDK8%E6%96%B0%E7%89%B9%E6%80%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哈哈哈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/10JDK8%E6%96%B0%E7%89%B9%E6%80%A7/" class="post-title-link" itemprop="url">JDK8新特性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:10:33" itemprop="dateModified" datetime="2020-12-17T13:10:33+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/10JDK8%E6%96%B0%E7%89%B9%E6%80%A7/" class="post-meta-item leancloud_visitors" data-flag-title="JDK8新特性" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、Lambda"><a href="#一、Lambda" class="headerlink" title="一、Lambda"></a>一、Lambda</h3><blockquote>
-<p>函数式表示式，-&gt; 为Lambda运算符，读作（goes to）</p>
-<p><strong>Lambda 表达式免去了使用匿名方法的麻烦，并且给予Java简单但是强大的函数化的编程能力。</strong></p>
-</blockquote>
-<h4 id="1、格式"><a href="#1、格式" class="headerlink" title="1、格式"></a>1、格式</h4><blockquote>
-<p>（形式参数）-&gt;{代码块}</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">(String s)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInterfaceDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//使用实现类</span></span><br><span class="line">        MyInterface myInterface1=<span class="keyword">new</span> MyInterfaceDemo1();</span><br><span class="line">        myInterface1.show(<span class="string">&quot;show1&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用Lambda表达式</span></span><br><span class="line">        MyInterface myInterface=s-&gt; System.out.println(<span class="string">&quot;函数式接口&quot;</span>+s);</span><br><span class="line">        myInterface.show(<span class="string">&quot;show1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyInterfaceDemo1</span> <span class="keyword">implements</span> <span class="title">MyInterface</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;函数式接口&quot;</span>+s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="2、使用特点"><a href="#2、使用特点" class="headerlink" title="2、使用特点"></a>2、使用特点</h4><ul>
-<li>不需要声明参数类型，编译器可以统一识别参数值  x-&gt;2*x</li>
-<li>一个参数无需定义圆括号，但多个参数需要定义圆括号 </li>
-<li>主体<strong>只有一个表达式返回值则编译器会自动返回值</strong>，大括号需要指定表达式返回一个数值<ul>
-<li>(String s) -&gt;System.out.print(s)</li>
-</ul>
-</li>
-</ul>
-<h4 id="3、使用"><a href="#3、使用" class="headerlink" title="3、使用"></a>3、使用</h4><ul>
-<li><strong>使用Lambda必须要有接口，接口中只能有一个抽象方法</strong></li>
-<li>必须要有<strong>上下文环境</strong>，调用接口抽象方法，使用Lambda表达式可以不用写 接口实现类</li>
-<li>Lambda表达式中参数和接口抽象方法的形参保持一致</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Addable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Flyable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fly</span><span class="params">(String s)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">     useAdd((<span class="keyword">int</span> x,<span class="keyword">int</span> y)-&gt;&#123;</span><br><span class="line">         <span class="keyword">return</span> x+y;</span><br><span class="line"><span class="comment">//       return x-y;</span></span><br><span class="line">     &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//省略，去掉花括号有return会报错</span></span><br><span class="line">    useAdd((x,y)-&gt;x+y);</span><br><span class="line">    <span class="comment">//Lambda</span></span><br><span class="line">    useFlyable((String s)-&gt;&#123;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        System.out.println(<span class="string">&quot;飞机&quot;</span>+s);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//省略,只有一个参数时，括号和花括号可以被省略</span></span><br><span class="line">    useFlyable(s -&gt; System.out.println(s));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">useAdd</span><span class="params">(Addable addable)</span></span>&#123;</span><br><span class="line">     <span class="keyword">int</span> add=addable.add(<span class="number">10</span>,<span class="number">5</span>);</span><br><span class="line">     System.out.println(add);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">useFlyable</span><span class="params">(Flyable flyable)</span></span>&#123;</span><br><span class="line">        flyable.fly(<span class="string">&quot;飞飞飞&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="4、Lambda表达式和匿名内部类"><a href="#4、Lambda表达式和匿名内部类" class="headerlink" title="4、Lambda表达式和匿名内部类"></a>4、Lambda表达式和匿名内部类</h4><ul>
-<li>使用限制：Lambda表达式适用于仅有一个抽象类的接口，匿名内部类可用于多个抽象类的接口</li>
-<li>所需类型：Lambda表达式只能是接口，匿名内部类可以是接口、抽象类、普通类</li>
-<li>实现原理：匿名内部类编译产生一个单独.class文件，而Lambda对应的<strong>字节码动态生成</strong></li>
-</ul>
-<h3 id="二、接口组成更新"><a href="#二、接口组成更新" class="headerlink" title="二、接口组成更新"></a>二、接口组成更新</h3><ul>
-<li>常量 public final static</li>
-<li>抽象方法 public abstract</li>
-<li>默认方法 default  (JDK8)</li>
-<li>静态方法 static  (JDK8)</li>
-<li>私有方法 private （JDK9）</li>
-</ul>
-<h4 id="2-1-接口默认方法"><a href="#2-1-接口默认方法" class="headerlink" title="2.1 接口默认方法"></a>2.1 接口默认方法</h4><blockquote>
-<p>public default void demo1(){</p>
-<p>​    System.out.print(“show1”);</p>
-<p>}</p>
-</blockquote>
-<ul>
-<li>默认方法不是抽象方法，<strong>不强制被重写</strong>，<strong>但是可以被重写</strong></li>
-<li>default不能被省略</li>
-</ul>
-<h4 id="2-2-接口静态方法"><a href="#2-2-接口静态方法" class="headerlink" title="2.2 接口静态方法"></a>2.2 接口静态方法</h4><blockquote>
-<p>public static void show(){</p>
-<p>​    System.out.print(“show2”);</p>
-<p>}</p>
-</blockquote>
-<ul>
-<li>接口静态方法只能通过<strong>接口名</strong>调用，不能通过实现类或者对象名调用</li>
-<li>若<code>通过实现类或者对象名调用</code>，当实现类继承多个接口时，就不知道调用哪一个接口静态方法</li>
-</ul>
-<h4 id="2-3-接口私有方法"><a href="#2-3-接口私有方法" class="headerlink" title="2.3 接口私有方法"></a>2.3 接口私有方法</h4><p>jdk9</p>
-<blockquote>
-<p>格式一</p>
-<p>private void show(){</p>
-<p>​    System.out.print(“show2”);</p>
-<p>}</p>
-</blockquote>
-<blockquote>
-<p>格式二</p>
-<p>private static void show(){</p>
-<p>​    System.out.print(“show2”);</p>
-<p>}</p>
-</blockquote>
-<ul>
-<li>接口中，默认方法可以调用私有的静态方法和非静态方法</li>
-<li>静态方法只能调用私有的静态方法</li>
-</ul>
-<h3 id="三、方法引用"><a href="#三、方法引用" class="headerlink" title="三、方法引用"></a>三、方法引用</h3><p>引用已经存在的方法</p>
-<h4 id="1、方法引用符"><a href="#1、方法引用符" class="headerlink" title="1、方法引用符"></a>1、方法引用符</h4><blockquote>
-<p>：：引用运算符，所在的表达式被称为方法引用</p>
-</blockquote>
-<ul>
-<li><p>Lambda，根据”可推导就是可省略”的原则，无需指定参数类型，也无需指定的重载形式，它们被自动推导</p>
-</li>
-<li><p>方法引用是Lambda表达式的孪生兄弟</p>
-</li>
-</ul>
-<h4 id="2、引用类方法"><a href="#2、引用类方法" class="headerlink" title="2、引用类方法"></a>2、引用类方法</h4><blockquote>
-<p><strong>引用类的静态方法</strong></p>
-<p>格式：类名：：静态方法</p>
-<p>Lambda表达式被类方法替代的时候，它的形式参数<strong>全部传递</strong>给静态方法作为参数</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Lambda表达式省略</span></span><br><span class="line">useConverter(s -&gt;Integer.parseInt(s));</span><br><span class="line"><span class="comment">//引用类方法</span></span><br><span class="line">useConverter(Integer::parseInt);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">useConverter</span><span class="params">(Converter converter)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num = converter.converter(<span class="string">&quot;666&quot;</span>);</span><br><span class="line">    System.out.println(num);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="3、-引用对象的实例方法"><a href="#3、-引用对象的实例方法" class="headerlink" title="3、**引用对象的实例方法"></a>3、**引用对象的实例方法</h4><blockquote>
-<p>格式：引用对象：：实例方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Printer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printUpperCase</span><span class="params">(String s)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrintDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        usePrinter(s -&gt; System.out.println(s.toUpperCase()));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//子类实现接口</span></span><br><span class="line">        PrinterDemo1 printDemo=<span class="keyword">new</span> PrinterDemo1();</span><br><span class="line">        printDemo.printUpperCase(<span class="string">&quot;hello World&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Lambda表达式</span></span><br><span class="line">        usePrinter(s-&gt;<span class="keyword">new</span> PrintString().printUpper(s));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//引用对象的实例方法</span></span><br><span class="line">        PrintString printString=<span class="keyword">new</span> PrintString();</span><br><span class="line">        usePrinter(printString::printUpper);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">usePrinter</span><span class="params">(Printer printer)</span></span>&#123;</span><br><span class="line">        printer.printUpperCase(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PrinterDemo1</span> <span class="keyword">implements</span> <span class="title">Printer</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printUpperCase</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> PrintString().printUpper(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PrintString</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printUpper</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        String s1=s.toUpperCase();</span><br><span class="line">        System.out.println(s1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="4、引用类的实例方法"><a href="#4、引用类的实例方法" class="headerlink" title="4、引用类的实例方法"></a>4、引用类的实例方法</h4><blockquote>
-<p>引用类中的成员方法</p>
-<p>格式： 类名：：成员方法</p>
-</blockquote>
-<ul>
-<li>Lambda表达式被类的实例方法替代的时候</li>
-<li><strong>第一个参数作为调用者</strong>，后面的参数全部传递给该方法作为参数</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    useMyString((s,x,y)-&gt;&#123;</span><br><span class="line">        <span class="keyword">return</span> s.substring(x,y);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    useMyString(String::substring);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">useMyString</span><span class="params">(MyString myString)</span></span>&#123;</span><br><span class="line">    String s=myString.mySubString(<span class="string">&quot;HelloWord&quot;</span>,<span class="number">2</span>,<span class="number">5</span>);</span><br><span class="line">    System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="5、引用构造器"><a href="#5、引用构造器" class="headerlink" title="5、引用构造器"></a>5、引用构造器</h4><blockquote>
-<p>引用构造方法</p>
-<p>格式 ： 类名：：new</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        add((name,age)-&gt;&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Teacher(name,age);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        add(Teacher::<span class="keyword">new</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Teachere teachere)</span></span>&#123;</span><br><span class="line">        Teacher teacher = teachere.show(<span class="string">&quot;小明&quot;</span>, <span class="number">11</span>);</span><br><span class="line">        System.out.println(teacher);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Teachere</span></span>&#123;</span><br><span class="line">    <span class="function">Teacher <span class="title">show</span><span class="params">(String name,<span class="keyword">int</span> age)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Teacher</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="四、函数式接口"><a href="#四、函数式接口" class="headerlink" title="四、函数式接口"></a>四、函数式接口</h3><h4 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h4><blockquote>
-<p>函数式接口：有且仅有一个抽象方法的接口</p>
-<p><code>@FunctiongalInterface</code></p>
-</blockquote>
-<img src="https://csn.damyoung.cn/image-20200927123553414.png" alt="image-20200927123553414" style="zoom:80%;" />
-
-<h4 id="2、使用方式"><a href="#2、使用方式" class="headerlink" title="2、使用方式"></a>2、使用方式</h4><h5 id="2-1-函数式接口作为方法的参数"><a href="#2-1-函数式接口作为方法的参数" class="headerlink" title="2.1 函数式接口作为方法的参数"></a>2.1 函数式接口作为方法的参数</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//匿名内部类形式</span></span><br><span class="line">    startThread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">&quot;线程启动&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Lambda表达式</span></span><br><span class="line">    startThread(()-&gt; System.out.println(Thread.currentThread().getName()+<span class="string">&quot;线程启动了&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">startThread</span><span class="params">(Runnable runnable)</span></span>&#123;</span><br><span class="line">    <span class="keyword">new</span> Thread(runnable).start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="2-2-函数式接口作为方法的返回值"><a href="#2-2-函数式接口作为方法的返回值" class="headerlink" title="2.2 函数式接口作为方法的返回值"></a>2.2 函数式接口作为方法的返回值</h5><blockquote>
-<p>如果方法的返回值是一个函数式接口，可以使用Lambda表达式作为结果返回</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;String&gt; arrayList=<span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        arrayList.add(<span class="string">&quot;aaaa&quot;</span>);</span><br><span class="line">        arrayList.add(<span class="string">&quot;bbb&quot;</span>);</span><br><span class="line">        arrayList.add(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">        Collections.sort(arrayList);</span><br><span class="line">        System.out.println(<span class="string">&quot;排序前&quot;</span>+arrayList);</span><br><span class="line"></span><br><span class="line">        Collections.sort(arrayList,getComparator());</span><br><span class="line">        System.out.println(<span class="string">&quot;排序后&quot;</span>+arrayList);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Comparator&lt;String&gt; <span class="title">getComparator</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//        return new Comparator&lt;String&gt;() &#123;</span></span><br><span class="line"><span class="comment">//            @Override</span></span><br><span class="line"><span class="comment">//            public int compare(String s1, String s2) &#123;</span></span><br><span class="line"><span class="comment">//                return s1.length()-s2.length();</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//        &#125;;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (s1,s2)-&gt;s1.length()-s2.length();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="3、函数式接口"><a href="#3、函数式接口" class="headerlink" title="3、函数式接口"></a>3、函数式接口</h4><h5 id="3-1-Supplier"><a href="#3-1-Supplier" class="headerlink" title="3.1 Supplier"></a>3.1 Supplier</h5><ul>
-<li>T get() 获得结果</li>
-<li>该方法不需要参数，会按照某种实现逻辑(由Lambda表达式实现) 返回一个数据</li>
-<li>Supplier&lt; T&gt; 接口被称为<strong>生产型接口</strong>，指定接口的泛型是什么类型，接口中get就会生产出什么类型供我们使用</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> maxValue=getMax(()-&gt;&#123;</span><br><span class="line">       <span class="keyword">int</span>[] arr=&#123;<span class="number">1</span>,<span class="number">4</span>,<span class="number">23</span>,<span class="number">12</span>,<span class="number">44</span>&#125;;</span><br><span class="line">       <span class="keyword">int</span> max=<span class="number">0</span>;</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</span><br><span class="line">           <span class="keyword">if</span> (arr[i] &gt;= arr[max])&#123;</span><br><span class="line">                max=i;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> arr[max];</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    System.out.println(maxValue);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Integer <span class="title">getMax</span><span class="params">(Supplier&lt;Integer&gt; supplier)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> supplier.get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="3-2-Consumer"><a href="#3-2-Consumer" class="headerlink" title="3.2 Consumer"></a>3.2 Consumer</h5><ul>
-<li><strong>消费型接口</strong>，它消费的数据的数据类型由泛型指定</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        operatorString(<span class="string">&quot;林青霞&quot;</span>,s -&gt; System.out.println(<span class="keyword">new</span> StringBuffer(s).reverse().toString())</span><br><span class="line">        ,System.out::println);</span><br><span class="line">     operatorString(<span class="string">&quot;凌青霞&quot;</span>,<span class="number">34</span>,System.out::print,i-&gt; System.out.print(String.valueOf(i+<span class="number">200</span>)));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *定义一个方法，用不同方式消费同一个字符串数据俩次</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">operatorString</span><span class="params">(String name,Consumer&lt;String&gt; consumer,Consumer&lt;String&gt; consumer1)</span></span>&#123;</span><br><span class="line"><span class="comment">//   consumer.accept(name);</span></span><br><span class="line"><span class="comment">//   consumer1.accept(name);</span></span><br><span class="line">  consumer.andThen(consumer1).accept(name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">operatorString</span><span class="params">(String name,<span class="keyword">int</span> age,Consumer&lt;String&gt; consumer,Consumer&lt;Integer&gt; consumer1)</span></span>&#123;</span><br><span class="line">        consumer.accept(name);</span><br><span class="line">        consumer1.accept(age);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="3-3-Predicate"><a href="#3-3-Predicate" class="headerlink" title="3.3 Predicate"></a>3.3 Predicate</h5><ul>
-<li>用于判断参数是否满足指定的条件</li>
-<li>boolean test(T,t)：对给定参数进行判断，返回boolean值</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> b=checkString(<span class="string">&quot;hello&quot;</span>,s -&gt; s.length()&gt;<span class="number">6</span>);</span><br><span class="line">    System.out.println(b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">checkString</span><span class="params">(String str, Predicate&lt;String&gt; predicate)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> predicate.test(str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>negate()</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//negate()对结果进行逻辑非操作</span></span><br><span class="line"><span class="keyword">return</span> predicate.negate().test(str);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>短路与and，短路或or</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> hello = checkString(<span class="string">&quot;hello&quot;</span>, s -&gt; s.length() &gt; <span class="number">7</span>, s -&gt; s.length() &lt; <span class="number">6</span>);</span><br><span class="line">    System.out.println(hello);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对同一个字符串给出俩个不同的判断条件，最后把这个俩个判断结果合成</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">checkString</span><span class="params">(String str, Predicate&lt;String&gt; predicate,Predicate&lt;String&gt; predicate1)</span></span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> b1=predicate.test(str);</span><br><span class="line">    <span class="keyword">boolean</span> b2=predicate1.test(str);</span><br><span class="line"> <span class="comment">//        return b1 &amp;&amp; b2;</span></span><br><span class="line">    <span class="comment">//短路与</span></span><br><span class="line">    <span class="keyword">return</span> predicate.and(predicate1).test(str);</span><br><span class="line">    <span class="comment">//短路或</span></span><br><span class="line">    <span class="keyword">return</span> predicate.or(predicate1).test(str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>应用</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> admin</span></span><br><span class="line"><span class="comment"> *      给定姓名+年龄的字符串数组</span></span><br><span class="line"><span class="comment"> *      - 查找出同时符合: 年龄&gt;35,姓名长度&gt;2的数组集合</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PredicateTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String[] strArray=&#123;<span class="string">&quot;林青霞,30&quot;</span>,<span class="string">&quot;凉凉,20&quot;</span>,<span class="string">&quot;张曼玉,42&quot;</span>&#125;;</span><br><span class="line">        ArrayList&lt;String&gt; list=myFilter(strArray,s -&gt; s.split(<span class="string">&quot;,&quot;</span>)[<span class="number">0</span>].length()&gt;<span class="number">2</span>,</span><br><span class="line">                                        s -&gt; Integer.parseInt(s.split(<span class="string">&quot;,&quot;</span>)[<span class="number">1</span>])&gt;<span class="number">34</span>);</span><br><span class="line">        System.out.println(list.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ArrayList&lt;String&gt; <span class="title">myFilter</span><span class="params">(String[] strArray, Predicate&lt;String&gt;predicate</span></span></span><br><span class="line"><span class="function"><span class="params">                                         ,Predicate&lt;String&gt; predicate1)</span></span>&#123;</span><br><span class="line">        ArrayList&lt;String&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (String str:strArray)&#123;</span><br><span class="line">            <span class="keyword">if</span> (predicate.and(predicate1).test(str))&#123;</span><br><span class="line">                list.add(str);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="3-4-function"><a href="#3-4-function" class="headerlink" title="3.4  function"></a>3.4  function</h5><blockquote>
-<p>interface Function&lt; T,R&gt; </p>
-<p>R apply(T,t) </p>
-<p>default <V> Function&lt;T, V&gt; andThen(Function&lt;? super R, ? extends V&gt; after)  组合</p>
-</blockquote>
-<ul>
-<li>用于对参数用于<strong>对参数进行处理</strong>，转换(处理逻辑由Lambda表达式实现)，然后<strong>返回一个新的值</strong></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        convert(<span class="string">&quot;444&quot;</span>,s -&gt; Integer.parseInt(s));</span><br><span class="line">        convert1(<span class="number">444</span>,integer -&gt; String.valueOf(integer+<span class="number">100</span>));</span><br><span class="line"></span><br><span class="line">        convert2(<span class="string">&quot;444&quot;</span>,s -&gt; Integer.parseInt(s),integer -&gt; String.valueOf(integer+<span class="number">200</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义一个方法，将一个字符串转换为int类型</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">convert</span><span class="params">(String str, Function&lt;String,Integer&gt; fun)</span></span>&#123;</span><br><span class="line">        Integer apply = fun.apply(str);</span><br><span class="line">        System.out.println(apply);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义一个方法，将一个int类型转换为String类型</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">convert1</span><span class="params">(<span class="keyword">int</span> i,Function&lt;Integer, String&gt; fun1)</span></span>&#123;</span><br><span class="line">        String app=fun1.apply(i);</span><br><span class="line">        System.out.println(app);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//组合</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">convert2</span><span class="params">(String str,Function&lt;String, Integer&gt; fun1,Function&lt;Integer,String&gt; fun2)</span></span>&#123;</span><br><span class="line"><span class="comment">//        Integer i = fun1.apply(str);</span></span><br><span class="line"><span class="comment">//        String s = fun2.apply(i);</span></span><br><span class="line">        String s = fun1.andThen(fun2).apply(str);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>应用</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    String str=<span class="string">&quot;林青霞,30&quot;</span>;</span><br><span class="line">    convert(str,s-&gt;s.split(<span class="string">&quot;,&quot;</span>)[<span class="number">1</span>], Integer::parseInt, integer -&gt; String.valueOf(integer+<span class="number">70</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">convert</span><span class="params">(String s, Function&lt;String,String&gt; fun1, Function&lt;String,Integer&gt; fun2,</span></span></span><br><span class="line"><span class="function"><span class="params">                           Function&lt;Integer, String&gt; fun3)</span></span>&#123;</span><br><span class="line">		String apply = fun1.andThen(fun2).andThen(fun3).apply(s);</span><br><span class="line">        System.out.println(apply);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="五、Stream流"><a href="#五、Stream流" class="headerlink" title="五、Stream流"></a>五、Stream流</h3><blockquote>
-<p>使用：生成流<code>list.stream()</code>–&gt;中间操作<code>filter()-</code>-&gt;终结操作<code>foreach()</code></p>
-</blockquote>
-<h4 id="1、演示"><a href="#1、演示" class="headerlink" title="1、演示"></a>1、演示</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; arrayList=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">arrayList.add(<span class="string">&quot;林青霞&quot;</span>);</span><br><span class="line">arrayList.add(<span class="string">&quot;张曼玉&quot;</span>);</span><br><span class="line">arrayList.add(<span class="string">&quot;王祖贤&quot;</span>);</span><br><span class="line">arrayList.add(<span class="string">&quot;柳岩&quot;</span>);</span><br><span class="line">arrayList.add(<span class="string">&quot;张敏&quot;</span>);</span><br><span class="line">arrayList.add(<span class="string">&quot;张无忌&quot;</span>);</span><br><span class="line"></span><br><span class="line">ArrayList&lt;String&gt; zhangList=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (String s1:arrayList) &#123;</span><br><span class="line">    <span class="keyword">if</span> (s1.startsWith(<span class="string">&quot;张&quot;</span>))&#123;</span><br><span class="line">        zhangList.add(s1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ArrayList&lt;String&gt; threeList=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (String s2:zhangList)&#123;</span><br><span class="line">    <span class="keyword">if</span> (s2.length()&gt;<span class="number">2</span>)&#123;</span><br><span class="line">        threeList.add(s2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (String s3:threeList) &#123;</span><br><span class="line">    System.out.println(s3);</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(<span class="string">&quot;----------------&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用Stream流形式</span></span><br><span class="line">arrayList.stream().filter(s -&gt; s.startsWith(<span class="string">&quot;张&quot;</span>)).filter(s -&gt; s.length()&gt;<span class="number">2</span>).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-
-<h4 id="2、Stream生成方式"><a href="#2、Stream生成方式" class="headerlink" title="2、Stream生成方式"></a>2、Stream生成方式</h4><h5 id="2-1-Collection体系"><a href="#2-1-Collection体系" class="headerlink" title="2.1 Collection体系"></a>2.1 Collection体系</h5><blockquote>
-<p>list.stream()</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Collection体系</span></span><br><span class="line">List&lt;String&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Stream&lt;String&gt; listStream = list.stream();</span><br><span class="line"></span><br><span class="line">Set&lt;String&gt; set=<span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">Stream&lt;String&gt; setStream = set.stream();</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="2-2-Map体系"><a href="#2-2-Map体系" class="headerlink" title="2.2 Map体系"></a>2.2 Map体系</h5><blockquote>
-<p>keySet()–&gt;key</p>
-<p>values()–value</p>
-<p>entrySet()–&gt; key-value</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Map体系</span></span><br><span class="line">Map&lt;String,Integer&gt; map=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">Stream&lt;String&gt; mapStream = map.keySet().stream();</span><br><span class="line">Stream&lt;Integer&gt; values = map.values().stream();</span><br><span class="line">Stream&lt;Map.Entry&lt;String, Integer&gt;&gt; mapEntryStream = map.entrySet().stream();</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="2-3-数组"><a href="#2-3-数组" class="headerlink" title="2.3 数组"></a>2.3 数组</h5><blockquote>
-<p>Stream.of(array)</p>
-<p>Arrays.stream(arr[] arr)</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组</span></span><br><span class="line">String[] arr=&#123;<span class="string">&quot;sss&quot;</span>,<span class="string">&quot;dsfs&quot;</span>&#125;;</span><br><span class="line">Stream&lt;String&gt; arrStream = Stream.of(arr);</span><br><span class="line">Stream&lt;String&gt; arrStream2 = Stream.of(<span class="string">&quot;sss&quot;</span>, <span class="string">&quot;dsfs&quot;</span>);</span><br><span class="line">Stream&lt;Integer&gt; integerStream = Stream.of(<span class="number">19</span>, <span class="number">23</span>);</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="3、Stream中间操作"><a href="#3、Stream中间操作" class="headerlink" title="3、Stream中间操作"></a>3、Stream中间操作</h4><ul>
-<li>filter(Predicate predicate) 对流中的数据进行过滤</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arrayList.stream().filter(s -&gt; s.startsWith(<span class="string">&quot;张&quot;</span>)).forEach(System.out::print);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>limit(long maxSize) 返回流中元素组成的流，<strong>截取前指定参数个数</strong>的数据</li>
-<li>skip(long n)   跳过指定参数个数的数据，返回由该流<strong>剩余元素</strong>组成的流</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arrayList.stream().limit(<span class="number">3</span>).forEach(System.out::println);</span><br><span class="line">System.out.println(<span class="string">&quot;---------------&quot;</span>);</span><br><span class="line">arrayList.stream().skip(<span class="number">4</span>).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>concat(Stream a,Stream b) 合并俩个流，<strong>静态方法，由接口名调用</strong></li>
-<li>distinct() 返回该流不同元素组成的流</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取出前4个元素</span></span><br><span class="line">Stream&lt;String&gt;  s1= arrayList.stream().limit(<span class="number">4</span>);</span><br><span class="line"><span class="comment">//跳过2个元素</span></span><br><span class="line">Stream&lt;String&gt; s2 = arrayList.stream().skip(<span class="number">2</span>);</span><br><span class="line"><span class="comment">//合并俩个流</span></span><br><span class="line">Stream.concat(s1, s2).forEach(System.out::println);;</span><br><span class="line">System.out.println(<span class="string">&quot;---------------&quot;</span>);</span><br><span class="line"><span class="comment">//取出流中不同元素</span></span><br><span class="line">Stream.concat(s1, s2).distinct().forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>sorted() 返回排序的流</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arrayList.stream().sorted().forEach(System.out::println);</span><br><span class="line">System.out.println(<span class="string">&quot;--------------&quot;</span>);</span><br><span class="line"><span class="comment">//按照长度排序</span></span><br><span class="line">arrayList.stream().sorted((s1,s2)-&gt;s1.length()-s2.length()).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>map(Function mapper)   返回由给定函数应用于该流元素的结果组成的流</strong></li>
-<li>IntStream <strong>mapToint</strong>(ToIntFunction mapper) 返回一个<strong>IntStream</strong>，其中包含将给定函数应用于此流的元素的<strong>结果</strong><ul>
-<li>IntStream 原始的int流</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arrayList.stream().map(Integer::parseInt).forEach(System.out::println);</span><br><span class="line">System.out.println(<span class="string">&quot;------------&quot;</span>);</span><br><span class="line"><span class="keyword">int</span> sum = arrayList.stream().mapToInt(Integer::parseInt).sum();</span><br><span class="line">System.out.println(sum);</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="4、Stream终结操作"><a href="#4、Stream终结操作" class="headerlink" title="4、Stream终结操作"></a>4、Stream终结操作</h4><ul>
-<li><p>foreach(Consumer action)</p>
-</li>
-<li><p>long count()  返回流的元素数</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> c = arrayList.stream().filter(s -&gt; s.startsWith(<span class="string">&quot;张&quot;</span>)).count();</span><br><span class="line">System.out.println(c);</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="5、练习"><a href="#5、练习" class="headerlink" title="5、练习"></a>5、练习</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; arrayList=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">arrayList.add(<span class="string">&quot;林青霞&quot;</span>);</span><br><span class="line">arrayList.add(<span class="string">&quot;张曼玉&quot;</span>);</span><br><span class="line">arrayList.add(<span class="string">&quot;王祖贤&quot;</span>);</span><br><span class="line">arrayList.add(<span class="string">&quot;柳岩&quot;</span>);</span><br><span class="line">arrayList.add(<span class="string">&quot;张敏&quot;</span>);</span><br><span class="line">arrayList.add(<span class="string">&quot;张无忌&quot;</span>);</span><br><span class="line"></span><br><span class="line">ArrayList&lt;String&gt; arrayList2=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">arrayList2.add(<span class="string">&quot;重监控&quot;</span>);</span><br><span class="line">arrayList2.add(<span class="string">&quot;杀杀杀&quot;</span>);</span><br><span class="line">arrayList2.add(<span class="string">&quot;搜索&quot;</span>);</span><br><span class="line">arrayList2.add(<span class="string">&quot;啊啊&quot;</span>);</span><br><span class="line">arrayList2.add(<span class="string">&quot;撒法发&quot;</span>);</span><br><span class="line">arrayList2.add(<span class="string">&quot;实施方案&quot;</span>);</span><br><span class="line"></span><br><span class="line">Stream&lt;String&gt; stream1 = arrayList.stream().filter(s -&gt; s.startsWith(<span class="string">&quot;林&quot;</span>)).skip(<span class="number">1</span>);</span><br><span class="line">Stream&lt;String&gt; stream2 = arrayList2.stream().filter(s -&gt; s.length() &gt; <span class="number">2</span>).limit(<span class="number">3</span>);</span><br><span class="line">Stream&lt;String&gt; allStream = Stream.concat(stream1, stream2);</span><br><span class="line"><span class="comment">//        allStream.map(Actor::new).forEach(System.out::println);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//返回由  给定函数应用于该流元素的结果 组成的流</span></span><br><span class="line">allStream.map(Actor::<span class="keyword">new</span>).forEach(s-&gt; System.out.println(s.getName()));</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="6、Stream的收集操作"><a href="#6、Stream的收集操作" class="headerlink" title="6、Stream的收集操作"></a>6、Stream的收集操作</h4><ul>
-<li>R collect(Collectors collector)  收集方法的参数是一个Collector接口</li>
-<li>工具类<code>Collectors</code>提供具体的收集方式<ul>
-<li>toLIst()</li>
-<li>toSet ()</li>
-<li>toMap()</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = arrayList.stream().filter(s -&gt; s.length() &gt; <span class="number">2</span>).collect(Collectors.toList());</span><br><span class="line"><span class="keyword">for</span> (String s:list)&#123;</span><br><span class="line">    System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/11%E9%9B%86%E5%90%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -919,7 +555,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:39:26" itemprop="dateModified" datetime="2020-12-06T22:39:26+08:00">2020-12-06</time>
+                <time title="修改时间：2020-12-17 13:20:05" itemprop="dateModified" datetime="2020-12-17T13:20:05+08:00">2020-12-17</time>
               </span>
 
           
@@ -954,9 +590,9 @@
 <p>是运行在Web服务器的小型Java程序，即<strong>服务器端小应用程序</strong></p>
 <p>通过HTTP(超文本传输协议) <strong>接收和响应Web客户端</strong>的请求</p>
 <h3 id="编写Servlet程序"><a href="#编写Servlet程序" class="headerlink" title="编写Servlet程序"></a>编写Servlet程序</h3><p>1、实现Servlet接口</p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911090821515.png" alt="image-20200911090821515"></p>
+<p><img src="https://csn.damyoung.cn/image-20200911090821515.png" alt="image-20200911090821515"></p>
 <p>2、修改web.xml文件</p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911091443831.png" alt="image-20200911091443831"></p>
+<p><img src="https://csn.damyoung.cn/image-20200911091443831.png" alt="image-20200911091443831"></p>
 <p>3、部署到tomcat服务器</p>
 <p>4、测试 <a target="_blank" rel="noopener" href="http://localhost:8080/demo1">http://localhost:8080/demo1</a></p>
 <h3 id="1、生命周期"><a href="#1、生命周期" class="headerlink" title="1、生命周期"></a>1、生命周期</h3><p>实例化–初始化–服务–销毁</p>
@@ -965,21 +601,21 @@
 <li>service：进行数据处理，只要接受一次请求，就会调用一次</li>
 <li>destroy：销毁servlet对象时调用。停止服务器或重新部署web应用时</li>
 </ul>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911093556913.png" alt="image-20200911093556913" style="zoom: 80%;" />
+<img src="https://csn.damyoung.cn/image-20200911093556913.png" alt="image-20200911093556913" style="zoom: 80%;" />
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911093611285.png" alt="image-20200911093611285" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20200911093611285.png" alt="image-20200911093611285" style="zoom:80%;" />
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911093623975.png" alt="image-20200911093623975" style="zoom:67%;" />
+<img src="https://csn.damyoung.cn/image-20200911093623975.png" alt="image-20200911093623975" style="zoom:67%;" />
 
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911093654231.png" alt="image-20200911093654231"></p>
+<p><img src="https://csn.damyoung.cn/image-20200911093654231.png" alt="image-20200911093654231"></p>
 <h3 id="2、Servlet创建方式"><a href="#2、Servlet创建方式" class="headerlink" title="2、Servlet创建方式"></a>2、Servlet创建方式</h3><p>1、实现javax.servlet.Servlet接口</p>
 <p>2、继承javax.servlet.GenericServlet类（适配器模式）</p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911102435492.png" alt="image-20200911102435492"></p>
+<p><img src="https://csn.damyoung.cn/image-20200911102435492.png" alt="image-20200911102435492"></p>
 <p>3、继承javax.servlet.http.HttpServlet类（模板方法模式）</p>
 <ul>
 <li>Servlet–GenericServlet–HttpServlet</li>
 </ul>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911112518725.png" alt="image-20200911112518725" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20200911112518725.png" alt="image-20200911112518725" style="zoom:80%;" />
 
 <h4 id="接收请求和响应"><a href="#接收请求和响应" class="headerlink" title="接收请求和响应"></a>接收请求和响应</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接收数据</span></span><br><span class="line">String username=request.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">String password=request.getParameter(<span class="string">&quot;password&quot;</span>);</span><br><span class="line">System.out.println(request.getRemoteAddr()+username+<span class="string">&quot;..&quot;</span>+password);</span><br></pre></td></tr></table></figure>
 
@@ -989,10 +625,10 @@
 
 <h4 id="映射路径"><a href="#映射路径" class="headerlink" title="映射路径"></a>映射路径</h4><p>匹配顺序：精确匹配&gt;路径匹配&gt;扩展名匹配&gt;缺省匹配</p>
 <p>（1）配置多个映射路径</p>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911100234541.png" alt="image-20200911100234541" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20200911100234541.png" alt="image-20200911100234541" style="zoom:80%;" />
 
 <p>（2）通配符</p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911100832172.png" alt="image-20200911100832172"></p>
+<p><img src="https://csn.damyoung.cn/image-20200911100832172.png" alt="image-20200911100832172"></p>
 <ul>
 <li><p>*<strong>.</strong>    以任意路径映射到这个servlet， 如 xx.</p>
 </li>
@@ -1004,11 +640,11 @@
 <p>（3）优先级</p>
 <p>绝对匹配&gt;/开头匹配&gt;扩展名方式匹配</p>
 <h4 id="servlet自动加载"><a href="#servlet自动加载" class="headerlink" title="servlet自动加载"></a>servlet自动加载</h4><p>servlet只有在第一次被访问的时候才会加载，这肯定会造成第一个访问的人访问时间较长，因为他需要等待servlet完成加载</p>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911110306560.png" alt="image-20200911110306560" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20200911110306560.png" alt="image-20200911110306560" style="zoom:80%;" />
 
 <h3 id="3、servlet配置方式"><a href="#3、servlet配置方式" class="headerlink" title="3、servlet配置方式"></a>3、servlet配置方式</h3><h4 id="（1）在web-xml文件中配置"><a href="#（1）在web-xml文件中配置" class="headerlink" title="（1）在web.xml文件中配置"></a>（1）在web.xml文件中配置</h4><h4 id="（2）注解方式"><a href="#（2）注解方式" class="headerlink" title="（2）注解方式"></a>（2）注解方式</h4><p>@WebServlet（”/xxx”）<strong>必须加上斜杆</strong></p>
 <p>value等价urlPatterns 类型 String[]   可以使用数组方式：urlPatterns={“/servlet/url1”,”/servlet/url2”}</p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911105435675.png" alt="image-20200911105435675"></p>
+<p><img src="https://csn.damyoung.cn/image-20200911105435675.png" alt="image-20200911105435675"></p>
 <p>访问/demo2的时候，服务器同样就会将处理交由Servlet1进行处理</p>
 <h3 id="4、Servlet对象"><a href="#4、Servlet对象" class="headerlink" title="4、Servlet对象"></a>4、Servlet对象</h3><p>HttpServletRequest 请求对象：获取请求信息</p>
 <p>HttpServletResponse 响应对象：设置响应对象</p>
@@ -1016,7 +652,7 @@
 <li>getInitParameter() 根据参数名获取参数值</li>
 <li>getInitParameterNames()  获取所有参数</li>
 </ul>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200911115059752.png" alt="image-20200911115059752"></p>
+<p><img src="https://csn.damyoung.cn/image-20200911115059752.png" alt="image-20200911115059752"></p>
 <h5 id="得到ServletContext对象"><a href="#得到ServletContext对象" class="headerlink" title="得到ServletContext对象"></a>得到ServletContext对象</h5><h4 id="（2）ServletContext"><a href="#（2）ServletContext" class="headerlink" title="**（2）ServletContext **"></a>**（2）ServletContext **</h4><p><strong>application域对象，在一定范围内，使多个Servlet共享数据</strong></p>
 <p>又叫Servlet上下文，代表当前整个应用程序，Web服务器启动时，会为每一个Web应用程序创建的一个共享的存储区域，在服务器启动时创建，关闭时销毁</p>
 <h5 id="获取方式"><a href="#获取方式" class="headerlink" title="获取方式"></a>获取方式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一种方法：</span></span><br><span class="line">ServletContext application = <span class="keyword">this</span>.getServletContext();</span><br><span class="line"><span class="comment">//第二种方式：</span></span><br><span class="line">ServletContext application2 = getServletConfig().getServletContext();</span><br><span class="line"><span class="comment">//第三种方法：通过session获取,常用</span></span><br><span class="line">ServletContext application3 = request.getSession().getServletContext();</span><br><span class="line"><span class="comment">//第四种方式：通过Request，最常用</span></span><br><span class="line">ServletContext application4 = request.getServletContext();</span><br></pre></td></tr></table></figure>
@@ -1035,15 +671,15 @@
 <li>输出一个随机数，控制浏览器每2s刷新一次</li>
 <li>利用Refresh刷新到其他组件</li>
 </ul>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200913151857738.png" alt="image-20200913151857738"></p>
+<p><img src="https://csn.damyoung.cn/image-20200913151857738.png" alt="image-20200913151857738"></p>
 <h5 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h5><p><strong>response.sendRedirect()</strong></p>
 <p><strong>实现原理：</strong>302/307状态码和location即可实现重定向</p>
 <p><strong>当一个web资源收到客服端请求后，通知客户端去访问另外一个web资源，称为请求重定向</strong></p>
 <ul>
 <li>客服端发出2次请求，服务端的俩个程序有各自的请求和响应对象，地址栏是变换的</li>
 </ul>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200913161050799.png" alt="image-20200913161050799"></p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200913161103773.png" alt="image-20200913161103773"></p>
+<p><img src="https://csn.damyoung.cn/image-20200913161050799.png" alt="image-20200913161050799"></p>
+<p><img src="https://csn.damyoung.cn/image-20200913161103773.png" alt="image-20200913161103773"></p>
 <h4 id="（4）HttpServletRequest"><a href="#（4）HttpServletRequest" class="headerlink" title="（4）HttpServletRequest"></a>（4）HttpServletRequest</h4><p><strong>request作为web资源，只能是转发，重定向无效</strong></p>
 <p><strong>域对象</strong></p>
 <p>代表客户端的请求，当客户端通过Http协议访问服务器时，Http请求头中的所有信息都封装在这个对象中</p>
@@ -1056,7 +692,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> resp.getWriter().write(<span class="string">&quot;工商局收到老汉提交的资料&lt;br/&gt;&quot;</span>);</span><br><span class="line"><span class="comment">//转发</span></span><br><span class="line">req.getRequestDispatcher(<span class="string">&quot;RequestSendDemo2&quot;</span>).forward(req, resp);</span><br><span class="line">resp.getWriter().write(<span class="string">&quot;工商局收到审批文件，工商再办证给老汉&lt;/br&gt;&quot;</span>);</span><br></pre></td></tr></table></figure>
 
 <h6 id="forward"><a href="#forward" class="headerlink" title="forward()"></a>forward()</h6><p>会先清空用于存放响应正文数据的缓冲区，源组件生成的响应结果不会被发送到客户端，只有目标组件生成的响应结果才会发送到客户端</p>
-<h6 id="include"><a href="#include" class="headerlink" title="include()"></a>include()</h6><p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200914164513879.png" alt="image-20200914164513879"></p>
+<h6 id="include"><a href="#include" class="headerlink" title="include()"></a>include()</h6><p><img src="https://csn.damyoung.cn/image-20200914164513879.png" alt="image-20200914164513879"></p>
 <h4 id="（5）转发与重定向"><a href="#（5）转发与重定向" class="headerlink" title="（5）转发与重定向"></a>（5）转发与重定向</h4><p><strong>转发</strong></p>
 <ul>
 <li>A要跳转到C网页，A需要先请求到B，B带领着A去请求C，相当于是A<strong>只请求了一次</strong>。</li>
@@ -1085,7 +721,7 @@
 </ul>
 <h4 id="6-2-配置过滤器"><a href="#6-2-配置过滤器" class="headerlink" title="6.2 配置过滤器"></a>6.2 配置过滤器</h4><p><strong>注解：</strong>@WebFilter(“/yourFilter”)</p>
 <p><strong>xml文件：</strong></p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200913205457410.png" alt="image-20200913205457410"></p>
+<p><img src="https://csn.damyoung.cn/image-20200913205457410.png" alt="image-20200913205457410"></p>
 <h4 id="6-3-多个过滤器执行顺序"><a href="#6-3-多个过滤器执行顺序" class="headerlink" title="6.3 多个过滤器执行顺序"></a>6.3 多个过滤器执行顺序</h4><p>注解优先级别设定</p>
 <p>在xml中，排前面的<code>filter-mapping</code>优先执行</p>
 <p>在注解中按照类名的<strong>字符串排序</strong>进行作用</p>
@@ -1110,8 +746,8 @@
 <p><strong>避免浏览器缓存的方法</strong>：浏览器还是会缓存，只是控制每次都是第一次访问</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse resp, FilterChain chain)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;开始执行过滤&quot;</span>);</span><br><span class="line">    HttpServletRequest request = (HttpServletRequest) req;</span><br><span class="line">    HttpServletResponse response = (HttpServletResponse) resp;</span><br><span class="line">    response.setDateHeader(<span class="string">&quot;Expires&quot;</span>,-<span class="number">1</span>);</span><br><span class="line">    response.setHeader(<span class="string">&quot;Cache-Control&quot;</span>,<span class="string">&quot;no-cache&quot;</span>);</span><br><span class="line">    response.setHeader(<span class="string">&quot;Pragma&quot;</span>,<span class="string">&quot;no-cache&quot;</span>);</span><br><span class="line">    chain.doFilter(req, resp);<span class="comment">//资源放行，只有这句话执行才能继续访问</span></span><br><span class="line">    </span><br><span class="line">    System.out.println(<span class="string">&quot;过滤完成&quot;</span>);</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
 
-<h3 id="7、封装表单元素"><a href="#7、封装表单元素" class="headerlink" title="7、封装表单元素"></a>7、封装表单元素</h3><h4 id="（1）getParameter"><a href="#（1）getParameter" class="headerlink" title="（1）getParameter"></a>（1）getParameter</h4><p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200914001911034.png" alt="image-20200914001911034"></p>
-<h4 id="（2）getParameterMap"><a href="#（2）getParameterMap" class="headerlink" title="（2）getParameterMap"></a>（2）getParameterMap</h4><p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200914001945037.png" alt="image-20200914001945037"></p>
+<h3 id="7、封装表单元素"><a href="#7、封装表单元素" class="headerlink" title="7、封装表单元素"></a>7、封装表单元素</h3><h4 id="（1）getParameter"><a href="#（1）getParameter" class="headerlink" title="（1）getParameter"></a>（1）getParameter</h4><p><img src="https://csn.damyoung.cn/image-20200914001911034.png" alt="image-20200914001911034"></p>
+<h4 id="（2）getParameterMap"><a href="#（2）getParameterMap" class="headerlink" title="（2）getParameterMap"></a>（2）getParameterMap</h4><p><img src="https://csn.damyoung.cn/image-20200914001945037.png" alt="image-20200914001945037"></p>
 <h4 id="（3）导入BeanUtils"><a href="#（3）导入BeanUtils" class="headerlink" title="（3）导入BeanUtils"></a>（3）导入BeanUtils</h4><p><strong>实体类变量应该与表单一致</strong></p>
 <p>导入三个包（将包放在tomcat/bin目录下）</p>
 <p>commons-beautils</p>
@@ -1138,15 +774,15 @@
 <p>作用范围：一次会话（可为多个Servlet共享）</p>
 <h4 id="（3）request域"><a href="#（3）request域" class="headerlink" title="（3）request域"></a>（3）request域</h4><p>生命周期:<strong>请求结束</strong>，request生命结束</p>
 <p>作用范围：<strong>整个请求链</strong>，只能是在<strong>一次转发有效</strong></p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200914164605601.png" alt="image-20200914164605601"></p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200914164615783.png" alt="image-20200914164615783"></p>
+<p><img src="https://csn.damyoung.cn/image-20200914164605601.png" alt="image-20200914164605601"></p>
+<p><img src="https://csn.damyoung.cn/image-20200914164615783.png" alt="image-20200914164615783"></p>
 <h4 id="（4）pageContext域"><a href="#（4）pageContext域" class="headerlink" title="（4）pageContext域"></a>（4）pageContext域</h4><p>生命周期：对JSP请求时开始，<strong>当响应结束时销毁</strong></p>
 <p>作用范围：整个JSP页面，是四大作用域中最小的一个，即超过这个页面就不能够使用了，</p>
 <p><strong>但可以操作其他三个域对象</strong></p>
 <ul>
 <li>俩种方式来操作Request对象</li>
 </ul>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200916143001663.png" alt="image-20200916143001663"></p>
+<p><img src="https://csn.damyoung.cn/image-20200916143001663.png" alt="image-20200916143001663"></p>
 <h3 id="9、文件的上传和下载"><a href="#9、文件的上传和下载" class="headerlink" title="9、文件的上传和下载"></a>9、文件的上传和下载</h3><p>导入jar包 commons-fileupload、commons-io-2.2</p>
 <p><strong>上传和下载文件均需要绝对路径</strong></p>
 <h4 id="9-1-上传"><a href="#9-1-上传" class="headerlink" title="9.1 上传"></a>9.1 上传</h4><p><strong>由于设置为文件可上传，故传统方式无法获得！！！！！！！！</strong></p>
@@ -1220,8 +856,8 @@
 <li>访问其他Web资源时，取出在用户各自的session 为用户服务</li>
 </ul>
 <p><strong>Session中的数据可供当前会话中所有Servlet共享</strong>,常用于登录验证</p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200915144801366.png" alt="image-20200915144801366"></p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200915144814022.png" alt="image-20200915144814022"></p>
+<p><img src="https://csn.damyoung.cn/image-20200915144801366.png" alt="image-20200915144801366"></p>
+<p><img src="https://csn.damyoung.cn/image-20200915144814022.png" alt="image-20200915144814022"></p>
 <h3 id="11、监听器"><a href="#11、监听器" class="headerlink" title="11、监听器"></a>11、监听器</h3><h2 id="Servlet技术"><a href="#Servlet技术" class="headerlink" title="Servlet技术"></a>Servlet技术</h2><h4 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 多条件查询</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Book&gt; <span class="title">searchBooks</span><span class="params">(String name,String category,String author,String minPrice,String maxPrice,</span></span></span><br><span class="line"><span class="function"><span class="params">                              String sales)</span></span>&#123;</span><br><span class="line">    StringBuilder stringBuilder=<span class="keyword">new</span> StringBuilder();</span><br><span class="line">    stringBuilder.append(<span class="string">&quot;select *from book where 1=1 &quot;</span>);</span><br><span class="line">    ArrayList list=<span class="keyword">new</span> ArrayList();</span><br><span class="line">    <span class="keyword">if</span> (!<span class="string">&quot;&quot;</span>.equals(name))&#123;</span><br><span class="line">        stringBuilder.append(<span class="string">&quot; and name like ?&quot;</span>);</span><br><span class="line">        list.add(<span class="string">&quot;%&quot;</span>+name+<span class="string">&quot;%&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="string">&quot;&quot;</span>.equals(category))&#123;</span><br><span class="line">        stringBuilder.append(<span class="string">&quot; and category = ?&quot;</span>);</span><br><span class="line">        list.add(category);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="string">&quot;&quot;</span>.equals(author))&#123;</span><br><span class="line">        stringBuilder.append(<span class="string">&quot; and author like ?&quot;</span>);</span><br><span class="line">        list.add(<span class="string">&quot;%&quot;</span>+author+<span class="string">&quot;%&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="string">&quot;&quot;</span>.equals(minPrice))&#123;</span><br><span class="line">        stringBuilder.append(<span class="string">&quot; and price &gt;=?&quot;</span>);</span><br><span class="line">        list.add(minPrice);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="string">&quot;&quot;</span>.equals(maxPrice))&#123;</span><br><span class="line">        stringBuilder.append(<span class="string">&quot; and price &lt;= ?&quot;</span>);</span><br><span class="line">        list.add(maxPrice);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="string">&quot;&quot;</span>.equals(sales))&#123;</span><br><span class="line">        stringBuilder.append(<span class="string">&quot; and sales &gt;= ?&quot;</span>);</span><br><span class="line">        list.add(sales);</span><br><span class="line">    &#125;</span><br><span class="line">    String sql = stringBuilder.toString();</span><br><span class="line">    sql=sql+ <span class="string">&quot; order by id&quot;</span>;</span><br><span class="line"></span><br><span class="line">    QueryRunner queryRunner=<span class="keyword">new</span> QueryRunner(DruidUtils.getDataSource());</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> queryRunner.query(sql,<span class="keyword">new</span> BeanListHandler&lt;&gt;(Book.class),list.toArray());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="1、图片验证"><a href="#1、图片验证" class="headerlink" title="1、图片验证"></a>1、图片验证</h4><p>myweb3/login</p>
@@ -4375,6 +4011,356 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/08/11/05%E5%B8%B8%E8%A7%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哈哈哈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/11/05%E5%B8%B8%E8%A7%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-08-11T12:33:33+08:00">2020-08-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 13:17:24" itemprop="dateModified" datetime="2020-12-17T13:17:24+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/08/11/05%E5%B8%B8%E8%A7%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-meta-item leancloud_visitors" data-flag-title="设计模式" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、创建型模式"><a href="#一、创建型模式" class="headerlink" title="一、创建型模式"></a>一、创建型模式</h2><h3 id="1、单例模式"><a href="#1、单例模式" class="headerlink" title="1、单例模式"></a><strong>1</strong>、单例模式</h3><p>Singleton</p>
+<blockquote>
+<p>一个类只有一个实例，且该类能自行创建这个实例的一种模式</p>
+</blockquote>
+<p><strong>特点</strong></p>
+<blockquote>
+<ul>
+<li>私有的构造方法，外部不能直接创建该类的实例</li>
+</ul>
+</blockquote>
+<p><strong>应用</strong></p>
+<blockquote>
+<ul>
+<li>某类只要求生成一个对象，对象需要被共享的场合</li>
+<li>当某类需要频繁实例化，而创建的对象又频繁被销毁的时候</li>
+</ul>
+<p>​    如多线程的线程池、tomcat连接池等</p>
+</blockquote>
+<h4 id="1-1-懒汉式"><a href="#1-1-懒汉式" class="headerlink" title="1.1 懒汉式"></a>1.1 懒汉式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Lhan</span></span>&#123;</span><br><span class="line">    <span class="comment">//私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Lhan</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Lhan instance=<span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Lhan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//balking模式</span></span><br><span class="line">        <span class="keyword">if</span>(instance!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">        instance=<span class="keyword">new</span> Lhan();</span><br><span class="line">        returen instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多次调用都会调用Synchronized锁，性能较低。</li>
+</ul>
+<h4 id="1-2-饿汉式"><a href="#1-2-饿汉式" class="headerlink" title="1.2 饿汉式"></a>1.2 饿汉式</h4><blockquote>
+<p>实例在初始化的时候已经创建，<strong>JVM在加载类的时候是单线程的，由于实例被static修饰</strong>，故没有线程安全的问题</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Ehan</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="comment">//私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Ehan</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Lhan instance=<span class="keyword">new</span> Ehan();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Ehan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        returen instance;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//防止反序列化破坏单例</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">readResolve</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>final–防止子类继承覆盖，破坏单例</li>
+<li>构造方法私有，防止创建新的实例，但不能防止反射创建新的实例</li>
+<li>static修饰在加载类时创建，JVM在加载类的时候是单线程，可以保证是线程安全的。</li>
+<li><strong>方法封装提供一些懒惰的初始化，提供泛型的支持</strong></li>
+</ul>
+<h4 id="1-3-双检锁式"><a href="#1-3-双检锁式" class="headerlink" title="1.3 双检锁式"></a>1.3 双检锁式</h4><blockquote>
+<p>特点是在synchronized关键字内外都加了一层 if 条件判断</p>
+<p>既保证了线程安全，又比直接上锁提高了执行效率，还节省了内存空间</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="comment">//私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Lhan</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton instance=<span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(Singleton.class)&#123;</span><br><span class="line">                <span class="comment">//防止并发下，单例对象不会被重复创建。</span></span><br><span class="line">                <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">                    <span class="comment">//当t1到达这里，未实例化null</span></span><br><span class="line">                    instance=<span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>双重if，防止并发条件下，单例对象不会被重复创建。</li>
+</ul>
+<h4 id="1-4-静态内部类"><a href="#1-4-静态内部类" class="headerlink" title="1.4 静态内部类"></a>1.4 静态内部类</h4><blockquote>
+<p>实例化设置为静态内部类的一个静态属性。</p>
+<p>只适用于静态域的情况，双检锁方式可在实例域需要延迟初始化时使用。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE=<span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>第一次使用时，才会触发类加载操作的，故属于懒汉式</p>
+</li>
+<li><p>类加载时JVM是单线程的，无线程安全问题。</p>
+</li>
+</ul>
+<h4 id="1-5-枚举单例"><a href="#1-5-枚举单例" class="headerlink" title="1.5 枚举单例"></a>1.5 枚举单例</h4><blockquote>
+<p>可为饿汉式的改进</p>
+<p>自动支持序列化机制，绝对防止多次实例化。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="comment">//实例化</span></span><br><span class="line">    INSTANCE;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;枚举单例&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Singleton instance = Singleton.INSTANCE;</span><br><span class="line">    instance.get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>枚举实例是静态的，创建时线程安全</li>
+<li>不能被反射破坏单例</li>
+<li>枚举类默认实现序列化接口，不会被反序列破坏单例</li>
+<li>属于饿汉式单例</li>
+</ul>
+<h3 id="2、原型模式"><a href="#2、原型模式" class="headerlink" title="2、原型模式"></a>2、原型模式</h3><blockquote>
+<p>Prototype</p>
+<p><strong>用一个已经创建的实例作为原型，通过拷贝这些原型创建新的对象</strong></p>
+<p>Object类clone()方法提供了浅克隆，实现Cloneable接口实现浅克隆</p>
+</blockquote>
+<p><strong>应用</strong></p>
+<ul>
+<li>对象的创建过程比较麻烦，但复制比较简单</li>
+<li>对象之间相同或相似，仅有个别属性不同</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        Dog dog=<span class="keyword">new</span> Dog();</span><br><span class="line">        dog.id=<span class="keyword">this</span>.id;</span><br><span class="line">        dog.name=<span class="keyword">this</span>.name;</span><br><span class="line">        <span class="keyword">return</span> dog;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Dog dog=<span class="keyword">new</span> Dog();</span><br><span class="line"><span class="comment">//需要强转</span></span><br><span class="line">Dog clone = (Dog) dog.clone();</span><br><span class="line">System.out.println(dog);</span><br><span class="line">System.out.println(clone);</span><br></pre></td></tr></table></figure>
+
+<p><strong>改进</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> score;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Student <span class="title">copy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Student std = <span class="keyword">new</span> Student();</span><br><span class="line">        std.id = <span class="keyword">this</span>.id;</span><br><span class="line">        std.name = <span class="keyword">this</span>.name;</span><br><span class="line">        std.score = <span class="keyword">this</span>.score;</span><br><span class="line">        <span class="keyword">return</span> std;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3、工厂模式"><a href="#3、工厂模式" class="headerlink" title="3、工厂模式"></a>3、工厂模式</h3><h4 id="3-1-简单工厂模式"><a href="#3-1-简单工厂模式" class="headerlink" title="3.1 简单工厂模式"></a>3.1 简单工厂模式</h4><blockquote>
+<ul>
+<li>将全部创建逻辑集中到了一个工厂类中；</li>
+<li>它所能创建的类只能是事先考虑到的，如果需要添加新的类，则就需要改变工厂类了，而增加、删除某个子类对象的创建都需要打开简单工厂类来进行修改违背了开闭原则。</li>
+<li>又称为<strong>静态工厂模式</strong></li>
+</ul>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">interface</span> <span class="title">Oberation</span></span>&#123;</span><br><span class="line"> 	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA,<span class="keyword">double</span> numberB)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//具体实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Add</span> <span class="keyword">implements</span> <span class="title">Operation</span></span>&#123;</span><br><span class="line">    <span class="comment">// 加法计算</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA, <span class="keyword">double</span> numberB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> numberA + numberB;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sub</span> <span class="keyword">implements</span> <span class="title">Operation</span></span>&#123;</span><br><span class="line">    <span class="comment">// 减法计算</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA, <span class="keyword">double</span> numberB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> numberA-numberB;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//定义简单工厂类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleFatory</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 简单工厂，根据字符串创建相应的对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Operation <span class="title">createOperation</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        Operation operationObj = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (name) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;+&quot;</span>:</span><br><span class="line">                operationObj = <span class="keyword">new</span> Add();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;-&quot;</span>:</span><br><span class="line">                operationObj = <span class="keyword">new</span> Sub();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">     	&#125;</span><br><span class="line">     	<span class="keyword">return</span> operationObj;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Opera</span></span>&#123;</span><br><span class="line">    Operation op=SimpleFatort.createOperation(<span class="string">&quot;+&quot;</span>);</span><br><span class="line">    op.getResult(<span class="number">3</span>,<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-2-工厂方法模式"><a href="#3-2-工厂方法模式" class="headerlink" title="3.2 工厂方法模式"></a>3.2 工厂方法模式</h4><blockquote>
+<ul>
+<li>用户只需要知道具体工厂的名称就可得到所要的产品，无须知道产品的具体创建过程；</li>
+<li>在系统增加新的产品时只需要添加具体产品类和对应的具体工厂类，无须对原工厂进行任何修改，满足开闭原则</li>
+</ul>
+</blockquote>
+<blockquote>
+<ol>
+<li>抽象工厂（Abstract Factory）：提供了创建产品的接口，调用者通过它访问具体工厂的工厂方法 newProduct() 来创建产品。</li>
+<li>具体工厂（ConcreteFactory）：主要是实现抽象工厂中的抽象方法，完成具体产品的创建。</li>
+<li>抽象产品（Product）：定义了产品的规范，描述了产品的主要特性和功能。</li>
+<li>具体产品（ConcreteProduct）：实现了抽象产品角色所定义的接口，由具体工厂来创建，它同具体工厂之间一一对应。</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//工厂抽象接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Operation <span class="title">createOperation</span><span class="params">()</span> </span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//产品抽象接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Operation</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA,<span class="keyword">double</span> numberB)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加法类工厂</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AddFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Operation <span class="title">createOperation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;加法运算&quot;</span>);</span><br><span class="line">        <span class="comment">//加法对象</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 减法类工厂</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Operation <span class="title">createOperation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;减法运算&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Sub();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Add</span> <span class="keyword">implements</span> <span class="title">Operation</span></span>&#123;</span><br><span class="line">    <span class="comment">// 加法计算</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA, <span class="keyword">double</span> numberB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> numberA + numberB;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sub</span> <span class="keyword">implements</span> <span class="title">Operation</span></span>&#123;</span><br><span class="line">    <span class="comment">// 减法计算</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA, <span class="keyword">double</span> numberB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> numberA-numberB;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 使用反射机制实例化工厂对象，因为字符串是可以通过变量改变的</span></span><br><span class="line">        Factory addFactory = (Factory) Class.forName(<span class="string">&quot;org.zero01.factory.AddFactory&quot;</span>).newInstance();</span><br><span class="line">        Factory subFactory=(Factory) Class.forName(<span class="string">&quot;org.zero01.factory.SubFactory&quot;</span>).newInstance();</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 通过工厂对象创建相应的实例对象</span></span><br><span class="line">        Operation add = addFactory.createOperation();</span><br><span class="line">        Operation sub = subFactory.createOperation();</span><br><span class="line"> </span><br><span class="line">        System.out.println(add.getResult(<span class="number">1</span>, <span class="number">1</span>));</span><br><span class="line">        System.out.println(sub.getResult(<span class="number">1</span>, <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>应用</strong></p>
+<blockquote>
+<ul>
+<li>客户只知道创建产品的工厂名，而不知道具体的产品名。如 TCL 电视工厂、海信电视工厂等。</li>
+<li>创建对象的任务由多个具体子工厂中的某一个完成，而抽象工厂只提供创建产品的接口。</li>
+<li>客户不关心创建产品的细节，只关心产品的品牌。</li>
+</ul>
+</blockquote>
+<h4 id="3-3-抽象工厂模式"><a href="#3-3-抽象工厂模式" class="headerlink" title="3.3 抽象工厂模式"></a>3.3 抽象工厂模式</h4><blockquote>
+<p>抽象工厂模式将考虑多等级产品的生产，将同一个具体工厂所生产的位于不同等级的一组产品称为一个产品族</p>
+<p><strong>应用</strong></p>
+<ul>
+<li>系统中有多个产品族，每个具体工厂创建同一族但属于不同等级结构的产品。</li>
+<li>系统一次只可能消费其中某一族产品，即同族的产品一起使用。</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>可以在类的内部对产品族中相关联的多等级产品共同管理，而不必专门引入多个新的类来进行管理。</li>
+<li>当增加一个<strong>新的产品族</strong>时不需要修改原代码，满足开闭原则。</li>
+<li>但当产品族中需要增加一个<strong>新种类的产品</strong>时，则所有的工厂类都需要进行修改，不满足开闭原则。</li>
+</ul>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Horse</span> <span class="keyword">implements</span> <span class="title">Aniaml</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Plant</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fruitage</span> <span class="keyword">implements</span> <span class="title">Plant</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象工厂</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Farm</span></span>&#123;</span><br><span class="line">    <span class="comment">//Animal产品</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animal <span class="title">newAnimal</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//Plant产品</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Plant <span class="title">newPlant</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SGfarm</span> <span class="keyword">implements</span> <span class="title">Farm</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animal <span class="title">newAnimal</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Cattle();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Plant <span class="title">newPlant</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Vegetables();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="二、结构型模式"><a href="#二、结构型模式" class="headerlink" title="二、结构型模式"></a>二、结构型模式</h2><h3 id="1、享元模式"><a href="#1、享元模式" class="headerlink" title="1、享元模式"></a>1、享元模式</h3><blockquote>
+<p><strong>重用数量有限的同一类对象</strong></p>
+</blockquote>
+<h4 id="1-1-体现"><a href="#1-1-体现" class="headerlink" title="1.1 体现"></a>1.1 体现</h4><p><strong>包装类</strong></p>
+<p>Long.valueOf(long l) 避免重复数量的重复创建。-128~127</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">valueOf</span><span class="params">(<span class="keyword">long</span> l)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> offset = <span class="number">128</span>;</span><br><span class="line">    <span class="keyword">if</span> (l &gt;= -<span class="number">128</span> &amp;&amp; l &lt;= <span class="number">127</span>) &#123; <span class="comment">// will cache</span></span><br><span class="line">        <span class="keyword">return</span> LongCache.cache[(<span class="keyword">int</span>)l + offset];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Long(l);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-自定义线程池"><a href="#1-2-自定义线程池" class="headerlink" title="1.2 自定义线程池"></a>1.2 自定义线程池</h4><blockquote>
+<p>一次请求到达后，从连接池获取连接，使用完毕再还回连接池。</p>
+<p>节约了连接的创建和关闭时间，也实现了<strong>连接的复用</strong>，不至于让庞大的连接数压垮数据库</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Pool pool=<span class="keyword">new</span> Pool(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            Connection connection=pool.borrow();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">1000</span>));</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            pool.free(connection);</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pool</span></span>&#123;</span><br><span class="line">    <span class="comment">//1.连接池大小</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> poolSize;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2.连接对象 数组</span></span><br><span class="line">    <span class="keyword">private</span> Connection[] connections;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//3.连接状态数组 0表示空闲 1表示繁忙</span></span><br><span class="line">    <span class="keyword">private</span> AtomicIntegerArray state;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pool</span><span class="params">(<span class="keyword">int</span> poolSize)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.poolSize = poolSize;</span><br><span class="line">        <span class="keyword">this</span>.connections = <span class="keyword">new</span> Connection[poolSize];</span><br><span class="line">        <span class="keyword">this</span>.state = <span class="keyword">new</span> AtomicIntegerArray(<span class="keyword">new</span> <span class="keyword">int</span>[poolSize]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;poolSize ; i++) &#123;</span><br><span class="line">            connections[i]=<span class="keyword">new</span> MockConnection();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//借连接</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Connection <span class="title">borrow</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;poolSize; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (state.get(i)==<span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="comment">//CAS</span></span><br><span class="line">                    <span class="keyword">if</span> (state.compareAndSet(i,<span class="number">0</span>,<span class="number">1</span>))&#123;</span><br><span class="line">                        <span class="keyword">return</span> connections[i];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//如果没有空闲连接，当前线程进入等待！！！</span></span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="keyword">this</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">this</span>.wait();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//归还连接</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">free</span><span class="params">(Connection connection)</span></span>&#123;</span><br><span class="line">        <span class="comment">//判断归还的连接对象是否为连接池的连接！！！</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;poolSize; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (connections[i]==connection) &#123;</span><br><span class="line">                state.set(i,<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">synchronized</span> (<span class="keyword">this</span>)&#123;</span><br><span class="line">                    <span class="comment">//唤醒wait线程</span></span><br><span class="line">                    <span class="keyword">this</span>.notifyAll();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockConnection</span> <span class="keyword">implements</span> <span class="title">Connection</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2、适配器模式"><a href="#2、适配器模式" class="headerlink" title="2、适配器模式"></a>2、适配器模式</h3><blockquote>
+<p>Adapter</p>
+<p><strong>将一个类的接口转换成另一个接口，使得原本接口不兼容而不能工作的类可以工作</strong></p>
+<p><code>InputStreamReader</code>、<code>Array.asList(T[])</code></p>
+</blockquote>
+<h5 id="2-1-自定义适配器"><a href="#2-1-自定义适配器" class="headerlink" title="2.1 自定义适配器"></a>2.1 <strong>自定义适配器</strong></h5><blockquote>
+<p>由于new Thread(Runnable runnable)，不能接收Callable接口，可以使用适配器。</p>
+</blockquote>
+<p><strong>适配器构建</strong></p>
+<ul>
+<li>实现目标接口Runnable</li>
+<li>内部进行接口转化，Callable</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Task</span> <span class="keyword">implements</span> <span class="title">Callable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            System.out.println(sum+=i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RunnableAdapter</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Callable callable;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RunnableAdapter</span><span class="params">(Callable callable)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.callable=callable;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            callable.call();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Task task=<span class="keyword">new</span> Task();</span><br><span class="line">    Thread thread=<span class="keyword">new</span> Thread(<span class="keyword">new</span> RunnableAdapter(task));</span><br><span class="line">    thread.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-2-API使用"><a href="#2-2-API使用" class="headerlink" title="2.2 API使用"></a>2.2 API使用</h5><blockquote>
+<p>string[] ==&gt; Set的构造方法需要一个集合</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashSet</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</span><br><span class="line">    map = <span class="keyword">new</span> HashMap&lt;&gt;(Math.max((<span class="keyword">int</span>) (c.size()/<span class="number">.75f</span>) + <span class="number">1</span>, <span class="number">16</span>));</span><br><span class="line">    addAll(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] strings=&#123;<span class="string">&quot;ag&quot;</span>,<span class="string">&quot;sa&quot;</span>,<span class="string">&quot;sfd&quot;</span>&#125;;</span><br><span class="line">HashSet&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;(Arrays.asList(strings));</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>InputStream==Reader</p>
+<ul>
+<li>要求使用字符流，而只提供字节流</li>
+</ul>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">InputStream inputStream=<span class="keyword">new</span> FileInputStream(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">Reader reader=<span class="keyword">new</span> InputStreamReader(inputStream);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3、代理模式"><a href="#3、代理模式" class="headerlink" title="3、代理模式"></a>3、代理模式</h3><blockquote>
+<p>Proxy</p>
+<p><strong>为其他对象提供一种代理以控制对这个对象的访问</strong></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> AProxy implements A&#123;</span><br><span class="line">	<span class="keyword">private</span> A a;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">AProxy</span><span class="params">(A a)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.a=a;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">a</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (getCurrentUser().isRoot()) &#123;</span><br><span class="line">        	<span class="keyword">this</span>.a.a();</span><br><span class="line">   		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        	<span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">&quot;Forbidden&quot;</span>);</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>优点</strong></p>
+<ul>
+<li>在客户端与目标对象之间起到一个中介作用和保护目标对象的作用</li>
+<li>扩展目标对象的功能</li>
+<li>将客户端与目标对象分离，在一定程度上降低了系统的耦合度，增加程序的可扩展性</li>
+</ul>
+<p><strong>代理类型</strong></p>
+<p>远程代理：把对接口的方法访问转换成远程调用，返回结果</p>
+<p>虚代理：先让调用者先持有一个代理对象，真正的对象尚未创建。</p>
+<p>保护代理：用代理对象控制对原始对象的访问，用于鉴权</p>
+<p>​    </p>
+<h3 id="4、装饰器模式"><a href="#4、装饰器模式" class="headerlink" title="4、装饰器模式"></a>4、装饰器模式</h3><blockquote>
+<p>decorator</p>
+<p><strong>动态的给对象添加一些额外的职责</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">             ┌───────────┐</span><br><span class="line">             │ Component │</span><br><span class="line">             └───────────┘</span><br><span class="line">                   ▲</span><br><span class="line">      ┌────────────┼─────────────────┐</span><br><span class="line">      │            │                 │</span><br><span class="line">┌───────────┐┌───────────┐     ┌───────────┐</span><br><span class="line">│ComponentA ││ComponentB │...  │ Decorator │</span><br><span class="line">└───────────┘└───────────┘     └───────────┘</span><br><span class="line">                                     ▲</span><br><span class="line">                              ┌──────┴──────┐</span><br><span class="line">                              │             │</span><br><span class="line">                        ┌───────────┐ ┌───────────┐</span><br><span class="line">                        │DecoratorA │ │DecoratorB │...</span><br><span class="line">                        └───────────┘ └───────────┘</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>把核心功能和附加功能给分开了</strong></p>
+<p>核心功能指<code>FileInputStream</code>这些真正读数据的源头，附加功能指加缓冲、压缩、解密这些功能。</p>
+<p>新增核心功能，就增加Component的子类，例如<code>ByteInputStream</code>。</p>
+<p>增加附加功能，就增加Decorator的子类，例如<code>CipherInputStream</code>。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建原始的数据源:</span></span><br><span class="line">InputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;test.gz&quot;</span>);</span><br><span class="line"><span class="comment">// 增加缓冲功能:</span></span><br><span class="line">InputStream bis = <span class="keyword">new</span> BufferedInputStream(fis);</span><br><span class="line"><span class="comment">// 增加解压缩功能:</span></span><br><span class="line">InputStream gis = <span class="keyword">new</span> GZIPInputStream(bis);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="三、行为型模式"><a href="#三、行为型模式" class="headerlink" title="三、行为型模式"></a>三、行为型模式</h2><h3 id="1、责任链模式"><a href="#1、责任链模式" class="headerlink" title="1、责任链模式"></a>1、责任链模式</h3><blockquote>
+<p>chain of Responsibility</p>
+<p>使多个对象都有机会处理请求，将这些对象连成一条链，并沿着这条链传递请求，直到有一个对象处理它为止，避免请求的发送者与接收者之间的耦合关系。</p>
+</blockquote>
+<blockquote>
+<p>当每个Handler都做一些工作，处理request,通常这些责任链被称为拦截器、过滤器</p>
+<ul>
+<li>记录日志；</li>
+<li>检查权限；</li>
+<li>准备相关资源；</li>
+<li>…</li>
+</ul>
+</blockquote>
+<p><strong>Servlet中filter</strong></p>
+<blockquote>
+<p>不但允许每个<code>Filter</code>都有机会处理请求，还允许每个<code>Filter</code>决定是否将请求“放行”给下一个<code>Filter</code>：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuditFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse resp, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        log(req);</span><br><span class="line">        <span class="keyword">if</span> (check(req)) &#123;</span><br><span class="line">            <span class="comment">// 放行:</span></span><br><span class="line">            chain.doFilter(req, resp);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 拒绝:</span></span><br><span class="line">            sendError(resp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2、模板模式"><a href="#2、模板模式" class="headerlink" title="2、模板模式"></a>2、模板模式</h3><blockquote>
+<p>template method</p>
+<p><strong>定义一个操作中的算法的骨架，而将一些步骤延迟到子类</strong></p>
+<p><strong>使得子类可以不改变算法结构而重定义算法中的某些特定步骤</strong></p>
+<ul>
+<li>父类定义骨架，子类实现某些细节</li>
+<li>为了防止子类重写父类的骨架方法，可以在父类中对骨架方法使用<code>final</code>。</li>
+<li>对于需要子类实现的抽象方法，一般声明为<code>protected</code>，使得这些方法对外部客户端不可见。</li>
+</ul>
+</blockquote>
+<p><strong>应用数据库缓存</strong></p>
+<blockquote>
+<p>定义一个算法骨架,而将一些步骤延迟到子类(lookupCache/putIntoCache)</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractSetting</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">getSetting</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        String value = lookupCache(key);</span><br><span class="line">        <span class="keyword">if</span> (value == <span class="keyword">null</span>) &#123;</span><br><span class="line">            value = readFromDatabase(key);</span><br><span class="line">            putIntoCache(key, value);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> String <span class="title">lookupCache</span><span class="params">(String key)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">putIntoCache</span><span class="params">(String key, String value)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>假设我们希望用一个<code>Map</code>做缓存，那么可以写一个<code>LocalSetting</code>：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalSetting</span> <span class="keyword">extends</span> <span class="title">AbstractSetting</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, String&gt; cache = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> String <span class="title">lookupCache</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> cache.get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">putIntoCache</span><span class="params">(String key, String value)</span> </span>&#123;</span><br><span class="line">        cache.put(key, value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果我们要使用Redis做缓存，那么可以再写一个<code>RedisSetting</code>：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisSetting</span> <span class="keyword">extends</span> <span class="title">AbstractSetting</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> RedisClient client = RedisClient.create(<span class="string">&quot;redis://localhost:6379&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> String <span class="title">lookupCache</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (StatefulRedisConnection&lt;String, String&gt; connection = client.connect()) &#123;</span><br><span class="line">            RedisCommands&lt;String, String&gt; commands = connection.sync();</span><br><span class="line">            <span class="keyword">return</span> commands.get(key);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">putIntoCache</span><span class="params">(String key, String value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (StatefulRedisConnection&lt;String, String&gt; connection = client.connect()) &#123;</span><br><span class="line">            RedisCommands&lt;String, String&gt; commands = connection.sync();</span><br><span class="line">            commands.set(key, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -4444,20 +4430,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
