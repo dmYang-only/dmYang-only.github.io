@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="哈哈哈">
 <meta property="og:description" content="一、存储过程与函数1、概述 存储过程和函数是事先经过编译并存储在数据库中的一段 SQL 语句的集合  作用   调用存储过程和函数可以减少数据在数据库和应用服务器之间的传输，对于提高数据处理的效率是有好处的。         存储过程和函数的区别在于函数必须有返回值，而存储过程没有。  函数 ： 是一个有返回值的过程 ；  过程 ： 是一个没有返回值的函数 ；    2、存储过程procedure">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20201019083355334.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20201019091344892.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20201019092152503.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20201019093239027.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20201019132216659.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019083355334.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019091344892.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019092152503.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019093239027.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019132216659.png">
 <meta property="article:published_time" content="2020-11-11T04:33:33.000Z">
-<meta property="article:modified_time" content="2020-12-06T14:49:07.327Z">
+<meta property="article:modified_time" content="2020-12-17T05:08:37.989Z">
 <meta property="article:author" content="dmYang">
 <meta property="article:tag" content="MySql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20201019083355334.png">
+<meta name="twitter:image" content="https://csn.damyoung.cn/image-20201019083355334.png">
 
 <link rel="canonical" href="https://dmyang-only.github.io/2020/11/11/07%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%87%BD%E6%95%B0/">
 
@@ -203,7 +203,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:49:07" itemprop="dateModified" datetime="2020-12-06T22:49:07+08:00">2020-12-06</time>
+                <time title="修改时间：2020-12-17 13:08:37" itemprop="dateModified" datetime="2020-12-17T13:08:37+08:00">2020-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -360,7 +360,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">create procedure pro_test4(in n int)</span><br><span class="line">begin</span><br><span class="line">declare total int default 0;</span><br><span class="line">declare num int default 0;</span><br><span class="line">while num&lt;&#x3D;n do</span><br><span class="line">set total&#x3D;total+num;</span><br><span class="line">set num&#x3D;num+1;</span><br><span class="line">end while;</span><br><span class="line">select concat(&#39;num的值&#39;,num,&#39;total的值&#39;,total);</span><br><span class="line">end#</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201019083355334.png" alt="image-20201019083355334" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201019083355334.png" alt="image-20201019083355334" style="zoom:80%;" />
 
 
 
@@ -409,7 +409,7 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">create procedure pro_test11()</span><br><span class="line">begin</span><br><span class="line">declare e_id int(11);</span><br><span class="line">declare e_name varchar(50);</span><br><span class="line">declare e_age int(11);</span><br><span class="line">declare e_salary int(11);</span><br><span class="line">declare emp_result cursor for select *from emp;</span><br><span class="line"></span><br><span class="line">open emp_result;</span><br><span class="line">fetch emp_result into e_id,e_name,e_age,e_salary;</span><br><span class="line">select concat(&#39;id&#x3D;&#39;,e_id,&#39;,name&#x3D;&#39;,e_name,&#39;,age&#x3D;&#39;,e_age,&#39;,salary&#x3D;&#39;,e_salary);</span><br><span class="line">close emp_result;</span><br><span class="line">end#</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201019091344892.png" alt="image-20201019091344892" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201019091344892.png" alt="image-20201019091344892" style="zoom:80%;" />
 
 <p><strong>循环获取</strong></p>
 <blockquote>
@@ -417,7 +417,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">create procedure pro_test12()</span><br><span class="line">begin</span><br><span class="line">declare e_id int(11);</span><br><span class="line">declare e_name varchar(50);</span><br><span class="line">declare e_age int(11);</span><br><span class="line">declare e_salary int(11);</span><br><span class="line">declare has_data int default 1;</span><br><span class="line"></span><br><span class="line">declare emp_result cursor for select *from emp;</span><br><span class="line">-- 抓取不到数据设置为0,放在游标后面</span><br><span class="line">declare exit handler for not found set has_data&#x3D;0;</span><br><span class="line"></span><br><span class="line">open emp_result;</span><br><span class="line"></span><br><span class="line">repeat</span><br><span class="line">fetch emp_result into e_id,e_name,e_age,e_salary;</span><br><span class="line">select concat(&#39;id&#x3D;&#39;,e_id,&#39;,name&#x3D;&#39;,e_name,&#39;,age&#x3D;&#39;,e_age,&#39;,salary&#x3D;&#39;,e_salary);</span><br><span class="line">until has_data&#x3D;0</span><br><span class="line">end repeat;</span><br><span class="line"></span><br><span class="line">close emp_result;</span><br><span class="line">end#</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201019092152503.png" alt="image-20201019092152503" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201019092152503.png" alt="image-20201019092152503" style="zoom:80%;" />
 
 
 
@@ -435,7 +435,7 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select fun1(2)#</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201019093239027.png" alt="image-20201019093239027" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201019093239027.png" alt="image-20201019093239027" style="zoom:80%;" />
 
 <h5 id="4-2-删除存储函数"><a href="#4-2-删除存储函数" class="headerlink" title="4.2 删除存储函数"></a>4.2 删除存储函数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop function fun2#</span><br></pre></td></tr></table></figure>
 
@@ -488,7 +488,7 @@
 <p>测试</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into emp(id,name,age,salary) values(null, &#39;光明左使&#39;,30,3500);</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201019132216659.png" alt="image-20201019132216659" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201019132216659.png" alt="image-20201019132216659" style="zoom:80%;" />
 
 
 
@@ -603,7 +603,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

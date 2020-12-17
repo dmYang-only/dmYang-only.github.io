@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="哈哈哈">
 <meta property="og:description" content="一、Mysql并发参数调整 MySql Server是多线程结构，包括后台线程和客户服务线程。 多线程有效利用服务器资源，对并发参数的调优，提高数据库的并发性能。  max_connections 允许连接到MySQL数据库的最大数量，默认值是 151. 如果状态变量 connection_errors_max_connections 不为零，并且一直增长，则说明不断有连接请求因数据库连接数已达到">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20201022083945876.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20201022092559705.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20201022175100893.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20201022180443114.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201022083945876.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201022092559705.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201022175100893.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201022180443114.png">
 <meta property="article:published_time" content="2020-11-11T04:33:33.000Z">
-<meta property="article:modified_time" content="2020-12-06T14:46:57.841Z">
+<meta property="article:modified_time" content="2020-12-17T05:07:19.131Z">
 <meta property="article:author" content="dmYang">
 <meta property="article:tag" content="MySql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20201022083945876.png">
+<meta name="twitter:image" content="https://csn.damyoung.cn/image-20201022083945876.png">
 
 <link rel="canonical" href="https://dmyang-only.github.io/2020/11/11/05%E9%94%81&%E5%B9%B6%E5%8F%91%E5%8F%82%E6%95%B0/">
 
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:46:57" itemprop="dateModified" datetime="2020-12-06T22:46:57+08:00">2020-12-06</time>
+                <time title="修改时间：2020-12-17 13:07:19" itemprop="dateModified" datetime="2020-12-17T13:07:19+08:00">2020-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -376,7 +376,7 @@
 </li>
 </ul>
 </blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022083945876.png" alt="image-20201022083945876" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201022083945876.png" alt="image-20201022083945876" style="zoom:80%;" />
 
 <blockquote>
 <p>book表加上<strong>读锁</strong>，无法进行更新操作，其他客户端对该表进行更新操作也会进入阻塞状态。==&gt;互斥写</p>
@@ -409,7 +409,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like &#39;Table_locks%&#39;;</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022092559705.png" alt="image-20201022092559705" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201022092559705.png" alt="image-20201022092559705" style="zoom:80%;" />
 
 <h4 id="4、InnoDB行锁"><a href="#4、InnoDB行锁" class="headerlink" title="4、InnoDB行锁"></a>4、InnoDB行锁</h4><blockquote>
 <ul>
@@ -445,7 +445,7 @@
 <h5 id="5-4-3-行锁升级为表锁"><a href="#5-4-3-行锁升级为表锁" class="headerlink" title="5.4.3 行锁升级为表锁"></a>5.4.3 行锁升级为表锁</h5><blockquote>
 <p>如果<strong>不通过索引条件检索数据</strong>，那么InnoDB将对表中的所有记录加锁，实际效果跟表锁一样</p>
 </blockquote>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022175100893.png" alt="image-20201022175100893"></p>
+<p><img src="https://csn.damyoung.cn/image-20201022175100893.png" alt="image-20201022175100893"></p>
 <blockquote>
 <p>处于阻塞状态</p>
 <p>执行更新时 ， name字段本来为varchar类型， 我们是作为数组类型使用，<strong>存在类型转换，索引失效，最终行锁变为表锁</strong></p>
@@ -457,7 +457,7 @@
 </blockquote>
 <h5 id="5-4-5-行锁争用情况"><a href="#5-4-5-行锁争用情况" class="headerlink" title="5.4.5 行锁争用情况"></a>5.4.5 行锁争用情况</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show  status like &#39;innodb_row_lock%&#39;;</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022180443114.png" alt="image-20201022180443114" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201022180443114.png" alt="image-20201022180443114" style="zoom:80%;" />
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Innodb_row_lock_current_waits: 当前正在等待锁定的数量</span><br><span class="line"></span><br><span class="line">Innodb_row_lock_time: 从系统启动到现在锁定总时间长度</span><br><span class="line"></span><br><span class="line">Innodb_row_lock_time_avg:每次等待所花平均时长</span><br><span class="line"></span><br><span class="line">Innodb_row_lock_time_max:从系统启动到现在等待最长的一次所花的时间</span><br><span class="line"></span><br><span class="line">Innodb_row_lock_waits: 系统启动后到现在总共等待的次数</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">当等待的次数很高，而且每次等待的时长也不小的时候，我们就需要分析系统中为什么会有如此多的等待，然后根据分析结果着手制定优化计划。</span><br></pre></td></tr></table></figure>
 
@@ -570,7 +570,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

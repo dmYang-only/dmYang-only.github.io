@@ -161,6 +161,155 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/03%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哈哈哈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/03%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" class="post-title-link" itemprop="url">多表查询</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 13:07:56" itemprop="dateModified" datetime="2020-12-17T13:07:56+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/03%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" class="post-meta-item leancloud_visitors" data-flag-title="多表查询" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、多表查询"><a href="#1、多表查询" class="headerlink" title="1、多表查询"></a>1、多表查询</h3><p><strong>union all</strong> (加法)</p>
+<p>列数、列类型必须相同</p>
+<p>SELECT *FROM t1 <strong>UNION</strong> SELECT <em>FROM t2;<br>SELECT *FROM t1 *</em>UNION ALL** SELECT *FROM t2;</p>
+<h3 id="2、连接查询"><a href="#2、连接查询" class="headerlink" title="2、连接查询"></a>2、连接查询</h3><p>select *from <strong>emp,dept</strong> –笛卡尔积</p>
+<h4 id="（1）选出有用的数据"><a href="#（1）选出有用的数据" class="headerlink" title="（1）选出有用的数据"></a>（1）<strong>选出有用的数据</strong></h4><p><strong>有外键连接</strong></p>
+<p>SELECT *FROM emp,dept <strong>WHERE</strong> <strong>emp.deptno=dept.deptno</strong>;</p>
+<p>查询各个部门的人数，求显示部门名称，人数，只显示三个人以上的部门<br>SELECT dname,COUNT(<em>) FROM <strong>emp,dept</strong> <strong>WHERE emp.deptno=dept.deptno</strong> <strong>GROUP BY</strong> dname HAVING COUNT(</em>)&gt;3;</p>
+<h4 id="（2）三表连接查询"><a href="#（2）三表连接查询" class="headerlink" title="（2）三表连接查询"></a>（2）三表连接查询</h4><p><strong>select</strong> scores.studentno,studentname,scores.courseno,coursename,score <strong>from</strong> <strong>scores</strong>,<strong>studnetinfo</strong>,<strong>course</strong>  <strong>where</strong> scores.studentno=studentinfo.studentno <strong>and</strong> scores.courseno=course.courseno</p>
+<p><strong>select</strong> scores.studentno,studentname,scores.courseno,coursename,score <strong>from</strong> scores <strong>innere</strong> <strong>join</strong> studentinfro <strong>on</strong> scores.studentno=studentifno.studentno <strong>inner</strong> <strong>join</strong> course <strong>on</strong> scores.courseno = course.courseno;</p>
+<h4 id="（3）不等查询"><a href="#（3）不等查询" class="headerlink" title="（3）不等查询"></a>（3）不等查询</h4><p><strong>无外键连接</strong></p>
+<p>查询各个员工的编号，姓名，职位，工资，工资等级<br>SELECT empno,ename,job,sal,grade <strong>FROM</strong> emp,salarygrade *<em>WHERE sal&gt;=losalary AND sal&lt;hisalary**</em>;*</p>
+<h3 id="3、内连接"><a href="#3、内连接" class="headerlink" title="3、内连接"></a>3、内连接</h3><p>组合两个表中的记录，返回关联字段相符的记录，也就是<strong>返回两个表的交集（阴影）部分</strong></p>
+<p><strong>inner join</strong></p>
+<p>SELECT empno,ename,job,e.deptno,dname FROM emp e <strong>INNER JOIN</strong> dept d <strong>ON</strong> e.deptno=d.deptno;</p>
+<h3 id="4、外连接"><a href="#4、外连接" class="headerlink" title="4、外连接"></a>4、外连接</h3><p><strong>outer join</strong></p>
+<h4 id="（1）左外连接"><a href="#（1）左外连接" class="headerlink" title="（1）左外连接"></a>（1）左外连接</h4><p><strong>left outer join</strong></p>
+<p><strong>左表不符合条件的也显示出来</strong>–null</p>
+<p>SELECT empno,ename,job,e.deptno,dname FROM emp e <strong>left outer join</strong> dept d <strong>ON</strong> e.deptno=d.deptno;</p>
+<h4 id="（2）右外连接"><a href="#（2）右外连接" class="headerlink" title="（2）右外连接"></a>（2）右外连接</h4><p><strong>right outer join</strong></p>
+<p><strong>右表不符合条件的也显示出来</strong></p>
+<p>SELECT empno,ename,job,e.deptno,dname FROM emp e <strong>right outer join</strong> dept d <strong>ON</strong> e.deptno=d.deptno;</p>
+<h3 id="5、自然连接"><a href="#5、自然连接" class="headerlink" title="5、自然连接"></a>5、自然连接</h3><p><strong>两个关系表中进行连接的必须是相同的属性列（名字相同），无须添加连接条件，并且在结果中消除重复的属性列。</strong></p>
+<p>select *from emp <strong>natural</strong> <strong>join</strong> dept; </p>
+<table>
+<thead>
+<tr>
+<th>denptno(连接)</th>
+<th>deptname</th>
+<th>deptssss</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>sss</td>
+<td>44</td>
+</tr>
+<tr>
+<td>2</td>
+<td>sss11</td>
+<td>4442</td>
+</tr>
+<tr>
+<td>3</td>
+<td>fs</td>
+<td>2424</td>
+</tr>
+</tbody></table>
+<h3 id="6、子查询"><a href="#6、子查询" class="headerlink" title="6、子查询"></a>6、子查询</h3><h4 id="（1）子查询结果为单行单列"><a href="#（1）子查询结果为单行单列" class="headerlink" title="（1）子查询结果为单行单列"></a>（1）子查询结果为单行单列</h4><p>SELECT deptno FROM dept WHERE dname=’SALES’;</p>
+<p>SELECT*FROM emp WHERE deptno=30;</p>
+<p>一步完成</p>
+<p>SELECT *FROM emp WHERE <strong>deptno=</strong>(SELECT deptno FROM dept WHERE dname=’SALES’);</p>
+<p>使用俩表连接</p>
+<p>SELECT emp.*FROM emp I<strong>NNER JOIN</strong> dept <strong>ON</strong> emp.deptno=dept.deptno <strong>WHERE</strong> dname=’SALES’;</p>
+<h4 id="（2）子查询结果为单列多行"><a href="#（2）子查询结果为单列多行" class="headerlink" title="（2）子查询结果为单列多行"></a>（2）子查询结果为单列多行</h4><p>查询工资大于3000的员工，来自哪些部门的名字<br>SELECT deptno FROM emp WHERE sal&gt;2000;—&gt;10,20,30<br>SELECT dname FROM dept WHERE deptno IN (10,20,30);</p>
+<p>SELECT dname FROM dept <strong>WHERE</strong> deptno <strong>IN</strong>(SELECT deptno FROM emp WHERE sal&gt;2000);</p>
+<h4 id="（3）子查询结果为多行多列"><a href="#（3）子查询结果为多行多列" class="headerlink" title="（3）子查询结果为多行多列"></a>（3）子查询结果为多行多列</h4><p><strong>找出虚拟表，并当成俩表连接查询</strong></p>
+<p>select 查询字段 from(子查询) 表别名 where 条件.3</p>
+<p>查询出2011年以后入职的员工<br>SELECT *FROM emp WHERE hiredate&gt;=’1982-1-1’;</p>
+<p>SELECT e.<em>,d.dname FROM dept d,(**SELECT <em>FROM emp WHERE hiredate&gt;=’1982-1-1</em></em>‘) e <strong>WHERE d.deptno=e.deptno;</strong>  </p>
+<p>例子：– 有俩个直接下属的员工信息<br>SELECT mgr,COUNT(*) FROM emp GROUP BY mgr;</p>
+<p>– 1有俩个下属以上<br>SELECT mgr FROM emp GROUP BY mgr HAVING COUNT(*)&gt;2;</p>
+<p>– 查询以上俩个编号的员工信息<br>SELECT <em>FROM emp WHERE empno IN(SELECT mgr FROM emp GROUP BY mgr HAVING COUNT(</em>)&gt;2);</p>
+<h3 id="7、自连接"><a href="#7、自连接" class="headerlink" title="7、自连接"></a>7、自连接</h3><p><strong>单表</strong></p>
+<p>求7369员工编号、姓名、经理编号和经理姓名</p>
+<p>SELECT e1.empno,e1.ename,e1.mgr,e2.ename FROM emp e1,emp e2 WHERE <strong>e1.mgr=e2.empno</strong> AND e1.empno=7369;</p>
+<h3 id="8、备份与还原"><a href="#8、备份与还原" class="headerlink" title="8、备份与还原"></a>8、备份与还原</h3><p>备份格式：dos: mysqldump -u用户名 -p密码 数据库&gt;文件的路径</p>
+<p>还原格式：mysql中的命令，需要登录后操作</p>
+<p>​                    <strong>use 数据库； source 导入文件的路径</strong></p>
+<p><img src="https://csn.damyoung.cn/image-20200819180155720.png" alt="image-20200819180155720"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04jsp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -549,7 +698,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:46:44" itemprop="dateModified" datetime="2020-12-06T22:46:44+08:00">2020-12-06</time>
+                <time title="修改时间：2020-12-17 13:07:01" itemprop="dateModified" datetime="2020-12-17T13:07:01+08:00">2020-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -607,7 +756,7 @@
 <h5 id="3-1-利用MySql复制分流查询"><a href="#3-1-利用MySql复制分流查询" class="headerlink" title="3.1 利用MySql复制分流查询"></a>3.1 利用MySql复制分流查询</h5><blockquote>
 <p>通过MySql的主从复制，实现读写分离，使增删改操作走主节点，查询操作走从节点，从而降低单台服务器的压力</p>
 </blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\1.jpg" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/1.jpg" style="zoom:80%;" />
 
 <h5 id="3-2-采用分布式数据库架构"><a href="#3-2-采用分布式数据库架构" class="headerlink" title="3.2 采用分布式数据库架构"></a>3.2 采用分布式数据库架构</h5><blockquote>
 <p>分布式数据库架构适合大数据量、负载高的情况，有良好的拓展性和高可用性，通过在多台服务器之间分布数据，可以实现多台服务器间的负载均衡，提高访问效率。</p>
@@ -616,7 +765,7 @@
 <p>开启MySql的查询缓存时，当<strong>执行完全相同</strong>的Sql语句时，服务器就会直接从缓存中读取结果。</p>
 <p>当数据被修改，之前的缓存会失效，<strong>修改比较频繁的表不适合做查询缓存。</strong></p>
 </blockquote>
-<h4 id="1、操作流程"><a href="#1、操作流程" class="headerlink" title="1、操作流程"></a>1、操作流程</h4><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\20180919131632347.png" alt="20180919131632347" style="zoom:80%;" />
+<h4 id="1、操作流程"><a href="#1、操作流程" class="headerlink" title="1、操作流程"></a>1、操作流程</h4><img src="https://csn.damyoung.cn/20180919131632347.png" alt="20180919131632347" style="zoom:80%;" />
 
 <blockquote>
 <ul>
@@ -647,7 +796,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like &#39;Qcache%&#39;;</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201021231234834.png" alt="image-20201021231234834" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201021231234834.png" alt="image-20201021231234834" style="zoom:80%;" />
 
 <table>
 <thead>
@@ -713,11 +862,11 @@
 <p>在/etc/my.cnf配置中，增加配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query_cache_type&#x3D;1;</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201021234236344.png" alt="image-20201021234236344" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201021234236344.png" alt="image-20201021234236344" style="zoom:80%;" />
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart mysql.service;</span><br></pre></td></tr></table></figure>
 </blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201021234210231.png" alt="image-20201021234210231" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201021234210231.png" alt="image-20201021234210231" style="zoom:80%;" />
 
 
 
@@ -731,9 +880,9 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select sql_cache username from tb_user_1 where id&#x3D;1;</span><br><span class="line">SELECT SQL_NO_CACHE id, name FROM customer;</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201021235706488.png" alt="image-20201021235706488" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201021235706488.png" alt="image-20201021235706488" style="zoom:80%;" />
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201021235401748.png" alt="image-20201021235401748" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201021235401748.png" alt="image-20201021235401748" style="zoom:80%;" />
 
 
 
@@ -746,7 +895,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL1 : select * from tb_item where updatetime &lt; now() limit 1;</span><br><span class="line">SQL2 : select user();</span><br><span class="line">SQL3 : select database();</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022000250422.png" alt="image-20201022000250422"></p>
+<p><img src="https://csn.damyoung.cn/image-20201022000250422.png" alt="image-20201022000250422"></p>
 <h5 id="5-2-不使用任何表查询"><a href="#5-2-不使用任何表查询" class="headerlink" title="5.2 不使用任何表查询"></a>5.2 不使用任何表查询</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &#39;a&#39;;</span><br></pre></td></tr></table></figure>
 
 
@@ -790,7 +939,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key_buffer_size&#x3D;512M</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022001306901.png" alt="image-20201022001306901" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201022001306901.png" alt="image-20201022001306901" style="zoom:80%;" />
 
 <p><strong>read_buffer_size</strong></p>
 <blockquote>
@@ -865,7 +1014,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:36:59" itemprop="dateModified" datetime="2020-12-06T22:36:59+08:00">2020-12-06</time>
+                <time title="修改时间：2020-12-17 13:09:21" itemprop="dateModified" datetime="2020-12-17T13:09:21+08:00">2020-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -895,7 +1044,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一、异常"><a href="#一、异常" class="headerlink" title="一、异常"></a>一、异常</h3><p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200730200213622.png" alt="image-20200730200213622"></p>
+          <h3 id="一、异常"><a href="#一、异常" class="headerlink" title="一、异常"></a>一、异常</h3><p><img src="https://csn.damyoung.cn/image-20200730200213622.png" alt="image-20200730200213622"></p>
 <h3 id="1、Throwable"><a href="#1、Throwable" class="headerlink" title="1、Throwable"></a>1、Throwable</h3><blockquote>
 <p>所有的异常都有一个共同的祖先<code>java.lang</code>包中的的<code>Throwable类</code>。</p>
 <p>它有两个重要的子类：<code>Exception(异常)</code>和<code>Error(错误)</code>,二者都是java处理异常的重要子类</p>
@@ -1445,7 +1594,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:46:57" itemprop="dateModified" datetime="2020-12-06T22:46:57+08:00">2020-12-06</time>
+                <time title="修改时间：2020-12-17 13:07:19" itemprop="dateModified" datetime="2020-12-17T13:07:19+08:00">2020-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1619,7 +1768,7 @@
 </li>
 </ul>
 </blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022083945876.png" alt="image-20201022083945876" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201022083945876.png" alt="image-20201022083945876" style="zoom:80%;" />
 
 <blockquote>
 <p>book表加上<strong>读锁</strong>，无法进行更新操作，其他客户端对该表进行更新操作也会进入阻塞状态。==&gt;互斥写</p>
@@ -1652,7 +1801,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like &#39;Table_locks%&#39;;</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022092559705.png" alt="image-20201022092559705" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201022092559705.png" alt="image-20201022092559705" style="zoom:80%;" />
 
 <h4 id="4、InnoDB行锁"><a href="#4、InnoDB行锁" class="headerlink" title="4、InnoDB行锁"></a>4、InnoDB行锁</h4><blockquote>
 <ul>
@@ -1688,7 +1837,7 @@
 <h5 id="5-4-3-行锁升级为表锁"><a href="#5-4-3-行锁升级为表锁" class="headerlink" title="5.4.3 行锁升级为表锁"></a>5.4.3 行锁升级为表锁</h5><blockquote>
 <p>如果<strong>不通过索引条件检索数据</strong>，那么InnoDB将对表中的所有记录加锁，实际效果跟表锁一样</p>
 </blockquote>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022175100893.png" alt="image-20201022175100893"></p>
+<p><img src="https://csn.damyoung.cn/image-20201022175100893.png" alt="image-20201022175100893"></p>
 <blockquote>
 <p>处于阻塞状态</p>
 <p>执行更新时 ， name字段本来为varchar类型， 我们是作为数组类型使用，<strong>存在类型转换，索引失效，最终行锁变为表锁</strong></p>
@@ -1700,7 +1849,7 @@
 </blockquote>
 <h5 id="5-4-5-行锁争用情况"><a href="#5-4-5-行锁争用情况" class="headerlink" title="5.4.5 行锁争用情况"></a>5.4.5 行锁争用情况</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show  status like &#39;innodb_row_lock%&#39;;</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022180443114.png" alt="image-20201022180443114" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201022180443114.png" alt="image-20201022180443114" style="zoom:80%;" />
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Innodb_row_lock_current_waits: 当前正在等待锁定的数量</span><br><span class="line"></span><br><span class="line">Innodb_row_lock_time: 从系统启动到现在锁定总时间长度</span><br><span class="line"></span><br><span class="line">Innodb_row_lock_time_avg:每次等待所花平均时长</span><br><span class="line"></span><br><span class="line">Innodb_row_lock_time_max:从系统启动到现在等待最长的一次所花的时间</span><br><span class="line"></span><br><span class="line">Innodb_row_lock_waits: 系统启动后到现在总共等待的次数</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">当等待的次数很高，而且每次等待的时长也不小的时候，我们就需要分析系统中为什么会有如此多的等待，然后根据分析结果着手制定优化计划。</span><br></pre></td></tr></table></figure>
 
@@ -1766,7 +1915,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:47:28" itemprop="dateModified" datetime="2020-12-06T22:47:28+08:00">2020-12-06</time>
+                <time title="修改时间：2020-12-17 13:07:39" itemprop="dateModified" datetime="2020-12-17T13:07:39+08:00">2020-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1808,7 +1957,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p2143 数据库名 -e &quot;select * from tb_book&quot;;</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022215130425.png" alt="image-20201022215130425" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201022215130425.png" alt="image-20201022215130425" style="zoom:80%;" />
 
 
 
@@ -1819,7 +1968,7 @@
 <blockquote>
 <p> mysqladmin –help  指令查看帮助文档</p>
 </blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022215714698.png" alt="image-20201022215714698" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201022215714698.png" alt="image-20201022215714698" style="zoom:80%;" />
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">示例 ：</span><br><span class="line">	mysqladmin -uroot -p2143 create &#39;test01&#39;;  </span><br><span class="line">	mysqladmin -uroot -p2143 drop &#39;test01&#39;;</span><br><span class="line">	mysqladmin -uroot -p2143 version;</span><br></pre></td></tr></table></figure>
 
@@ -1876,7 +2025,7 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#查询每个数据库的表的数量及表中记录的数量</span><br><span class="line">mysqlshow -uroot -p2143 --count</span><br><span class="line"></span><br><span class="line">#查询test库中每个表中的字段书，及行数</span><br><span class="line">mysqlshow -uroot -p2143 test --count</span><br><span class="line"></span><br><span class="line">#查询test库中book表的详细情况</span><br><span class="line">mysqlshow -uroot -p2143 test book --count</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201022235838134.png" alt="image-20201022235838134" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201022235838134.png" alt="image-20201022235838134" style="zoom:80%;" />
 
 
 
@@ -1893,7 +2042,7 @@
 <p>记录了当 mysqld 启动和停止时，以及服务器在运行过程中发生任何严重错误时的相关信息。</p>
 <p>当数据库出现任何故障导致无法正常使用时，可以首先查看此日志</p>
 </blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201023093056385.png" alt="image-20201023093056385" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201023093056385.png" alt="image-20201023093056385" style="zoom:80%;" />
 
 
 
@@ -1962,7 +2111,7 @@
 </li>
 </ul>
 </blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\2111.jpg" alt="2111" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/2111.jpg" alt="2111" style="zoom:80%;" />
 
 
 
@@ -2064,7 +2213,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:48:58" itemprop="dateModified" datetime="2020-12-06T22:48:58+08:00">2020-12-06</time>
+                <time title="修改时间：2020-12-17 13:08:17" itemprop="dateModified" datetime="2020-12-17T13:08:17+08:00">2020-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2110,7 +2259,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW v_general </span><br><span class="line">AS</span><br><span class="line">SELECT empno,ename,job,mgr,deptno FROM emp;</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018202106673.png" alt="image-20201018202106673" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201018202106673.png" alt="image-20201018202106673" style="zoom:80%;" />
 
 
 
@@ -2118,26 +2267,26 @@
 <blockquote>
 <p>update 视图名 set 字段名=‘’  where ..</p>
 </blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018202711004.png" alt="image-20201018202711004" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201018202711004.png" alt="image-20201018202711004" style="zoom:80%;" />
 
 <blockquote>
 <p><strong>修改视图</strong>：alter view 视图名 as (select语句)  </p>
 </blockquote>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203500053.png" alt="image-20201018203500053"></p>
+<p><img src="https://csn.damyoung.cn/image-20201018203500053.png" alt="image-20201018203500053"></p>
 <blockquote>
 <p>show create view 视图名 </p>
 </blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203846648.png" alt="image-20201018203846648" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201018203846648.png" alt="image-20201018203846648" style="zoom:80%;" />
 
 <blockquote>
 <p>删除视图：drop view 视图名</p>
 </blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203938785.png" alt="image-20201018203938785" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201018203938785.png" alt="image-20201018203938785" style="zoom:80%;" />
 
 <h4 id="4、查看视图"><a href="#4、查看视图" class="headerlink" title="4、查看视图"></a>4、查看视图</h4><blockquote>
 <p>show tables;</p>
 </blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201018203633852.png" alt="image-20201018203633852" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201018203633852.png" alt="image-20201018203633852" style="zoom:80%;" />
 
 
 
@@ -2190,7 +2339,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:49:07" itemprop="dateModified" datetime="2020-12-06T22:49:07+08:00">2020-12-06</time>
+                <time title="修改时间：2020-12-17 13:08:37" itemprop="dateModified" datetime="2020-12-17T13:08:37+08:00">2020-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2347,7 +2496,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">create procedure pro_test4(in n int)</span><br><span class="line">begin</span><br><span class="line">declare total int default 0;</span><br><span class="line">declare num int default 0;</span><br><span class="line">while num&lt;&#x3D;n do</span><br><span class="line">set total&#x3D;total+num;</span><br><span class="line">set num&#x3D;num+1;</span><br><span class="line">end while;</span><br><span class="line">select concat(&#39;num的值&#39;,num,&#39;total的值&#39;,total);</span><br><span class="line">end#</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201019083355334.png" alt="image-20201019083355334" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201019083355334.png" alt="image-20201019083355334" style="zoom:80%;" />
 
 
 
@@ -2396,7 +2545,7 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">create procedure pro_test11()</span><br><span class="line">begin</span><br><span class="line">declare e_id int(11);</span><br><span class="line">declare e_name varchar(50);</span><br><span class="line">declare e_age int(11);</span><br><span class="line">declare e_salary int(11);</span><br><span class="line">declare emp_result cursor for select *from emp;</span><br><span class="line"></span><br><span class="line">open emp_result;</span><br><span class="line">fetch emp_result into e_id,e_name,e_age,e_salary;</span><br><span class="line">select concat(&#39;id&#x3D;&#39;,e_id,&#39;,name&#x3D;&#39;,e_name,&#39;,age&#x3D;&#39;,e_age,&#39;,salary&#x3D;&#39;,e_salary);</span><br><span class="line">close emp_result;</span><br><span class="line">end#</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201019091344892.png" alt="image-20201019091344892" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201019091344892.png" alt="image-20201019091344892" style="zoom:80%;" />
 
 <p><strong>循环获取</strong></p>
 <blockquote>
@@ -2404,7 +2553,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">create procedure pro_test12()</span><br><span class="line">begin</span><br><span class="line">declare e_id int(11);</span><br><span class="line">declare e_name varchar(50);</span><br><span class="line">declare e_age int(11);</span><br><span class="line">declare e_salary int(11);</span><br><span class="line">declare has_data int default 1;</span><br><span class="line"></span><br><span class="line">declare emp_result cursor for select *from emp;</span><br><span class="line">-- 抓取不到数据设置为0,放在游标后面</span><br><span class="line">declare exit handler for not found set has_data&#x3D;0;</span><br><span class="line"></span><br><span class="line">open emp_result;</span><br><span class="line"></span><br><span class="line">repeat</span><br><span class="line">fetch emp_result into e_id,e_name,e_age,e_salary;</span><br><span class="line">select concat(&#39;id&#x3D;&#39;,e_id,&#39;,name&#x3D;&#39;,e_name,&#39;,age&#x3D;&#39;,e_age,&#39;,salary&#x3D;&#39;,e_salary);</span><br><span class="line">until has_data&#x3D;0</span><br><span class="line">end repeat;</span><br><span class="line"></span><br><span class="line">close emp_result;</span><br><span class="line">end#</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201019092152503.png" alt="image-20201019092152503" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201019092152503.png" alt="image-20201019092152503" style="zoom:80%;" />
 
 
 
@@ -2422,7 +2571,7 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select fun1(2)#</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201019093239027.png" alt="image-20201019093239027" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201019093239027.png" alt="image-20201019093239027" style="zoom:80%;" />
 
 <h5 id="4-2-删除存储函数"><a href="#4-2-删除存储函数" class="headerlink" title="4.2 删除存储函数"></a>4.2 删除存储函数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop function fun2#</span><br></pre></td></tr></table></figure>
 
@@ -2475,7 +2624,7 @@
 <p>测试</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into emp(id,name,age,salary) values(null, &#39;光明左使&#39;,30,3500);</span><br></pre></td></tr></table></figure>
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201019132216659.png" alt="image-20201019132216659" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201019132216659.png" alt="image-20201019132216659" style="zoom:80%;" />
 
 
 
@@ -2508,215 +2657,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/07%E6%B3%9B%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哈哈哈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/07%E6%B3%9B%E5%9E%8B/" class="post-title-link" itemprop="url">泛型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:36:50" itemprop="dateModified" datetime="2020-12-06T22:36:50+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/07%E6%B3%9B%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="泛型" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><blockquote>
-<p><strong>泛型是参数化类型，使用广泛的类型</strong></p>
-<p><strong>声明时使用泛型，使用时确定类型</strong></p>
-<p>编译时使用泛型，JVM并不知道泛型的存在，泛型使用时强制转换类型</p>
-</blockquote>
-<h4 id="泛型是什么？"><a href="#泛型是什么？" class="headerlink" title="泛型是什么？"></a>泛型是什么？</h4><ul>
-<li>泛型是参数化类型，使用广泛的类型，声明时使用泛型，使用时确定类型</li>
-<li>泛型是一个重要特性是泛型擦除，由于JVM并不知道泛型的存在，泛型在编译期就被转化为普通的类，目的是避免创建过多的类造成性能上的损耗</li>
-<li>泛型在数据取出时会进行一个强制类型转换(此时若是创建泛型数组，进行强制类型转换时会出行<code>ClassCastException</code>!)</li>
-</ul>
-<p><strong>泛型字母</strong></p>
-<blockquote>
-<p>T type ，K V  ， E element</p>
-</blockquote>
-<p><strong>注意</strong></p>
-<blockquote>
-<ul>
-<li>不能使用基本类型，指定类型引用类型</li>
-<li>使用时自动类型检查，自动类型转换</li>
-</ul>
-</blockquote>
-<h3 id="1、泛型的使用"><a href="#1、泛型的使用" class="headerlink" title="1、泛型的使用"></a>1、泛型的使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jdk1.7以后泛型只需要声明一次，后面使用该类型</span></span><br><span class="line">Test1&lt;String&gt; s1=<span class="keyword">new</span> Test1&lt;&gt;();</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-1-泛型类"><a href="#1-1-泛型类" class="headerlink" title="1.1 泛型类"></a>1.1 泛型类</h5><blockquote>
-<p>class 类名&lt;字母列表&gt;{  }</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span>&lt;<span class="title">T1</span>,<span class="title">T2</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span>  T1 javaScore;</span><br><span class="line">    <span class="keyword">private</span>  T2 oracleScore;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-2-泛型接口"><a href="#1-2-泛型接口" class="headerlink" title="1.2 泛型接口"></a>1.2 泛型接口</h5><p><strong>格式</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Inte</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>泛型字母不能使用在接口静态方法中，不能使用在全局常量中（隐含static）。</p>
-</blockquote>
-<h5 id="1-3-泛型方法"><a href="#1-3-泛型方法" class="headerlink" title="1.3 泛型方法"></a>1.3 泛型方法</h5><blockquote>
-<p>在public与返回值之间的<T>必不可少，这表明这是一个泛型方法.</p>
-<p>并且声明了一个泛型T，这个T可以出现在这个泛型方法的任意位置</p>
-</blockquote>
-<p><strong>格式</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T,T1&gt; <span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">(T t,T1,t1)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-4-静态方法"><a href="#1-4-静态方法" class="headerlink" title="1.4 静态方法"></a>1.4 静态方法</h5><blockquote>
-<p><strong>静态方法无法访问类上定义的泛型</strong></p>
-<p>如果静态方法要使用泛型的话，必须将静态方法也定义成泛型方法 </p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T,T1&gt; <span class="keyword">void</span> <span class="title">Test</span><span class="params">(T t,T1,t1)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-5-通配符"><a href="#1-5-通配符" class="headerlink" title="1.5 通配符"></a>1.5 通配符</h5><blockquote>
-<p> 类型不定，使用时确定类型</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Test1&lt;?&gt; s=<span class="keyword">new</span> Test1&lt;String&gt;();</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-6-泛型的上下边界"><a href="#1-6-泛型的上下边界" class="headerlink" title="1.6 泛型的上下边界"></a>1.6 泛型的上下边界</h5><p>为泛型添加上边界，即传入的类型实参必须是指定类型的子类型</p>
-<p> ? extends : &lt;=上限  为泛型添加上边界，即传入的类型实参必须是指定类型的子类型</p>
-<p> ? super：&gt;=下限 指定类型为自身或父类、</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    T score; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Test1&lt;?&gt; s)</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">(Test1&lt;?extends Fruit&gt; s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">(Test1&lt;?<span class="keyword">super</span> Fruit&gt; s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="2、自定义泛型"><a href="#2、自定义泛型" class="headerlink" title="2、自定义泛型"></a>2、自定义泛型</h3><h5 id="2-1-继承关系"><a href="#2-1-继承关系" class="headerlink" title="2.1 继承关系"></a>2.1 继承关系</h5><blockquote>
-<p>​    <strong>T&gt;Object，子类&gt;=父类泛型</strong></p>
-</blockquote>
-<ul>
-<li>父类为泛型类：属性，方法；子类：使用时指定具体类型</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child</span> <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">String</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>子类为泛型类,类型在使用时确定</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child1</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">T</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>子类为泛型类，父类不指定类型（泛型的擦除，用Object）<br>​                    （不能子类擦除，父类泛型） </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child2</span> &lt;<span class="title">T</span>&gt;<span class="keyword">extends</span>  <span class="title">Father</span></span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>子类和父类同时擦除</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child3</span> <span class="keyword">extends</span> <span class="title">Father</span></span></span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="2-2-重写参数类型"><a href="#2-2-重写参数类型" class="headerlink" title="2.2 重写参数类型"></a>2.2 重写参数类型</h5><ul>
-<li><p>重写方法时，方法形参随父亲而定 </p>
-</li>
-<li><p>属性子类随子类，父类随父类</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child</span> <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">String</span>&gt;</span>&#123;</span><br><span class="line">    String t2;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3、泛型的擦除"><a href="#3、泛型的擦除" class="headerlink" title="3、泛型的擦除"></a>3、泛型的擦除</h3><blockquote>
-<p><strong>继承和声明时不指定类型，用Object对待</strong></p>
-</blockquote>
-<ul>
-<li><p><strong>Java泛型擦除是Java泛型的一个重要特性，目的是避免过多的创建类造成的性能损耗</strong></p>
-</li>
-<li><p>JVM并不知道泛型的存在，因为泛型在编译阶段就已经被处理成普通的类和方法； </p>
-</li>
-<li><p>而泛型会在数据取出进行一个强制类型转换</p>
-</li>
-</ul>
-<p><strong>擦除规则</strong></p>
-<ul>
-<li>若泛型类型没有指定具体类型，用Object作为原始类型；</li>
-<li>若有限定类型&lt; T exnteds XClass &gt;，使用XClass作为原始类型；</li>
-<li>若有多个限定&lt; T exnteds XClass1 &amp; XClass2 &gt;，使用第一个边界类型XClass1作为原始类型；</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child3</span> <span class="keyword">extends</span> <span class="title">Father</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="4、泛型的嵌套"><a href="#4、泛型的嵌套" class="headerlink" title="4、泛型的嵌套"></a>4、泛型的嵌套</h3><p> 泛型的嵌套：与调用没有关系。从外到内拆分</p>
-<h3 id="5、泛型与数组"><a href="#5、泛型与数组" class="headerlink" title="5、泛型与数组"></a>5、泛型与数组</h3><blockquote>
-<h5 id="没有泛型数组-，可以声明，不能创建"><a href="#没有泛型数组-，可以声明，不能创建" class="headerlink" title="没有泛型数组  ，可以声明，不能创建"></a><strong>没有泛型数组  ，可以声明，不能创建</strong></h5></blockquote>
-<p><strong>！！！</strong>由于JVM在编译时是不知道泛型的存在的，泛型是数据获取时进行的强制类型转换，若是创建泛型数组，进行强制类型转换时会出行<code>ClassCastException</code>!</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt;[] ls &#x3D; new ArrayList&lt;String&gt;[10]; &#x2F;&#x2F;不可以</span><br><span class="line"></span><br><span class="line">List&lt;?&gt;[] ls &#x3D; new ArrayList&lt;?&gt;[10]; &#x2F;&#x2F;可以</span><br><span class="line"></span><br><span class="line">List&lt;String&gt;[] ls &#x3D; new ArrayList[10]; &#x2F;&#x2F;可以</span><br></pre></td></tr></table></figure>
-
-<h3 id="6、泛型不能使用多态"><a href="#6、泛型不能使用多态" class="headerlink" title="6、泛型不能使用多态"></a>6、泛型不能使用多态</h3><p>泛型不能使用多态： A<Fruit> test(){ return A<Apple>; } 错误</p>
-<p>​    使用：只能在声明时使用（不能在声明类或使用时使用问号）</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2782,7 +2726,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

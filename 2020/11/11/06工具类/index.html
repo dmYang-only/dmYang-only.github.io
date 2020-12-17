@@ -27,23 +27,23 @@
 <meta property="og:site_name" content="哈哈哈">
 <meta property="og:description" content="总结1、String、StringBuffer、StringBuilder String被声明为final，不可以被继承  是不可变对象 每次使用”+”拼接，都会产生一个对象   StringBuffer 线程安全，性能低，内部使用Synchronized进行同步。(单线程下，性能相差并不大， 内部使用偏向锁)  StringBuilder 线程不安全，但性能高，字符串相加在编译后会使用该类优化代">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729201334450.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20200729201334450.png">
 <meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729201941398.png">
 <meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729201949365.png">
 <meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729201956335.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729202311075.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729202326200.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20200729202311075.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20200729202326200.png">
 <meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729202345324.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729202405293.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20200729202405293.png">
 <meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729202414378.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729202419358.png">
-<meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729202441171.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20200729202419358.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20200729202441171.png">
 <meta property="article:published_time" content="2020-11-11T04:33:33.000Z">
-<meta property="article:modified_time" content="2020-12-06T14:36:53.685Z">
+<meta property="article:modified_time" content="2020-12-17T05:10:10.146Z">
 <meta property="article:author" content="dmYang">
 <meta property="article:tag" content="JAVA基础">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200729201334450.png">
+<meta name="twitter:image" content="https://csn.damyoung.cn/image-20200729201334450.png">
 
 <link rel="canonical" href="https://dmyang-only.github.io/2020/11/11/06%E5%B7%A5%E5%85%B7%E7%B1%BB/">
 
@@ -209,7 +209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:36:53" itemprop="dateModified" datetime="2020-12-06T22:36:53+08:00">2020-12-06</time>
+                <time title="修改时间：2020-12-17 13:10:10" itemprop="dateModified" datetime="2020-12-17T13:10:10+08:00">2020-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -444,7 +444,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200729201334450.png" alt="image-20200729201334450"></p>
+<p><img src="https://csn.damyoung.cn/image-20200729201334450.png" alt="image-20200729201334450"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> \\d+:至少一个 ，\\d*：任意一个 ， \\d？：<span class="number">0</span>或<span class="number">1</span>个  </span><br><span class="line">     </span><br><span class="line">String regex=<span class="string">&quot;[0-9][0-9][0-9][0-9][0-9][0-9]&quot;</span>;</span><br><span class="line">String regex=<span class="string">&quot;\\d\\d\\d\\d\\d\\d&quot;</span>;</span><br><span class="line">String regex=<span class="string">&quot;\\d&#123;6&#125;&quot;</span>; </span><br><span class="line"></span><br><span class="line">String regex=<span class="string">&quot;\\d&#123;3,6&#125;&quot;</span>;  </span><br><span class="line">String regex=<span class="string">&quot;\\d&#123;3,&#125;&quot;</span>;   </span><br><span class="line"> </span><br><span class="line">String str3=<span class="string">&quot;www.baidu6.com&quot;</span>;</span><br><span class="line">String regex4=<span class="string">&quot;www\\.\\w&#123;6&#125;\\.com&quot;</span>;</span><br><span class="line">System.out.println(str3.matches(regex4));</span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> b=postcode.matches(regex);</span><br></pre></td></tr></table></figure>
 
 <p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200729201941398.png" alt="image-20200729201941398"></p>
@@ -478,15 +478,15 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//int--&gt;String</span></span><br><span class="line"><span class="keyword">int</span> num=<span class="number">10</span>;</span><br><span class="line">System.out.println(<span class="string">&quot;&quot;</span>+num);<span class="comment">//字符串拼接</span></span><br><span class="line"></span><br><span class="line">String s=String.valueOf(num);</span><br><span class="line">System.out.println(s);      <span class="comment">//调用string类的valueOf()</span></span><br><span class="line"></span><br><span class="line">Integer i2=<span class="keyword">new</span> Integer(num);              <span class="comment">// Integer构造器</span></span><br><span class="line">System.out.println(i2.toString());      <span class="comment">//int--&gt;integer--&gt;String</span></span><br><span class="line"></span><br><span class="line">System.out.println(Integer.toString(num)); <span class="comment">//Integer的toString()方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//String--&gt;int</span></span><br><span class="line">String str=<span class="string">&quot;100&quot;</span>;</span><br><span class="line">System.out.println(Integer.parseInt(str));  <span class="comment">//调用Integer的parseInt()方法</span></span><br><span class="line"></span><br><span class="line">Integer i3=<span class="keyword">new</span> Integer(str);</span><br><span class="line">System.out.println(i3.intValue()); <span class="comment">//String--&gt;integer--&gt;int</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200729202311075.png" alt="image-20200729202311075"></p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200729202326200.png" alt="image-20200729202326200"></p>
+<p><img src="https://csn.damyoung.cn/image-20200729202311075.png" alt="image-20200729202311075"></p>
+<p><img src="https://csn.damyoung.cn/image-20200729202326200.png" alt="image-20200729202326200"></p>
 <h3 id="五、内部类"><a href="#五、内部类" class="headerlink" title="五、内部类"></a>五、内部类</h3><blockquote>
 <p><strong>任何内部类都可以编译成独立的class文件</strong></p>
 </blockquote>
 <p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200729202345324.png" alt="image-20200729202345324"></p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200729202405293.png" alt="image-20200729202405293"></p>
+<p><img src="https://csn.damyoung.cn/image-20200729202405293.png" alt="image-20200729202405293"></p>
 <p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200729202414378.png" alt="image-20200729202414378"></p>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200729202419358.png" alt="image-20200729202419358"></p>
+<p><img src="https://csn.damyoung.cn/image-20200729202419358.png" alt="image-20200729202419358"></p>
 <h4 id="1、成员内部类"><a href="#1、成员内部类" class="headerlink" title="1、成员内部类"></a>1、成员内部类</h4><p>（1）内部类，可以访问外部类所有私有属性和私有方法</p>
 <p>（2）外部类方法使用时，需要创建内部类对象</p>
 <p>（3）其他类访问：Outer.Inner inner=new Outer().new Inner();</p>
@@ -507,7 +507,7 @@
 
 
 
-<h3 id="六、Random类"><a href="#六、Random类" class="headerlink" title="六、Random类"></a>六、Random类</h3><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200729202441171.png" alt="image-20200729202441171"  />
+<h3 id="六、Random类"><a href="#六、Random类" class="headerlink" title="六、Random类"></a>六、Random类</h3><img src="https://csn.damyoung.cn/image-20200729202441171.png" alt="image-20200729202441171"  />
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不带参构造</span></span><br><span class="line">Random r=<span class="keyword">new</span> Random();</span><br><span class="line"><span class="keyword">int</span> a=r.nextInt(<span class="number">10</span>);<span class="comment">//0-10随机数整数，不包含10</span></span><br><span class="line">System.out.println(a);</span><br><span class="line"></span><br><span class="line"><span class="comment">//带参构造</span></span><br><span class="line">Random r1=<span class="keyword">new</span> Random(<span class="number">10</span>);</span><br><span class="line">Random r2=<span class="keyword">new</span> Random(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">int</span> a1=r1.nextInt(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">int</span> a2=r2.nextInt(<span class="number">10</span>);</span><br><span class="line">System.out.println(a1+<span class="string">&quot;    &quot;</span>+a2);</span><br></pre></td></tr></table></figure>
 
@@ -695,7 +695,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
