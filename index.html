@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/12/17/%E6%B3%A8%E6%84%8F/">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/12/17/%E6%8E%88%E6%9D%83%E8%AE%A4%E8%AF%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/12/17/%E6%B3%A8%E6%84%8F/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/2020/12/17/%E6%8E%88%E6%9D%83%E8%AE%A4%E8%AF%81/" class="post-title-link" itemprop="url">授权认证</a>
         </h2>
 
         <div class="post-meta">
@@ -184,19 +184,22 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-12-17 13:15:06" itemprop="dateCreated datePublished" datetime="2020-12-17T13:15:06+08:00">2020-12-17</time>
+              <time title="创建时间：2020-12-17 23:33:33 / 修改时间：23:19:29" itemprop="dateCreated datePublished" datetime="2020-12-17T23:33:33+08:00">2020-12-17</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-05 09:41:01" itemprop="dateModified" datetime="2020-11-05T09:41:01+08:00">2020-11-05</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
+                </span>
+            </span>
 
           
-            <span id="/2020/12/17/%E6%B3%A8%E6%84%8F/" class="post-meta-item leancloud_visitors" data-flag-title="" title="阅读次数">
+            <span id="/2020/12/17/%E6%8E%88%E6%9D%83%E8%AE%A4%E8%AF%81/" class="post-meta-item leancloud_visitors" data-flag-title="授权认证" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -213,78 +216,326 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>1、do-while:用于先执行再判断，使用与需求是要循环体重复输出同一条语句</p>
-<p>while：用于先判断再执行，区别于for在于循环次数是否可知</p>
-<p>2、boolean flag=true;可作为标记来判断</p>
-<p>3、count++;当需要计算循环次数可使用</p>
-<p>4、流程控制的判断语句为true才会进入作用域、false结束该流程。</p>
-<p>5、boolean和String不参与任何类型的转换</p>
-<p>6、switch的穿透</p>
-<p>7、标识符不能使用关键字本身，但可拼接关键字</p>
-<p>8、char=’a’; char1=65;</p>
-<p>9、运算对象必须为整型的有 %=，&lt;&lt;</p>
-<p>10、赋值变量，变量不可以为表达式，如：a=a+5=c+1，浮点数不可以求余运算</p>
-<p>11、常量不可再被赋值，不能自增自减，常量用final修饰，final int a=1；</p>
-<p>12、System.<strong>out</strong>.println(x++);//先输出后再自加。</p>
-<p>13、多个if语句并列，会从上往下继续执行</p>
-<p>14、if（a&gt;b&gt;c）{}  //编译错误</p>
-<p>15、for（int i=1;i++&lt;5）;  输出i为6  ！！！！！！！！！！</p>
-<p>1、多态的好处：编译时模糊，运行确定对象</p>
-<p>2、  Iterator迭代器（接口）:容器,所有集合都实现了iterator接口</p>
-<p>​            例如：（1）Array List实现了iterator接口，调用iterator()返回值实现了多态</p>
-<p>​                        （2）调用Array List内部类（该内部类实现了iterator接口，防止内存泄露使用内部类）</p>
-<p>​    remove() 无法删除指定元素</p>
-<p>3、任何内部类都可以独立编译成一个class文件</p>
-<p>​        匿名类是对原类的一个继承，同时创建了实例</p>
-<p>4、for-each实际是iterator实现，用于遍历，但无增改方法</p>
-<p>​    iterator通过cur进行遍历，可在遍历时移除元素remove()，但不可指定元素移除</p>
-<p>5、set中的add()通过Map的put()实现</p>
-<p>6、集合的遍历：</p>
-<p>（1）for循环,转化为数组的遍历</p>
-<p>（2）for-each（jdk5.0，不用已知长度，不用转化为数组）</p>
-<p>（3）迭代器iterator</p>
-<p>7、</p>
-<p>数组：查询快，增删慢</p>
-<p>增：（1）建立一个新数组，获取原数组的长度来决定新数组的长度</p>
-<p>​        （2）对原数组进行遍历，获取元素的位置</p>
-<p>​        （3）对插入位置后的元素进行后移</p>
-<p>链表：每一个变量都有一个地址值</p>
-<p>（1）利用临时空间保存插入元素</p>
-<p>（2）将临时空间地址与链表进行关联</p>
-<p>栈：先进后出</p>
-<p>​        （1）出栈：压栈push</p>
-<p>​        （2）入栈：pop</p>
-<p>队列：先进先出offer poll</p>
-<p>1、数组：存储同一数据类型的多个元素的容器，</p>
-<p>​                    静态初始化和动态初始化不能同时使用</p>
-<p>​    二维数组：(1)二维数组中一维数组长度a[i].length</p>
-<p>​                        (2)初始化注意点：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][];</span><br><span class="line"> <span class="comment">// a[0]= &#123;2, 3, 5&#125;;错误，需要a[0]=new int[]&#123;2,3,5&#125;</span></span><br><span class="line">a[<span class="number">0</span>]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">a[<span class="number">1</span>]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">a[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">60</span>;a[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">60</span>;</span><br><span class="line">a[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">60</span>;a[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">80</span>;</span><br><span class="line">System.out.println( a[<span class="number">1</span>][<span class="number">1</span>]);</span><br></pre></td></tr></table></figure>
+          <h1 id="1、Session认证"><a href="#1、Session认证" class="headerlink" title="1、Session认证"></a>1、Session认证</h1><blockquote>
+<p>存在的问题：</p>
+<ul>
+<li>Session: 每个用户经过我们的应用认证之后，我们的应用都要在服务端做一次记录，以方便用户下次请求的鉴别，通常而言session都是保存在内存中，而随着认证用户的增多，服务端的开销会明显增大</li>
+<li>扩展性: 用户认证之后，服务端做认证记录，如果认证的记录被保存在内存中的话，这意味着用户下次请求还必须要请求在这台服务器上,这样才能拿到授权的资源，这样在分布式的应用上，相应的限制了负载均衡器的能力。这也意味着限制了应用的扩展能力</li>
+<li>CSRF: 因为是基于<strong>cookie</strong>来进行用户识别的, cookie如果被截获，用户就会很容易受到跨站请求伪造的攻击。</li>
+</ul>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/2018121020091479.png" alt="微服务存在问题"></p>
+<h2 id="http无状态协议"><a href="#http无状态协议" class="headerlink" title="http无状态协议"></a>http无状态协议</h2><p>web应用采用B/S架构，http作为通信协议。http是无状态协议，浏览器每一次发送的请求服务器都会独立处理，不与之前或之后的请求产生联系。</p>
+<p>这也同时意味着，任何用户都能通过浏览器访问服务器资源，如果想保护服务器的某些资源，必须限制浏览器请求；要限制浏览器请求，必须鉴别浏览器请求，响应合法请求，忽略非法请求；要鉴别浏览器请求，必须清楚浏览器请求状态。</p>
+<h2 id="会话机制"><a href="#会话机制" class="headerlink" title="会话机制"></a>会话机制</h2><p>既然http协议无状态，那就需要服务器和浏览器共同维护一个状态，这就是会话机制。<strong>使得第一次登陆请求与之后的请求产生联系。</strong></p>
+<p>浏览器第一次请求服务器，服务器创建一个会话，并将会话的 id 作为响应的一部分发送给浏览器，浏览器存储会话 id，并在后续第二次和第三次请求中带上会话 id，服务器取得请求中的会话 id 就知道是不是同一个用户了（登录的用户在 session 里面是可以查询到已经存储的 isLogin 属性设置为 true），这个过程用下图说明，后续请求与第一次请求产生了关联</p>
+<p><img src="https://csn.damyoung.cn/20190309191511382.png" alt="会话机制"></p>
+<h2 id="登陆状态"><a href="#登陆状态" class="headerlink" title="登陆状态"></a>登陆状态</h2><p>有了会话机制，登录状态就好明白了，假设浏览器第一次请求服务器需要输入用户名与密码验证身份，服务器拿到用户名密码去数据库比对，正确的话说明当前持有这个会话的用户是合法用户，应该将这个会话<strong>标记</strong>为“已授权”或者“已登录”等等之类的状态，既然是会话的状态，自然要保存在会话对象中，tomcat 在会话对象中设置登录状态如下</p>
+<p>每次请求受保护资源时都会检查会话对象中的登录状态，只有 <code>isLogin=true</code> 的会话才能访问，登录机制因此而实现</p>
+<p><img src="https://csn.damyoung.cn/20190309192358290.png" alt="Tomcat登录状态"></p>
+<h2 id="保存Session-Id"><a href="#保存Session-Id" class="headerlink" title="保存Session Id"></a>保存Session Id</h2><ul>
+<li>服务器在内存中保存会话对象</li>
+<li>浏览器保存会话 id 有两种方式<ul>
+<li>请求参数</li>
+<li>通过cookie实现</li>
+</ul>
+</li>
+</ul>
+<p>将会话 id 作为每一个请求的参数，服务器接收请求自然能解析参数获得会话 id，并借此判断是否来自同一会话，很明显，这种方式不靠谱。</p>
+<p>另外的方法是让浏览器自己来维护这个会话 id，每次发送 http 请求时浏览器自动发送会话 id，cookie 机制正好用来做这件事。cookie 是浏览器用来存储少量数据的一种机制，数据以<code>key/value</code>形式存储，浏览器发送 http 请求时自动附带 cookie 信息</p>
+<h2 id="禁用Session"><a href="#禁用Session" class="headerlink" title="禁用Session"></a>禁用Session</h2><p>一般是通过 Cookie 来保存 SessionID ，假如使用了 Cookie 保存 SessionID的方案的话， 如果客户端禁用了Cookie，那么Seesion就无法正常工作。</p>
+<p>但是，并不是没有 Cookie 之后就不能用 Session 了，比如可以将 SessionID 放在请求的 url 里面<code>https://javaguide.cn/?session_id=xxx</code> 。这种方案的话可行，但是安全性和用户体验感降低。当然，为了安全也可以对 SessionID 进行一次加密之后再传入后端</p>
+<h1 id="2、JWT认证"><a href="#2、JWT认证" class="headerlink" title="2、JWT认证"></a>2、JWT认证</h1><blockquote>
+<p>JWT，是TOKEN的一种形式，TOKEN说简单了，就是一个秘钥(随机数）。以往的TOKEN，你拿到之后要获取 用户信息，需要再去数据库匹配查询，而JWT干脆将用户信息存储在了TOKEN里，你解析就可以获得。</p>
+</blockquote>
+<blockquote>
+<p><strong>防止CSRF攻击</strong></p>
+<p>csrf攻击利用了浏览器在请求域相同时,会携带相同cookie,达到攻击目的.从这个角度想,我们防止csrf攻击可以,我们可以额外添加一个token身份验证,因为token不是cookie,恶意网站没有办法拿到token放到请求中.服务端接受请求时去判断cookie和token是否正确,双管齐下.</p>
+</blockquote>
+<p>在基于 <code>Token</code> 进行身份验证的的应用程序中，服务器通过 <code>Payload</code>、<code>Header</code>和一个密钥(<code>secret</code>)创建令牌（<code>Token</code>）并将 <code>Token</code> 发送给客户端，客户端将 <code>Token</code> 保存在 <code>Cookie</code> 或者 <code>localStorage</code> 里面，以后客户端发出的所有请求都会携带这个令牌。可以把它放在 <code>Cookie</code> 里面自动发送，<strong>但是这样不能跨域</strong>，所以更好的做法是<strong>放在 <code>HTTP Header</code> 的 <code>Authorization</code>字段中</strong>： <code>Authorization: Bearer Token</code>。流程如下：</p>
+<ol>
+<li>用户向服务器发送用户名和密码用于登陆系统。</li>
+<li>身份验证服务响应并返回了签名的 JWT，上面包含了用户是谁的内容。</li>
+<li>用户以后每次向后端发请求都在Header中带上 JWT。</li>
+<li>服务端检查 JWT 并从中获取用户相关信息。</li>
+</ol>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>SON Web Token（JWT）是一个开放的行业标准（RFC 7519），它定义了一种简介的、自包含的<strong>协议格式</strong>，用于在通信双方传递json对象，传递的信息经过数字签名可以被验证和信任。JWT可以使用 HMAC算法或使用RSA的公钥/私钥对来签名，防止被篡改。</p>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>JWT令牌的优点： </p>
+<ol>
+<li>jwt基于json，非常方便解析。 </li>
+<li>可以在令牌中自定义丰富的内容，易扩展。 </li>
+<li>通过非对称加密算法及数字签名技术，JWT防止篡改，安全性高。</li>
+<li>资源服务使用JWT可不依赖认证服务即可完成授权。 </li>
+</ol>
+<p>缺点： JWT令牌较长，占存储空间比较大。</p>
+<h3 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h3><p>在HTML5中，新加入了一个localStorage特性，这个特性主要是用来作为本地存储来使用的，解决了cookie存储空间不足的问题</p>
+<p>1、localStorage拓展了cookie的4K限制</p>
+<p>2、localStorage会可以将第一次请求的数据直接存储到本地，这个相当于一个5M大小的针对于前端页面的数据库，相比于cookie可以节约带宽，但是这个却是只有在高版本的浏览器中才支持的</p>
+<p>在我们登录成功获得 token 之后，一般会选择存放在 local storage 中。然后我们在前端通过某些方式会给每个发到后端的请求加上这个 token</p>
+<h2 id="基于token的鉴权机制"><a href="#基于token的鉴权机制" class="headerlink" title="基于token的鉴权机制"></a>基于token的鉴权机制</h2><p>基于<strong>token</strong>的鉴权机制类似于http协议也是<strong>无状态</strong>的，它不需要在服务端去保留用户的认证信息或者会话信息。这就意味着基于token认证机制的应用不需要去考虑用户在哪一台服务器登录了，这就为应用的扩展提供了便利。</p>
+<p>这个token必须要在每次请求时传递给服务端，它应该保存在请求头里， 另外，服务端要支持CORS(跨来源资源共享)策略，一般我们在服务端这么做就可以了Access-Control-Allow-Origin: *。</p>
+<h2 id="JWT基本原理"><a href="#JWT基本原理" class="headerlink" title="JWT基本原理"></a>JWT基本原理</h2><blockquote>
+<p>jwt的构成非常简单，字节占用很小，所以它是非常便于传输的</p>
+</blockquote>
+<p>JWT 实际上是一个字符串，中间用点<code>.</code>分割成三部分，三部分分别如下：</p>
+<ul>
+<li>Header（头部）</li>
+<li>Payload（负载）</li>
+<li>Signature（签名）</li>
+</ul>
+<h3 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h3><p>Header 部分是一个 JSON 对象，描述的是JWT的元数据,表示的是 JSON 对象的签名和加密。其主要参数有以下这些，除了<code>alg</code>算法参数外，其他选项都是可选的。</p>
+<ul>
+<li><strong>alg</strong> 算法 (必选项)</li>
+<li><strong>typ</strong> 类型 (如果是 JWT 那么就带有一个值 JWT，如果存在的话)</li>
+<li><strong>kid</strong> 密钥 ID</li>
+<li><strong>cty</strong> 内容类型</li>
+<li><strong>jku</strong> JWK 指定 URL</li>
+<li><strong>jwk</strong> JSON 网络值</li>
+<li><strong>x5u</strong> X.509 URL</li>
+<li><strong>x5c</strong> X.509 证书链</li>
+<li><strong>x5t</strong> X.509 证书 SHA-1 指纹</li>
+<li><strong>x5t#S256</strong> X.509 证书 SHA-256 指纹</li>
+<li><strong>crit</strong> 临界值</li>
+</ul>
+<p>通常常用格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;alg&quot;: &quot;HS256&quot;,</span><br><span class="line">    &quot;typ&quot;: &quot;JWT&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>2、递归：不断调用自身方法。</p>
-<p>3、成员方法不能嵌套，但可以互相调用</p>
-<p>4、方法构成及其作用限制，方法的重载递归</p>
-<p>4、Arrays类常见方法：</p>
-<p>5、排序算法：</p>
-<p>​    (1)冒泡排序（相邻元素进行比较并交换位置）</p>
-<p>   (2)直接排序（以第i个数为基准与其他元素进行比较，找出最小值的位序并交换） </p>
-<p>   (3)插入排序 (将插入元素与数组元素进行比较，插入位置后的元素后移)</p>
-<p>   (4)数组的逆序:以中间元素为基准，前后互换</p>
-<p>6、成员变量进行初始化：</p>
-<p>​    (1)直接初始化 s1.name=”小小”;</p>
-<p>​    (2)构造方法初始化， Student s=new Student(15);</p>
-<p>​    (3)对于私有属性，用setter方法进行初始化</p>
-<p>7、this关键字不能使用于静态方法中，使用this()方法调用无参构造方法</p>
-<p>8、构造方法常用来初始化成员属性</p>
-<p>9、super关键字</p>
-<p>（1）实例化子类对象，默认调用父类的无参构造方法</p>
-<p>（2）调用父类带带参构造方法时就不默认执行无参构造方法</p>
-<p>10、成员变量和局部变量</p>
-<p>​        成员变量随着对象的消失而消失，堆空间，在创建对象时有初始值<br>​        局部变量随着方法的调用，栈空间，无初始值必须被赋值</p>
-<p>调用重名时，采用就近原则</p>
-<p>11、在创建对象时，默认成员变量为默认值，实际上是无参构造方法起作用</p>
-<p>12、对父类所有属性的继承，不包括父类的构造方法和私有属性(但可通过super关键字）</p>
-<p>13、this和super不能同时存在，避免同一个被子类和父类反复初始化</p>
+<p><strong>对其进行Base64URL编码后就得到JWT的头部（Header）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9</span><br></pre></td></tr></table></figure>
+
+<h3 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h3><p>Payload 部分同样是一个JSON对象，用来存放实际需要传递的数据，JWT规定了7个官方字段供使用：</p>
+<ul>
+<li><strong>sub</strong>:该JWT所面向的对象的值（唯一），可以用来鉴别用户</li>
+<li><strong>iat</strong>(issued at):在什么时候签发的token</li>
+<li><strong>exp</strong>(expires):token什么时候过期</li>
+<li><strong>nbf</strong>(not before):token在此时间之前不能被接收处理,表示什么时间开始生效</li>
+<li><strong>jti</strong>:JWT ID为web token提供唯一标识</li>
+<li><strong>iss</strong>:该JWT的签发者</li>
+<li><strong>aud</strong>:受众，用来确认令牌的可能接收者的字符串数值。</li>
+</ul>
+<p>后面三个参数通常是在更复杂的情况下(例如包含多个发行者时)才被使用。</p>
+<p>除了官方字段，还可以在这个部分定义私有字段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;sub&quot;:&quot;112345567&quot;,</span><br><span class="line">    &quot;name&quot;:&quot;SilverBullet Ming&quot;,</span><br><span class="line">    &quot;admin&quot;:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同样<strong>将上面的JSON对象进行base64URL编码后得到的字符串就是JWT的载荷</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yJzdWIiOiIxIiwiaXNzIjoiaHR0cDpcL1wvbG9jYWx</span><br><span class="line">ob3N0OjgwMDFcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNDUxODg4MTE5LCJleHAiOjE0NTQ1MTYxMTksIm5iZiI6MTQ1MTg4OD</span><br><span class="line">ExOSwianRpIjoiMzdjMTA3ZTQ2MDlkZGJjYzljMDk2ZWE1ZWU3NmM2NjcifQ</span><br></pre></td></tr></table></figure>
+
+<h3 id="Signature"><a href="#Signature" class="headerlink" title="Signature"></a>Signature</h3><blockquote>
+<p>Signature 部分是对前两部分的签名，防止数据被修改。</p>
+</blockquote>
+<p>将头部和载荷编码后的字符串用<code>.</code>连接在一起后（头部在前），将拼接完的字符串用 H256 算法进行加密，同时提供了一个密钥（<code>secret</code>）就得到了签名。</p>
+<p><strong>secret</strong> 是保存在服务器端的， jwt 的签发生成也是在服务器端的，secret 就是用来进行 jwt 的签发和 jwt 的验证，所以，它就是你<strong>服务端的私钥</strong>，在任何场景都不应该流露出去。一旦客户端得知 这个 secret , 那就意味着客户端是可以自我签发 jwt 了</p>
+<p>按照下面的公式产生签名。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HMACSHA256(</span><br><span class="line">    base64UrlEncode(header) + &quot;.&quot; +</span><br><span class="line">    base64UrlEncode(payload),</span><br><span class="line">    secret</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>加密后的签名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wyoQ95RjAyQ2FF3aj8EvCSaUmeP0KUqcCJDENNfnaT4</span><br></pre></td></tr></table></figure>
+
+<p>将得到的三部分字符串拼接在一起后就得到了JWT</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.</span><br><span class="line">eyJzdWIiOiIxIiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDFcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNDUxODg4MTE5LCJleHAiOjE0NTQ1MTYxMTksIm5iZiI6MTQ1MTg4ODExOSwianRpIjoiMzdjMTA3ZTQ2MDlkZGJjYzljMDk2ZWE1ZWU3NmM2NjcifQ.</span><br><span class="line">wyoQ95RjAyQ2FF3aj8EvCSaUmeP0KUqcCJDENNfnaT4</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="JWT特点"><a href="#JWT特点" class="headerlink" title="JWT特点"></a>JWT特点</h2><ol>
+<li>JWT 默认是不加密，但也是可以加密的。生成原始 Token 以后，可以用密钥再加密一次。</li>
+<li>JWT 不加密的情况下，不能将秘密数据写入 JWT。</li>
+<li>JWT 不仅可以用于认证，也可以用于<strong>交换信息</strong>。有效使用 JWT，可以降低服务器查询数据库的次数。</li>
+<li>JWT 的最大缺点是，由于服务器不保存 session 状态，因此无法在使用过程中废止某个 token，或者更改 token 的权限。也就是说，<strong>一旦 JWT 签发了，在到期之前就会始终有效，除非服务器部署额外的逻辑</strong>。</li>
+<li>JWT 本身包含了认证信息，一旦泄露，任何人都可以获得该令牌的所有权限。为了减少盗用，JWT 的有效期应该设置得比较短。对于一些比较重要的权限，使用时应该再次对用户进行认证。</li>
+<li>为了减少盗用，JWT 不应该使用 HTTP 协议明码传输，要使用 HTTPS 协议传输</li>
+</ol>
+<p>服务端会验证token，如果验证通过就会返回相应的资源。整个流程就是这样的:</p>
+<p><img src="https://csn.damyoung.cn/20181210201752159.png" alt="在这里插入图片描述"></p>
+<p><img src="https://csn.damyoung.cn/20181210201942951.png" alt="在这里插入图片描述"></p>
+<h2 id="注销登录Token仍然有效"><a href="#注销登录Token仍然有效" class="headerlink" title="注销登录Token仍然有效"></a>注销登录Token仍然有效</h2><blockquote>
+<p>类似的场景还有：</p>
+<ul>
+<li>退出登录;</li>
+<li>修改密码;</li>
+<li>服务端修改了某个用户具有的权限或者角色；</li>
+<li>用户的帐户被删除/暂停；</li>
+<li>用户由管理员注销</li>
+</ul>
+</blockquote>
+<p>这个问题不存在于 Session 认证方式中，因为在 Session 认证方式中，遇到这种情况的话服务端<strong>删除对应的 Session 记录</strong>即可。但是，使用 token 认证的方式就不好解决了。</p>
+<p>解决方案有以下几种：</p>
+<ul>
+<li><p><strong>将 token 存入内存数据库</strong>：将 token 存入 DB 中，redis 内存数据库在这里是是不错的选择。如果需要让某个 token 失效就直接从 redis 中删除这个 token 即可。但是，这样会导致每次使用 token 发送请求都要先从 DB 中查询 token 是否存在的步骤，而且违背了 JWT 的无状态原则。</p>
+</li>
+<li><p><strong>黑名单机制</strong>：和上面的方式类似，使用内存数据库比如 redis 维护一个黑名单，如果想让某个 token 失效的话就直接将这个 token 加入到黑名单即可。然后，每次使用 token 进行请求的话都会先判断这个 token 是否存在于黑名单中。</p>
+</li>
+<li><p><strong>修改密钥</strong>：为每个用户都创建一个专属密钥secret盐，如果我们想让某个 token 失效，我们直接修改对应用户的密钥即可。但是，这样相比于前两种引入内存数据库带来了危害更大</p>
+<ul>
+<li>如果服务是分布式的，则每次发出新的 token 时都必须在多台机器<strong>同步密钥</strong>。为此，你需要将必须将机密存储在数据库或其他外部服务中，这样和 Session 认证就没太大区别了。</li>
+<li><strong>多端问题</strong>，如果用户同时在两个浏览器打开系统，或者在手机端也打开了系统，如果它从一个地方将账号退出，那么其他地方都要重新进行登录，这是不可取的。</li>
+</ul>
+</li>
+<li><p><strong>保持令牌的有效期限短并经常轮换</strong>：很简单的一种方式。但是，会导致用户登录状态不会被持久记录，而且需要用户经常登录。</p>
+</li>
+</ul>
+<p>修改密码：</p>
+<p>对于修改密码后 token 还有效问题的解决还是比较容易的，说一种比较好的方式：<strong>使用用户的密码的哈希值对 token 进行签名。因此，如果密码更改，则任何先前的令牌将自动无法验证。</strong></p>
+<h2 id="Token续签问题"><a href="#Token续签问题" class="headerlink" title="Token续签问题"></a>Token续签问题</h2><p>在 Session 认证中一般的做法：假如 session 的有效期30分钟，如果 30 分钟内用户有访问，就把 session 有效期被延长30分钟。</p>
+<ol>
+<li><strong>类似于 Session 认证中的做法</strong>：这种方案满足于大部分场景。假设服务端给的 token 有效期设置为30分钟，服务端每次进行校验时，如果发现 token 的有效期马上快过期了，服务端就重新生成 token 给客户端。客户端每次请求都检查新旧token，如果不一致，则更新本地的 token。这种做法的问题是仅仅在快过期的时候请求才会更新 token ,对客户端不是很友好。</li>
+<li><strong>每次请求都返回新 token</strong>：这种方案的的思路很简单，但是，很明显，开销会比较大。</li>
+<li><strong>token 有效期设置到半夜</strong> ：这种方案是一种折衷的方案，保证了大部分用户白天可以正常登录，适用于对安全性要求不高的系统。</li>
+<li><strong>用户登录返回两个 token</strong>：第一个是 <code>acessToken</code> ，它的过期时间是 token 本身的过期时间比如半个小时，另外一个是 <code>refreshToken</code> 它的过期时间更长一点比如为1天。客户端登录后，将 <code>accessToken</code>和 <code>refreshToken</code> 保存在本地，每次访问将 <code>accessToken</code> 传给服务端。服务端校验 <code>accessToken</code> 的有效性，如果过期的话，就将 <code>refreshToken</code> 传给服务端。如果有效，服务端就生成新的 <code>accessToken</code> 给客户端。否则，客户端就重新登录即可。该方案的不足是:</li>
+</ol>
+<ul>
+<li>需要客户端来配合；</li>
+<li>用户注销的时候需要同时保证两个 token 都无效；</li>
+<li>重新请求获取 token 的过程中会有短暂 token 不可用的情况（可以通过在客户端设置定时器，当 <code>accessToken</code> 快过期的时候，提前去通过 <code>refreshToken</code> 获取新的 <code>accessToken</code>）。</li>
+</ul>
+<h2 id="JJWT"><a href="#JJWT" class="headerlink" title="JJWT"></a>JJWT</h2><p>JJWT是一个<strong>提供端到端的JWT创建和验证的Java库</strong>。永远免费和开源(Apache License，版本2.0)，JJW 很容易使用和理解。它被设计成一个以建筑为中心的流畅界面，隐藏了它的大部分复杂性。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--jjwt依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="JJWT生成与解析"><a href="#JJWT生成与解析" class="headerlink" title="JJWT生成与解析"></a>JJWT生成与解析</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">JwtBuilder jwtBuilder = Jwts.builder()</span><br><span class="line">      <span class="comment">//唯一id&#123;&quot;id&quot;: &quot;888&quot;&#125;</span></span><br><span class="line">      .setId(<span class="string">&quot;888&quot;</span>)</span><br><span class="line">      <span class="comment">//接收的用户&#123;“sub”:&quot;Rose&quot;&#125;</span></span><br><span class="line">      .setSubject(<span class="string">&quot;Rose&quot;</span>)</span><br><span class="line">      <span class="comment">//签发时间&#123;“iat&quot; : “ ”&#125;</span></span><br><span class="line">      .setIssuedAt(<span class="keyword">new</span> Date())</span><br><span class="line">      <span class="comment">//签名算法及密钥</span></span><br><span class="line">      .signWith(SignatureAlgorithm.HS256, <span class="string">&quot;xxxx&quot;</span>)</span><br><span class="line">     <span class="comment">//失效时间</span></span><br><span class="line">	 .setExpiration(<span class="keyword">new</span> Date(System.currentTimeMillis() + (<span class="number">60</span> * <span class="number">10</span>)));;</span><br><span class="line">String token = jwtBuilder.compact();</span><br><span class="line">System.out.println(token);</span><br><span class="line"></span><br><span class="line">String[] split = token.split(<span class="string">&quot;\\.&quot;</span>);</span><br><span class="line">Arrays.stream(split).forEach(s-&gt;&#123;</span><br><span class="line">   System.out.println(Base64Codec.BASE64.decodeToString(s));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//解析token,获取claims,jwt中荷载声明的对象</span></span><br><span class="line">Claims claims=(Claims)Jwts.parser()</span><br><span class="line">      <span class="comment">//密钥</span></span><br><span class="line">      .setSigningKey(<span class="string">&quot;xxxx&quot;</span>)</span><br><span class="line">      .parse(token)</span><br><span class="line">      .getBody();</span><br><span class="line">System.out.println(<span class="string">&quot;id&quot;</span>+claims.getId());</span><br><span class="line">System.out.println(<span class="string">&quot;sub&quot;</span>+claims.getSubject());</span><br><span class="line">System.out.println(<span class="string">&quot;iat&quot;</span>+claims.getIssuedAt());</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="3、JWT认证的优势"><a href="#3、JWT认证的优势" class="headerlink" title="3、JWT认证的优势"></a>3、JWT认证的优势</h1><p>相比于Session认证方面来说，使用token进行身份认证有下面三个优势：</p>
+<h2 id="无状态"><a href="#无状态" class="headerlink" title="无状态"></a>无状态</h2><p>token 自身包含了身份验证所需要的所有信息，使得服务器不需要存储Session信息，这增加了系统的可用性和伸缩性，减轻了服务器的压力。</p>
+<p>但是，由于 token 无状态，也导致了它最大的缺点：<strong>当后端在 token 有有效期内废弃了一个 token 或者更改它的权限的话，不会立即生效，一般需要等到有效期过后才可以</strong>。另外，当用户 logout 的话，token 也仍然有效。除非在后端增加额外的逻辑处理。</p>
+<h2 id="有效避免了CSRF攻击"><a href="#有效避免了CSRF攻击" class="headerlink" title="有效避免了CSRF攻击"></a>有效避免了CSRF攻击</h2><p><strong>CSRF（Cross Site Request Forgery)</strong> 被称为<strong>跨站请求伪造</strong>，属于网络攻击领域范围。相比于 SQL 脚本注入、XSS 等等安全攻击方式，CSRF 知名度较低。</p>
+<p>CSRF 是攻击者通过一些技术手段欺骗用户的浏览器去访问一个自己曾经认证过的网站并运行一些操作（如发邮件，发消息，甚至财产操作如转账和购买商品）。由于浏览器曾经认证过，所以被访问的网站会认为是真正的用户操作而去运行。这利用了 web 中用户身份验证的一个漏洞：简单的身份验证只能保证请求发自某个用户的浏览器，却不能保证请求本身是用户自愿发出的。</p>
+<p>例如：</p>
+<p>小壮登录了某网上银行，他来到了网上银行的帖子区，看到一个帖子下面有一个链接写着“科学理财，年盈利率过万”，小壮好奇的点开了这个链接，结果发现自己的账户少了10000元。这是这么回事呢？原来黑客在链接中藏了一个请求，这个请求直接利用小壮的身份给银行发送了一个转账请求,也就是通过你的 Cookie 向银行发出请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a src&#x3D;http:&#x2F;&#x2F;www.mybank.com&#x2F;Transfer?bankId&#x3D;11&amp;money&#x3D;10000&gt;科学理财，年盈利率过万&lt;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>进行 Session 认证的时候，我们一般使用 Cookie 来存储 SessionId,当我们登陆后后端生成一个SessionId 放在 Cookie 中返回给客户端，服务端通过 Redis 或者其他存储工具记录保存着这个Sessionid，客户端登录以后每次请求都会带上这个 SessionId，服务端通过这个 SessionId 来标示你这个人。如果别人通过 cookie 拿到了 SessionId 后就可以代替你的身份访问系统了。</p>
+<p>Session 认证中 Cookie 中的 SessionId 是由浏览器发送到服务端的，借助这个特性，攻击者就可以通过让用户误点攻击链接，达到攻击效果。</p>
+<p>但是，我们使用 token 的话就不会存在这个问题，在我们登录成功获得 token 之后，一般会选择存放在 <strong>local storage</strong> 中。<strong>然后我们在前端通过某些方式会给每个发到后端的请求加上这个 token,这样就不会出现 CSRF 漏洞的问题</strong>。因为，即使有个你点击了非法链接发送了请求到服务端，这个非法请求是不会携带 token 的，所以这个请求将是非法的。</p>
+<p>需要注意的是不论是 Cookie 还是 token 都无法避免跨站脚本攻击（Cross Site Scripting）XSS。</p>
+<blockquote>
+<p>XSS:用户在浏览网站、使用即时通讯软件、甚至在阅读电子邮件时，通常会点击其中的链接。攻击者通过在链接中插入恶意代码，就能够盗取用户信息。攻击者通常会用十六进制（或其他编码方式）将链接编码，以免用户怀疑它的合法性。网站在接收到包含恶意代码的请求之后会产成一个包含恶意代码的页面，而这个页面看起来就像是那个网站应当生成的合法页面一样。许多流行的留言本和论坛程序允许用户发表包含HTML和javascript的帖子。假设用户甲发表了一篇包含恶意脚本的帖子，那么用户乙在浏览这篇帖子时，恶意脚本就会执行，盗取用户乙的session信息。</p>
+</blockquote>
+<p>可以选择将 token 存储在标记为 <code>httpOnly</code> 的cookie 中。但是，这样又导致了必须自己提供CSRF保护。</p>
+<p>具体采用哪种方式需要是具体情况而定。大部分情况下存放在 <code>local storage</code> 下都是最好的选择，某些情况下可能需要存放在标记为 <code>httpOnly</code> 的cookie 中会更好。</p>
+<h2 id="适合移动端应用"><a href="#适合移动端应用" class="headerlink" title="适合移动端应用"></a>适合移动端应用</h2><p>使用 Session 进行身份认证的话，需要保存一份信息在服务器端，而且这种方式会依赖到 Cookie（需要 Cookie 保存 SessionId），所以不适合移动端。</p>
+<p>但是，使用 token 进行身份认证就不会存在这种问题，因为只要 token 可以被客户端存储就能够使用，而且 <strong>token 还可以跨语言使用。</strong></p>
+<h2 id="单点登录友好"><a href="#单点登录友好" class="headerlink" title="单点登录友好"></a>单点登录友好</h2><p>使用 Session 进行身份认证的话，实现单点登陆，需要我们把用户的 Session 信息保存在一台电脑上，并且还会遇到常见的 Cookie 跨域的问题。但是，使用 token 进行认证的话， <strong>token 被保存在客户端</strong>，不会存在这些问题。</p>
+<h1 id="4、Oath2-0"><a href="#4、Oath2-0" class="headerlink" title="4、Oath2.0"></a>4、Oath2.0</h1><p>OAuth 是一个行业的<strong>标准授权协议</strong>，主要用来授权第三方应用获取有限的权限。而 OAuth 2.0 是对 OAuth 1.0 的完全重新设计，OAuth 2.0 更快，更容易实现，OAuth 1.0 已经被废弃。</p>
+<blockquote>
+<p>实际上它就是一种授权机制，它的最终目的是为第三方应用颁发一个有时效性的令牌 token，使得第三方应用能够通过该令牌获取相关的资源。</p>
+</blockquote>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>OAuth 2.0 比较常用的场景就是第三方登录，当你的网站接入了第三方登录的时候一般就是使用的 OAuth 2.0 协议。</p>
+<p>OAuth 2.0也常见于支付场景（微信支付、支付宝支付）和开发平台（微信开放平台、阿里开放平台等等）。</p>
+<h2 id="认证流程"><a href="#认证流程" class="headerlink" title="认证流程"></a>认证流程</h2><p><img src="https://csn.damyoung.cn/image-20201208193803706.png" alt="image-20201208193803706"></p>
+<h3 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>本身不存储资源，需要通过资源拥有者的授权去请求资源服务器的资源，比如：Android客户端、Web 客户端（浏览器端）、微信客户端等。</p>
+<h4 id="资源拥有者"><a href="#资源拥有者" class="headerlink" title="资源拥有者"></a>资源拥有者</h4><p>通常为用户，也可以是应用程序，即该资源的拥有者。 </p>
+<h4 id="授权服务器（也称认证服务器）"><a href="#授权服务器（也称认证服务器）" class="headerlink" title="授权服务器（也称认证服务器）"></a>授权服务器（也称认证服务器）</h4><p>用来对资源拥有的身份进行认证、对访问资源进行授权。客户端要想访问资源需要通过认证服务器由资 源拥有者授权后方可访问。 </p>
+<h4 id="资源服务器"><a href="#资源服务器" class="headerlink" title="资源服务器"></a>资源服务器</h4><p>存储资源的服务器，比如，网站用户管理服务器存储了网站用户信息，网站相册服务器存储了用户的相 册信息，微信的资源服务存储了微信的用户信息等。客户端最终访问资源服务器获取资源信息。 </p>
+<h3 id="常用术语"><a href="#常用术语" class="headerlink" title="常用术语"></a>常用术语</h3><ul>
+<li>客户凭证(client Credentials) ：客户端的clientId和密码用于认证客户 </li>
+<li>令牌(tokens) ：授权服务器在接收到客户请求后，颁发的访问令牌 </li>
+<li>作用域(scopes) ：客户请求访问令牌时，由资源拥有者额外指定的细分权限(permission)</li>
+</ul>
+<h3 id="令牌类型"><a href="#令牌类型" class="headerlink" title="令牌类型"></a>令牌类型</h3><ul>
+<li>授权码 ：仅用于授权码授权类型，用于交换获取访问令牌和刷新令牌 </li>
+<li>访问令牌 ：用于代表一个用户或服务直接去访问受保护的资源 </li>
+<li>刷新令牌 ：用于去授权服务器获取一个刷新访问令牌 </li>
+<li>BearerToken ：不管谁拿到Token都可以访问资源，类似现金 Proof of Possession(PoP) </li>
+<li>Token ：可以校验client是否对Token有明确的拥有权</li>
+</ul>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>更安全，客户端不接触用户密码，服务器端更易集中保护  </li>
+<li>短寿命和封装的token </li>
+<li>资源服务器和授权服务器解耦 集中式授权，简化客户端 HTTP/JSON友好，易于请求和传递token </li>
+</ul>
+<h2 id="授权模式"><a href="#授权模式" class="headerlink" title="授权模式"></a>授权模式</h2><h3 id="授权码模式"><a href="#授权码模式" class="headerlink" title="授权码模式"></a>授权码模式</h3><p><img src="https://csn.damyoung.cn/image-20201217221851931.png" alt="image-20201217221851931"></p>
+<ul>
+<li>简化</li>
+</ul>
+<p><img src="https://csn.damyoung.cn/image-20201217221906964.png" alt="image-20201217221906964"></p>
+<h3 id="密码模式"><a href="#密码模式" class="headerlink" title="密码模式"></a>密码模式</h3><p><img src="https://csn.damyoung.cn/image-20201217221922475.png" alt="image-20201217221922475"></p>
+<h3 id="客户端模式"><a href="#客户端模式" class="headerlink" title="客户端模式"></a>客户端模式</h3><p><img src="https://csn.damyoung.cn/image-20201217221930211.png" alt="image-20201217221930211"></p>
+<h1 id="5、单点登录SSO"><a href="#5、单点登录SSO" class="headerlink" title="5、单点登录SSO"></a>5、单点登录SSO</h1><blockquote>
+<p>OAuth 是一个行业的标准授权协议，主要用来授权第三方应用获取有限的权限。SSO 解决的是一个公司的多个相关的子系统的之间的登陆问题比如京东旗下相关子系统京东金融、京东超市、京东家电等等。</p>
+</blockquote>
+<p>单点登录（SSO，Single Sign On）就是在多个系统中，用户只需一次登录，各个系统即可感知该用户已经登录</p>
+<p>相比于单系统登录，sso 需要一个<strong>独立的认证中心</strong>，只有认证中心能接受用户的用户名密码等安全信息，其他系统不提供登录入口，只接受认证中心的<strong>间接授权</strong>。</p>
+<p>间接授权通过令牌（tokens）实现，sso 认证中心验证用户的用户名密码没问题，创建授权令牌，在接下来的跳转过程中，授权令牌作为参数发送给各个子系统，子系统拿到令牌，即得到了授权，可以借此创建局部会话，局部会话登录方式与单系统的登录方式相同。</p>
+<h2 id="单点登录原理"><a href="#单点登录原理" class="headerlink" title="单点登录原理"></a>单点登录原理</h2><blockquote>
+<p>如何创建全局会话的？<br>答：sso认证中心校验用户信息，创建用户与 sso 认证中心之间的会话，称为全局会话），创建授权令牌 tokens,接着有了 tokens 令牌之后就可以跳转到系统1的地址了，这个时候系统1向 sso 认证中心校验令牌有效，sso 认证中心把系统1的地址注册到 sso 认证中心上，然后返回给系统1，令牌有效，于是浏览器就可以访问系统1了。<br>再接着如果浏览器要访问系统2的话，在系统2上一验证，发现没有登录，这个时候就带着系统2的地址跳去 sso 认证中心，sso认证中心上验证已经登录，于是把令牌 tokens 发送给系统2，这个时候系统2再次带着系统2的地址和令牌来到 sso 认证中心验证时，令牌肯定是有效的，然后 sso 中心把系统2的地址注册到本地上，接着告诉系统2，令牌有效，于是浏览器就可以和系统2进行局部会话了</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/20190310104505649.png" alt="单点登录原理"></p>
+<h2 id="登录流程"><a href="#登录流程" class="headerlink" title="登录流程"></a>登录流程</h2><ul>
+<li>浏览器首先访问系统1，系统1检测到用户没有登录。</li>
+<li>于是带上系统1的地址转发到 sso 认证中心，也发现没有登录，</li>
+<li>于是带上系统1的地址来到登录页面进行登录，登录完毕之后，sso 认证中心就开始创建<strong>全局会话</strong></li>
+</ul>
+<p><img src="https://csn.damyoung.cn/20190310110616439.png" alt="单点登录过程"></p>
+<h2 id="注销登录过程"><a href="#注销登录过程" class="headerlink" title="注销登录过程"></a>注销登录过程</h2><p><img src="https://csn.damyoung.cn/20190310112749341.png" alt="单点登录注销登录过程"></p>
+<p><img src="https://csn.damyoung.cn/201903101128293.png" alt="单点登录注销登录流程说明"></p>
+<h1 id="6、项目实现单点登录"><a href="#6、项目实现单点登录" class="headerlink" title="6、项目实现单点登录"></a>6、项目实现单点登录</h1><blockquote>
+<p>sso采用客户端/服务端架构，我们先看sso-client与sso-server要实现的功能。</p>
+</blockquote>
+<p><strong>sso-client</strong></p>
+<ol>
+<li>拦截子系统未登录用户请求，跳转至sso认证中心；</li>
+<li>接收并存储sso认证中心发送的令牌；</li>
+<li>与sso-server通信，校验令牌的有效性；</li>
+<li>建立局部会话；</li>
+<li>拦截用户注销请求，向sso认证中心发送注销请求；</li>
+<li>接收sso认证中心发出的注销请求，销毁局部会话。</li>
+</ol>
+<p><strong>sso-server</strong></p>
+<ol>
+<li>验证用户的登录信息；</li>
+<li>创建全局会话；</li>
+<li>创建授权令牌；</li>
+<li>与sso-client通信发送令牌；</li>
+<li>校验sso-client令牌有效性；</li>
+<li>系统注册；</li>
+<li>接收sso-client注销请求，注销所有会话。</li>
+</ol>
+<p>接下来，我们按照原理来一步步实现sso吧！</p>
+<h3 id="sso-client拦截未登录请求"><a href="#sso-client拦截未登录请求" class="headerlink" title="sso-client拦截未登录请求"></a><strong>sso-client拦截未登录请求</strong></h3><p>Java拦截请求的方式有servlet、filter、listener三种方式，我们采用filter。在sso-client中新建LoginFilter.java类并实现Filter接口，在doFilter()方法中加入对未登录用户的拦截。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">    HttpServletRequest req = (HttpServletRequest) request;</span><br><span class="line">    HttpServletResponse res = (HttpServletResponse) response;</span><br><span class="line">    HttpSession session = req.getSession();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (session.getAttribute(<span class="string">&quot;isLogin&quot;</span>)) &#123;</span><br><span class="line">        chain.doFilter(request, response);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//跳转至sso认证中心</span></span><br><span class="line">    res.sendRedirect(<span class="string">&quot;sso-server-url-with-system-url&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="sso-server拦截未登录请求"><a href="#sso-server拦截未登录请求" class="headerlink" title="sso-server拦截未登录请求"></a><strong>sso-server拦截未登录请求</strong></h3><p>拦截从sso-client跳转至sso认证中心的未登录请求，跳转至登录页面，这个过程与sso-client完全一样。</p>
+<h3 id="sso-server验证用户登录信息"><a href="#sso-server验证用户登录信息" class="headerlink" title="sso-server验证用户登录信息"></a><strong>sso-server验证用户登录信息</strong></h3><p>用户在登录页面输入用户名密码，请求登录，sso认证中心校验用户信息，校验成功，将会话状态标记为“已登录”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/login&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(String username, String password, HttpServletRequest req)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.checkLoginInfo(username, password);</span><br><span class="line">    req.getSession().setAttribute(<span class="string">&quot;isLogin&quot;</span>, <span class="keyword">true</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="sso-server创建授权令牌"><a href="#sso-server创建授权令牌" class="headerlink" title="sso-server创建授权令牌"></a><strong>sso-server创建授权令牌</strong></h3><p>授权令牌是一串随机字符，以什么样的方式生成都没有关系，只要不重复、不易伪造即可，下面是一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String token &#x3D; UUID.randomUUID().toString();</span><br></pre></td></tr></table></figure>
+
+<h3 id="sso-client取得令牌并校验"><a href="#sso-client取得令牌并校验" class="headerlink" title="sso-client取得令牌并校验"></a><strong>sso-client取得令牌并校验</strong></h3><p>sso认证中心登录后，跳转回子系统并附上令牌，子系统（sso-client）取得令牌，然后去sso认证中心校验，在LoginFilter.java的doFilter()中添加几行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求附带token参数</span></span><br><span class="line">String token = req.getParameter(<span class="string">&quot;token&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (token != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="comment">// 去sso认证中心校验token</span></span><br><span class="line">    <span class="keyword">boolean</span> verifyResult = <span class="keyword">this</span>.verify(<span class="string">&quot;sso-server-verify-url&quot;</span>, token);</span><br><span class="line">    <span class="keyword">if</span> (!verifyResult) &#123;</span><br><span class="line">        res.sendRedirect(<span class="string">&quot;sso-server-url&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    chain.doFilter(request, response);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>verify()方法使用httpClient实现，这里仅简略介绍，httpClient详细使用方法请参考官方文档。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HttpPost httpPost &#x3D; new HttpPost(&quot;sso-server-verify-url-with-token&quot;);</span><br><span class="line">HttpResponse httpResponse &#x3D; httpClient.execute(httpPost);</span><br></pre></td></tr></table></figure>
+
+<h3 id="sso-server接收并处理校验令牌请求"><a href="#sso-server接收并处理校验令牌请求" class="headerlink" title="sso-server接收并处理校验令牌请求"></a><strong>sso-server接收并处理校验令牌请求</strong></h3><p>用户在sso认证中心登录成功后，sso-server创建授权令牌并存储该令牌，所以，sso-server对令牌的<strong>校验就是去查找这个令牌是否存在以及是否过期</strong>，令牌校验成功后sso-server将发送校验请求的<strong>系统注册</strong>到sso认证中心（就是存储起来的意思）。</p>
+<p>令牌与注册系统地址通常存储在key-value数据库（如redis）中，redis可以为key设置有效时间也就是令牌的有效期。redis运行在内存中，速度非常快，正好sso-server不需要持久化任何数据。</p>
+<p>令牌与注册系统地址可以用下图描述的结构存储在redis中，可能你会问，为什么要存储这些系统的地址？如果不存储，注销的时候就麻烦了，用户向sso认证中心提交注销请求，sso认证中心注销全局会话，但不知道哪些系统用此全局会话建立了自己的局部会话，也不知道要向哪些子系统发送注销请求注销局部会话。</p>
+<p><img src="https://csn.damyoung.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTQ2MjA1Ny1lZDA3ZGI2NDBjMDZiOWZkLnBuZw" alt="img"></p>
+<h3 id="sso-client校验令牌成功创建局部会话"><a href="#sso-client校验令牌成功创建局部会话" class="headerlink" title="sso-client校验令牌成功创建局部会话"></a><strong>sso-client校验令牌成功创建局部会话</strong></h3><p>令牌校验成功后，sso-client将当前局部会话标记为“已登录”，修改LoginFilter.java，添加几行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (verifyResult) &#123;</span><br><span class="line">    session.setAttribute(<span class="string">&quot;isLogin&quot;</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>sso-client还需将当前会话id与令牌绑定，表示这个会话的登录状态与令牌相关</strong>，此关系可以用java的hashmap保存，保存的数据用来处理sso认证中心发来的注销请求。</p>
+<h3 id="注销过程"><a href="#注销过程" class="headerlink" title="注销过程"></a><strong>注销过程</strong></h3><p>用户向子系统发送带有“logout”参数的请求（注销请求），sso-client拦截器拦截该请求，向sso认证中心发起注销请求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String logout = req.getParameter(<span class="string">&quot;logout&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (logout != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.ssoServer.logout(token);</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">1234</span></span><br></pre></td></tr></table></figure>
+
+<p>sso认证中心也用同样的方式识别出sso-client的请求是注销请求（带有“logout”参数），sso认证中心注销全局会话。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/logout&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">logout</span><span class="params">(HttpServletRequest req)</span> </span>&#123;</span><br><span class="line">    HttpSession session = req.getSession();</span><br><span class="line">    <span class="keyword">if</span> (session != <span class="keyword">null</span>) &#123;</span><br><span class="line">        session.invalidate();<span class="comment">//触发LogoutListener</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;redirect:/&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sso认证中心有一个全局会话的监听器，一旦全局会话注销，将通知所有注册系统注销。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogoutListener</span> <span class="keyword">implements</span> <span class="title">HttpSessionListener</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sessionCreated</span><span class="params">(HttpSessionEvent event)</span> </span>&#123;&#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sessionDestroyed</span><span class="params">(HttpSessionEvent event)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//通过httpClient向所有注册系统发送注销请求</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
 
       
     </div>
@@ -2315,13 +2566,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
