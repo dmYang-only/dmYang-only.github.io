@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"dmyang-only.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"dmyang-only.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta property="og:type" content="website">
@@ -172,10 +172,6 @@
     </header>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
 
     <main class="main">
@@ -189,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/06%E8%A7%86%E5%9B%BEview/">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/06%E6%97%A5%E5%BF%97&%E5%A4%8D%E5%88%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -203,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/11/06%E8%A7%86%E5%9B%BEview/" class="post-title-link" itemprop="url">视图</a>
+            <a href="/2020/11/11/06%E6%97%A5%E5%BF%97&%E5%A4%8D%E5%88%B6/" class="post-title-link" itemprop="url">日志/主从复制</a>
         </h2>
 
         <div class="post-meta">
@@ -220,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:08:17" itemprop="dateModified" datetime="2020-12-17T13:08:17+08:00">2020-12-17</time>
+                <time title="修改时间：2020-12-17 13:07:39" itemprop="dateModified" datetime="2020-12-17T13:07:39+08:00">2020-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -233,7 +229,7 @@
             </span>
 
           
-            <span id="/2020/11/11/06%E8%A7%86%E5%9B%BEview/" class="post-meta-item leancloud_visitors" data-flag-title="视图" title="阅读次数">
+            <span id="/2020/11/11/06%E6%97%A5%E5%BF%97&%E5%A4%8D%E5%88%B6/" class="post-meta-item leancloud_visitors" data-flag-title="日志/主从复制" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -245,14 +241,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span></span>
+              <span>6.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>NaN:aN</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -264,52 +260,443 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><h4 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h4><blockquote>
-<p>视图是一条select语句执行返回的结果，是一种虚拟存在的表。</p>
+          <h3 id="一、常用工具"><a href="#一、常用工具" class="headerlink" title="一、常用工具"></a>一、常用工具</h3><h4 id="1、mysql"><a href="#1、mysql" class="headerlink" title="1、mysql"></a>1、mysql</h4><blockquote>
+<p>该mysql不是指mysql服务，而是指mysql的<strong>客户端工具</strong>。</p>
 </blockquote>
-<p><strong>作用</strong></p>
+<h5 id="1-1-连接选项"><a href="#1-1-连接选项" class="headerlink" title="1.1 连接选项"></a>1.1 连接选项</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">参数 ： </span><br><span class="line">	-u, --user&#x3D;name			指定用户名</span><br><span class="line">	-p, --password[&#x3D;name]	指定密码</span><br><span class="line">	-h, --host&#x3D;name			指定服务器IP或域名</span><br><span class="line">	-P, --port&#x3D;#			指定连接端口</span><br><span class="line"></span><br><span class="line">示例 ：</span><br><span class="line">	mysql -h 127.0.0.1 -P 3306 -u root -p</span><br><span class="line">	</span><br><span class="line">	mysql -h127.0.0.1 -P3306 -uroot -p2143</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-2-执行选项"><a href="#1-2-执行选项" class="headerlink" title="1.2 执行选项"></a>1.2 执行选项</h5><blockquote>
+<p>-e, –execute=name        执行SQL语句并退出</p>
+<p>Mysql客户端执行SQL语句，而不用连接到MySQL数据库再执行</p>
+<p>对于一些批处理脚本，这种方式尤其方便。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p2143 数据库名 -e &quot;select * from tb_book&quot;;</span><br></pre></td></tr></table></figure>
+
+<img src="https://csn.damyoung.cn/image-20201022215130425.png" alt="image-20201022215130425" style="zoom:80%;" />
+
+
+
+<h4 id="2、mysqladmin"><a href="#2、mysqladmin" class="headerlink" title="2、mysqladmin"></a>2、mysqladmin</h4><blockquote>
+<p>mysqladmin 是一个<strong>执行管理操作</strong>的客户端程序。</p>
+<p>可以用它来检查服务器的配置和当前状态、创建并删除数据库等。</p>
+</blockquote>
 <blockquote>
+<p> mysqladmin –help  指令查看帮助文档</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201022215714698.png" alt="image-20201022215714698" style="zoom:80%;" />
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">示例 ：</span><br><span class="line">	mysqladmin -uroot -p2143 create &#39;test01&#39;;  </span><br><span class="line">	mysqladmin -uroot -p2143 drop &#39;test01&#39;;</span><br><span class="line">	mysqladmin -uroot -p2143 version;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3、mysqlbinlog"><a href="#3、mysqlbinlog" class="headerlink" title="3、mysqlbinlog"></a>3、mysqlbinlog</h4><blockquote>
+<p>由于服务器生成的二进制日志文件以二进制格式保存，所以如果想要检查这些文本的文本格式，就会使用到mysqlbinlog 日志管理工具。</p>
+</blockquote>
+<p>mysqlbinlog [options]  log-files1 log-files2 …</p>
+<p>选项：<br>    -d, –database=name : 指定数据库名称，只列出指定的数据库相关操作。</p>
+<pre><code>-o, --offset=# : 忽略掉日志中的前n行命令。
+
+-r,--result-file=name : 将输出的文本格式日志输出到指定文件。
+
+-s, --short-form : 显示简单格式， 省略掉一些信息。
+
+--start-datatime=date1  --stop-datetime=date2 : 指定日期间隔内的所有日志。
+
+--start-position=pos1 --stop-position=pos2 : 指定位置间隔内的所有日志。</code></pre>
+<h4 id="4、mysqldump"><a href="#4、mysqldump" class="headerlink" title="4、mysqldump"></a>4、mysqldump</h4><blockquote>
+<p>用来<strong>备份</strong>数据库或在不同数据库之间进行<strong>数据迁移。</strong></p>
+<p>备份内容包含创建表，及插入表的SQL语句。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysqldump [options] db_name [tables]</span><br><span class="line"></span><br><span class="line">mysqldump [options] --database&#x2F;-B db1 [db2 db3...]</span><br><span class="line"></span><br><span class="line">mysqldump [options] --all-databases&#x2F;-A</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-1-选项"><a href="#4-1-选项" class="headerlink" title="4.1 选项"></a>4.1 选项</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">参数 ： </span><br><span class="line">	-u, --user&#x3D;name			指定用户名</span><br><span class="line">	-p, --password[&#x3D;name]	指定密码</span><br><span class="line">	-h, --host&#x3D;name			指定服务器IP或域名</span><br><span class="line">	-P, --port&#x3D;#			指定连接端口</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-2-输出"><a href="#4-2-输出" class="headerlink" title="4.2 输出"></a>4.2 输出</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">参数：</span><br><span class="line">	--add-drop-database		在每个数据库创建语句前加上 Drop database 语句</span><br><span class="line">	--add-drop-table		在每个表创建语句前加上 Drop table 语句 , 默认开启!! ; 不开启 (--skip-add-drop-table)</span><br><span class="line">	</span><br><span class="line">	-n, --no-create-db		不包含数据库的创建语句</span><br><span class="line">	-t, --no-create-info	不包含数据表的创建语句</span><br><span class="line">	-d --no-data			不包含数据</span><br><span class="line">	</span><br><span class="line">	 -T, --tab&#x3D;name			自动生成两个文件：一个.sql文件，创建表结构的语句；</span><br><span class="line">	 						一个.txt文件，数据文件，相当于select into outfile  </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123 demo_03 tb_book &gt; tb_book.sql;</span><br><span class="line">cat tb_book.sql;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 默认开启，可不加</span><br><span class="line">mysqldump -uroot -p123 demo_03 --add-drop-table &gt; demo_03.sql</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- 一个.sql文件，创建表结构的语句；</span><br><span class="line">-- 一个.txt文件，数据文件，相当于select into outfile  </span><br><span class="line">mysqldump -uroot -p123 -T &#x2F;tmp demo_03 tb_book;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="5-mysqlimport-source"><a href="#5-mysqlimport-source" class="headerlink" title="5 mysqlimport/source"></a>5 mysqlimport/source</h4><blockquote>
+<p>mysqlimport 是客户端数据导入工具，用来导入mysqldump 加 -T 参数后导出的<strong>文本文件</strong>。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysqlimport [options]  db_name  textfile1  [textfile2...]</span><br><span class="line"></span><br><span class="line">mysqlimport -uroot -p2143 数据库名 &#x2F;tmp&#x2F;city.txt</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果需要导入<strong>sql文件</strong>,可以使用mysql中的source 指令</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;root&#x2F;tb_book.sql</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="6-mysqlshow"><a href="#6-mysqlshow" class="headerlink" title="6 mysqlshow"></a>6 mysqlshow</h4><blockquote>
+<p>mysqlshow 客户端对象查找工具，用来很快地查找存在哪些数据库、数据库中的表、表中的列或者索引。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--count		显示数据库及表的统计信息（数据库，表 均可以不指定）</span><br><span class="line"></span><br><span class="line">-i			显示指定数据库或者指定表的状态信息</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#查询每个数据库的表的数量及表中记录的数量</span><br><span class="line">mysqlshow -uroot -p2143 --count</span><br><span class="line"></span><br><span class="line">#查询test库中每个表中的字段书，及行数</span><br><span class="line">mysqlshow -uroot -p2143 test --count</span><br><span class="line"></span><br><span class="line">#查询test库中book表的详细情况</span><br><span class="line">mysqlshow -uroot -p2143 test book --count</span><br></pre></td></tr></table></figure>
+
+<img src="https://csn.damyoung.cn/image-20201022235838134.png" alt="image-20201022235838134" style="zoom:80%;" />
+
+
+
+<h3 id="二、日志"><a href="#二、日志" class="headerlink" title="二、日志"></a>二、日志</h3><blockquote>
+<p>记录着数据库工作的方方面面，以帮助数据库管理员追踪数据库曾经发生过的各种事件</p>
 <ul>
-<li>简单：使用视图的用户完全不需要关心后面对应的表的结构、关联条件和筛选条件，对用户来说已经是<strong>过滤好的复合条件的结果集。</strong></li>
-<li>安全：<strong>使用视图的用户只能访问他们被允许查询的结果集</strong>，数据库对表的<strong>权限管理</strong>并不能限制到某个行某个列，但是通过视图就可以简单的实现。</li>
-<li>数据独立：一旦视图的结构确定了，可以<strong>屏蔽表结构变化对用户的影响</strong>，源表增加列对视图没有影响；源表修改列名，则可以通过修改视图来解决，不会造成对访问者的影响。</li>
+<li>错误日志</li>
+<li>二进制日志（BINLOG 日志）</li>
+<li>查询日志</li>
+<li>慢查询日志</li>
 </ul>
 </blockquote>
-<h4 id="2、创建视图"><a href="#2、创建视图" class="headerlink" title="2、创建视图"></a>2、创建视图</h4><blockquote>
-<p>create 视图名 as (select语句)</p>
+<h4 id="1、错误日志"><a href="#1、错误日志" class="headerlink" title="1、错误日志"></a>1、错误日志</h4><blockquote>
+<p>记录了当 mysqld 启动和停止时，以及服务器在运行过程中发生任何严重错误时的相关信息。</p>
+<p>当数据库出现任何故障导致无法正常使用时，可以首先查看此日志</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW v_general </span><br><span class="line">AS</span><br><span class="line">SELECT empno,ename,job,mgr,deptno FROM emp;</span><br></pre></td></tr></table></figure>
-
-<img src="https://csn.damyoung.cn/image-20201018202106673.png" alt="image-20201018202106673" style="zoom:80%;" />
+<img src="https://csn.damyoung.cn/image-20201023093056385.png" alt="image-20201023093056385" style="zoom:80%;" />
 
 
 
-<h4 id="3、更新视图"><a href="#3、更新视图" class="headerlink" title="3、更新视图"></a>3、更新视图</h4><p><strong>更新视图的同时也会更新原有表！！！</strong></p>
+<h4 id="2、二进制日志"><a href="#2、二进制日志" class="headerlink" title="2、二进制日志"></a>2、二进制日志</h4><blockquote>
+<p>二进制日志（BINLOG）记录了所有的 <strong>DDL</strong>（数据定义语言）语句和 <strong>DML</strong>（数据操纵语言）语句，但是<strong>不包括数据查询语句</strong></p>
+<p>此日志对于灾难时的数据恢复起着极其重要的作用，<strong>MySQL的主从复制， 就是通过该binlog实现的</strong>。</p>
+</blockquote>
+<h5 id="2-1-开启"><a href="#2-1-开启" class="headerlink" title="2.1 开启"></a>2.1 开启</h5><blockquote>
+<p>配置文件位置 : /etc/my.cnf</p>
+<p>日志存放位置 : 配置时，给定了文件名但是没有指定路径，日志默认写入Mysql的数据目录。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#配置开启binlog日志， 日志的文件前缀为 mysqlbin -----&gt; 生成的文件名如 : mysqlbin.000001,mysqlbin.000002</span><br><span class="line">log_bin&#x3D;mysqlbin</span><br><span class="line"></span><br><span class="line">#配置二进制日志的格式</span><br><span class="line">binlog_format&#x3D;STATEMENT</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-2-日志格式"><a href="#2-2-日志格式" class="headerlink" title="2.2 日志格式"></a>2.2 日志格式</h5><h6 id="statement"><a href="#statement" class="headerlink" title="statement"></a>statement</h6><p>该日志格式在日志文件中记录的都是<strong>SQL语句</strong>（statement），每一条对数据进行修改的SQL都会记录在日志文件中，通过Mysql提供的mysqlbinlog工具，可以清晰的查看到每条语句的文本。主从复制的时候，从库（slave）会将日志解析为原文本，并在从库重新执行一次。</p>
+<h6 id="row"><a href="#row" class="headerlink" title="row"></a>row</h6><p>该日志格式在日志文件中记录的是<strong>每一行的数据变更</strong>，而不是记录SQL语句。比如，执行SQL语句 ： update tb_book set status=’1’ , 如果是STATEMENT 日志格式，在日志中会记录一行SQL文件； 如果是ROW，由于是对全表进行更新，也就是每一行记录都会发生变更，ROW 格式的日志中会记录每一行的数据变更。</p>
+<h6 id="mixed"><a href="#mixed" class="headerlink" title="mixed"></a>mixed</h6><p>这是目前MySQL默认的日志格式，即混合了STATEMENT 和 ROW两种格式。默认情况下采用STATEMENT，但是在一些特殊情况下采用ROW来进行记录。MIXED 格式能尽量利用两种模式的优点，而避开他们的缺点</p>
+<h5 id="2-3-日志读取"><a href="#2-3-日志读取" class="headerlink" title="2.3 日志读取"></a>2.3 日志读取</h5><blockquote>
+<p>日志以二进制方式存储，不能直接读取，需要用mysqlbinlog工具来查看</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog log-file;</span><br></pre></td></tr></table></figure>
+
+<h6 id="查看statement格式日志"><a href="#查看statement格式日志" class="headerlink" title="查看statement格式日志"></a>查看statement格式日志</h6><p>/var/lib/mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 执行插入语句</span><br><span class="line">insert into tb_book values(null,&#39;Lucene&#39;,&#39;2088-05-01&#39;,&#39;0&#39;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>查看日志内容</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog mysqlbing.00001;</span><br></pre></td></tr></table></figure>
+
+<h6 id="查看row格式日志"><a href="#查看row格式日志" class="headerlink" title="查看row格式日志"></a>查看row格式日志</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#配置开启binlog日志， 日志的文件前缀为 mysqlbin -----&gt; 生成的文件名如 : mysqlbin.000001,mysqlbin.000002</span><br><span class="line">log_bin&#x3D;mysqlbin</span><br><span class="line"></span><br><span class="line">#配置二进制日志的格式</span><br><span class="line">binlog_format&#x3D;ROW</span><br></pre></td></tr></table></figure>
+
+<p><strong>查看</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog -vv mysqlbin.000002 </span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-4-删除日志"><a href="#2-4-删除日志" class="headerlink" title="2.4 删除日志"></a>2.4 删除日志</h5><h6 id="1"><a href="#1" class="headerlink" title="1"></a>1</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Reset Master</span><br></pre></td></tr></table></figure>
+
+<h6 id="2"><a href="#2" class="headerlink" title="2"></a>2</h6><p>执行指令 <code> purge  master logs to &#39;mysqlbin.******&#39;</code> ，该命令将删除  <code> ******</code> 编号之前的所有日志。 </p>
+<h6 id="3"><a href="#3" class="headerlink" title="3"></a>3</h6><p>执行指令 <code> purge master logs before &#39;yyyy-mm-dd hh24:mi:ss&#39;</code> ，该命令将删除日志为 “yyyy-mm-dd hh24:mi:ss” 之前产生的所有日志</p>
+<h6 id="4"><a href="#4" class="headerlink" title="4"></a>4</h6><p>设置参数 –expire_logs_days=# ，此参数的含义是设置日志的过期天数， 过了指定的天数后日志将会被自动删除，这样将有利于减少DBA 管理日志的工作量。</p>
+<h4 id="3、查询日志"><a href="#3、查询日志" class="headerlink" title="3、查询日志"></a>3、查询日志</h4><blockquote>
+<p>查询日志中记录了客户端的<strong>所有操作语句</strong>，而二进制日志不包含查询数据的SQL语句。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#该选项用来开启查询日志 ， 可选值 ： 0 或者 1 ； 0 代表关闭， 1 代表开启 </span><br><span class="line">general_log&#x3D;1</span><br><span class="line"></span><br><span class="line">#设置日志的文件名 ， 如果没有指定， 默认的文件名为 host_name.log </span><br><span class="line">general_log_file&#x3D;file_name</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4、慢查询日志"><a href="#4、慢查询日志" class="headerlink" title="4、慢查询日志"></a>4、慢查询日志</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 该参数用来控制慢查询日志是否开启， 可取值： 1 和 0 ， 1 代表开启， 0 代表关闭</span><br><span class="line">slow_query_log&#x3D;1 </span><br><span class="line"></span><br><span class="line"># 该参数用来指定慢查询日志的文件名</span><br><span class="line">slow_query_log_file&#x3D;slow_query.log</span><br><span class="line"></span><br><span class="line"># 该选项用来配置查询的时间限制， 超过这个时间将认为值慢查询， 将需要进行日志记录， 默认10s</span><br><span class="line">long_query_time&#x3D;10</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="三、主从复制"><a href="#三、主从复制" class="headerlink" title="三、主从复制"></a>三、主从复制</h3><h4 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h4><blockquote>
+<p>复制是指将主数据库的<strong>DDL</strong> 和 <strong>DML</strong> 操作通过<strong>二进制日志</strong>传到从库服务器中，然后在从库上对这些日志重新执行（也叫重做），从而使得从库和主库的数据保持同步。</p>
+</blockquote>
 <blockquote>
-<p>update 视图名 set 字段名=‘’  where ..</p>
+<p>MySQL支持一台主库同时向多台从库进行复制， 从库同时也可以作为其他从服务器的主库，实现<strong>链状复制。</strong></p>
 </blockquote>
-<img src="https://csn.damyoung.cn/image-20201018202711004.png" alt="image-20201018202711004" style="zoom:80%;" />
+<h4 id="2、复制的原理"><a href="#2、复制的原理" class="headerlink" title="2、复制的原理"></a>2、复制的原理</h4><blockquote>
+<ul>
+<li><p>Master 主库在事务提交时，会把<strong>数据变更</strong>作为时间 Events 记录在二进制日志文件 <strong>Binlog</strong> 中。</p>
+</li>
+<li><p>主库推送二进制日志文件 Binlog 中的日志事件到从库的<strong>中继日志 Relay Log 。</strong></p>
+</li>
+<li><p>slave<strong>重做</strong>中继日志中的事件，将改变反映它自己的数据。</p>
+</li>
+</ul>
+</blockquote>
+<img src="https://csn.damyoung.cn/2111.jpg" alt="2111" style="zoom:80%;" />
+
+
+
+<h4 id="3、复制优势"><a href="#3、复制优势" class="headerlink" title="3、复制优势"></a>3、复制优势</h4><blockquote>
+<ul>
+<li><p>主库出现问题，可以<strong>快速切换到从库提供服务</strong>。</p>
+</li>
+<li><p>可以在<strong>从库上执行查询</strong>操作，从<strong>主库中更新</strong>，实现读写分离，降低主库的访问压力。</p>
+</li>
+<li><p>可以在<strong>从库中执行备份</strong>，以避免备份期间影响主库的服务。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="4、搭建"><a href="#4、搭建" class="headerlink" title="4、搭建"></a>4、搭建</h4><h5 id="4-1-master"><a href="#4-1-master" class="headerlink" title="4.1 master"></a>4.1 master</h5><p><strong>配置文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#mysql 服务ID,保证整个集群环境中唯一</span><br><span class="line">server-id&#x3D;1</span><br><span class="line"></span><br><span class="line">#mysql binlog 日志的存储路径和文件名</span><br><span class="line">log-bin&#x3D;&#x2F;var&#x2F;lib&#x2F;mysql&#x2F;mysqlbin</span><br><span class="line"></span><br><span class="line">#错误日志,默认已经开启</span><br><span class="line">#log-err</span><br><span class="line"></span><br><span class="line">#mysql的安装目录</span><br><span class="line">#basedir</span><br><span class="line"></span><br><span class="line">#mysql的临时目录</span><br><span class="line">#tmpdir</span><br><span class="line"></span><br><span class="line">#mysql的数据存放目录</span><br><span class="line">#datadir</span><br><span class="line"></span><br><span class="line">#是否只读,1 代表只读, 0 代表读写</span><br><span class="line">read-only&#x3D;0</span><br><span class="line"></span><br><span class="line">#忽略的数据, 指不需要同步的数据库</span><br><span class="line">binlog-ignore-db&#x3D;mysql</span><br><span class="line"></span><br><span class="line">#指定同步的数据库</span><br><span class="line">#binlog-do-db&#x3D;db01</span><br></pre></td></tr></table></figure>
+
+<p><strong>重启</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql restart ；</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建同步数据的账户，并且进行授权操作：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grant replication slave on *.* to &#39;itcast&#39;@&#39;192.168.192.131&#39; identified by &#39;itcast&#39;;	</span><br><span class="line"></span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+
+<p><strong>查看master状态：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show master status;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>修改视图</strong>：alter view 视图名 as (select语句)  </p>
+<p>File : 从哪个日志文件开始推送日志文件 </p>
+<p>Position ： 从哪个位置开始推送日志</p>
+<p>Binlog_Ignore_DB : 指定不需要同步的数据库</p>
 </blockquote>
-<p><img src="https://csn.damyoung.cn/image-20201018203500053.png" alt="image-20201018203500053"></p>
+<h5 id="4-2-slave"><a href="#4-2-slave" class="headerlink" title="4.2 slave"></a>4.2 slave</h5><p>在slave端配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#mysql服务端ID,唯一</span><br><span class="line">server-id&#x3D;2</span><br><span class="line"></span><br><span class="line">#指定binlog日志</span><br><span class="line">log-bin&#x3D;&#x2F;var&#x2F;lib&#x2F;mysql&#x2F;mysqlbin</span><br></pre></td></tr></table></figure>
+
+<p>重启mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql restart；</span><br></pre></td></tr></table></figure>
+
+<p>指定当前从库对应的主库的IP地址，用户名，密码，从哪个日志文件开始的那个位置开始同步推送日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">change master to master_host&#x3D; &#39;192.168.192.130&#39;, master_user&#x3D;&#39;itcast&#39;, master_password&#x3D;&#39;itcast&#39;, master_log_file&#x3D;&#39;mysqlbin.000001&#39;, master_log_pos&#x3D;413;</span><br></pre></td></tr></table></figure>
+
+<p>开启同步操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">start slave;</span><br><span class="line"></span><br><span class="line">show slave status;</span><br></pre></td></tr></table></figure>
+
+<p>停止同步</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stop slave;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="4-3-验证同步操作"><a href="#4-3-验证同步操作" class="headerlink" title="4.3 验证同步操作"></a>4.3 验证同步操作</h5><p>主库中创建数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">create database db01;</span><br><span class="line"></span><br><span class="line">user db01;</span><br><span class="line"></span><br><span class="line">create table user(</span><br><span class="line">	id int(11) not null auto_increment,</span><br><span class="line">	name varchar(50) not null,</span><br><span class="line">	sex varchar(1),</span><br><span class="line">	primary key (id)</span><br><span class="line">)engine&#x3D;innodb default charset&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">insert into user(id,name,sex) values(null,&#39;Tom&#39;,&#39;1&#39;);</span><br><span class="line">insert into user(id,name,sex) values(null,&#39;Trigger&#39;,&#39;0&#39;);</span><br><span class="line">insert into user(id,name,sex) values(null,&#39;Dawn&#39;,&#39;1&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>从库中查询</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/07%E6%B3%9B%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/07%E6%B3%9B%E5%9E%8B/" class="post-title-link" itemprop="url">泛型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:36:50" itemprop="dateModified" datetime="2020-12-06T22:36:50+08:00">2020-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/07%E6%B3%9B%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="泛型" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><blockquote>
+<p><strong>泛型是参数化类型，使用广泛的类型</strong></p>
+<p><strong>声明时使用泛型，使用时确定类型</strong></p>
+<p>编译时使用泛型，JVM并不知道泛型的存在，泛型使用时强制转换类型</p>
+</blockquote>
+<h4 id="泛型是什么？"><a href="#泛型是什么？" class="headerlink" title="泛型是什么？"></a>泛型是什么？</h4><ul>
+<li>泛型是参数化类型，使用广泛的类型，声明时使用泛型，使用时确定类型</li>
+<li>泛型是一个重要特性是泛型擦除，由于JVM并不知道泛型的存在，泛型在编译期就被转化为普通的类，目的是避免创建过多的类造成性能上的损耗</li>
+<li>泛型在数据取出时会进行一个强制类型转换(此时若是创建泛型数组，进行强制类型转换时会出行<code>ClassCastException</code>!)</li>
+</ul>
+<p><strong>泛型字母</strong></p>
 <blockquote>
-<p>show create view 视图名 </p>
+<p>T type ，K V  ， E element</p>
 </blockquote>
-<img src="https://csn.damyoung.cn/image-20201018203846648.png" alt="image-20201018203846648" style="zoom:80%;" />
+<p><strong>注意</strong></p>
+<blockquote>
+<ul>
+<li>不能使用基本类型，指定类型引用类型</li>
+<li>使用时自动类型检查，自动类型转换</li>
+</ul>
+</blockquote>
+<h3 id="1、泛型的使用"><a href="#1、泛型的使用" class="headerlink" title="1、泛型的使用"></a>1、泛型的使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jdk1.7以后泛型只需要声明一次，后面使用该类型</span></span><br><span class="line">Test1&lt;String&gt; s1=<span class="keyword">new</span> Test1&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-1-泛型类"><a href="#1-1-泛型类" class="headerlink" title="1.1 泛型类"></a>1.1 泛型类</h5><blockquote>
+<p>class 类名&lt;字母列表&gt;{  }</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span>&lt;<span class="title">T1</span>,<span class="title">T2</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span>  T1 javaScore;</span><br><span class="line">    <span class="keyword">private</span>  T2 oracleScore;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-2-泛型接口"><a href="#1-2-泛型接口" class="headerlink" title="1.2 泛型接口"></a>1.2 泛型接口</h5><p><strong>格式</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Inte</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>删除视图：drop view 视图名</p>
+<p>泛型字母不能使用在接口静态方法中，不能使用在全局常量中（隐含static）。</p>
 </blockquote>
-<img src="https://csn.damyoung.cn/image-20201018203938785.png" alt="image-20201018203938785" style="zoom:80%;" />
-
-<h4 id="4、查看视图"><a href="#4、查看视图" class="headerlink" title="4、查看视图"></a>4、查看视图</h4><blockquote>
-<p>show tables;</p>
+<h5 id="1-3-泛型方法"><a href="#1-3-泛型方法" class="headerlink" title="1.3 泛型方法"></a>1.3 泛型方法</h5><blockquote>
+<p>在public与返回值之间的<T>必不可少，这表明这是一个泛型方法.</p>
+<p>并且声明了一个泛型T，这个T可以出现在这个泛型方法的任意位置</p>
 </blockquote>
-<img src="https://csn.damyoung.cn/image-20201018203633852.png" alt="image-20201018203633852" style="zoom:80%;" />
+<p><strong>格式</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T,T1&gt; <span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">(T t,T1,t1)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-4-静态方法"><a href="#1-4-静态方法" class="headerlink" title="1.4 静态方法"></a>1.4 静态方法</h5><blockquote>
+<p><strong>静态方法无法访问类上定义的泛型</strong></p>
+<p>如果静态方法要使用泛型的话，必须将静态方法也定义成泛型方法 </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T,T1&gt; <span class="keyword">void</span> <span class="title">Test</span><span class="params">(T t,T1,t1)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-5-通配符"><a href="#1-5-通配符" class="headerlink" title="1.5 通配符"></a>1.5 通配符</h5><blockquote>
+<p> 类型不定，使用时确定类型</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Test1&lt;?&gt; s=<span class="keyword">new</span> Test1&lt;String&gt;();</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-6-泛型的上下边界"><a href="#1-6-泛型的上下边界" class="headerlink" title="1.6 泛型的上下边界"></a>1.6 泛型的上下边界</h5><p>为泛型添加上边界，即传入的类型实参必须是指定类型的子类型</p>
+<p> ? extends : &lt;=上限  为泛型添加上边界，即传入的类型实参必须是指定类型的子类型</p>
+<p> ? super：&gt;=下限 指定类型为自身或父类、</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    T score; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Test1&lt;?&gt; s)</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">(Test1&lt;?extends Fruit&gt; s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">(Test1&lt;?<span class="keyword">super</span> Fruit&gt; s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+
+
+
+<h3 id="2、自定义泛型"><a href="#2、自定义泛型" class="headerlink" title="2、自定义泛型"></a>2、自定义泛型</h3><h5 id="2-1-继承关系"><a href="#2-1-继承关系" class="headerlink" title="2.1 继承关系"></a>2.1 继承关系</h5><blockquote>
+<p>​    <strong>T&gt;Object，子类&gt;=父类泛型</strong></p>
+</blockquote>
+<ul>
+<li>父类为泛型类：属性，方法；子类：使用时指定具体类型</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child</span> <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">String</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>子类为泛型类,类型在使用时确定</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child1</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">T</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>子类为泛型类，父类不指定类型（泛型的擦除，用Object）<br>​                    （不能子类擦除，父类泛型） </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child2</span> &lt;<span class="title">T</span>&gt;<span class="keyword">extends</span>  <span class="title">Father</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>子类和父类同时擦除</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child3</span> <span class="keyword">extends</span> <span class="title">Father</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-2-重写参数类型"><a href="#2-2-重写参数类型" class="headerlink" title="2.2 重写参数类型"></a>2.2 重写参数类型</h5><ul>
+<li><p>重写方法时，方法形参随父亲而定 </p>
+</li>
+<li><p>属性子类随子类，父类随父类</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child</span> <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">String</span>&gt;</span>&#123;</span><br><span class="line">    String t2;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3、泛型的擦除"><a href="#3、泛型的擦除" class="headerlink" title="3、泛型的擦除"></a>3、泛型的擦除</h3><blockquote>
+<p><strong>继承和声明时不指定类型，用Object对待</strong></p>
+</blockquote>
+<ul>
+<li><p><strong>Java泛型擦除是Java泛型的一个重要特性，目的是避免过多的创建类造成的性能损耗</strong></p>
+</li>
+<li><p>JVM并不知道泛型的存在，因为泛型在编译阶段就已经被处理成普通的类和方法； </p>
+</li>
+<li><p>而泛型会在数据取出进行一个强制类型转换</p>
+</li>
+</ul>
+<p><strong>擦除规则</strong></p>
+<ul>
+<li>若泛型类型没有指定具体类型，用Object作为原始类型；</li>
+<li>若有限定类型&lt; T exnteds XClass &gt;，使用XClass作为原始类型；</li>
+<li>若有多个限定&lt; T exnteds XClass1 &amp; XClass2 &gt;，使用第一个边界类型XClass1作为原始类型；</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child3</span> <span class="keyword">extends</span> <span class="title">Father</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4、泛型的嵌套"><a href="#4、泛型的嵌套" class="headerlink" title="4、泛型的嵌套"></a>4、泛型的嵌套</h3><p> 泛型的嵌套：与调用没有关系。从外到内拆分</p>
+<h3 id="5、泛型与数组"><a href="#5、泛型与数组" class="headerlink" title="5、泛型与数组"></a>5、泛型与数组</h3><blockquote>
+<h5 id="没有泛型数组-，可以声明，不能创建"><a href="#没有泛型数组-，可以声明，不能创建" class="headerlink" title="没有泛型数组  ，可以声明，不能创建"></a><strong>没有泛型数组  ，可以声明，不能创建</strong></h5></blockquote>
+<p><strong>！！！</strong>由于JVM在编译时是不知道泛型的存在的，泛型是数据获取时进行的强制类型转换，若是创建泛型数组，进行强制类型转换时会出行<code>ClassCastException</code>!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt;[] ls &#x3D; new ArrayList&lt;String&gt;[10]; &#x2F;&#x2F;不可以</span><br><span class="line"></span><br><span class="line">List&lt;?&gt;[] ls &#x3D; new ArrayList&lt;?&gt;[10]; &#x2F;&#x2F;可以</span><br><span class="line"></span><br><span class="line">List&lt;String&gt;[] ls &#x3D; new ArrayList[10]; &#x2F;&#x2F;可以</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、泛型不能使用多态"><a href="#6、泛型不能使用多态" class="headerlink" title="6、泛型不能使用多态"></a>6、泛型不能使用多态</h3><p>泛型不能使用多态： A<Fruit> test(){ return A<Apple>; } 错误</p>
+<p>​    使用：只能在声明时使用（不能在声明类或使用时使用问号）</p>
 
       
     </div>
@@ -385,14 +772,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span></span>
+              <span>8.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>NaN:aN</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -696,225 +1083,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/07%E6%B3%9B%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/07%E6%B3%9B%E5%9E%8B/" class="post-title-link" itemprop="url">泛型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:36:50" itemprop="dateModified" datetime="2020-12-06T22:36:50+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/07%E6%B3%9B%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="泛型" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span></span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>NaN:aN</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><blockquote>
-<p><strong>泛型是参数化类型，使用广泛的类型</strong></p>
-<p><strong>声明时使用泛型，使用时确定类型</strong></p>
-<p>编译时使用泛型，JVM并不知道泛型的存在，泛型使用时强制转换类型</p>
-</blockquote>
-<h4 id="泛型是什么？"><a href="#泛型是什么？" class="headerlink" title="泛型是什么？"></a>泛型是什么？</h4><ul>
-<li>泛型是参数化类型，使用广泛的类型，声明时使用泛型，使用时确定类型</li>
-<li>泛型是一个重要特性是泛型擦除，由于JVM并不知道泛型的存在，泛型在编译期就被转化为普通的类，目的是避免创建过多的类造成性能上的损耗</li>
-<li>泛型在数据取出时会进行一个强制类型转换(此时若是创建泛型数组，进行强制类型转换时会出行<code>ClassCastException</code>!)</li>
-</ul>
-<p><strong>泛型字母</strong></p>
-<blockquote>
-<p>T type ，K V  ， E element</p>
-</blockquote>
-<p><strong>注意</strong></p>
-<blockquote>
-<ul>
-<li>不能使用基本类型，指定类型引用类型</li>
-<li>使用时自动类型检查，自动类型转换</li>
-</ul>
-</blockquote>
-<h3 id="1、泛型的使用"><a href="#1、泛型的使用" class="headerlink" title="1、泛型的使用"></a>1、泛型的使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jdk1.7以后泛型只需要声明一次，后面使用该类型</span></span><br><span class="line">Test1&lt;String&gt; s1=<span class="keyword">new</span> Test1&lt;&gt;();</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-1-泛型类"><a href="#1-1-泛型类" class="headerlink" title="1.1 泛型类"></a>1.1 泛型类</h5><blockquote>
-<p>class 类名&lt;字母列表&gt;{  }</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span>&lt;<span class="title">T1</span>,<span class="title">T2</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span>  T1 javaScore;</span><br><span class="line">    <span class="keyword">private</span>  T2 oracleScore;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-2-泛型接口"><a href="#1-2-泛型接口" class="headerlink" title="1.2 泛型接口"></a>1.2 泛型接口</h5><p><strong>格式</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Inte</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>泛型字母不能使用在接口静态方法中，不能使用在全局常量中（隐含static）。</p>
-</blockquote>
-<h5 id="1-3-泛型方法"><a href="#1-3-泛型方法" class="headerlink" title="1.3 泛型方法"></a>1.3 泛型方法</h5><blockquote>
-<p>在public与返回值之间的<T>必不可少，这表明这是一个泛型方法.</p>
-<p>并且声明了一个泛型T，这个T可以出现在这个泛型方法的任意位置</p>
-</blockquote>
-<p><strong>格式</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T,T1&gt; <span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">(T t,T1,t1)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-4-静态方法"><a href="#1-4-静态方法" class="headerlink" title="1.4 静态方法"></a>1.4 静态方法</h5><blockquote>
-<p><strong>静态方法无法访问类上定义的泛型</strong></p>
-<p>如果静态方法要使用泛型的话，必须将静态方法也定义成泛型方法 </p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T,T1&gt; <span class="keyword">void</span> <span class="title">Test</span><span class="params">(T t,T1,t1)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-5-通配符"><a href="#1-5-通配符" class="headerlink" title="1.5 通配符"></a>1.5 通配符</h5><blockquote>
-<p> 类型不定，使用时确定类型</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Test1&lt;?&gt; s=<span class="keyword">new</span> Test1&lt;String&gt;();</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-6-泛型的上下边界"><a href="#1-6-泛型的上下边界" class="headerlink" title="1.6 泛型的上下边界"></a>1.6 泛型的上下边界</h5><p>为泛型添加上边界，即传入的类型实参必须是指定类型的子类型</p>
-<p> ? extends : &lt;=上限  为泛型添加上边界，即传入的类型实参必须是指定类型的子类型</p>
-<p> ? super：&gt;=下限 指定类型为自身或父类、</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    T score; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Test1&lt;?&gt; s)</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">(Test1&lt;?extends Fruit&gt; s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">(Test1&lt;?<span class="keyword">super</span> Fruit&gt; s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="2、自定义泛型"><a href="#2、自定义泛型" class="headerlink" title="2、自定义泛型"></a>2、自定义泛型</h3><h5 id="2-1-继承关系"><a href="#2-1-继承关系" class="headerlink" title="2.1 继承关系"></a>2.1 继承关系</h5><blockquote>
-<p>​    <strong>T&gt;Object，子类&gt;=父类泛型</strong></p>
-</blockquote>
-<ul>
-<li>父类为泛型类：属性，方法；子类：使用时指定具体类型</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child</span> <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">String</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>子类为泛型类,类型在使用时确定</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child1</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">T</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>子类为泛型类，父类不指定类型（泛型的擦除，用Object）<br>​                    （不能子类擦除，父类泛型） </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child2</span> &lt;<span class="title">T</span>&gt;<span class="keyword">extends</span>  <span class="title">Father</span></span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>子类和父类同时擦除</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child3</span> <span class="keyword">extends</span> <span class="title">Father</span></span></span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="2-2-重写参数类型"><a href="#2-2-重写参数类型" class="headerlink" title="2.2 重写参数类型"></a>2.2 重写参数类型</h5><ul>
-<li><p>重写方法时，方法形参随父亲而定 </p>
-</li>
-<li><p>属性子类随子类，父类随父类</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child</span> <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">String</span>&gt;</span>&#123;</span><br><span class="line">    String t2;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3、泛型的擦除"><a href="#3、泛型的擦除" class="headerlink" title="3、泛型的擦除"></a>3、泛型的擦除</h3><blockquote>
-<p><strong>继承和声明时不指定类型，用Object对待</strong></p>
-</blockquote>
-<ul>
-<li><p><strong>Java泛型擦除是Java泛型的一个重要特性，目的是避免过多的创建类造成的性能损耗</strong></p>
-</li>
-<li><p>JVM并不知道泛型的存在，因为泛型在编译阶段就已经被处理成普通的类和方法； </p>
-</li>
-<li><p>而泛型会在数据取出进行一个强制类型转换</p>
-</li>
-</ul>
-<p><strong>擦除规则</strong></p>
-<ul>
-<li>若泛型类型没有指定具体类型，用Object作为原始类型；</li>
-<li>若有限定类型&lt; T exnteds XClass &gt;，使用XClass作为原始类型；</li>
-<li>若有多个限定&lt; T exnteds XClass1 &amp; XClass2 &gt;，使用第一个边界类型XClass1作为原始类型；</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child3</span> <span class="keyword">extends</span> <span class="title">Father</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="4、泛型的嵌套"><a href="#4、泛型的嵌套" class="headerlink" title="4、泛型的嵌套"></a>4、泛型的嵌套</h3><p> 泛型的嵌套：与调用没有关系。从外到内拆分</p>
-<h3 id="5、泛型与数组"><a href="#5、泛型与数组" class="headerlink" title="5、泛型与数组"></a>5、泛型与数组</h3><blockquote>
-<h5 id="没有泛型数组-，可以声明，不能创建"><a href="#没有泛型数组-，可以声明，不能创建" class="headerlink" title="没有泛型数组  ，可以声明，不能创建"></a><strong>没有泛型数组  ，可以声明，不能创建</strong></h5></blockquote>
-<p><strong>！！！</strong>由于JVM在编译时是不知道泛型的存在的，泛型是数据获取时进行的强制类型转换，若是创建泛型数组，进行强制类型转换时会出行<code>ClassCastException</code>!</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt;[] ls &#x3D; new ArrayList&lt;String&gt;[10]; &#x2F;&#x2F;不可以</span><br><span class="line"></span><br><span class="line">List&lt;?&gt;[] ls &#x3D; new ArrayList&lt;?&gt;[10]; &#x2F;&#x2F;可以</span><br><span class="line"></span><br><span class="line">List&lt;String&gt;[] ls &#x3D; new ArrayList[10]; &#x2F;&#x2F;可以</span><br></pre></td></tr></table></figure>
-
-<h3 id="6、泛型不能使用多态"><a href="#6、泛型不能使用多态" class="headerlink" title="6、泛型不能使用多态"></a>6、泛型不能使用多态</h3><p>泛型不能使用多态： A<Fruit> test(){ return A<Apple>; } 错误</p>
-<p>​    使用：只能在声明时使用（不能在声明类或使用时使用问号）</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/08DCL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -971,14 +1139,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span></span>
+              <span>572</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>NaN:aN</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -1005,221 +1173,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- 授予所有权限</span><br><span class="line">grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;password&#39;;</span><br><span class="line">flush identified;</span><br></pre></td></tr></table></figure>
 
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/08%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/08%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">网络编程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:36:46" itemprop="dateModified" datetime="2020-12-06T22:36:46+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/08%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="post-meta-item leancloud_visitors" data-flag-title="网络编程" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span></span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>NaN:aN</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h3><h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><ul>
-<li>在网络通信协议下，实现<strong>网络互连</strong>的不同计算机运行的程序间可以进行数据交换</li>
-</ul>
-<h4 id="1-1-三要素"><a href="#1-1-三要素" class="headerlink" title="1.1  三要素"></a>1.1  三要素</h4><ul>
-<li><strong>IP地址</strong>：使得每台计算机得以通信，为计算机指定一个识别号，即<strong>设备的标识</strong></li>
-<li><strong>端口</strong>：网络的通信，本质上是俩个应用程序的通信，即<strong>应用程序的标识</strong></li>
-<li><strong>协议</strong>：位于同一个网络中的计算机进行连接和通信是需要遵守一定的规则，这些规则被称为网络通信协议。对数据的<strong>传输格式、传输速率、传输步骤</strong>等做了统一规定。常见的协议有UDP协议和TCP协议</li>
-</ul>
-<h4 id="1-2-IP地址"><a href="#1-2-IP地址" class="headerlink" title="1.2 IP地址"></a>1.2 IP地址</h4><blockquote>
-<p>网络中设备的唯一标识</p>
-</blockquote>
-<ul>
-<li><p>IPV4：给每个连接在网络上的主机分配一个32bit地址(4个字节)，IP地址用二进制表示。</p>
-<p>​            IP地址被写成十进制形式(点分十进制表示法)  4*8个二进制数</p>
-<p>​            192.168.137.1</p>
-</li>
-<li><p>IPV6：采用128bit地址，即16个字节一组，分成8组十六进制数</p>
-<p>​            fd7d:cdbc:2395:0:8d3f:6f5e:c964:8f63</p>
-</li>
-</ul>
-<blockquote>
-<p>常用命令</p>
-<ul>
-<li>ipconfig：查看本机IP地址</li>
-<li>ping IP地址：检查网络是否连通</li>
-<li>特殊IP地址：127.0.0.1 回送地址，可以代表本机地址，一般用来测试使用</li>
-</ul>
-</blockquote>
-<h5 id="1-2-1-InetAddress"><a href="#1-2-1-InetAddress" class="headerlink" title="1.2.1 InetAddress"></a>1.2.1 InetAddress</h5><blockquote>
-<p>对IP地址的获取和操作</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">方法名</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">static InetAddress  getByName(String host)</td>
-<td align="left">确定主机的IP地址，主机名称可以机器名称，也可以是IP地址</td>
-</tr>
-<tr>
-<td align="center">String getHostName()</td>
-<td align="left">获取该IP地址的主机名</td>
-</tr>
-<tr>
-<td align="center">String getHostAddress()</td>
-<td align="left">返回文本显示中IP地址字符串</td>
-</tr>
-</tbody></table>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">InetAddress inetAddress = InetAddress.getByName(<span class="string">&quot;DESKTOP-GD4A4EF&quot;</span>);</span><br><span class="line">System.out.println(inetAddress);<span class="comment">//DESKTOP-GD4A4EF/192.168.2.54</span></span><br><span class="line"></span><br><span class="line">String ip = inetAddress.getHostAddress();</span><br><span class="line">String hostName = inetAddress.getHostName();</span><br><span class="line">System.out.println(<span class="string">&quot;IP地址&quot;</span>+ip+<span class="string">&quot;主机名&quot;</span>+hostName);<span class="comment">//192.168.2.54  DESKTOP-GD4A4EF</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="1-3-端口"><a href="#1-3-端口" class="headerlink" title="1.3 端口"></a>1.3 端口</h4><blockquote>
-<p>俩个字节表示的整数，取值范围0~65535。若果端口号被另外一个服务或应用所占用，会导致应用程序启动失败</p>
-</blockquote>
-<h4 id="1-4-协议"><a href="#1-4-协议" class="headerlink" title="1.4 协议"></a>1.4 协议</h4><h5 id="（1）UDP协议"><a href="#（1）UDP协议" class="headerlink" title="（1）UDP协议"></a>（1）UDP协议</h5><blockquote>
-<p>用户数据报协议 User Datagram Protocol</p>
-</blockquote>
-<ul>
-<li><strong>无连接通信协议</strong>，即在数据传输时，数据的发送端和接收端不建立逻辑连接。也就是说，A向B发送数据时，发送端不会确认接收端是否存在，就会发出数据；同样，接收端在收到数据时，也不会向发送端反馈是否收到数据。</li>
-<li>UDP的面向无连接性，不能保证数据的完整性，在传输重要数据时不建议使用UDP协议</li>
-</ul>
-<h5 id="（2）TCP协议"><a href="#（2）TCP协议" class="headerlink" title="（2）TCP协议"></a>（2）TCP协议</h5><blockquote>
-<p>传输控制协议 Transmission Control Protocol</p>
-</blockquote>
-<ul>
-<li><strong>面向连接</strong>的通信协议，即传输数据时，发送端和接收端建立逻辑连接，然后再传输数据。它提供了俩台计算机之间<strong>可靠无差错</strong>的数据传输。</li>
-<li>在TCP连接中必须明确客户端和服务器端，由客户端向服务器发出连接请求，每次连接的创建都要经过三次握手</li>
-</ul>
-<h5 id="（3）三次握手"><a href="#（3）三次握手" class="headerlink" title="（3）三次握手"></a>（3）三次握手</h5><p>TCP协议中，在发送数据的准备阶段，客户端和服务器端之间的三次交互，以保证连接的可靠性</p>
-<ul>
-<li>第一次握手：客户端向服务器端发送连接请求，等待服务器确认</li>
-<li>第二次握手：服务器端向客户端回送一个响应，通知客户端收到了连接请求</li>
-<li>第三次握手：客户端再次向服务器端发送确认信息，确认连接</li>
-</ul>
-<h3 id="二、UDP通信程序"><a href="#二、UDP通信程序" class="headerlink" title="二、UDP通信程序"></a>二、UDP通信程序</h3><h4 id="1-1-UDP通信原理"><a href="#1-1-UDP通信原理" class="headerlink" title="1.1 UDP通信原理"></a>1.1 UDP通信原理</h4><p>一种不可靠的网络协议，它在通信的俩端各建立一个Socket对象，但仅仅只是发送、接收数据的对象，因此对于基于UDP协议的通信双方而言，没有所谓客户端和服务器的概念。</p>
-<h4 id="2-2UDP发送数据"><a href="#2-2UDP发送数据" class="headerlink" title="2.2UDP发送数据"></a>2.2UDP发送数据</h4><h5 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h5><ul>
-<li>创建发送端Socket对象</li>
-<li>创建数据，并把数据打包<code>new DatagramPacket(bytes,length,inetAddress,port)</code>（数据报包）</li>
-<li>调用<code>DatagramSocke.send(DatagramPacket)</code>对象的方法发送数据</li>
-<li>关闭发送端 </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用DatagramSocket对象发送数据</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">//1、创建发送端的Socket对象</span></span><br><span class="line">    DatagramSocket datagramSocket = <span class="keyword">new</span> DatagramSocket();</span><br><span class="line">    <span class="comment">//2、创建数据，并把数据打包成数据报包</span></span><br><span class="line">    <span class="keyword">byte</span>[] bytes=<span class="string">&quot;hello word&quot;</span>.getBytes();</span><br><span class="line">    <span class="comment">//buf-数组 length-数据长度 address-ip地址 port-端口地址</span></span><br><span class="line">    DatagramPacket datagramPacket=<span class="keyword">new</span> DatagramPacket(bytes,bytes.length,InetAddress.getByName(<span class="string">&quot;DESKTOP-GD4A4EF&quot;</span>),<span class="number">10086</span>);</span><br><span class="line">    <span class="comment">//3、调用DatagramSocket对象发送数据报包</span></span><br><span class="line">    datagramSocket.send(datagramPacket);</span><br><span class="line">    <span class="comment">//4、关闭发送端</span></span><br><span class="line">    datagramSocket.close();</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-3-UDP接收数据"><a href="#2-3-UDP接收数据" class="headerlink" title="2.3 UDP接收数据"></a>2.3 UDP接收数据</h4><h5 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h5><ul>
-<li>创建接收端Socket对象 <code>new DatagramSocket(port)</code></li>
-<li>创建数据报包，用来接收数据 <code>DatagramPacket(byte[],int length)</code></li>
-<li>调用<code>DatagramSocket.receive</code>对象用来接收数据</li>
-<li>解析数据报包，并把数据在控制台显示 <code>DatagramPacket.getData()</code></li>
-<li>关闭接收端</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、创建接收端的Socket对象</span></span><br><span class="line">DatagramSocket datagramSocket = <span class="keyword">new</span> DatagramSocket(<span class="number">10086</span>);</span><br><span class="line"><span class="comment">//2、创建数据报包，用来接收数据</span></span><br><span class="line"><span class="keyword">byte</span>[] bytes=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">DatagramPacket datagramPacket = <span class="keyword">new</span> DatagramPacket(bytes,bytes.length);</span><br><span class="line"><span class="comment">//3、调用DatagramSocket对象用来接收数据报包</span></span><br><span class="line">datagramSocket.receive(datagramPacket);</span><br><span class="line"><span class="comment">//4、解析数据报包</span></span><br><span class="line"><span class="keyword">byte</span>[] data = datagramPacket.getData();</span><br><span class="line">String dataString=<span class="keyword">new</span> String(data,<span class="number">0</span>,data.length);</span><br><span class="line">System.out.println(dataString);</span><br><span class="line"><span class="comment">//5、关闭接收端</span></span><br><span class="line">datagramSocket.close();</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-4-类聊天室实例"><a href="#2-4-类聊天室实例" class="headerlink" title="2.4 类聊天室实例"></a>2.4 类聊天室实例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> admin</span></span><br><span class="line"><span class="comment"> *  使用键盘录入数据，发送给接收端</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UdpPractiseSend</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//创建发送端的Socket对象</span></span><br><span class="line">        DatagramSocket datagramSocket = <span class="keyword">new</span> DatagramSocket();</span><br><span class="line"></span><br><span class="line">        BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        String line=<span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//键盘录入数据</span></span><br><span class="line">        BufferedReader br=<span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">while</span> ((line=br.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">&quot;886&quot;</span>.equals(line))&#123;</span><br><span class="line">                <span class="comment">//如果输入为 886 则结束发送数据报包</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//创建数据，并将数据打包</span></span><br><span class="line">            <span class="keyword">byte</span>[] bytes=line.getBytes();</span><br><span class="line">            DatagramPacket datagramPacket = <span class="keyword">new</span> DatagramPacket(bytes,bytes.length, InetAddress.getByName(<span class="string">&quot;DESKTOP-GD4A4EF&quot;</span>),<span class="number">10000</span>);</span><br><span class="line">            <span class="comment">//调用DatagramSocket对象发送数据报包</span></span><br><span class="line">            datagramSocket.send(datagramPacket);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//关闭发送端</span></span><br><span class="line">        datagramSocket.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> admin</span></span><br><span class="line"><span class="comment"> *      因为接收端不知道什么时候停止发送，故用死循环</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UdpPractiseReceive</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//创建接收端的Socket对象</span></span><br><span class="line">        DatagramSocket datagramSocket = <span class="keyword">new</span> DatagramSocket(<span class="number">10000</span>);</span><br><span class="line">        <span class="comment">//创建一个数据包,用来接收数据报包</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">byte</span>[] bytes=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            DatagramPacket datagramPacket = <span class="keyword">new</span> DatagramPacket(bytes, bytes.length);</span><br><span class="line">            <span class="comment">//调用DatagramSocket对象用来接收数据</span></span><br><span class="line">            datagramSocket.receive(datagramPacket);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//解析数据报包，显示在控制台</span></span><br><span class="line">            System.out.println(<span class="string">&quot;数据是:&quot;</span> + <span class="keyword">new</span> String(datagramPacket.getData(), <span class="number">0</span>, datagramPacket.getLength()));</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="三、TCP通信程序"><a href="#三、TCP通信程序" class="headerlink" title="三、TCP通信程序"></a>三、TCP通信程序</h3><h4 id="3-1-通信原理"><a href="#3-1-通信原理" class="headerlink" title="3.1 通信原理"></a>3.1 通信原理</h4><p>可靠的网络协议，在通信的俩端各建立一个Socket对象，从而在通信的俩端形成<strong>网络虚拟链路</strong>。</p>
-<p>俩端的程序通过虚拟链路进行通信</p>
-<p>Java对基于TCP协议的网络提供良好的封装，使用Socket对象代表俩端的通信端口，并通过<strong>Socket产生IO流</strong>进行网络通信。</p>
-<p>Java为客户端提供了<code>Socket</code>类，为服务器端提供了<code>ServerSocket</code>类</p>
-<h4 id="3-2-发送数据"><a href="#3-2-发送数据" class="headerlink" title="3.2 发送数据"></a>3.2 发送数据</h4><h5 id="步骤-2"><a href="#步骤-2" class="headerlink" title="步骤"></a>步骤</h5><ul>
-<li>创建客户端的Socket对象<code>Socket(String host,int port)</code></li>
-<li>获取输出流，写数据  <code>OutputStream getOutputStream()</code></li>
-<li>释放资源</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建客户端的Socket对象</span></span><br><span class="line">Socket socket = <span class="keyword">new</span> Socket(InetAddress.getByName(<span class="string">&quot;DESKTOP-GD4A4EF&quot;</span>), <span class="number">18000</span>);</span><br><span class="line"><span class="comment">//获取输出流</span></span><br><span class="line">OutputStream outputStream = socket.getOutputStream();</span><br><span class="line">outputStream.write(<span class="string">&quot;hello TCP&quot;</span>.getBytes());</span><br><span class="line"><span class="comment">//释放资源</span></span><br><span class="line">socket.close();</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-3-接收数据"><a href="#3-3-接收数据" class="headerlink" title="3.3 接收数据"></a>3.3 接收数据</h4><h5 id="步骤-3"><a href="#步骤-3" class="headerlink" title="步骤"></a>步骤</h5><ul>
-<li>创建服务器端的Socket对象<code>ServerSocket(int port)</code></li>
-<li>监听客户端连接 <code>serverSocket.accept()</code></li>
-<li>获取输入流，读数据，并把数据显示在控制台 <code>accept.getInputStream()</code></li>
-<li>释放资源</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.获取服务器端的Socket对象</span></span><br><span class="line">ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">18000</span>);</span><br><span class="line"><span class="comment">//2.监听客户端连接</span></span><br><span class="line">Socket accept = serverSocket.accept();</span><br><span class="line"><span class="comment">//3.创建输入流,获取数据</span></span><br><span class="line">InputStream inputStream = accept.getInputStream();</span><br><span class="line"><span class="keyword">byte</span>[] bytes=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line"><span class="keyword">int</span> read = inputStream.read(bytes);</span><br><span class="line">String data=<span class="keyword">new</span> String(bytes,<span class="number">0</span>,read);</span><br><span class="line">System.out.println(data);</span><br><span class="line"><span class="comment">//4.释放资源</span></span><br><span class="line">serverSocket.close();</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-4-服务器给出反馈"><a href="#3-4-服务器给出反馈" class="headerlink" title="3.4 服务器给出反馈"></a>3.4 服务器给出反馈</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Socket socket=<span class="keyword">new</span> Socket(InetAddress.getByName(<span class="string">&quot;DESKTOP-GD4A4EF&quot;</span>),<span class="number">12000</span>);</span><br><span class="line">OutputStream outputStream = socket.getOutputStream();</span><br><span class="line"><span class="comment">//创建输出流，数据来源与键盘录入</span></span><br><span class="line">BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">String line;</span><br><span class="line"><span class="keyword">while</span> ((line=bufferedReader.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;886&quot;</span>.equals(line))&#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    outputStream.write(line.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建输入流,接收服务器端回馈信息</span></span><br><span class="line">InputStream inputStream = socket.getInputStream();</span><br><span class="line"><span class="keyword">byte</span>[] bytes=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line"><span class="keyword">int</span> read = inputStream.read(bytes);</span><br><span class="line">System.out.println(<span class="keyword">new</span> String(bytes,<span class="number">0</span>,read));</span><br><span class="line"></span><br><span class="line">socket.close();</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">12000</span>);</span><br><span class="line">Socket accept = serverSocket.accept();</span><br><span class="line"><span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">    InputStream inputStream = accept.getInputStream();</span><br><span class="line">    <span class="keyword">byte</span>[] bytes=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">int</span> read = inputStream.read(bytes);</span><br><span class="line">    System.out.println(<span class="keyword">new</span> String(bytes,<span class="number">0</span>,read));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//创建服务器端输出流,回馈客户端信息</span></span><br><span class="line">    OutputStream outputStream = accept.getOutputStream();</span><br><span class="line">    outputStream.write(<span class="string">&quot;服务器收到请求&quot;</span>.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1294,14 +1247,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span></span>
+              <span>5.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>NaN:aN</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -1480,6 +1433,221 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/08%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/08%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">网络编程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:36:46" itemprop="dateModified" datetime="2020-12-06T22:36:46+08:00">2020-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/08%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="post-meta-item leancloud_visitors" data-flag-title="网络编程" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h3><h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><ul>
+<li>在网络通信协议下，实现<strong>网络互连</strong>的不同计算机运行的程序间可以进行数据交换</li>
+</ul>
+<h4 id="1-1-三要素"><a href="#1-1-三要素" class="headerlink" title="1.1  三要素"></a>1.1  三要素</h4><ul>
+<li><strong>IP地址</strong>：使得每台计算机得以通信，为计算机指定一个识别号，即<strong>设备的标识</strong></li>
+<li><strong>端口</strong>：网络的通信，本质上是俩个应用程序的通信，即<strong>应用程序的标识</strong></li>
+<li><strong>协议</strong>：位于同一个网络中的计算机进行连接和通信是需要遵守一定的规则，这些规则被称为网络通信协议。对数据的<strong>传输格式、传输速率、传输步骤</strong>等做了统一规定。常见的协议有UDP协议和TCP协议</li>
+</ul>
+<h4 id="1-2-IP地址"><a href="#1-2-IP地址" class="headerlink" title="1.2 IP地址"></a>1.2 IP地址</h4><blockquote>
+<p>网络中设备的唯一标识</p>
+</blockquote>
+<ul>
+<li><p>IPV4：给每个连接在网络上的主机分配一个32bit地址(4个字节)，IP地址用二进制表示。</p>
+<p>​            IP地址被写成十进制形式(点分十进制表示法)  4*8个二进制数</p>
+<p>​            192.168.137.1</p>
+</li>
+<li><p>IPV6：采用128bit地址，即16个字节一组，分成8组十六进制数</p>
+<p>​            fd7d:cdbc:2395:0:8d3f:6f5e:c964:8f63</p>
+</li>
+</ul>
+<blockquote>
+<p>常用命令</p>
+<ul>
+<li>ipconfig：查看本机IP地址</li>
+<li>ping IP地址：检查网络是否连通</li>
+<li>特殊IP地址：127.0.0.1 回送地址，可以代表本机地址，一般用来测试使用</li>
+</ul>
+</blockquote>
+<h5 id="1-2-1-InetAddress"><a href="#1-2-1-InetAddress" class="headerlink" title="1.2.1 InetAddress"></a>1.2.1 InetAddress</h5><blockquote>
+<p>对IP地址的获取和操作</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">方法名</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">static InetAddress  getByName(String host)</td>
+<td align="left">确定主机的IP地址，主机名称可以机器名称，也可以是IP地址</td>
+</tr>
+<tr>
+<td align="center">String getHostName()</td>
+<td align="left">获取该IP地址的主机名</td>
+</tr>
+<tr>
+<td align="center">String getHostAddress()</td>
+<td align="left">返回文本显示中IP地址字符串</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">InetAddress inetAddress = InetAddress.getByName(<span class="string">&quot;DESKTOP-GD4A4EF&quot;</span>);</span><br><span class="line">System.out.println(inetAddress);<span class="comment">//DESKTOP-GD4A4EF/192.168.2.54</span></span><br><span class="line"></span><br><span class="line">String ip = inetAddress.getHostAddress();</span><br><span class="line">String hostName = inetAddress.getHostName();</span><br><span class="line">System.out.println(<span class="string">&quot;IP地址&quot;</span>+ip+<span class="string">&quot;主机名&quot;</span>+hostName);<span class="comment">//192.168.2.54  DESKTOP-GD4A4EF</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="1-3-端口"><a href="#1-3-端口" class="headerlink" title="1.3 端口"></a>1.3 端口</h4><blockquote>
+<p>俩个字节表示的整数，取值范围0~65535。若果端口号被另外一个服务或应用所占用，会导致应用程序启动失败</p>
+</blockquote>
+<h4 id="1-4-协议"><a href="#1-4-协议" class="headerlink" title="1.4 协议"></a>1.4 协议</h4><h5 id="（1）UDP协议"><a href="#（1）UDP协议" class="headerlink" title="（1）UDP协议"></a>（1）UDP协议</h5><blockquote>
+<p>用户数据报协议 User Datagram Protocol</p>
+</blockquote>
+<ul>
+<li><strong>无连接通信协议</strong>，即在数据传输时，数据的发送端和接收端不建立逻辑连接。也就是说，A向B发送数据时，发送端不会确认接收端是否存在，就会发出数据；同样，接收端在收到数据时，也不会向发送端反馈是否收到数据。</li>
+<li>UDP的面向无连接性，不能保证数据的完整性，在传输重要数据时不建议使用UDP协议</li>
+</ul>
+<h5 id="（2）TCP协议"><a href="#（2）TCP协议" class="headerlink" title="（2）TCP协议"></a>（2）TCP协议</h5><blockquote>
+<p>传输控制协议 Transmission Control Protocol</p>
+</blockquote>
+<ul>
+<li><strong>面向连接</strong>的通信协议，即传输数据时，发送端和接收端建立逻辑连接，然后再传输数据。它提供了俩台计算机之间<strong>可靠无差错</strong>的数据传输。</li>
+<li>在TCP连接中必须明确客户端和服务器端，由客户端向服务器发出连接请求，每次连接的创建都要经过三次握手</li>
+</ul>
+<h5 id="（3）三次握手"><a href="#（3）三次握手" class="headerlink" title="（3）三次握手"></a>（3）三次握手</h5><p>TCP协议中，在发送数据的准备阶段，客户端和服务器端之间的三次交互，以保证连接的可靠性</p>
+<ul>
+<li>第一次握手：客户端向服务器端发送连接请求，等待服务器确认</li>
+<li>第二次握手：服务器端向客户端回送一个响应，通知客户端收到了连接请求</li>
+<li>第三次握手：客户端再次向服务器端发送确认信息，确认连接</li>
+</ul>
+<h3 id="二、UDP通信程序"><a href="#二、UDP通信程序" class="headerlink" title="二、UDP通信程序"></a>二、UDP通信程序</h3><h4 id="1-1-UDP通信原理"><a href="#1-1-UDP通信原理" class="headerlink" title="1.1 UDP通信原理"></a>1.1 UDP通信原理</h4><p>一种不可靠的网络协议，它在通信的俩端各建立一个Socket对象，但仅仅只是发送、接收数据的对象，因此对于基于UDP协议的通信双方而言，没有所谓客户端和服务器的概念。</p>
+<h4 id="2-2UDP发送数据"><a href="#2-2UDP发送数据" class="headerlink" title="2.2UDP发送数据"></a>2.2UDP发送数据</h4><h5 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h5><ul>
+<li>创建发送端Socket对象</li>
+<li>创建数据，并把数据打包<code>new DatagramPacket(bytes,length,inetAddress,port)</code>（数据报包）</li>
+<li>调用<code>DatagramSocke.send(DatagramPacket)</code>对象的方法发送数据</li>
+<li>关闭发送端 </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用DatagramSocket对象发送数据</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">//1、创建发送端的Socket对象</span></span><br><span class="line">    DatagramSocket datagramSocket = <span class="keyword">new</span> DatagramSocket();</span><br><span class="line">    <span class="comment">//2、创建数据，并把数据打包成数据报包</span></span><br><span class="line">    <span class="keyword">byte</span>[] bytes=<span class="string">&quot;hello word&quot;</span>.getBytes();</span><br><span class="line">    <span class="comment">//buf-数组 length-数据长度 address-ip地址 port-端口地址</span></span><br><span class="line">    DatagramPacket datagramPacket=<span class="keyword">new</span> DatagramPacket(bytes,bytes.length,InetAddress.getByName(<span class="string">&quot;DESKTOP-GD4A4EF&quot;</span>),<span class="number">10086</span>);</span><br><span class="line">    <span class="comment">//3、调用DatagramSocket对象发送数据报包</span></span><br><span class="line">    datagramSocket.send(datagramPacket);</span><br><span class="line">    <span class="comment">//4、关闭发送端</span></span><br><span class="line">    datagramSocket.close();</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-UDP接收数据"><a href="#2-3-UDP接收数据" class="headerlink" title="2.3 UDP接收数据"></a>2.3 UDP接收数据</h4><h5 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h5><ul>
+<li>创建接收端Socket对象 <code>new DatagramSocket(port)</code></li>
+<li>创建数据报包，用来接收数据 <code>DatagramPacket(byte[],int length)</code></li>
+<li>调用<code>DatagramSocket.receive</code>对象用来接收数据</li>
+<li>解析数据报包，并把数据在控制台显示 <code>DatagramPacket.getData()</code></li>
+<li>关闭接收端</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、创建接收端的Socket对象</span></span><br><span class="line">DatagramSocket datagramSocket = <span class="keyword">new</span> DatagramSocket(<span class="number">10086</span>);</span><br><span class="line"><span class="comment">//2、创建数据报包，用来接收数据</span></span><br><span class="line"><span class="keyword">byte</span>[] bytes=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">DatagramPacket datagramPacket = <span class="keyword">new</span> DatagramPacket(bytes,bytes.length);</span><br><span class="line"><span class="comment">//3、调用DatagramSocket对象用来接收数据报包</span></span><br><span class="line">datagramSocket.receive(datagramPacket);</span><br><span class="line"><span class="comment">//4、解析数据报包</span></span><br><span class="line"><span class="keyword">byte</span>[] data = datagramPacket.getData();</span><br><span class="line">String dataString=<span class="keyword">new</span> String(data,<span class="number">0</span>,data.length);</span><br><span class="line">System.out.println(dataString);</span><br><span class="line"><span class="comment">//5、关闭接收端</span></span><br><span class="line">datagramSocket.close();</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-类聊天室实例"><a href="#2-4-类聊天室实例" class="headerlink" title="2.4 类聊天室实例"></a>2.4 类聊天室实例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> admin</span></span><br><span class="line"><span class="comment"> *  使用键盘录入数据，发送给接收端</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UdpPractiseSend</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//创建发送端的Socket对象</span></span><br><span class="line">        DatagramSocket datagramSocket = <span class="keyword">new</span> DatagramSocket();</span><br><span class="line"></span><br><span class="line">        BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        String line=<span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//键盘录入数据</span></span><br><span class="line">        BufferedReader br=<span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">while</span> ((line=br.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">&quot;886&quot;</span>.equals(line))&#123;</span><br><span class="line">                <span class="comment">//如果输入为 886 则结束发送数据报包</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//创建数据，并将数据打包</span></span><br><span class="line">            <span class="keyword">byte</span>[] bytes=line.getBytes();</span><br><span class="line">            DatagramPacket datagramPacket = <span class="keyword">new</span> DatagramPacket(bytes,bytes.length, InetAddress.getByName(<span class="string">&quot;DESKTOP-GD4A4EF&quot;</span>),<span class="number">10000</span>);</span><br><span class="line">            <span class="comment">//调用DatagramSocket对象发送数据报包</span></span><br><span class="line">            datagramSocket.send(datagramPacket);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//关闭发送端</span></span><br><span class="line">        datagramSocket.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> admin</span></span><br><span class="line"><span class="comment"> *      因为接收端不知道什么时候停止发送，故用死循环</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UdpPractiseReceive</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//创建接收端的Socket对象</span></span><br><span class="line">        DatagramSocket datagramSocket = <span class="keyword">new</span> DatagramSocket(<span class="number">10000</span>);</span><br><span class="line">        <span class="comment">//创建一个数据包,用来接收数据报包</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">byte</span>[] bytes=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            DatagramPacket datagramPacket = <span class="keyword">new</span> DatagramPacket(bytes, bytes.length);</span><br><span class="line">            <span class="comment">//调用DatagramSocket对象用来接收数据</span></span><br><span class="line">            datagramSocket.receive(datagramPacket);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//解析数据报包，显示在控制台</span></span><br><span class="line">            System.out.println(<span class="string">&quot;数据是:&quot;</span> + <span class="keyword">new</span> String(datagramPacket.getData(), <span class="number">0</span>, datagramPacket.getLength()));</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、TCP通信程序"><a href="#三、TCP通信程序" class="headerlink" title="三、TCP通信程序"></a>三、TCP通信程序</h3><h4 id="3-1-通信原理"><a href="#3-1-通信原理" class="headerlink" title="3.1 通信原理"></a>3.1 通信原理</h4><p>可靠的网络协议，在通信的俩端各建立一个Socket对象，从而在通信的俩端形成<strong>网络虚拟链路</strong>。</p>
+<p>俩端的程序通过虚拟链路进行通信</p>
+<p>Java对基于TCP协议的网络提供良好的封装，使用Socket对象代表俩端的通信端口，并通过<strong>Socket产生IO流</strong>进行网络通信。</p>
+<p>Java为客户端提供了<code>Socket</code>类，为服务器端提供了<code>ServerSocket</code>类</p>
+<h4 id="3-2-发送数据"><a href="#3-2-发送数据" class="headerlink" title="3.2 发送数据"></a>3.2 发送数据</h4><h5 id="步骤-2"><a href="#步骤-2" class="headerlink" title="步骤"></a>步骤</h5><ul>
+<li>创建客户端的Socket对象<code>Socket(String host,int port)</code></li>
+<li>获取输出流，写数据  <code>OutputStream getOutputStream()</code></li>
+<li>释放资源</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建客户端的Socket对象</span></span><br><span class="line">Socket socket = <span class="keyword">new</span> Socket(InetAddress.getByName(<span class="string">&quot;DESKTOP-GD4A4EF&quot;</span>), <span class="number">18000</span>);</span><br><span class="line"><span class="comment">//获取输出流</span></span><br><span class="line">OutputStream outputStream = socket.getOutputStream();</span><br><span class="line">outputStream.write(<span class="string">&quot;hello TCP&quot;</span>.getBytes());</span><br><span class="line"><span class="comment">//释放资源</span></span><br><span class="line">socket.close();</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-接收数据"><a href="#3-3-接收数据" class="headerlink" title="3.3 接收数据"></a>3.3 接收数据</h4><h5 id="步骤-3"><a href="#步骤-3" class="headerlink" title="步骤"></a>步骤</h5><ul>
+<li>创建服务器端的Socket对象<code>ServerSocket(int port)</code></li>
+<li>监听客户端连接 <code>serverSocket.accept()</code></li>
+<li>获取输入流，读数据，并把数据显示在控制台 <code>accept.getInputStream()</code></li>
+<li>释放资源</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.获取服务器端的Socket对象</span></span><br><span class="line">ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">18000</span>);</span><br><span class="line"><span class="comment">//2.监听客户端连接</span></span><br><span class="line">Socket accept = serverSocket.accept();</span><br><span class="line"><span class="comment">//3.创建输入流,获取数据</span></span><br><span class="line">InputStream inputStream = accept.getInputStream();</span><br><span class="line"><span class="keyword">byte</span>[] bytes=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line"><span class="keyword">int</span> read = inputStream.read(bytes);</span><br><span class="line">String data=<span class="keyword">new</span> String(bytes,<span class="number">0</span>,read);</span><br><span class="line">System.out.println(data);</span><br><span class="line"><span class="comment">//4.释放资源</span></span><br><span class="line">serverSocket.close();</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-4-服务器给出反馈"><a href="#3-4-服务器给出反馈" class="headerlink" title="3.4 服务器给出反馈"></a>3.4 服务器给出反馈</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Socket socket=<span class="keyword">new</span> Socket(InetAddress.getByName(<span class="string">&quot;DESKTOP-GD4A4EF&quot;</span>),<span class="number">12000</span>);</span><br><span class="line">OutputStream outputStream = socket.getOutputStream();</span><br><span class="line"><span class="comment">//创建输出流，数据来源与键盘录入</span></span><br><span class="line">BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">String line;</span><br><span class="line"><span class="keyword">while</span> ((line=bufferedReader.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;886&quot;</span>.equals(line))&#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    outputStream.write(line.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建输入流,接收服务器端回馈信息</span></span><br><span class="line">InputStream inputStream = socket.getInputStream();</span><br><span class="line"><span class="keyword">byte</span>[] bytes=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line"><span class="keyword">int</span> read = inputStream.read(bytes);</span><br><span class="line">System.out.println(<span class="keyword">new</span> String(bytes,<span class="number">0</span>,read));</span><br><span class="line"></span><br><span class="line">socket.close();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">12000</span>);</span><br><span class="line">Socket accept = serverSocket.accept();</span><br><span class="line"><span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">    InputStream inputStream = accept.getInputStream();</span><br><span class="line">    <span class="keyword">byte</span>[] bytes=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">int</span> read = inputStream.read(bytes);</span><br><span class="line">    System.out.println(<span class="keyword">new</span> String(bytes,<span class="number">0</span>,read));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//创建服务器端输出流,回馈客户端信息</span></span><br><span class="line">    OutputStream outputStream = accept.getOutputStream();</span><br><span class="line">    outputStream.write(<span class="string">&quot;服务器收到请求&quot;</span>.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02SQL%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1536,14 +1704,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span></span>
+              <span>15k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>NaN:aN</span>
+              <span>13 分钟</span>
             </span>
 
         </div>
@@ -2182,14 +2350,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span></span>
+              <span>9.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>NaN:aN</span>
+              <span>9 分钟</span>
             </span>
 
         </div>
@@ -2610,14 +2778,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span></span>
+              <span>10k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>NaN:aN</span>
+              <span>9 分钟</span>
             </span>
 
         </div>
@@ -3159,14 +3327,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span></span>
+              <span>14k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>NaN:aN</span>
+              <span>13 分钟</span>
             </span>
 
         </div>
@@ -3643,6 +3811,10 @@
 
 
       </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
 
     </div>
   </aside>
@@ -3670,12 +3842,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">NaNm</span>
+    <span title="站点总字数">397k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">NaN:aN</span>
+    <span title="站点阅读时长">6:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
