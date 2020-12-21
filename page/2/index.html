@@ -185,6 +185,161 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02%E7%BA%A6%E6%9D%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/02%E7%BA%A6%E6%9D%9F/" class="post-title-link" itemprop="url">约束</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 13:07:53" itemprop="dateModified" datetime="2020-12-17T13:07:53+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/02%E7%BA%A6%E6%9D%9F/" class="post-meta-item leancloud_visitors" data-flag-title="约束" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、约束"><a href="#一、约束" class="headerlink" title="一、约束"></a>一、约束</h2><p>对表中数据进行限制，保证数据的正确性、有效性和完整性</p>
+<h3 id="1、主键约束"><a href="#1、主键约束" class="headerlink" title="1、主键约束"></a>1、主键约束</h3><p>a、主键只能设置一个，可以是单列或者多列</p>
+<p>b、主键不能重复</p>
+<p>c、primary key 用来唯一标识数据库中的每一条记录</p>
+<p><strong>特点</strong>：<strong>非空not null , 唯一unique</strong></p>
+<h4 id="（1）创建表时"><a href="#（1）创建表时" class="headerlink" title="（1）创建表时"></a>（1）创建表时</h4><p>字段名 字段类型 primary key</p>
+<h4 id="（2）已有表中添加主键"><a href="#（2）已有表中添加主键" class="headerlink" title="（2）已有表中添加主键"></a>（2）已有表中添加主键</h4><p><strong>alter table student add primary key(id );</strong></p>
+<p><strong>删除主键</strong>     alter table str5 <strong>drop</strong> primary key;</p>
+<h4 id="（3）主键自增"><a href="#（3）主键自增" class="headerlink" title="（3）主键自增"></a>（3）主键自增</h4><p><strong>创建表时</strong>  create table 表名(</p>
+<p>字段名  字段类型 primary key  <strong>auto_increment</strong></p>
+<p>)auto_increment=初始值（默认为1）；</p>
+<p><strong>修改表，添加自增长</strong>：alter table 表名 <strong>modify</strong> id int primary key auto_increment;</p>
+<p><strong>修改起始值</strong>   alter table 表名 <strong>auto_increment</strong>=2000; </p>
+<h4 id="（4）联合主键"><a href="#（4）联合主键" class="headerlink" title="（4）联合主键"></a>（4）联合主键</h4><p>create table scores(</p>
+<p>studentno varchar(22),</p>
+<p>courseno int,</p>
+<p>score int,</p>
+<p><strong>primary key(studentno，id.</strong>)</p>
+<p>);</p>
+<h3 id="2、唯一约束"><a href="#2、唯一约束" class="headerlink" title="2、唯一约束"></a>2、唯一约束</h3><p>unique 表中某一列出现重复的值</p>
+<p><strong>创建表时添加唯一约束</strong></p>
+<p>create table 表名(</p>
+<p>​    age int  unique,</p>
+<p>​    name varchar(20)</p>
+<p>);</p>
+<p><strong>已有表添加唯一约束</strong></p>
+<p>alter table st4 <strong>modify</strong> name varchar(20) unique;</p>
+<h3 id="3、非空约束"><a href="#3、非空约束" class="headerlink" title="3、非空约束"></a>3、非空约束</h3><p><strong>创建表时添加唯一约束</strong></p>
+<p>create table 表名(</p>
+<p>​    age int  not null,</p>
+<p>​    name varchar(20)</p>
+<p>);</p>
+<p><strong>已有表添加唯一约束</strong></p>
+<p>alter table st4 modify name varchar(20) not null;</p>
+<h3 id="4、默认值约束"><a href="#4、默认值约束" class="headerlink" title="4、默认值约束"></a>4、默认值约束</h3><p>字符段 字符类型  <strong>default</strong>   默认值</p>
+<p>insert into 表名 values(18,’欧’,default);</p>
+<p>insert into 表名 （age,name）values(18,’是’)</p>
+<p>alter table st4 modify name varchar(20) default ‘看看’;</p>
+<h3 id="5、外键约束"><a href="#5、外键约束" class="headerlink" title="5、外键约束"></a>5、外键约束</h3><p>让表于表产生关系，从而保证数据的正确性</p>
+<p><img src="https://csn.damyoung.cn/image-20200818175138467.png" alt="image-20200818175138467"></p>
+<p><strong>主表和从表设置主键约束，从表创建约束</strong></p>
+<p><strong>新建表时增加外键</strong></p>
+<p>constraint 外键约束名称  foreign key(外键字段名) references 主表名(主键约束名)</p>
+<p>CREATE TABLE emp2(<br>empno INT <strong>PRIMARY KEY AUTO_INCREMENT</strong>,<br>ename VARCHAR(20),<br>deptno INT,<br><strong>CONSTRAINT fk_emp2_deptno FOREIGN KEY(deptno) REFERENCES dept2(deptno)</strong><br>);</p>
+<p><strong>已有表增加外键</strong></p>
+<p><strong>alter table 从表 add constraint 外键约束名称 foreign key(外键字段名) references 主表名(主表外键约束字段名)</strong></p>
+<p>ALTER TABLE emp2 ADD CONSTRAINT fk_emp2_deptno FOREIGN KEY(deptno) REFERENCES dept2(deptno);</p>
+<p><strong>删除外键</strong></p>
+<p>alter table <strong>从表</strong> <strong>drop foreign key</strong> 外键约束名；</p>
+<h3 id="6、外键的级联操作"><a href="#6、外键的级联操作" class="headerlink" title="6、外键的级联操作"></a>6、外键的级联操作</h3><p><strong>修改和删除主表的主键时，同时更新或删除副表的外键值，称为级联操作</strong></p>
+<p><strong>on update cascade, on delete cascade</strong></p>
+<p>CONSTRAINT fk_emp22_dept22 FOREIGN KEY(deptno)REFERENCES dept22(deptno) <strong>ON UPDATE CASCADE ON  DELETE CASCADE</strong></p>
+<h3 id="7、外键操作"><a href="#7、外键操作" class="headerlink" title="7、外键操作"></a>7、外键操作</h3><blockquote>
+<p>都是用来限制父表操作的外键操作</p>
+</blockquote>
+<blockquote>
+<p>restrict/no action : 在子表有关联记录的情况下，父表不能更新。</p>
+<p>cascade：父表在更新或删除时，更新或删除子表对应的记录</p>
+<p>set null ：父表在更新或删除时，子表的对应被set null</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20200819184051135.png" alt="image-20200819184051135"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/03IO%E6%B5%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -437,161 +592,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02%E7%BA%A6%E6%9D%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/02%E7%BA%A6%E6%9D%9F/" class="post-title-link" itemprop="url">约束</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:07:53" itemprop="dateModified" datetime="2020-12-17T13:07:53+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/02%E7%BA%A6%E6%9D%9F/" class="post-meta-item leancloud_visitors" data-flag-title="约束" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、约束"><a href="#一、约束" class="headerlink" title="一、约束"></a>一、约束</h2><p>对表中数据进行限制，保证数据的正确性、有效性和完整性</p>
-<h3 id="1、主键约束"><a href="#1、主键约束" class="headerlink" title="1、主键约束"></a>1、主键约束</h3><p>a、主键只能设置一个，可以是单列或者多列</p>
-<p>b、主键不能重复</p>
-<p>c、primary key 用来唯一标识数据库中的每一条记录</p>
-<p><strong>特点</strong>：<strong>非空not null , 唯一unique</strong></p>
-<h4 id="（1）创建表时"><a href="#（1）创建表时" class="headerlink" title="（1）创建表时"></a>（1）创建表时</h4><p>字段名 字段类型 primary key</p>
-<h4 id="（2）已有表中添加主键"><a href="#（2）已有表中添加主键" class="headerlink" title="（2）已有表中添加主键"></a>（2）已有表中添加主键</h4><p><strong>alter table student add primary key(id );</strong></p>
-<p><strong>删除主键</strong>     alter table str5 <strong>drop</strong> primary key;</p>
-<h4 id="（3）主键自增"><a href="#（3）主键自增" class="headerlink" title="（3）主键自增"></a>（3）主键自增</h4><p><strong>创建表时</strong>  create table 表名(</p>
-<p>字段名  字段类型 primary key  <strong>auto_increment</strong></p>
-<p>)auto_increment=初始值（默认为1）；</p>
-<p><strong>修改表，添加自增长</strong>：alter table 表名 <strong>modify</strong> id int primary key auto_increment;</p>
-<p><strong>修改起始值</strong>   alter table 表名 <strong>auto_increment</strong>=2000; </p>
-<h4 id="（4）联合主键"><a href="#（4）联合主键" class="headerlink" title="（4）联合主键"></a>（4）联合主键</h4><p>create table scores(</p>
-<p>studentno varchar(22),</p>
-<p>courseno int,</p>
-<p>score int,</p>
-<p><strong>primary key(studentno，id.</strong>)</p>
-<p>);</p>
-<h3 id="2、唯一约束"><a href="#2、唯一约束" class="headerlink" title="2、唯一约束"></a>2、唯一约束</h3><p>unique 表中某一列出现重复的值</p>
-<p><strong>创建表时添加唯一约束</strong></p>
-<p>create table 表名(</p>
-<p>​    age int  unique,</p>
-<p>​    name varchar(20)</p>
-<p>);</p>
-<p><strong>已有表添加唯一约束</strong></p>
-<p>alter table st4 <strong>modify</strong> name varchar(20) unique;</p>
-<h3 id="3、非空约束"><a href="#3、非空约束" class="headerlink" title="3、非空约束"></a>3、非空约束</h3><p><strong>创建表时添加唯一约束</strong></p>
-<p>create table 表名(</p>
-<p>​    age int  not null,</p>
-<p>​    name varchar(20)</p>
-<p>);</p>
-<p><strong>已有表添加唯一约束</strong></p>
-<p>alter table st4 modify name varchar(20) not null;</p>
-<h3 id="4、默认值约束"><a href="#4、默认值约束" class="headerlink" title="4、默认值约束"></a>4、默认值约束</h3><p>字符段 字符类型  <strong>default</strong>   默认值</p>
-<p>insert into 表名 values(18,’欧’,default);</p>
-<p>insert into 表名 （age,name）values(18,’是’)</p>
-<p>alter table st4 modify name varchar(20) default ‘看看’;</p>
-<h3 id="5、外键约束"><a href="#5、外键约束" class="headerlink" title="5、外键约束"></a>5、外键约束</h3><p>让表于表产生关系，从而保证数据的正确性</p>
-<p><img src="https://csn.damyoung.cn/image-20200818175138467.png" alt="image-20200818175138467"></p>
-<p><strong>主表和从表设置主键约束，从表创建约束</strong></p>
-<p><strong>新建表时增加外键</strong></p>
-<p>constraint 外键约束名称  foreign key(外键字段名) references 主表名(主键约束名)</p>
-<p>CREATE TABLE emp2(<br>empno INT <strong>PRIMARY KEY AUTO_INCREMENT</strong>,<br>ename VARCHAR(20),<br>deptno INT,<br><strong>CONSTRAINT fk_emp2_deptno FOREIGN KEY(deptno) REFERENCES dept2(deptno)</strong><br>);</p>
-<p><strong>已有表增加外键</strong></p>
-<p><strong>alter table 从表 add constraint 外键约束名称 foreign key(外键字段名) references 主表名(主表外键约束字段名)</strong></p>
-<p>ALTER TABLE emp2 ADD CONSTRAINT fk_emp2_deptno FOREIGN KEY(deptno) REFERENCES dept2(deptno);</p>
-<p><strong>删除外键</strong></p>
-<p>alter table <strong>从表</strong> <strong>drop foreign key</strong> 外键约束名；</p>
-<h3 id="6、外键的级联操作"><a href="#6、外键的级联操作" class="headerlink" title="6、外键的级联操作"></a>6、外键的级联操作</h3><p><strong>修改和删除主表的主键时，同时更新或删除副表的外键值，称为级联操作</strong></p>
-<p><strong>on update cascade, on delete cascade</strong></p>
-<p>CONSTRAINT fk_emp22_dept22 FOREIGN KEY(deptno)REFERENCES dept22(deptno) <strong>ON UPDATE CASCADE ON  DELETE CASCADE</strong></p>
-<h3 id="7、外键操作"><a href="#7、外键操作" class="headerlink" title="7、外键操作"></a>7、外键操作</h3><blockquote>
-<p>都是用来限制父表操作的外键操作</p>
-</blockquote>
-<blockquote>
-<p>restrict/no action : 在子表有关联记录的情况下，父表不能更新。</p>
-<p>cascade：父表在更新或删除时，更新或删除子表对应的记录</p>
-<p>set null ：父表在更新或删除时，子表的对应被set null</p>
-</blockquote>
-<p><img src="https://csn.damyoung.cn/image-20200819184051135.png" alt="image-20200819184051135"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/03%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -736,6 +736,205 @@
 <p>还原格式：mysql中的命令，需要登录后操作</p>
 <p>​                    <strong>use 数据库； source 导入文件的路径</strong></p>
 <p><img src="https://csn.damyoung.cn/image-20200819180155720.png" alt="image-20200819180155720"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E4%BA%8B%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/04%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">事务</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:51:16" itemprop="dateModified" datetime="2020-12-06T22:51:16+08:00">2020-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/04%E4%BA%8B%E5%8A%A1/" class="post-meta-item leancloud_visitors" data-flag-title="事务" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>事务是一组SQL语句组成的逻辑处理单元，事务执行是一个整体，<strong>所有SQL语句都必须执行成功</strong></p>
+<h3 id="1、手动提交事务"><a href="#1、手动提交事务" class="headerlink" title="1、手动提交事务"></a>1、手动提交事务</h3><p>开启事务 start transaction</p>
+<p>提交事务 commit</p>
+<p>回滚事务 rollback：回退到开启事务时的状态</p>
+<h3 id="2、自动提交事务"><a href="#2、自动提交事务" class="headerlink" title="2、自动提交事务"></a>2、自动提交事务</h3><p>每一条<strong>insert、update、delete</strong>都会默认构成一条事务，会自动提交，永久改变数据库</p>
+<h3 id="3、执行过程"><a href="#3、执行过程" class="headerlink" title="3、执行过程"></a>3、执行过程</h3><h4 id="（1）执行成功"><a href="#（1）执行成功" class="headerlink" title="（1）执行成功"></a>（1）执行成功</h4><p>开启事务–&gt;执行多条SQL语句–&gt;成功提交事务</p>
+<h4 id="（2）执行失败"><a href="#（2）执行失败" class="headerlink" title="（2）执行失败"></a>（2）执行失败</h4><p>开启事务–&gt;执行多条SQL语句–&gt;事务回滚</p>
+<p><strong>回滚事务即是结束</strong></p>
+<p><strong>select @@autocommit;  自动提交 1，</strong></p>
+<p><strong>set @@autocommit =0;</strong></p>
+<h3 id="4、事务原理"><a href="#4、事务原理" class="headerlink" title="4、事务原理"></a>4、事务原理</h3><p>事务开启后，所有的操作会保存到事务日志中，事务日志只有得到commit命令才会同步到数据库中，</p>
+<p>其他任何情况都会清空事务日志（rollback，断开连接）</p>
+<h3 id="5、回滚点"><a href="#5、回滚点" class="headerlink" title="5、回滚点"></a>5、回滚点</h3><p>设置回滚点：<strong>savepoint 名字</strong></p>
+<p>回到回滚点：<strong>rollback to 名字；</strong></p>
+<h3 id="6、事务的特性"><a href="#6、事务的特性" class="headerlink" title="6、事务的特性"></a>6、事务的特性</h3><table>
+<thead>
+<tr>
+<th>ACID属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原子性（Atomicity）</td>
+<td>事务是一个原子操作单元，其对数据的修改，要么全部成功，要么全部失败。</td>
+</tr>
+<tr>
+<td>一致性（Consistent）</td>
+<td>在事务开始和完成时，数据都必须保持一致状态。</td>
+</tr>
+<tr>
+<td>隔离性（Isolation）</td>
+<td>数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的 “独立” 环境下运行。</td>
+</tr>
+<tr>
+<td>持久性（Durable）</td>
+<td>事务完成之后，对于数据的修改是永久的。</td>
+</tr>
+</tbody></table>
+<p><strong>并发事务处理带来的问题</strong></p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>丢失更新（Lost Update）</td>
+<td>当两个或多个事务选择同一行，最初的事务修改的值，会被后面的事务修改的值覆盖。</td>
+</tr>
+<tr>
+<td>脏读（Dirty Reads）</td>
+<td>当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</td>
+</tr>
+<tr>
+<td>不可重复读（Non-Repeatable Reads）</td>
+<td>一个事务在读取某些数据后的某个时间，再次读取以前读过的数据，却发现和以前读出的数据不一致。数据内容不一致，update引起的</td>
+</tr>
+<tr>
+<td>幻读（Phantom Reads）</td>
+<td>一个事务按照相同的查询条件重新读取以前查询过的数据，却发现其他事务插入了满足其查询条件的新数据。数据的数量不一致，是insert/delete引起的</td>
+</tr>
+</tbody></table>
+<p><strong>隔离级别越高，性能越差，安全性越高，效率越低</strong></p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>丢失更新</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Read uncommitted</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Read committed(Oracke和SQL Server)</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Repeatable read（MySql默认）</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Serializable串行化</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<p><strong>设置隔离级别</strong> ：<strong>set global transaction isolation level —;</strong></p>
+<p><strong>查看隔离级别</strong>：<strong>select @@tx_isolation;</strong> </p>
 
       
     </div>
@@ -986,205 +1185,6 @@
 <p>var表示变量</p>
 </blockquote>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:forEach items=<span class="string">&quot;$&#123;list&#125;&quot;</span> <span class="keyword">var</span>=<span class="string">&quot;li&quot;</span> varStatus=<span class="string">&quot;vs&quot;</span>&gt;</span><br><span class="line">   &lt;tr $&#123;vs.count%<span class="number">2</span>==<span class="number">1</span>? <span class="string">&quot;style=&#x27;background-color:yellow&#x27;&quot;</span>:<span class="string">&quot;&quot;</span>&#125;&gt;</span><br><span class="line">       &lt;td&gt;$&#123;li.key&#125;&lt;/td&gt;</span><br><span class="line">       &lt;td&gt;$&#123;li.value&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;$&#123;li&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;$&#123;vs.index&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;$&#123;vs.count&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;$&#123;vs.first&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;$&#123;vs.last&#125;&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;&lt;hr&gt;</span><br><span class="line">&lt;/c:forEach&gt;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E4%BA%8B%E5%8A%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/04%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">事务</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:51:16" itemprop="dateModified" datetime="2020-12-06T22:51:16+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/04%E4%BA%8B%E5%8A%A1/" class="post-meta-item leancloud_visitors" data-flag-title="事务" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>事务是一组SQL语句组成的逻辑处理单元，事务执行是一个整体，<strong>所有SQL语句都必须执行成功</strong></p>
-<h3 id="1、手动提交事务"><a href="#1、手动提交事务" class="headerlink" title="1、手动提交事务"></a>1、手动提交事务</h3><p>开启事务 start transaction</p>
-<p>提交事务 commit</p>
-<p>回滚事务 rollback：回退到开启事务时的状态</p>
-<h3 id="2、自动提交事务"><a href="#2、自动提交事务" class="headerlink" title="2、自动提交事务"></a>2、自动提交事务</h3><p>每一条<strong>insert、update、delete</strong>都会默认构成一条事务，会自动提交，永久改变数据库</p>
-<h3 id="3、执行过程"><a href="#3、执行过程" class="headerlink" title="3、执行过程"></a>3、执行过程</h3><h4 id="（1）执行成功"><a href="#（1）执行成功" class="headerlink" title="（1）执行成功"></a>（1）执行成功</h4><p>开启事务–&gt;执行多条SQL语句–&gt;成功提交事务</p>
-<h4 id="（2）执行失败"><a href="#（2）执行失败" class="headerlink" title="（2）执行失败"></a>（2）执行失败</h4><p>开启事务–&gt;执行多条SQL语句–&gt;事务回滚</p>
-<p><strong>回滚事务即是结束</strong></p>
-<p><strong>select @@autocommit;  自动提交 1，</strong></p>
-<p><strong>set @@autocommit =0;</strong></p>
-<h3 id="4、事务原理"><a href="#4、事务原理" class="headerlink" title="4、事务原理"></a>4、事务原理</h3><p>事务开启后，所有的操作会保存到事务日志中，事务日志只有得到commit命令才会同步到数据库中，</p>
-<p>其他任何情况都会清空事务日志（rollback，断开连接）</p>
-<h3 id="5、回滚点"><a href="#5、回滚点" class="headerlink" title="5、回滚点"></a>5、回滚点</h3><p>设置回滚点：<strong>savepoint 名字</strong></p>
-<p>回到回滚点：<strong>rollback to 名字；</strong></p>
-<h3 id="6、事务的特性"><a href="#6、事务的特性" class="headerlink" title="6、事务的特性"></a>6、事务的特性</h3><table>
-<thead>
-<tr>
-<th>ACID属性</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>原子性（Atomicity）</td>
-<td>事务是一个原子操作单元，其对数据的修改，要么全部成功，要么全部失败。</td>
-</tr>
-<tr>
-<td>一致性（Consistent）</td>
-<td>在事务开始和完成时，数据都必须保持一致状态。</td>
-</tr>
-<tr>
-<td>隔离性（Isolation）</td>
-<td>数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的 “独立” 环境下运行。</td>
-</tr>
-<tr>
-<td>持久性（Durable）</td>
-<td>事务完成之后，对于数据的修改是永久的。</td>
-</tr>
-</tbody></table>
-<p><strong>并发事务处理带来的问题</strong></p>
-<table>
-<thead>
-<tr>
-<th>问题</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>丢失更新（Lost Update）</td>
-<td>当两个或多个事务选择同一行，最初的事务修改的值，会被后面的事务修改的值覆盖。</td>
-</tr>
-<tr>
-<td>脏读（Dirty Reads）</td>
-<td>当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</td>
-</tr>
-<tr>
-<td>不可重复读（Non-Repeatable Reads）</td>
-<td>一个事务在读取某些数据后的某个时间，再次读取以前读过的数据，却发现和以前读出的数据不一致。数据内容不一致，update引起的</td>
-</tr>
-<tr>
-<td>幻读（Phantom Reads）</td>
-<td>一个事务按照相同的查询条件重新读取以前查询过的数据，却发现其他事务插入了满足其查询条件的新数据。数据的数量不一致，是insert/delete引起的</td>
-</tr>
-</tbody></table>
-<p><strong>隔离级别越高，性能越差，安全性越高，效率越低</strong></p>
-<table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>丢失更新</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻读</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Read uncommitted</td>
-<td>×</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>Read committed(Oracke和SQL Server)</td>
-<td>×</td>
-<td>×</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>Repeatable read（MySql默认）</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-<td>√</td>
-</tr>
-<tr>
-<td>Serializable串行化</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-</tr>
-</tbody></table>
-<p><strong>设置隔离级别</strong> ：<strong>set global transaction isolation level —;</strong></p>
-<p><strong>查看隔离级别</strong>：<strong>select @@tx_isolation;</strong> </p>
-
       
     </div>
 
@@ -1514,6 +1514,196 @@
 <blockquote>
 <p>决定了innodb重做<strong>日志缓存</strong>的大小，对于可能产生大量更新记录的大事务，增加innodb_log_buffer_size的大小，可以避免innodb在事务提交前就执行不必要的日志写入磁盘操作。</p>
 </blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">异常控制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 13:09:21" itemprop="dateModified" datetime="2020-12-17T13:09:21+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="异常控制" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、异常"><a href="#一、异常" class="headerlink" title="一、异常"></a>一、异常</h3><p><img src="https://csn.damyoung.cn/image-20200730200213622.png" alt="image-20200730200213622"></p>
+<h3 id="1、Throwable"><a href="#1、Throwable" class="headerlink" title="1、Throwable"></a>1、Throwable</h3><blockquote>
+<p>所有的异常都有一个共同的祖先<code>java.lang</code>包中的的<code>Throwable类</code>。</p>
+<p>它有两个重要的子类：<code>Exception(异常)</code>和<code>Error(错误)</code>,二者都是java处理异常的重要子类</p>
+</blockquote>
+<h4 id="1-1-Error"><a href="#1-1-Error" class="headerlink" title="1.1 Error"></a>1.1 Error</h4><blockquote>
+<p><strong>程序无法处理的错误</strong>，表示运行应用程序中较严重问题，表示代码执行时JVM出现的问题。</p>
+<p>如java虚拟机运行错误(VirtualMachineError)、内存溢出(OutofMemoryError)</p>
+<p>这些异常发生时，java虚拟机一般会选择线程终止</p>
+</blockquote>
+<blockquote>
+<p>绝大多数是程序运行时不允许出现的状况。对于设计合理的应用程序来说，即使确实发生了错误，本质上也不应该试图去处理它所引起的异常状况。</p>
+</blockquote>
+<h4 id="1-2-Exception"><a href="#1-2-Exception" class="headerlink" title="1.2 Exception"></a>1.2 Exception</h4><blockquote>
+<p><strong>是程序本身可以处理的异常</strong></p>
+<p><code>Exception</code>类有一个重要的子类<code>RuntimeException</code>。</p>
+<p>该异常由Java虚拟机抛出</p>
+</blockquote>
+<ul>
+<li> <code>ArrithmeticException</code>：算术运算异常，一个整数除以0时，会抛出该异常</li>
+<li><code>ClassNotFoundException</code></li>
+<li><code>NullPointerException</code>：要访问的变量没有引用任何对象时抛出该异常。</li>
+<li><code>IllegalArgumentException</code>：非法参数异常</li>
+<li><code>ArrayIndexOutOfBoundsException</code>：下标越界异常</li>
+</ul>
+<blockquote>
+<p>异常和错误的区别：异常能被程序本身处理，错误无法处理</p>
+</blockquote>
+<h4 id="1-3-处理过程"><a href="#1-3-处理过程" class="headerlink" title="1.3 处理过程"></a>1.3 处理过程</h4><ul>
+<li><p>抛出异常：发生异常，生成异常对象，交给JRE</p>
+</li>
+<li><p>捕获异常：JRE得到异常，寻找相应的代码处理异常</p>
+</li>
+</ul>
+<h4 id="1-4-受检异常和运行异常"><a href="#1-4-受检异常和运行异常" class="headerlink" title="1.4 受检异常和运行异常"></a>1.4 受检异常和运行异常</h4><h5 id="受检异常"><a href="#受检异常" class="headerlink" title="受检异常"></a>受检异常</h5><p>跟程序的上下文环境有关，即使程序设计无误，仍然可能因使用的问题而导致异常。</p>
+<p>Java编译器要求方法必须声明抛出可能发生的受检异常，但是并不要求必须声明抛出未被捕获的运行时异常。</p>
+<h5 id="运行时异常"><a href="#运行时异常" class="headerlink" title="运行时异常"></a>运行时异常</h5><p>表示虚拟机的通常操作中可能遇到的异常，是一种常见的运行错误，只要程序设计得当通常就不会发生。</p>
+<p>当出现这样的异常，可以不处理，总是由虚拟机接管。<code>RuntimeException</code>下的类便都是运行时异常。</p>
+<h4 id="1-5-异常处理总结"><a href="#1-5-异常处理总结" class="headerlink" title="1.5 异常处理总结"></a>1.5 异常处理总结</h4><ul>
+<li><p><code>try块</code>： 用于捕获异常。其后可接零个或多个<code>catch</code>块，如果没有catch块，则必须跟一个<code>finally</code>块。</p>
+</li>
+<li><p><code>catch块</code>：用于处理<code>try</code>捕获到的异常</p>
+</li>
+<li><p><code>finally块</code>：无论是否捕获或处理异常，<code>finally</code>中的语句都会被执行。</p>
+<blockquote>
+<p>当try和finally语句中都有return语句时</p>
+<p>在方法返回之前，finally语句的内容将被执行，</p>
+<p>并且finally语句的返回值将会覆盖原始的返回值。</p>
+</blockquote>
+</li>
+<li><p><code>throw</code>：用于在代码中明确的排除一个异常</p>
+</li>
+<li><p><code>throws</code>：用在方法声明上标明函数可能抛出的各种异常。</p>
+</li>
+</ul>
+<h4 id="1-6-finally块不会被执行的四种情况"><a href="#1-6-finally块不会被执行的四种情况" class="headerlink" title="1.6 finally块不会被执行的四种情况"></a>1.6 finally块不会被执行的四种情况</h4><ul>
+<li>在finally语句块第一行发生了异常。因为在其他行，finally块还是会得到执行</li>
+<li>在前面的代码中用了<code>System.exit(int)</code>已退出程序。 exit是带参函数；若该语句在异常语句之后，finally会执行</li>
+<li>程序所在的线程死亡。</li>
+<li>关闭CPU。</li>
+</ul>
+<h3 id="2、-try-catch-finally"><a href="#2、-try-catch-finally" class="headerlink" title="2、 try-catch-finally"></a>2、 try-catch-finally</h3><ul>
+<li><strong>执行try时，若出现异常后，try语句中后面的语句不再执行</strong></li>
+<li>finally无论有无异常都会执行，无论如何都会执行                 </li>
+<li>catch可捕获多个异常，越是父类放下面（子类异常若在父类异常后面，子类异常不再执行）</li>
+</ul>
+<h3 id="3、异常处理"><a href="#3、异常处理" class="headerlink" title="3、异常处理"></a>3、异常处理</h3><ul>
+<li>抛出RuntimeException及其子类则声明上没有throws</li>
+<li>如果抛出的是Exception及其子类则声明上必须要有throws</li>
+</ul>
+<p>（1）手动抛出异常 throw new Exception();  （代码级别）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> age=<span class="number">100</span>;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(age&gt;<span class="number">120</span>)&#123;    <span class="comment">//抛出异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">&quot;年龄不合理&quot;</span>);   <span class="comment">//手动抛出异常</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">catch</span> (Exception e)&#123;   <span class="comment">//捕获异常</span></span><br><span class="line">    System.out.println(e.getMessage());	<span class="comment">//打印出详细字符串</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）抛出异常：throws(方法级别)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//抛出异常</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> ArithmeticException</span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">1</span>/<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  </span>&#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">         demo1();</span><br><span class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">           e.printStackTrace();	<span class="comment">//打印出堆栈</span></span><br><span class="line">      &#125;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、自定义异常"><a href="#4、自定义异常" class="headerlink" title="4、自定义异常"></a>4、自定义异常</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exception</span> <span class="keyword">extends</span> <span class="title">Throwable</span> </span></span><br><span class="line"><span class="class">    </span></span><br><span class="line"><span class="class">//<span class="title">Exception</span>的无参构造</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">Exception</span>() </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Exception的带参构造</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Exception</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGender</span><span class="params">(String gender)</span><span class="keyword">throws</span> GenderException</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(gender.equals(<span class="string">&quot;男&quot;</span>)|gender.equals(<span class="string">&quot;女&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">this</span>.gender=gender;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> GenderException(<span class="string">&quot;性别只能是男或女&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getGender</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> gender;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//自定义异常</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenderException</span> <span class="keyword">extends</span> <span class="title">Exception</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GenderException</span><span class="params">(String msg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(msg); <span class="comment">//调用父类Exception 构造方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner input=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        Student s=<span class="keyword">new</span> Student();</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入学生性别&quot;</span>);</span><br><span class="line">        String gender=input.next();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            s.setGender(gender);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (GenderException e)&#123;</span><br><span class="line">            System.out.println(e.getMessage());</span><br><span class="line">        &#125;       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、return"><a href="#5、return" class="headerlink" title="5、return"></a>5、return</h3><ul>
+<li><p>执行try，catch，给返回值赋值（暂时不输出）</p>
+</li>
+<li><p>执行finally（在里面加return，上面的return会被覆盖，而且还会掩盖try-catch中的异常）</p>
+</li>
+<li><p>return ，finally中有return语句时，会覆盖try-catch的return语句</p>
+</li>
+</ul>
+<h3 id="6、声明异常范围"><a href="#6、声明异常范围" class="headerlink" title="6、声明异常范围"></a>6、声明异常范围</h3><blockquote>
+<p>子类声明范围不能超过父类声明范围</p>
+</blockquote>
+<ul>
+<li>父类没有声明异常，子类也不能</li>
+<li>不可抛出异常类的父类或上层类</li>
+<li>抛出异常数目不能比原有方法还多</li>
+</ul>
 
       
     </div>
@@ -2402,196 +2592,6 @@
 <li>合理设计索引，尽可能减少索引<strong>条件</strong>，及索引<strong>范围</strong>，避免<strong>间隙锁</strong></li>
 <li>尽量控制<strong>事务大小</strong>，减少锁定<strong>资源量</strong>和<strong>时间</strong>长度</li>
 <li>尽可使用低级别<strong>事务隔离</strong>（但是需要业务层面满足需求）</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">异常控制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:09:21" itemprop="dateModified" datetime="2020-12-17T13:09:21+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="异常控制" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、异常"><a href="#一、异常" class="headerlink" title="一、异常"></a>一、异常</h3><p><img src="https://csn.damyoung.cn/image-20200730200213622.png" alt="image-20200730200213622"></p>
-<h3 id="1、Throwable"><a href="#1、Throwable" class="headerlink" title="1、Throwable"></a>1、Throwable</h3><blockquote>
-<p>所有的异常都有一个共同的祖先<code>java.lang</code>包中的的<code>Throwable类</code>。</p>
-<p>它有两个重要的子类：<code>Exception(异常)</code>和<code>Error(错误)</code>,二者都是java处理异常的重要子类</p>
-</blockquote>
-<h4 id="1-1-Error"><a href="#1-1-Error" class="headerlink" title="1.1 Error"></a>1.1 Error</h4><blockquote>
-<p><strong>程序无法处理的错误</strong>，表示运行应用程序中较严重问题，表示代码执行时JVM出现的问题。</p>
-<p>如java虚拟机运行错误(VirtualMachineError)、内存溢出(OutofMemoryError)</p>
-<p>这些异常发生时，java虚拟机一般会选择线程终止</p>
-</blockquote>
-<blockquote>
-<p>绝大多数是程序运行时不允许出现的状况。对于设计合理的应用程序来说，即使确实发生了错误，本质上也不应该试图去处理它所引起的异常状况。</p>
-</blockquote>
-<h4 id="1-2-Exception"><a href="#1-2-Exception" class="headerlink" title="1.2 Exception"></a>1.2 Exception</h4><blockquote>
-<p><strong>是程序本身可以处理的异常</strong></p>
-<p><code>Exception</code>类有一个重要的子类<code>RuntimeException</code>。</p>
-<p>该异常由Java虚拟机抛出</p>
-</blockquote>
-<ul>
-<li> <code>ArrithmeticException</code>：算术运算异常，一个整数除以0时，会抛出该异常</li>
-<li><code>ClassNotFoundException</code></li>
-<li><code>NullPointerException</code>：要访问的变量没有引用任何对象时抛出该异常。</li>
-<li><code>IllegalArgumentException</code>：非法参数异常</li>
-<li><code>ArrayIndexOutOfBoundsException</code>：下标越界异常</li>
-</ul>
-<blockquote>
-<p>异常和错误的区别：异常能被程序本身处理，错误无法处理</p>
-</blockquote>
-<h4 id="1-3-处理过程"><a href="#1-3-处理过程" class="headerlink" title="1.3 处理过程"></a>1.3 处理过程</h4><ul>
-<li><p>抛出异常：发生异常，生成异常对象，交给JRE</p>
-</li>
-<li><p>捕获异常：JRE得到异常，寻找相应的代码处理异常</p>
-</li>
-</ul>
-<h4 id="1-4-受检异常和运行异常"><a href="#1-4-受检异常和运行异常" class="headerlink" title="1.4 受检异常和运行异常"></a>1.4 受检异常和运行异常</h4><h5 id="受检异常"><a href="#受检异常" class="headerlink" title="受检异常"></a>受检异常</h5><p>跟程序的上下文环境有关，即使程序设计无误，仍然可能因使用的问题而导致异常。</p>
-<p>Java编译器要求方法必须声明抛出可能发生的受检异常，但是并不要求必须声明抛出未被捕获的运行时异常。</p>
-<h5 id="运行时异常"><a href="#运行时异常" class="headerlink" title="运行时异常"></a>运行时异常</h5><p>表示虚拟机的通常操作中可能遇到的异常，是一种常见的运行错误，只要程序设计得当通常就不会发生。</p>
-<p>当出现这样的异常，可以不处理，总是由虚拟机接管。<code>RuntimeException</code>下的类便都是运行时异常。</p>
-<h4 id="1-5-异常处理总结"><a href="#1-5-异常处理总结" class="headerlink" title="1.5 异常处理总结"></a>1.5 异常处理总结</h4><ul>
-<li><p><code>try块</code>： 用于捕获异常。其后可接零个或多个<code>catch</code>块，如果没有catch块，则必须跟一个<code>finally</code>块。</p>
-</li>
-<li><p><code>catch块</code>：用于处理<code>try</code>捕获到的异常</p>
-</li>
-<li><p><code>finally块</code>：无论是否捕获或处理异常，<code>finally</code>中的语句都会被执行。</p>
-<blockquote>
-<p>当try和finally语句中都有return语句时</p>
-<p>在方法返回之前，finally语句的内容将被执行，</p>
-<p>并且finally语句的返回值将会覆盖原始的返回值。</p>
-</blockquote>
-</li>
-<li><p><code>throw</code>：用于在代码中明确的排除一个异常</p>
-</li>
-<li><p><code>throws</code>：用在方法声明上标明函数可能抛出的各种异常。</p>
-</li>
-</ul>
-<h4 id="1-6-finally块不会被执行的四种情况"><a href="#1-6-finally块不会被执行的四种情况" class="headerlink" title="1.6 finally块不会被执行的四种情况"></a>1.6 finally块不会被执行的四种情况</h4><ul>
-<li>在finally语句块第一行发生了异常。因为在其他行，finally块还是会得到执行</li>
-<li>在前面的代码中用了<code>System.exit(int)</code>已退出程序。 exit是带参函数；若该语句在异常语句之后，finally会执行</li>
-<li>程序所在的线程死亡。</li>
-<li>关闭CPU。</li>
-</ul>
-<h3 id="2、-try-catch-finally"><a href="#2、-try-catch-finally" class="headerlink" title="2、 try-catch-finally"></a>2、 try-catch-finally</h3><ul>
-<li><strong>执行try时，若出现异常后，try语句中后面的语句不再执行</strong></li>
-<li>finally无论有无异常都会执行，无论如何都会执行                 </li>
-<li>catch可捕获多个异常，越是父类放下面（子类异常若在父类异常后面，子类异常不再执行）</li>
-</ul>
-<h3 id="3、异常处理"><a href="#3、异常处理" class="headerlink" title="3、异常处理"></a>3、异常处理</h3><ul>
-<li>抛出RuntimeException及其子类则声明上没有throws</li>
-<li>如果抛出的是Exception及其子类则声明上必须要有throws</li>
-</ul>
-<p>（1）手动抛出异常 throw new Exception();  （代码级别）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> age=<span class="number">100</span>;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(age&gt;<span class="number">120</span>)&#123;    <span class="comment">//抛出异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">&quot;年龄不合理&quot;</span>);   <span class="comment">//手动抛出异常</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">catch</span> (Exception e)&#123;   <span class="comment">//捕获异常</span></span><br><span class="line">    System.out.println(e.getMessage());	<span class="comment">//打印出详细字符串</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>（2）抛出异常：throws(方法级别)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//抛出异常</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> ArithmeticException</span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">1</span>/<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  </span>&#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">         demo1();</span><br><span class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">           e.printStackTrace();	<span class="comment">//打印出堆栈</span></span><br><span class="line">      &#125;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4、自定义异常"><a href="#4、自定义异常" class="headerlink" title="4、自定义异常"></a>4、自定义异常</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exception</span> <span class="keyword">extends</span> <span class="title">Throwable</span> </span></span><br><span class="line"><span class="class">    </span></span><br><span class="line"><span class="class">//<span class="title">Exception</span>的无参构造</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">Exception</span>() </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Exception的带参构造</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Exception</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGender</span><span class="params">(String gender)</span><span class="keyword">throws</span> GenderException</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(gender.equals(<span class="string">&quot;男&quot;</span>)|gender.equals(<span class="string">&quot;女&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">this</span>.gender=gender;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> GenderException(<span class="string">&quot;性别只能是男或女&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getGender</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> gender;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//自定义异常</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenderException</span> <span class="keyword">extends</span> <span class="title">Exception</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GenderException</span><span class="params">(String msg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(msg); <span class="comment">//调用父类Exception 构造方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner input=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        Student s=<span class="keyword">new</span> Student();</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入学生性别&quot;</span>);</span><br><span class="line">        String gender=input.next();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            s.setGender(gender);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (GenderException e)&#123;</span><br><span class="line">            System.out.println(e.getMessage());</span><br><span class="line">        &#125;       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="5、return"><a href="#5、return" class="headerlink" title="5、return"></a>5、return</h3><ul>
-<li><p>执行try，catch，给返回值赋值（暂时不输出）</p>
-</li>
-<li><p>执行finally（在里面加return，上面的return会被覆盖，而且还会掩盖try-catch中的异常）</p>
-</li>
-<li><p>return ，finally中有return语句时，会覆盖try-catch的return语句</p>
-</li>
-</ul>
-<h3 id="6、声明异常范围"><a href="#6、声明异常范围" class="headerlink" title="6、声明异常范围"></a>6、声明异常范围</h3><blockquote>
-<p>子类声明范围不能超过父类声明范围</p>
-</blockquote>
-<ul>
-<li>父类没有声明异常，子类也不能</li>
-<li>不可抛出异常类的父类或上层类</li>
-<li>抛出异常数目不能比原有方法还多</li>
 </ul>
 
       
