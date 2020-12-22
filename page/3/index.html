@@ -832,365 +832,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/06%E8%A7%86%E5%9B%BEview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/06%E8%A7%86%E5%9B%BEview/" class="post-title-link" itemprop="url">视图</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:08:17" itemprop="dateModified" datetime="2020-12-17T13:08:17+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/06%E8%A7%86%E5%9B%BEview/" class="post-meta-item leancloud_visitors" data-flag-title="视图" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>456</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><h4 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h4><blockquote>
-<p>视图是一条select语句执行返回的结果，是一种虚拟存在的表。</p>
-</blockquote>
-<p><strong>作用</strong></p>
-<blockquote>
-<ul>
-<li>简单：使用视图的用户完全不需要关心后面对应的表的结构、关联条件和筛选条件，对用户来说已经是<strong>过滤好的复合条件的结果集。</strong></li>
-<li>安全：<strong>使用视图的用户只能访问他们被允许查询的结果集</strong>，数据库对表的<strong>权限管理</strong>并不能限制到某个行某个列，但是通过视图就可以简单的实现。</li>
-<li>数据独立：一旦视图的结构确定了，可以<strong>屏蔽表结构变化对用户的影响</strong>，源表增加列对视图没有影响；源表修改列名，则可以通过修改视图来解决，不会造成对访问者的影响。</li>
-</ul>
-</blockquote>
-<h4 id="2、创建视图"><a href="#2、创建视图" class="headerlink" title="2、创建视图"></a>2、创建视图</h4><blockquote>
-<p>create 视图名 as (select语句)</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW v_general </span><br><span class="line">AS</span><br><span class="line">SELECT empno,ename,job,mgr,deptno FROM emp;</span><br></pre></td></tr></table></figure>
-
-<img src="https://csn.damyoung.cn/image-20201018202106673.png" alt="image-20201018202106673" style="zoom:80%;" />
-
-
-
-<h4 id="3、更新视图"><a href="#3、更新视图" class="headerlink" title="3、更新视图"></a>3、更新视图</h4><p><strong>更新视图的同时也会更新原有表！！！</strong></p>
-<blockquote>
-<p>update 视图名 set 字段名=‘’  where ..</p>
-</blockquote>
-<img src="https://csn.damyoung.cn/image-20201018202711004.png" alt="image-20201018202711004" style="zoom:80%;" />
-
-<blockquote>
-<p><strong>修改视图</strong>：alter view 视图名 as (select语句)  </p>
-</blockquote>
-<p><img src="https://csn.damyoung.cn/image-20201018203500053.png" alt="image-20201018203500053"></p>
-<blockquote>
-<p>show create view 视图名 </p>
-</blockquote>
-<img src="https://csn.damyoung.cn/image-20201018203846648.png" alt="image-20201018203846648" style="zoom:80%;" />
-
-<blockquote>
-<p>删除视图：drop view 视图名</p>
-</blockquote>
-<img src="https://csn.damyoung.cn/image-20201018203938785.png" alt="image-20201018203938785" style="zoom:80%;" />
-
-<h4 id="4、查看视图"><a href="#4、查看视图" class="headerlink" title="4、查看视图"></a>4、查看视图</h4><blockquote>
-<p>show tables;</p>
-</blockquote>
-<img src="https://csn.damyoung.cn/image-20201018203633852.png" alt="image-20201018203633852" style="zoom:80%;" />
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/07%E6%B3%9B%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/07%E6%B3%9B%E5%9E%8B/" class="post-title-link" itemprop="url">泛型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:36:50" itemprop="dateModified" datetime="2020-12-06T22:36:50+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/11/07%E6%B3%9B%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="泛型" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><blockquote>
-<p><strong>泛型是参数化类型，使用广泛的类型</strong></p>
-<p><strong>声明时使用泛型，使用时确定类型</strong></p>
-<p>编译时使用泛型，JVM并不知道泛型的存在，泛型使用时强制转换类型</p>
-</blockquote>
-<h4 id="泛型是什么？"><a href="#泛型是什么？" class="headerlink" title="泛型是什么？"></a>泛型是什么？</h4><ul>
-<li>泛型是参数化类型，使用广泛的类型，声明时使用泛型，使用时确定类型</li>
-<li>泛型是一个重要特性是泛型擦除，由于JVM并不知道泛型的存在，泛型在编译期就被转化为普通的类，目的是避免创建过多的类造成性能上的损耗</li>
-<li>泛型在数据取出时会进行一个强制类型转换(此时若是创建泛型数组，进行强制类型转换时会出行<code>ClassCastException</code>!)</li>
-</ul>
-<p><strong>泛型字母</strong></p>
-<blockquote>
-<p>T type ，K V  ， E element</p>
-</blockquote>
-<p><strong>注意</strong></p>
-<blockquote>
-<ul>
-<li>不能使用基本类型，指定类型引用类型</li>
-<li>使用时自动类型检查，自动类型转换</li>
-</ul>
-</blockquote>
-<h3 id="1、泛型的使用"><a href="#1、泛型的使用" class="headerlink" title="1、泛型的使用"></a>1、泛型的使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jdk1.7以后泛型只需要声明一次，后面使用该类型</span></span><br><span class="line">Test1&lt;String&gt; s1=<span class="keyword">new</span> Test1&lt;&gt;();</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-1-泛型类"><a href="#1-1-泛型类" class="headerlink" title="1.1 泛型类"></a>1.1 泛型类</h5><blockquote>
-<p>class 类名&lt;字母列表&gt;{  }</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span>&lt;<span class="title">T1</span>,<span class="title">T2</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span>  T1 javaScore;</span><br><span class="line">    <span class="keyword">private</span>  T2 oracleScore;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-2-泛型接口"><a href="#1-2-泛型接口" class="headerlink" title="1.2 泛型接口"></a>1.2 泛型接口</h5><p><strong>格式</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Inte</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>泛型字母不能使用在接口静态方法中，不能使用在全局常量中（隐含static）。</p>
-</blockquote>
-<h5 id="1-3-泛型方法"><a href="#1-3-泛型方法" class="headerlink" title="1.3 泛型方法"></a>1.3 泛型方法</h5><blockquote>
-<p>在public与返回值之间的<T>必不可少，这表明这是一个泛型方法.</p>
-<p>并且声明了一个泛型T，这个T可以出现在这个泛型方法的任意位置</p>
-</blockquote>
-<p><strong>格式</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T,T1&gt; <span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">(T t,T1,t1)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-4-静态方法"><a href="#1-4-静态方法" class="headerlink" title="1.4 静态方法"></a>1.4 静态方法</h5><blockquote>
-<p><strong>静态方法无法访问类上定义的泛型</strong></p>
-<p>如果静态方法要使用泛型的话，必须将静态方法也定义成泛型方法 </p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T,T1&gt; <span class="keyword">void</span> <span class="title">Test</span><span class="params">(T t,T1,t1)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-5-通配符"><a href="#1-5-通配符" class="headerlink" title="1.5 通配符"></a>1.5 通配符</h5><blockquote>
-<p> 类型不定，使用时确定类型</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Test1&lt;?&gt; s=<span class="keyword">new</span> Test1&lt;String&gt;();</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-6-泛型的上下边界"><a href="#1-6-泛型的上下边界" class="headerlink" title="1.6 泛型的上下边界"></a>1.6 泛型的上下边界</h5><p>为泛型添加上边界，即传入的类型实参必须是指定类型的子类型</p>
-<p> ? extends : &lt;=上限  为泛型添加上边界，即传入的类型实参必须是指定类型的子类型</p>
-<p> ? super：&gt;=下限 指定类型为自身或父类、</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    T score; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Test1&lt;?&gt; s)</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">(Test1&lt;?extends Fruit&gt; s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">(Test1&lt;?<span class="keyword">super</span> Fruit&gt; s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="2、自定义泛型"><a href="#2、自定义泛型" class="headerlink" title="2、自定义泛型"></a>2、自定义泛型</h3><h5 id="2-1-继承关系"><a href="#2-1-继承关系" class="headerlink" title="2.1 继承关系"></a>2.1 继承关系</h5><blockquote>
-<p>​    <strong>T&gt;Object，子类&gt;=父类泛型</strong></p>
-</blockquote>
-<ul>
-<li>父类为泛型类：属性，方法；子类：使用时指定具体类型</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child</span> <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">String</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>子类为泛型类,类型在使用时确定</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child1</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">T</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>子类为泛型类，父类不指定类型（泛型的擦除，用Object）<br>​                    （不能子类擦除，父类泛型） </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child2</span> &lt;<span class="title">T</span>&gt;<span class="keyword">extends</span>  <span class="title">Father</span></span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>子类和父类同时擦除</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child3</span> <span class="keyword">extends</span> <span class="title">Father</span></span></span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="2-2-重写参数类型"><a href="#2-2-重写参数类型" class="headerlink" title="2.2 重写参数类型"></a>2.2 重写参数类型</h5><ul>
-<li><p>重写方法时，方法形参随父亲而定 </p>
-</li>
-<li><p>属性子类随子类，父类随父类</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child</span> <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">String</span>&gt;</span>&#123;</span><br><span class="line">    String t2;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3、泛型的擦除"><a href="#3、泛型的擦除" class="headerlink" title="3、泛型的擦除"></a>3、泛型的擦除</h3><blockquote>
-<p><strong>继承和声明时不指定类型，用Object对待</strong></p>
-</blockquote>
-<ul>
-<li><p><strong>Java泛型擦除是Java泛型的一个重要特性，目的是避免过多的创建类造成的性能损耗</strong></p>
-</li>
-<li><p>JVM并不知道泛型的存在，因为泛型在编译阶段就已经被处理成普通的类和方法； </p>
-</li>
-<li><p>而泛型会在数据取出进行一个强制类型转换</p>
-</li>
-</ul>
-<p><strong>擦除规则</strong></p>
-<ul>
-<li>若泛型类型没有指定具体类型，用Object作为原始类型；</li>
-<li>若有限定类型&lt; T exnteds XClass &gt;，使用XClass作为原始类型；</li>
-<li>若有多个限定&lt; T exnteds XClass1 &amp; XClass2 &gt;，使用第一个边界类型XClass1作为原始类型；</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child3</span> <span class="keyword">extends</span> <span class="title">Father</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="4、泛型的嵌套"><a href="#4、泛型的嵌套" class="headerlink" title="4、泛型的嵌套"></a>4、泛型的嵌套</h3><p> 泛型的嵌套：与调用没有关系。从外到内拆分</p>
-<h3 id="5、泛型与数组"><a href="#5、泛型与数组" class="headerlink" title="5、泛型与数组"></a>5、泛型与数组</h3><blockquote>
-<h5 id="没有泛型数组-，可以声明，不能创建"><a href="#没有泛型数组-，可以声明，不能创建" class="headerlink" title="没有泛型数组  ，可以声明，不能创建"></a><strong>没有泛型数组  ，可以声明，不能创建</strong></h5></blockquote>
-<p><strong>！！！</strong>由于JVM在编译时是不知道泛型的存在的，泛型是数据获取时进行的强制类型转换，若是创建泛型数组，进行强制类型转换时会出行<code>ClassCastException</code>!</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt;[] ls &#x3D; new ArrayList&lt;String&gt;[10]; &#x2F;&#x2F;不可以</span><br><span class="line"></span><br><span class="line">List&lt;?&gt;[] ls &#x3D; new ArrayList&lt;?&gt;[10]; &#x2F;&#x2F;可以</span><br><span class="line"></span><br><span class="line">List&lt;String&gt;[] ls &#x3D; new ArrayList[10]; &#x2F;&#x2F;可以</span><br></pre></td></tr></table></figure>
-
-<h3 id="6、泛型不能使用多态"><a href="#6、泛型不能使用多态" class="headerlink" title="6、泛型不能使用多态"></a>6、泛型不能使用多态</h3><p>泛型不能使用多态： A<Fruit> test(){ return A<Apple>; } 错误</p>
-<p>​    使用：只能在声明时使用（不能在声明类或使用时使用问号）</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/07%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1539,6 +1180,365 @@
 <h4 id="3、删除触发器"><a href="#3、删除触发器" class="headerlink" title="3、删除触发器"></a>3、删除触发器</h4><blockquote>
 <p>drop trigger 触发器名；</p>
 </blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/06%E8%A7%86%E5%9B%BEview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/06%E8%A7%86%E5%9B%BEview/" class="post-title-link" itemprop="url">视图</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 13:08:17" itemprop="dateModified" datetime="2020-12-17T13:08:17+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/06%E8%A7%86%E5%9B%BEview/" class="post-meta-item leancloud_visitors" data-flag-title="视图" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>456</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><h4 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h4><blockquote>
+<p>视图是一条select语句执行返回的结果，是一种虚拟存在的表。</p>
+</blockquote>
+<p><strong>作用</strong></p>
+<blockquote>
+<ul>
+<li>简单：使用视图的用户完全不需要关心后面对应的表的结构、关联条件和筛选条件，对用户来说已经是<strong>过滤好的复合条件的结果集。</strong></li>
+<li>安全：<strong>使用视图的用户只能访问他们被允许查询的结果集</strong>，数据库对表的<strong>权限管理</strong>并不能限制到某个行某个列，但是通过视图就可以简单的实现。</li>
+<li>数据独立：一旦视图的结构确定了，可以<strong>屏蔽表结构变化对用户的影响</strong>，源表增加列对视图没有影响；源表修改列名，则可以通过修改视图来解决，不会造成对访问者的影响。</li>
+</ul>
+</blockquote>
+<h4 id="2、创建视图"><a href="#2、创建视图" class="headerlink" title="2、创建视图"></a>2、创建视图</h4><blockquote>
+<p>create 视图名 as (select语句)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW v_general </span><br><span class="line">AS</span><br><span class="line">SELECT empno,ename,job,mgr,deptno FROM emp;</span><br></pre></td></tr></table></figure>
+
+<img src="https://csn.damyoung.cn/image-20201018202106673.png" alt="image-20201018202106673" style="zoom:80%;" />
+
+
+
+<h4 id="3、更新视图"><a href="#3、更新视图" class="headerlink" title="3、更新视图"></a>3、更新视图</h4><p><strong>更新视图的同时也会更新原有表！！！</strong></p>
+<blockquote>
+<p>update 视图名 set 字段名=‘’  where ..</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201018202711004.png" alt="image-20201018202711004" style="zoom:80%;" />
+
+<blockquote>
+<p><strong>修改视图</strong>：alter view 视图名 as (select语句)  </p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201018203500053.png" alt="image-20201018203500053"></p>
+<blockquote>
+<p>show create view 视图名 </p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201018203846648.png" alt="image-20201018203846648" style="zoom:80%;" />
+
+<blockquote>
+<p>删除视图：drop view 视图名</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201018203938785.png" alt="image-20201018203938785" style="zoom:80%;" />
+
+<h4 id="4、查看视图"><a href="#4、查看视图" class="headerlink" title="4、查看视图"></a>4、查看视图</h4><blockquote>
+<p>show tables;</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201018203633852.png" alt="image-20201018203633852" style="zoom:80%;" />
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/07%E6%B3%9B%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/07%E6%B3%9B%E5%9E%8B/" class="post-title-link" itemprop="url">泛型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:36:50" itemprop="dateModified" datetime="2020-12-06T22:36:50+08:00">2020-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/11/07%E6%B3%9B%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="泛型" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><blockquote>
+<p><strong>泛型是参数化类型，使用广泛的类型</strong></p>
+<p><strong>声明时使用泛型，使用时确定类型</strong></p>
+<p>编译时使用泛型，JVM并不知道泛型的存在，泛型使用时强制转换类型</p>
+</blockquote>
+<h4 id="泛型是什么？"><a href="#泛型是什么？" class="headerlink" title="泛型是什么？"></a>泛型是什么？</h4><ul>
+<li>泛型是参数化类型，使用广泛的类型，声明时使用泛型，使用时确定类型</li>
+<li>泛型是一个重要特性是泛型擦除，由于JVM并不知道泛型的存在，泛型在编译期就被转化为普通的类，目的是避免创建过多的类造成性能上的损耗</li>
+<li>泛型在数据取出时会进行一个强制类型转换(此时若是创建泛型数组，进行强制类型转换时会出行<code>ClassCastException</code>!)</li>
+</ul>
+<p><strong>泛型字母</strong></p>
+<blockquote>
+<p>T type ，K V  ， E element</p>
+</blockquote>
+<p><strong>注意</strong></p>
+<blockquote>
+<ul>
+<li>不能使用基本类型，指定类型引用类型</li>
+<li>使用时自动类型检查，自动类型转换</li>
+</ul>
+</blockquote>
+<h3 id="1、泛型的使用"><a href="#1、泛型的使用" class="headerlink" title="1、泛型的使用"></a>1、泛型的使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jdk1.7以后泛型只需要声明一次，后面使用该类型</span></span><br><span class="line">Test1&lt;String&gt; s1=<span class="keyword">new</span> Test1&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-1-泛型类"><a href="#1-1-泛型类" class="headerlink" title="1.1 泛型类"></a>1.1 泛型类</h5><blockquote>
+<p>class 类名&lt;字母列表&gt;{  }</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span>&lt;<span class="title">T1</span>,<span class="title">T2</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span>  T1 javaScore;</span><br><span class="line">    <span class="keyword">private</span>  T2 oracleScore;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-2-泛型接口"><a href="#1-2-泛型接口" class="headerlink" title="1.2 泛型接口"></a>1.2 泛型接口</h5><p><strong>格式</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Inte</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>泛型字母不能使用在接口静态方法中，不能使用在全局常量中（隐含static）。</p>
+</blockquote>
+<h5 id="1-3-泛型方法"><a href="#1-3-泛型方法" class="headerlink" title="1.3 泛型方法"></a>1.3 泛型方法</h5><blockquote>
+<p>在public与返回值之间的<T>必不可少，这表明这是一个泛型方法.</p>
+<p>并且声明了一个泛型T，这个T可以出现在这个泛型方法的任意位置</p>
+</blockquote>
+<p><strong>格式</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T,T1&gt; <span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">(T t,T1,t1)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-4-静态方法"><a href="#1-4-静态方法" class="headerlink" title="1.4 静态方法"></a>1.4 静态方法</h5><blockquote>
+<p><strong>静态方法无法访问类上定义的泛型</strong></p>
+<p>如果静态方法要使用泛型的话，必须将静态方法也定义成泛型方法 </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T,T1&gt; <span class="keyword">void</span> <span class="title">Test</span><span class="params">(T t,T1,t1)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-5-通配符"><a href="#1-5-通配符" class="headerlink" title="1.5 通配符"></a>1.5 通配符</h5><blockquote>
+<p> 类型不定，使用时确定类型</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Test1&lt;?&gt; s=<span class="keyword">new</span> Test1&lt;String&gt;();</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-6-泛型的上下边界"><a href="#1-6-泛型的上下边界" class="headerlink" title="1.6 泛型的上下边界"></a>1.6 泛型的上下边界</h5><p>为泛型添加上边界，即传入的类型实参必须是指定类型的子类型</p>
+<p> ? extends : &lt;=上限  为泛型添加上边界，即传入的类型实参必须是指定类型的子类型</p>
+<p> ? super：&gt;=下限 指定类型为自身或父类、</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    T score; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Test1&lt;?&gt; s)</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">(Test1&lt;?extends Fruit&gt; s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">(Test1&lt;?<span class="keyword">super</span> Fruit&gt; s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="2、自定义泛型"><a href="#2、自定义泛型" class="headerlink" title="2、自定义泛型"></a>2、自定义泛型</h3><h5 id="2-1-继承关系"><a href="#2-1-继承关系" class="headerlink" title="2.1 继承关系"></a>2.1 继承关系</h5><blockquote>
+<p>​    <strong>T&gt;Object，子类&gt;=父类泛型</strong></p>
+</blockquote>
+<ul>
+<li>父类为泛型类：属性，方法；子类：使用时指定具体类型</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child</span> <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">String</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>子类为泛型类,类型在使用时确定</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child1</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">T</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>子类为泛型类，父类不指定类型（泛型的擦除，用Object）<br>​                    （不能子类擦除，父类泛型） </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child2</span> &lt;<span class="title">T</span>&gt;<span class="keyword">extends</span>  <span class="title">Father</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>子类和父类同时擦除</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child3</span> <span class="keyword">extends</span> <span class="title">Father</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-2-重写参数类型"><a href="#2-2-重写参数类型" class="headerlink" title="2.2 重写参数类型"></a>2.2 重写参数类型</h5><ul>
+<li><p>重写方法时，方法形参随父亲而定 </p>
+</li>
+<li><p>属性子类随子类，父类随父类</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child</span> <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">String</span>&gt;</span>&#123;</span><br><span class="line">    String t2;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3、泛型的擦除"><a href="#3、泛型的擦除" class="headerlink" title="3、泛型的擦除"></a>3、泛型的擦除</h3><blockquote>
+<p><strong>继承和声明时不指定类型，用Object对待</strong></p>
+</blockquote>
+<ul>
+<li><p><strong>Java泛型擦除是Java泛型的一个重要特性，目的是避免过多的创建类造成的性能损耗</strong></p>
+</li>
+<li><p>JVM并不知道泛型的存在，因为泛型在编译阶段就已经被处理成普通的类和方法； </p>
+</li>
+<li><p>而泛型会在数据取出进行一个强制类型转换</p>
+</li>
+</ul>
+<p><strong>擦除规则</strong></p>
+<ul>
+<li>若泛型类型没有指定具体类型，用Object作为原始类型；</li>
+<li>若有限定类型&lt; T exnteds XClass &gt;，使用XClass作为原始类型；</li>
+<li>若有多个限定&lt; T exnteds XClass1 &amp; XClass2 &gt;，使用第一个边界类型XClass1作为原始类型；</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">child3</span> <span class="keyword">extends</span> <span class="title">Father</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4、泛型的嵌套"><a href="#4、泛型的嵌套" class="headerlink" title="4、泛型的嵌套"></a>4、泛型的嵌套</h3><p> 泛型的嵌套：与调用没有关系。从外到内拆分</p>
+<h3 id="5、泛型与数组"><a href="#5、泛型与数组" class="headerlink" title="5、泛型与数组"></a>5、泛型与数组</h3><blockquote>
+<h5 id="没有泛型数组-，可以声明，不能创建"><a href="#没有泛型数组-，可以声明，不能创建" class="headerlink" title="没有泛型数组  ，可以声明，不能创建"></a><strong>没有泛型数组  ，可以声明，不能创建</strong></h5></blockquote>
+<p><strong>！！！</strong>由于JVM在编译时是不知道泛型的存在的，泛型是数据获取时进行的强制类型转换，若是创建泛型数组，进行强制类型转换时会出行<code>ClassCastException</code>!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt;[] ls &#x3D; new ArrayList&lt;String&gt;[10]; &#x2F;&#x2F;不可以</span><br><span class="line"></span><br><span class="line">List&lt;?&gt;[] ls &#x3D; new ArrayList&lt;?&gt;[10]; &#x2F;&#x2F;可以</span><br><span class="line"></span><br><span class="line">List&lt;String&gt;[] ls &#x3D; new ArrayList[10]; &#x2F;&#x2F;可以</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、泛型不能使用多态"><a href="#6、泛型不能使用多态" class="headerlink" title="6、泛型不能使用多态"></a>6、泛型不能使用多态</h3><p>泛型不能使用多态： A<Fruit> test(){ return A<Apple>; } 错误</p>
+<p>​    使用：只能在声明时使用（不能在声明类或使用时使用问号）</p>
 
       
     </div>
