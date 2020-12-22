@@ -185,6 +185,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02TomCat/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/02TomCat/" class="post-title-link" itemprop="url">tomcat</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:41:14" itemprop="dateModified" datetime="2020-12-06T22:41:14+08:00">2020-12-06</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>545</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Servlet/Jsp容器，轻量级服务中间件</p>
+<h4 id="idea配置"><a href="#idea配置" class="headerlink" title="idea配置"></a>idea配置</h4><ul>
+<li>导入Tomcat 8.5.3.jar包</li>
+</ul>
+<h4 id="Tomcat主要目录："><a href="#Tomcat主要目录：" class="headerlink" title="Tomcat主要目录："></a>Tomcat主要目录：</h4><ul>
+<li>bin 可执行文件</li>
+<li>lib  tomcat可运行的jar文件</li>
+<li>logs tomcat运行的日志文件</li>
+<li>webapps 存放编写的应用</li>
+</ul>
+<p>URL:统一资源定位符</p>
+<p>URI：统一资源标识符</p>
+<h3 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h3><p>HyperText Transfer Protocol超文件传输协议，传输Html文件</p>
+<p>用于定义Web浏览器与Web服务器之间交换数据的过程及数据本身的格式</p>
+<h3 id="请求部分"><a href="#请求部分" class="headerlink" title="请求部分"></a>请求部分</h3><h4 id="请求消息行"><a href="#请求消息行" class="headerlink" title="请求消息行"></a>请求消息行</h4><ol>
+<li>Get 明文传输，不安全，数据量有限</li>
+<li>Post 暗文传输，安全</li>
+</ol>
+<h4 id="请求消息头"><a href="#请求消息头" class="headerlink" title="请求消息头"></a>请求消息头</h4><p><strong>Tomcat原理</strong></p>
+<p>Servlet是java编写服务器端小程序，功能是交互式浏览和修改数据，生成动态web资源</p>
+<ul>
+<li>请求到达server端，server根据url映射<code>Map&lt;url,servletname&gt;</code>得到相应的servlet</li>
+<li>判断Servlet实例是否存在，不存在则加载和实例化Servlet并调用init方法</li>
+<li>server创建request/response对象，调用servlet的service方法(doXXX方法)</li>
+<li>从request对象获取请求参数，处理将结果给通过response返回</li>
+<li>Server不再需要Servlet时，调用destory()方法</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02%E6%A0%87%E8%AF%86%E7%AC%A6&%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -543,111 +648,6 @@
 <p>set null ：父表在更新或删除时，子表的对应被set null</p>
 </blockquote>
 <p><img src="https://csn.damyoung.cn/image-20200819184051135.png" alt="image-20200819184051135"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02TomCat/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/02TomCat/" class="post-title-link" itemprop="url">tomcat</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:41:14" itemprop="dateModified" datetime="2020-12-06T22:41:14+08:00">2020-12-06</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>545</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Servlet/Jsp容器，轻量级服务中间件</p>
-<h4 id="idea配置"><a href="#idea配置" class="headerlink" title="idea配置"></a>idea配置</h4><ul>
-<li>导入Tomcat 8.5.3.jar包</li>
-</ul>
-<h4 id="Tomcat主要目录："><a href="#Tomcat主要目录：" class="headerlink" title="Tomcat主要目录："></a>Tomcat主要目录：</h4><ul>
-<li>bin 可执行文件</li>
-<li>lib  tomcat可运行的jar文件</li>
-<li>logs tomcat运行的日志文件</li>
-<li>webapps 存放编写的应用</li>
-</ul>
-<p>URL:统一资源定位符</p>
-<p>URI：统一资源标识符</p>
-<h3 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h3><p>HyperText Transfer Protocol超文件传输协议，传输Html文件</p>
-<p>用于定义Web浏览器与Web服务器之间交换数据的过程及数据本身的格式</p>
-<h3 id="请求部分"><a href="#请求部分" class="headerlink" title="请求部分"></a>请求部分</h3><h4 id="请求消息行"><a href="#请求消息行" class="headerlink" title="请求消息行"></a>请求消息行</h4><ol>
-<li>Get 明文传输，不安全，数据量有限</li>
-<li>Post 暗文传输，安全</li>
-</ol>
-<h4 id="请求消息头"><a href="#请求消息头" class="headerlink" title="请求消息头"></a>请求消息头</h4><p><strong>Tomcat原理</strong></p>
-<p>Servlet是java编写服务器端小程序，功能是交互式浏览和修改数据，生成动态web资源</p>
-<ul>
-<li>请求到达server端，server根据url映射<code>Map&lt;url,servletname&gt;</code>得到相应的servlet</li>
-<li>判断Servlet实例是否存在，不存在则加载和实例化Servlet并调用init方法</li>
-<li>server创建request/response对象，调用servlet的service方法(doXXX方法)</li>
-<li>从request对象获取请求参数，处理将结果给通过response返回</li>
-<li>Server不再需要Servlet时，调用destory()方法</li>
-</ul>
 
       
     </div>
@@ -1310,198 +1310,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E4%BA%8B%E5%8A%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/04%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">事务</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:51:16" itemprop="dateModified" datetime="2020-12-06T22:51:16+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>事务是一组SQL语句组成的逻辑处理单元，事务执行是一个整体，<strong>所有SQL语句都必须执行成功</strong></p>
-<h3 id="1、手动提交事务"><a href="#1、手动提交事务" class="headerlink" title="1、手动提交事务"></a>1、手动提交事务</h3><p>开启事务 start transaction</p>
-<p>提交事务 commit</p>
-<p>回滚事务 rollback：回退到开启事务时的状态</p>
-<h3 id="2、自动提交事务"><a href="#2、自动提交事务" class="headerlink" title="2、自动提交事务"></a>2、自动提交事务</h3><p>每一条<strong>insert、update、delete</strong>都会默认构成一条事务，会自动提交，永久改变数据库</p>
-<h3 id="3、执行过程"><a href="#3、执行过程" class="headerlink" title="3、执行过程"></a>3、执行过程</h3><h4 id="（1）执行成功"><a href="#（1）执行成功" class="headerlink" title="（1）执行成功"></a>（1）执行成功</h4><p>开启事务–&gt;执行多条SQL语句–&gt;成功提交事务</p>
-<h4 id="（2）执行失败"><a href="#（2）执行失败" class="headerlink" title="（2）执行失败"></a>（2）执行失败</h4><p>开启事务–&gt;执行多条SQL语句–&gt;事务回滚</p>
-<p><strong>回滚事务即是结束</strong></p>
-<p><strong>select @@autocommit;  自动提交 1，</strong></p>
-<p><strong>set @@autocommit =0;</strong></p>
-<h3 id="4、事务原理"><a href="#4、事务原理" class="headerlink" title="4、事务原理"></a>4、事务原理</h3><p>事务开启后，所有的操作会保存到事务日志中，事务日志只有得到commit命令才会同步到数据库中，</p>
-<p>其他任何情况都会清空事务日志（rollback，断开连接）</p>
-<h3 id="5、回滚点"><a href="#5、回滚点" class="headerlink" title="5、回滚点"></a>5、回滚点</h3><p>设置回滚点：<strong>savepoint 名字</strong></p>
-<p>回到回滚点：<strong>rollback to 名字；</strong></p>
-<h3 id="6、事务的特性"><a href="#6、事务的特性" class="headerlink" title="6、事务的特性"></a>6、事务的特性</h3><table>
-<thead>
-<tr>
-<th>ACID属性</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>原子性（Atomicity）</td>
-<td>事务是一个原子操作单元，其对数据的修改，要么全部成功，要么全部失败。</td>
-</tr>
-<tr>
-<td>一致性（Consistent）</td>
-<td>在事务开始和完成时，数据都必须保持一致状态。</td>
-</tr>
-<tr>
-<td>隔离性（Isolation）</td>
-<td>数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的 “独立” 环境下运行。</td>
-</tr>
-<tr>
-<td>持久性（Durable）</td>
-<td>事务完成之后，对于数据的修改是永久的。</td>
-</tr>
-</tbody></table>
-<p><strong>并发事务处理带来的问题</strong></p>
-<table>
-<thead>
-<tr>
-<th>问题</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>丢失更新（Lost Update）</td>
-<td>当两个或多个事务选择同一行，最初的事务修改的值，会被后面的事务修改的值覆盖。</td>
-</tr>
-<tr>
-<td>脏读（Dirty Reads）</td>
-<td>当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</td>
-</tr>
-<tr>
-<td>不可重复读（Non-Repeatable Reads）</td>
-<td>一个事务在读取某些数据后的某个时间，再次读取以前读过的数据，却发现和以前读出的数据不一致。数据内容不一致，update引起的</td>
-</tr>
-<tr>
-<td>幻读（Phantom Reads）</td>
-<td>一个事务按照相同的查询条件重新读取以前查询过的数据，却发现其他事务插入了满足其查询条件的新数据。数据的数量不一致，是insert/delete引起的</td>
-</tr>
-</tbody></table>
-<p><strong>隔离级别越高，性能越差，安全性越高，效率越低</strong></p>
-<table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>丢失更新</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻读</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Read uncommitted</td>
-<td>×</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>Read committed(Oracke和SQL Server)</td>
-<td>×</td>
-<td>×</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>Repeatable read（MySql默认）</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-<td>√</td>
-</tr>
-<tr>
-<td>Serializable串行化</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-</tr>
-</tbody></table>
-<p><strong>设置隔离级别</strong> ：<strong>set global transaction isolation level —;</strong></p>
-<p><strong>查看隔离级别</strong>：<strong>select @@tx_isolation;</strong> </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E5%BA%94%E7%94%A8&%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1825,6 +1633,135 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/05ajax%E3%80%81json/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/05ajax%E3%80%81json/" class="post-title-link" itemprop="url">ajax&json</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:39:55" itemprop="dateModified" datetime="2020-12-06T22:39:55+08:00">2020-12-06</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><p>ASynchronous JavaScript And XML <strong>异步的JavaScript和XML</strong></p>
+<h4 id="基于JQuery的ajax"><a href="#基于JQuery的ajax" class="headerlink" title="基于JQuery的ajax"></a>基于JQuery的ajax</h4><p><strong>通过<code>out.print(result)</code> 得到结果</strong></p>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span> <span class="attr">onblur</span>=<span class="string">&quot;validate();&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter out=resp.getWriter();</span><br><span class="line">        String username=req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;admin&quot;</span>.equals(username))&#123;</span><br><span class="line">            <span class="comment">//输出字符串给请求者</span></span><br><span class="line"><span class="comment">//            out.print(&quot;true&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//            out.print(&quot;false&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:<span class="string">&#x27;ajaxServlet&#x27;</span>,</span><br><span class="line">            type:<span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">     		data:<span class="string">&#x27;username=&#x27;</span>+username, <span class="comment">//相当于同步请求的URL&quot;ajaxServlet?username=admin&quot;</span></span><br><span class="line">            success:<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">                <span class="comment">// if (result===&#x27;true&#x27;)&#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;else &#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;</span></span><br><span class="line">                $(<span class="string">&quot;#msg&quot;</span>).html(result);</span><br><span class="line">            &#125;,</span><br><span class="line">            error:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="string">&quot;执行失败&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="get-post-简化"><a href="#get-post-简化" class="headerlink" title="get()/post()简化"></a>get()/post()简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get()简化</span></span><br><span class="line">$.get(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//post()简化</span></span><br><span class="line">$.post(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="load-方法简化"><a href="#load-方法简化" class="headerlink" title="load()方法简化"></a>load()方法简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).load(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&quot;username=&quot;</span>+username)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>JavaScript Object Notation  <strong>JavaScript对象表示法</strong></p>
+<p><strong>类似于Map的表示方式</strong></p>
+<ul>
+<li>json多用于存储和交换文本信息的语法</li>
+<li>进行数据的传输</li>
+<li>json比XML更小、更快、更易解析</li>
+</ul>
+<h4 id="1、基本格式"><a href="#1、基本格式" class="headerlink" title="1、基本格式"></a>1、基本格式</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本格式</span></span><br><span class="line">const person = &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;;</span><br><span class="line"><span class="comment">// var name=person[&quot;name&quot;];</span></span><br><span class="line">alert(person.name);</span><br><span class="line"></span><br><span class="line">const ps = [</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">];</span><br><span class="line">alert(ps[2].name);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:&#123; &#125; &#125;</span></span><br><span class="line">const pears = &#123;</span><br><span class="line">    &quot;person&quot;: &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">&#125;;</span><br><span class="line">alert(pears.person.age);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:[ &#123;&#125;, &#123;&#125;, &#123;&#125; ] &#125;</span></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;: [</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">alert(peas2.person2[2].name);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、遍历"><a href="#2、遍历" class="headerlink" title="2、遍历"></a>2、遍历</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历</span></span><br><span class="line"><span class="comment">// for in</span></span><br><span class="line">for (const key in person)&#123;</span><br><span class="line">    alert(key+&quot;:&quot;+person[key])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;:[</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    const person=peas2.person2[i];</span><br><span class="line">    for (const key in person)&#123;</span><br><span class="line">        alert(key+&quot;:&quot;+person[key])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    alert(peas2.person2[i].name+&quot;,&quot;+peas2.person2[i].age+&quot;,&quot;+peas2.person2[i].gender);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、json字符串"><a href="#3、json字符串" class="headerlink" title="3、json字符串"></a>3、json字符串</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const person=&#x27;&#123;&quot;name&quot;: &quot;李四&quot;, &quot;age&quot;: 12, &quot;gender&quot;: true&#125;&#x27;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将JSON对象转换为JSON字符串</span></span><br><span class="line">person3=JSON.stringify(person)</span><br><span class="line">alert(person3);</span><br><span class="line"></span><br><span class="line"><span class="comment">// //将json字符串转化为JSON对象</span></span><br><span class="line">const person2=JSON.parse(person);</span><br><span class="line">alert(person2.name);</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、转化4种方法"><a href="#4、转化4种方法" class="headerlink" title="4、转化4种方法"></a>4、转化4种方法</h4><h5 id="（1）从Servlet获得Json字符串"><a href="#（1）从Servlet获得Json字符串" class="headerlink" title="（1）从Servlet获得Json字符串"></a>（1）从Servlet获得Json字符串</h5><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jsonStr=<span class="string">&quot;&#123;\&quot;flag\&quot;:true,\&quot;msg\&quot;:\&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;\&quot;&#125;&quot;</span>;</span><br><span class="line">out.print(jsonStr);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="（2）json字符串转化为json对象"><a href="#（2）json字符串转化为json对象" class="headerlink" title="（2）json字符串转化为json对象"></a>（2）json字符串转化为json对象</h5><ul>
+<li><pre><code class="java">resp.setContentType(&quot;application/json; charset=UTF-8&quot;);
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;java</span><br><span class="line">  result &#x3D; JSON.parse(result)</span><br><span class="line">  $(&quot;#msg&quot;).html(result.flag + &quot;---&quot; + result.msg);</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+<li><pre><code class="json">$.getJSON(&#39;jsonServlet&#39;,&#123;username:username&#125;,function (data) &#123;
+    $(&quot;#msg&quot;).html(data.flag + &quot;---&quot; + data.msg);
+&#125;)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;json</span><br><span class="line">  url: &#39;jsonServlet&#39;,</span><br><span class="line">  type: &#39;get&#39;,</span><br><span class="line">  data: &#123;&#39;username&#39;:username&#125;, &#x2F;&#x2F;相当于同步请求的URL&quot;ajaxServlet?username&#x3D;admin&quot;</span><br><span class="line">  dataType:&quot;json&quot;,</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<h4 id="5、Gson"><a href="#5、Gson" class="headerlink" title="5、Gson"></a>5、Gson</h4><p><strong>可为多种形式的对象（List,对象，Map…）转化为json字符串</strong></p>
+<p>导入gson-2.2.4.jar</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">&quot;flag&quot;</span>,<span class="keyword">true</span>);</span><br><span class="line">map.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;&quot;</span>);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line">String data=gson.toJson(map);</span><br><span class="line">out.print(data);</span><br></pre></td></tr></table></figure>
+
+<p>通过前端传过来的name进行搜索，将集合转化为Json字符串，再传到前端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String name = req.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">List&lt;Book&gt; bookList = <span class="keyword">new</span> BookService().findBookByName(name);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line"><span class="comment">//创建Json字符串</span></span><br><span class="line">String json = gson.toJson(bookList);</span><br><span class="line"><span class="comment">//传回请求者</span></span><br><span class="line">resp.getWriter().write(json);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    type: <span class="string">&quot;get&quot;</span>,</span><br><span class="line">    <span class="comment">//新建一个名为SearchNameAjaxServlet的servlet,URL如下</span></span><br><span class="line">    url: <span class="string">&quot;searchNameAjax&quot;</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        <span class="comment">//传递的参数</span></span><br><span class="line">        <span class="string">&quot;name&quot;</span>: content,</span><br><span class="line">        <span class="string">&quot;time&quot;</span>: time</span><br><span class="line">    &#125;,<span class="comment">//&quot;info=&quot;+content+&quot;&amp;time=&quot;+time</span></span><br><span class="line">    dataType: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//拼接html</span></span><br><span class="line">        <span class="comment">//var res = data.split(&quot;,&quot;);</span></span><br><span class="line">        <span class="keyword">var</span> html = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">            <span class="comment">//每一个div还有鼠标移出、移入点击事件</span></span><br><span class="line">            html += <span class="string">&quot;&lt;div onmousedown=&#x27;setSearch_onclick(this)&#x27; onmouseout=&#x27;changeBackColor_out(this)&#x27; onmouseover=&#x27;changeBackColor_over(this)&#x27;&gt;&quot;</span></span><br><span class="line">                + data[i].name + <span class="string">&quot;&lt;/div&gt;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).html(html);</span><br><span class="line">        <span class="comment">//显示为块级元素</span></span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).css(<span class="string">&quot;display&quot;</span>, <span class="string">&quot;block&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2008,7 +1945,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/05ajax%E3%80%81json/">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E4%BA%8B%E5%8A%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -2022,7 +1959,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/11/05ajax%E3%80%81json/" class="post-title-link" itemprop="url">ajax&json</a>
+            <a href="/2020/11/11/04%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">事务</a>
         </h2>
 
         <div class="post-meta">
@@ -2039,8 +1976,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:39:55" itemprop="dateModified" datetime="2020-12-06T22:39:55+08:00">2020-12-06</time>
+                <time title="修改时间：2020-12-06 22:51:16" itemprop="dateModified" datetime="2020-12-06T22:51:16+08:00">2020-12-06</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -2048,14 +1994,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.5k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -2067,57 +2013,111 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><p>ASynchronous JavaScript And XML <strong>异步的JavaScript和XML</strong></p>
-<h4 id="基于JQuery的ajax"><a href="#基于JQuery的ajax" class="headerlink" title="基于JQuery的ajax"></a>基于JQuery的ajax</h4><p><strong>通过<code>out.print(result)</code> 得到结果</strong></p>
-<blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span> <span class="attr">onblur</span>=<span class="string">&quot;validate();&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter out=resp.getWriter();</span><br><span class="line">        String username=req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;admin&quot;</span>.equals(username))&#123;</span><br><span class="line">            <span class="comment">//输出字符串给请求者</span></span><br><span class="line"><span class="comment">//            out.print(&quot;true&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//            out.print(&quot;false&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:<span class="string">&#x27;ajaxServlet&#x27;</span>,</span><br><span class="line">            type:<span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">     		data:<span class="string">&#x27;username=&#x27;</span>+username, <span class="comment">//相当于同步请求的URL&quot;ajaxServlet?username=admin&quot;</span></span><br><span class="line">            success:<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">                <span class="comment">// if (result===&#x27;true&#x27;)&#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;else &#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;</span></span><br><span class="line">                $(<span class="string">&quot;#msg&quot;</span>).html(result);</span><br><span class="line">            &#125;,</span><br><span class="line">            error:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="string">&quot;执行失败&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="get-post-简化"><a href="#get-post-简化" class="headerlink" title="get()/post()简化"></a>get()/post()简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get()简化</span></span><br><span class="line">$.get(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//post()简化</span></span><br><span class="line">$.post(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="load-方法简化"><a href="#load-方法简化" class="headerlink" title="load()方法简化"></a>load()方法简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).load(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&quot;username=&quot;</span>+username)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>JavaScript Object Notation  <strong>JavaScript对象表示法</strong></p>
-<p><strong>类似于Map的表示方式</strong></p>
-<ul>
-<li>json多用于存储和交换文本信息的语法</li>
-<li>进行数据的传输</li>
-<li>json比XML更小、更快、更易解析</li>
-</ul>
-<h4 id="1、基本格式"><a href="#1、基本格式" class="headerlink" title="1、基本格式"></a>1、基本格式</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本格式</span></span><br><span class="line">const person = &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;;</span><br><span class="line"><span class="comment">// var name=person[&quot;name&quot;];</span></span><br><span class="line">alert(person.name);</span><br><span class="line"></span><br><span class="line">const ps = [</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">];</span><br><span class="line">alert(ps[2].name);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:&#123; &#125; &#125;</span></span><br><span class="line">const pears = &#123;</span><br><span class="line">    &quot;person&quot;: &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">&#125;;</span><br><span class="line">alert(pears.person.age);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:[ &#123;&#125;, &#123;&#125;, &#123;&#125; ] &#125;</span></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;: [</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">alert(peas2.person2[2].name);</span><br></pre></td></tr></table></figure>
-
-<h4 id="2、遍历"><a href="#2、遍历" class="headerlink" title="2、遍历"></a>2、遍历</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历</span></span><br><span class="line"><span class="comment">// for in</span></span><br><span class="line">for (const key in person)&#123;</span><br><span class="line">    alert(key+&quot;:&quot;+person[key])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;:[</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    const person=peas2.person2[i];</span><br><span class="line">    for (const key in person)&#123;</span><br><span class="line">        alert(key+&quot;:&quot;+person[key])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    alert(peas2.person2[i].name+&quot;,&quot;+peas2.person2[i].age+&quot;,&quot;+peas2.person2[i].gender);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3、json字符串"><a href="#3、json字符串" class="headerlink" title="3、json字符串"></a>3、json字符串</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const person=&#x27;&#123;&quot;name&quot;: &quot;李四&quot;, &quot;age&quot;: 12, &quot;gender&quot;: true&#125;&#x27;;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将JSON对象转换为JSON字符串</span></span><br><span class="line">person3=JSON.stringify(person)</span><br><span class="line">alert(person3);</span><br><span class="line"></span><br><span class="line"><span class="comment">// //将json字符串转化为JSON对象</span></span><br><span class="line">const person2=JSON.parse(person);</span><br><span class="line">alert(person2.name);</span><br></pre></td></tr></table></figure>
-
-<h4 id="4、转化4种方法"><a href="#4、转化4种方法" class="headerlink" title="4、转化4种方法"></a>4、转化4种方法</h4><h5 id="（1）从Servlet获得Json字符串"><a href="#（1）从Servlet获得Json字符串" class="headerlink" title="（1）从Servlet获得Json字符串"></a>（1）从Servlet获得Json字符串</h5><blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jsonStr=<span class="string">&quot;&#123;\&quot;flag\&quot;:true,\&quot;msg\&quot;:\&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;\&quot;&#125;&quot;</span>;</span><br><span class="line">out.print(jsonStr);</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h5 id="（2）json字符串转化为json对象"><a href="#（2）json字符串转化为json对象" class="headerlink" title="（2）json字符串转化为json对象"></a>（2）json字符串转化为json对象</h5><ul>
-<li><pre><code class="java">resp.setContentType(&quot;application/json; charset=UTF-8&quot;);
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;java</span><br><span class="line">  result &#x3D; JSON.parse(result)</span><br><span class="line">  $(&quot;#msg&quot;).html(result.flag + &quot;---&quot; + result.msg);</span><br></pre></td></tr></table></figure></code></pre>
-</li>
-<li><pre><code class="json">$.getJSON(&#39;jsonServlet&#39;,&#123;username:username&#125;,function (data) &#123;
-    $(&quot;#msg&quot;).html(data.flag + &quot;---&quot; + data.msg);
-&#125;)
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;json</span><br><span class="line">  url: &#39;jsonServlet&#39;,</span><br><span class="line">  type: &#39;get&#39;,</span><br><span class="line">  data: &#123;&#39;username&#39;:username&#125;, &#x2F;&#x2F;相当于同步请求的URL&quot;ajaxServlet?username&#x3D;admin&quot;</span><br><span class="line">  dataType:&quot;json&quot;,</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ul>
-<h4 id="5、Gson"><a href="#5、Gson" class="headerlink" title="5、Gson"></a>5、Gson</h4><p><strong>可为多种形式的对象（List,对象，Map…）转化为json字符串</strong></p>
-<p>导入gson-2.2.4.jar</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">&quot;flag&quot;</span>,<span class="keyword">true</span>);</span><br><span class="line">map.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;&quot;</span>);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line">String data=gson.toJson(map);</span><br><span class="line">out.print(data);</span><br></pre></td></tr></table></figure>
-
-<p>通过前端传过来的name进行搜索，将集合转化为Json字符串，再传到前端</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String name = req.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">List&lt;Book&gt; bookList = <span class="keyword">new</span> BookService().findBookByName(name);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line"><span class="comment">//创建Json字符串</span></span><br><span class="line">String json = gson.toJson(bookList);</span><br><span class="line"><span class="comment">//传回请求者</span></span><br><span class="line">resp.getWriter().write(json);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    type: <span class="string">&quot;get&quot;</span>,</span><br><span class="line">    <span class="comment">//新建一个名为SearchNameAjaxServlet的servlet,URL如下</span></span><br><span class="line">    url: <span class="string">&quot;searchNameAjax&quot;</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        <span class="comment">//传递的参数</span></span><br><span class="line">        <span class="string">&quot;name&quot;</span>: content,</span><br><span class="line">        <span class="string">&quot;time&quot;</span>: time</span><br><span class="line">    &#125;,<span class="comment">//&quot;info=&quot;+content+&quot;&amp;time=&quot;+time</span></span><br><span class="line">    dataType: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//拼接html</span></span><br><span class="line">        <span class="comment">//var res = data.split(&quot;,&quot;);</span></span><br><span class="line">        <span class="keyword">var</span> html = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">            <span class="comment">//每一个div还有鼠标移出、移入点击事件</span></span><br><span class="line">            html += <span class="string">&quot;&lt;div onmousedown=&#x27;setSearch_onclick(this)&#x27; onmouseout=&#x27;changeBackColor_out(this)&#x27; onmouseover=&#x27;changeBackColor_over(this)&#x27;&gt;&quot;</span></span><br><span class="line">                + data[i].name + <span class="string">&quot;&lt;/div&gt;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).html(html);</span><br><span class="line">        <span class="comment">//显示为块级元素</span></span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).css(<span class="string">&quot;display&quot;</span>, <span class="string">&quot;block&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+          <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>事务是一组SQL语句组成的逻辑处理单元，事务执行是一个整体，<strong>所有SQL语句都必须执行成功</strong></p>
+<h3 id="1、手动提交事务"><a href="#1、手动提交事务" class="headerlink" title="1、手动提交事务"></a>1、手动提交事务</h3><p>开启事务 start transaction</p>
+<p>提交事务 commit</p>
+<p>回滚事务 rollback：回退到开启事务时的状态</p>
+<h3 id="2、自动提交事务"><a href="#2、自动提交事务" class="headerlink" title="2、自动提交事务"></a>2、自动提交事务</h3><p>每一条<strong>insert、update、delete</strong>都会默认构成一条事务，会自动提交，永久改变数据库</p>
+<h3 id="3、执行过程"><a href="#3、执行过程" class="headerlink" title="3、执行过程"></a>3、执行过程</h3><h4 id="（1）执行成功"><a href="#（1）执行成功" class="headerlink" title="（1）执行成功"></a>（1）执行成功</h4><p>开启事务–&gt;执行多条SQL语句–&gt;成功提交事务</p>
+<h4 id="（2）执行失败"><a href="#（2）执行失败" class="headerlink" title="（2）执行失败"></a>（2）执行失败</h4><p>开启事务–&gt;执行多条SQL语句–&gt;事务回滚</p>
+<p><strong>回滚事务即是结束</strong></p>
+<p><strong>select @@autocommit;  自动提交 1，</strong></p>
+<p><strong>set @@autocommit =0;</strong></p>
+<h3 id="4、事务原理"><a href="#4、事务原理" class="headerlink" title="4、事务原理"></a>4、事务原理</h3><p>事务开启后，所有的操作会保存到事务日志中，事务日志只有得到commit命令才会同步到数据库中，</p>
+<p>其他任何情况都会清空事务日志（rollback，断开连接）</p>
+<h3 id="5、回滚点"><a href="#5、回滚点" class="headerlink" title="5、回滚点"></a>5、回滚点</h3><p>设置回滚点：<strong>savepoint 名字</strong></p>
+<p>回到回滚点：<strong>rollback to 名字；</strong></p>
+<h3 id="6、事务的特性"><a href="#6、事务的特性" class="headerlink" title="6、事务的特性"></a>6、事务的特性</h3><table>
+<thead>
+<tr>
+<th>ACID属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原子性（Atomicity）</td>
+<td>事务是一个原子操作单元，其对数据的修改，要么全部成功，要么全部失败。</td>
+</tr>
+<tr>
+<td>一致性（Consistent）</td>
+<td>在事务开始和完成时，数据都必须保持一致状态。</td>
+</tr>
+<tr>
+<td>隔离性（Isolation）</td>
+<td>数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的 “独立” 环境下运行。</td>
+</tr>
+<tr>
+<td>持久性（Durable）</td>
+<td>事务完成之后，对于数据的修改是永久的。</td>
+</tr>
+</tbody></table>
+<p><strong>并发事务处理带来的问题</strong></p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>丢失更新（Lost Update）</td>
+<td>当两个或多个事务选择同一行，最初的事务修改的值，会被后面的事务修改的值覆盖。</td>
+</tr>
+<tr>
+<td>脏读（Dirty Reads）</td>
+<td>当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</td>
+</tr>
+<tr>
+<td>不可重复读（Non-Repeatable Reads）</td>
+<td>一个事务在读取某些数据后的某个时间，再次读取以前读过的数据，却发现和以前读出的数据不一致。数据内容不一致，update引起的</td>
+</tr>
+<tr>
+<td>幻读（Phantom Reads）</td>
+<td>一个事务按照相同的查询条件重新读取以前查询过的数据，却发现其他事务插入了满足其查询条件的新数据。数据的数量不一致，是insert/delete引起的</td>
+</tr>
+</tbody></table>
+<p><strong>隔离级别越高，性能越差，安全性越高，效率越低</strong></p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>丢失更新</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Read uncommitted</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Read committed(Oracke和SQL Server)</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Repeatable read（MySql默认）</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Serializable串行化</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<p><strong>设置隔离级别</strong> ：<strong>set global transaction isolation level —;</strong></p>
+<p><strong>查看隔离级别</strong>：<strong>select @@tx_isolation;</strong> </p>
 
       
     </div>
