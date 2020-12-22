@@ -185,154 +185,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02%E7%BA%A6%E6%9D%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/02%E7%BA%A6%E6%9D%9F/" class="post-title-link" itemprop="url">约束</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:07:53" itemprop="dateModified" datetime="2020-12-17T13:07:53+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、约束"><a href="#一、约束" class="headerlink" title="一、约束"></a>一、约束</h2><p>对表中数据进行限制，保证数据的正确性、有效性和完整性</p>
-<h3 id="1、主键约束"><a href="#1、主键约束" class="headerlink" title="1、主键约束"></a>1、主键约束</h3><p>a、主键只能设置一个，可以是单列或者多列</p>
-<p>b、主键不能重复</p>
-<p>c、primary key 用来唯一标识数据库中的每一条记录</p>
-<p><strong>特点</strong>：<strong>非空not null , 唯一unique</strong></p>
-<h4 id="（1）创建表时"><a href="#（1）创建表时" class="headerlink" title="（1）创建表时"></a>（1）创建表时</h4><p>字段名 字段类型 primary key</p>
-<h4 id="（2）已有表中添加主键"><a href="#（2）已有表中添加主键" class="headerlink" title="（2）已有表中添加主键"></a>（2）已有表中添加主键</h4><p><strong>alter table student add primary key(id );</strong></p>
-<p><strong>删除主键</strong>     alter table str5 <strong>drop</strong> primary key;</p>
-<h4 id="（3）主键自增"><a href="#（3）主键自增" class="headerlink" title="（3）主键自增"></a>（3）主键自增</h4><p><strong>创建表时</strong>  create table 表名(</p>
-<p>字段名  字段类型 primary key  <strong>auto_increment</strong></p>
-<p>)auto_increment=初始值（默认为1）；</p>
-<p><strong>修改表，添加自增长</strong>：alter table 表名 <strong>modify</strong> id int primary key auto_increment;</p>
-<p><strong>修改起始值</strong>   alter table 表名 <strong>auto_increment</strong>=2000; </p>
-<h4 id="（4）联合主键"><a href="#（4）联合主键" class="headerlink" title="（4）联合主键"></a>（4）联合主键</h4><p>create table scores(</p>
-<p>studentno varchar(22),</p>
-<p>courseno int,</p>
-<p>score int,</p>
-<p><strong>primary key(studentno，id.</strong>)</p>
-<p>);</p>
-<h3 id="2、唯一约束"><a href="#2、唯一约束" class="headerlink" title="2、唯一约束"></a>2、唯一约束</h3><p>unique 表中某一列出现重复的值</p>
-<p><strong>创建表时添加唯一约束</strong></p>
-<p>create table 表名(</p>
-<p>​    age int  unique,</p>
-<p>​    name varchar(20)</p>
-<p>);</p>
-<p><strong>已有表添加唯一约束</strong></p>
-<p>alter table st4 <strong>modify</strong> name varchar(20) unique;</p>
-<h3 id="3、非空约束"><a href="#3、非空约束" class="headerlink" title="3、非空约束"></a>3、非空约束</h3><p><strong>创建表时添加唯一约束</strong></p>
-<p>create table 表名(</p>
-<p>​    age int  not null,</p>
-<p>​    name varchar(20)</p>
-<p>);</p>
-<p><strong>已有表添加唯一约束</strong></p>
-<p>alter table st4 modify name varchar(20) not null;</p>
-<h3 id="4、默认值约束"><a href="#4、默认值约束" class="headerlink" title="4、默认值约束"></a>4、默认值约束</h3><p>字符段 字符类型  <strong>default</strong>   默认值</p>
-<p>insert into 表名 values(18,’欧’,default);</p>
-<p>insert into 表名 （age,name）values(18,’是’)</p>
-<p>alter table st4 modify name varchar(20) default ‘看看’;</p>
-<h3 id="5、外键约束"><a href="#5、外键约束" class="headerlink" title="5、外键约束"></a>5、外键约束</h3><p>让表于表产生关系，从而保证数据的正确性</p>
-<p><img src="https://csn.damyoung.cn/image-20200818175138467.png" alt="image-20200818175138467"></p>
-<p><strong>主表和从表设置主键约束，从表创建约束</strong></p>
-<p><strong>新建表时增加外键</strong></p>
-<p>constraint 外键约束名称  foreign key(外键字段名) references 主表名(主键约束名)</p>
-<p>CREATE TABLE emp2(<br>empno INT <strong>PRIMARY KEY AUTO_INCREMENT</strong>,<br>ename VARCHAR(20),<br>deptno INT,<br><strong>CONSTRAINT fk_emp2_deptno FOREIGN KEY(deptno) REFERENCES dept2(deptno)</strong><br>);</p>
-<p><strong>已有表增加外键</strong></p>
-<p><strong>alter table 从表 add constraint 外键约束名称 foreign key(外键字段名) references 主表名(主表外键约束字段名)</strong></p>
-<p>ALTER TABLE emp2 ADD CONSTRAINT fk_emp2_deptno FOREIGN KEY(deptno) REFERENCES dept2(deptno);</p>
-<p><strong>删除外键</strong></p>
-<p>alter table <strong>从表</strong> <strong>drop foreign key</strong> 外键约束名；</p>
-<h3 id="6、外键的级联操作"><a href="#6、外键的级联操作" class="headerlink" title="6、外键的级联操作"></a>6、外键的级联操作</h3><p><strong>修改和删除主表的主键时，同时更新或删除副表的外键值，称为级联操作</strong></p>
-<p><strong>on update cascade, on delete cascade</strong></p>
-<p>CONSTRAINT fk_emp22_dept22 FOREIGN KEY(deptno)REFERENCES dept22(deptno) <strong>ON UPDATE CASCADE ON  DELETE CASCADE</strong></p>
-<h3 id="7、外键操作"><a href="#7、外键操作" class="headerlink" title="7、外键操作"></a>7、外键操作</h3><blockquote>
-<p>都是用来限制父表操作的外键操作</p>
-</blockquote>
-<blockquote>
-<p>restrict/no action : 在子表有关联记录的情况下，父表不能更新。</p>
-<p>cascade：父表在更新或删除时，更新或删除子表对应的记录</p>
-<p>set null ：父表在更新或删除时，子表的对应被set null</p>
-</blockquote>
-<p><img src="https://csn.damyoung.cn/image-20200819184051135.png" alt="image-20200819184051135"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02%E6%A0%87%E8%AF%86%E7%AC%A6&%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -543,6 +395,259 @@
 
 
 
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02%E7%BA%A6%E6%9D%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/02%E7%BA%A6%E6%9D%9F/" class="post-title-link" itemprop="url">约束</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 13:07:53" itemprop="dateModified" datetime="2020-12-17T13:07:53+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、约束"><a href="#一、约束" class="headerlink" title="一、约束"></a>一、约束</h2><p>对表中数据进行限制，保证数据的正确性、有效性和完整性</p>
+<h3 id="1、主键约束"><a href="#1、主键约束" class="headerlink" title="1、主键约束"></a>1、主键约束</h3><p>a、主键只能设置一个，可以是单列或者多列</p>
+<p>b、主键不能重复</p>
+<p>c、primary key 用来唯一标识数据库中的每一条记录</p>
+<p><strong>特点</strong>：<strong>非空not null , 唯一unique</strong></p>
+<h4 id="（1）创建表时"><a href="#（1）创建表时" class="headerlink" title="（1）创建表时"></a>（1）创建表时</h4><p>字段名 字段类型 primary key</p>
+<h4 id="（2）已有表中添加主键"><a href="#（2）已有表中添加主键" class="headerlink" title="（2）已有表中添加主键"></a>（2）已有表中添加主键</h4><p><strong>alter table student add primary key(id );</strong></p>
+<p><strong>删除主键</strong>     alter table str5 <strong>drop</strong> primary key;</p>
+<h4 id="（3）主键自增"><a href="#（3）主键自增" class="headerlink" title="（3）主键自增"></a>（3）主键自增</h4><p><strong>创建表时</strong>  create table 表名(</p>
+<p>字段名  字段类型 primary key  <strong>auto_increment</strong></p>
+<p>)auto_increment=初始值（默认为1）；</p>
+<p><strong>修改表，添加自增长</strong>：alter table 表名 <strong>modify</strong> id int primary key auto_increment;</p>
+<p><strong>修改起始值</strong>   alter table 表名 <strong>auto_increment</strong>=2000; </p>
+<h4 id="（4）联合主键"><a href="#（4）联合主键" class="headerlink" title="（4）联合主键"></a>（4）联合主键</h4><p>create table scores(</p>
+<p>studentno varchar(22),</p>
+<p>courseno int,</p>
+<p>score int,</p>
+<p><strong>primary key(studentno，id.</strong>)</p>
+<p>);</p>
+<h3 id="2、唯一约束"><a href="#2、唯一约束" class="headerlink" title="2、唯一约束"></a>2、唯一约束</h3><p>unique 表中某一列出现重复的值</p>
+<p><strong>创建表时添加唯一约束</strong></p>
+<p>create table 表名(</p>
+<p>​    age int  unique,</p>
+<p>​    name varchar(20)</p>
+<p>);</p>
+<p><strong>已有表添加唯一约束</strong></p>
+<p>alter table st4 <strong>modify</strong> name varchar(20) unique;</p>
+<h3 id="3、非空约束"><a href="#3、非空约束" class="headerlink" title="3、非空约束"></a>3、非空约束</h3><p><strong>创建表时添加唯一约束</strong></p>
+<p>create table 表名(</p>
+<p>​    age int  not null,</p>
+<p>​    name varchar(20)</p>
+<p>);</p>
+<p><strong>已有表添加唯一约束</strong></p>
+<p>alter table st4 modify name varchar(20) not null;</p>
+<h3 id="4、默认值约束"><a href="#4、默认值约束" class="headerlink" title="4、默认值约束"></a>4、默认值约束</h3><p>字符段 字符类型  <strong>default</strong>   默认值</p>
+<p>insert into 表名 values(18,’欧’,default);</p>
+<p>insert into 表名 （age,name）values(18,’是’)</p>
+<p>alter table st4 modify name varchar(20) default ‘看看’;</p>
+<h3 id="5、外键约束"><a href="#5、外键约束" class="headerlink" title="5、外键约束"></a>5、外键约束</h3><p>让表于表产生关系，从而保证数据的正确性</p>
+<p><img src="https://csn.damyoung.cn/image-20200818175138467.png" alt="image-20200818175138467"></p>
+<p><strong>主表和从表设置主键约束，从表创建约束</strong></p>
+<p><strong>新建表时增加外键</strong></p>
+<p>constraint 外键约束名称  foreign key(外键字段名) references 主表名(主键约束名)</p>
+<p>CREATE TABLE emp2(<br>empno INT <strong>PRIMARY KEY AUTO_INCREMENT</strong>,<br>ename VARCHAR(20),<br>deptno INT,<br><strong>CONSTRAINT fk_emp2_deptno FOREIGN KEY(deptno) REFERENCES dept2(deptno)</strong><br>);</p>
+<p><strong>已有表增加外键</strong></p>
+<p><strong>alter table 从表 add constraint 外键约束名称 foreign key(外键字段名) references 主表名(主表外键约束字段名)</strong></p>
+<p>ALTER TABLE emp2 ADD CONSTRAINT fk_emp2_deptno FOREIGN KEY(deptno) REFERENCES dept2(deptno);</p>
+<p><strong>删除外键</strong></p>
+<p>alter table <strong>从表</strong> <strong>drop foreign key</strong> 外键约束名；</p>
+<h3 id="6、外键的级联操作"><a href="#6、外键的级联操作" class="headerlink" title="6、外键的级联操作"></a>6、外键的级联操作</h3><p><strong>修改和删除主表的主键时，同时更新或删除副表的外键值，称为级联操作</strong></p>
+<p><strong>on update cascade, on delete cascade</strong></p>
+<p>CONSTRAINT fk_emp22_dept22 FOREIGN KEY(deptno)REFERENCES dept22(deptno) <strong>ON UPDATE CASCADE ON  DELETE CASCADE</strong></p>
+<h3 id="7、外键操作"><a href="#7、外键操作" class="headerlink" title="7、外键操作"></a>7、外键操作</h3><blockquote>
+<p>都是用来限制父表操作的外键操作</p>
+</blockquote>
+<blockquote>
+<p>restrict/no action : 在子表有关联记录的情况下，父表不能更新。</p>
+<p>cascade：父表在更新或删除时，更新或删除子表对应的记录</p>
+<p>set null ：父表在更新或删除时，子表的对应被set null</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20200819184051135.png" alt="image-20200819184051135"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02TomCat/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/02TomCat/" class="post-title-link" itemprop="url">tomcat</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:41:14" itemprop="dateModified" datetime="2020-12-06T22:41:14+08:00">2020-12-06</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>545</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Servlet/Jsp容器，轻量级服务中间件</p>
+<h4 id="idea配置"><a href="#idea配置" class="headerlink" title="idea配置"></a>idea配置</h4><ul>
+<li>导入Tomcat 8.5.3.jar包</li>
+</ul>
+<h4 id="Tomcat主要目录："><a href="#Tomcat主要目录：" class="headerlink" title="Tomcat主要目录："></a>Tomcat主要目录：</h4><ul>
+<li>bin 可执行文件</li>
+<li>lib  tomcat可运行的jar文件</li>
+<li>logs tomcat运行的日志文件</li>
+<li>webapps 存放编写的应用</li>
+</ul>
+<p>URL:统一资源定位符</p>
+<p>URI：统一资源标识符</p>
+<h3 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h3><p>HyperText Transfer Protocol超文件传输协议，传输Html文件</p>
+<p>用于定义Web浏览器与Web服务器之间交换数据的过程及数据本身的格式</p>
+<h3 id="请求部分"><a href="#请求部分" class="headerlink" title="请求部分"></a>请求部分</h3><h4 id="请求消息行"><a href="#请求消息行" class="headerlink" title="请求消息行"></a>请求消息行</h4><ol>
+<li>Get 明文传输，不安全，数据量有限</li>
+<li>Post 暗文传输，安全</li>
+</ol>
+<h4 id="请求消息头"><a href="#请求消息头" class="headerlink" title="请求消息头"></a>请求消息头</h4><p><strong>Tomcat原理</strong></p>
+<p>Servlet是java编写服务器端小程序，功能是交互式浏览和修改数据，生成动态web资源</p>
+<ul>
+<li>请求到达server端，server根据url映射<code>Map&lt;url,servletname&gt;</code>得到相应的servlet</li>
+<li>判断Servlet实例是否存在，不存在则加载和实例化Servlet并调用init方法</li>
+<li>server创建request/response对象，调用servlet的service方法(doXXX方法)</li>
+<li>从request对象获取请求参数，处理将结果给通过response返回</li>
+<li>Server不再需要Servlet时，调用destory()方法</li>
+</ul>
 
       
     </div>
@@ -2028,417 +2133,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/05%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/05%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">常用sql函数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:48:50" itemprop="dateModified" datetime="2020-12-06T22:48:50+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="常用SQL技巧"><a href="#常用SQL技巧" class="headerlink" title="常用SQL技巧"></a>常用SQL技巧</h3><h4 id="1、SQL执行顺序"><a href="#1、SQL执行顺序" class="headerlink" title="1、SQL执行顺序"></a>1、SQL执行顺序</h4><blockquote>
-<p>select  from join where group by having  order by  limit </p>
-</blockquote>
-<p><strong>执行顺序</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">FROM	&lt;left_table&gt;</span><br><span class="line"></span><br><span class="line">ON 		&lt;join_condition&gt;</span><br><span class="line"></span><br><span class="line">&lt;join_type&gt;		JOIN	&lt;right_table&gt;</span><br><span class="line"></span><br><span class="line">WHERE		&lt;where_condition&gt;</span><br><span class="line"></span><br><span class="line">GROUP BY 	&lt;group_by_list&gt;</span><br><span class="line"></span><br><span class="line">HAVING		&lt;having_condition&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span>		&lt;<span class="keyword">select</span> <span class="keyword">list</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span>	&lt;order_by_condition&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">LIMIT</span>		&lt;limit_params&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="2、正则表达式"><a href="#2、正则表达式" class="headerlink" title="2、正则表达式"></a>2、正则表达式</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> <span class="keyword">name</span> regexp <span class="string">&#x27;^T&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> <span class="keyword">name</span> regexp <span class="string">&#x27;2$&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> <span class="keyword">name</span> regexp <span class="string">&#x27;[uvw]&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>符号</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>^</td>
-<td>在字符串开始处进行匹配</td>
-</tr>
-<tr>
-<td>$</td>
-<td>在字符串末尾处进行匹配</td>
-</tr>
-<tr>
-<td>.</td>
-<td>匹配任意单个字符, 包括换行符</td>
-</tr>
-<tr>
-<td>[…]</td>
-<td>匹配出括号内的任意字符</td>
-</tr>
-<tr>
-<td>[^…]</td>
-<td>匹配不出括号内的任意字符</td>
-</tr>
-<tr>
-<td>a*</td>
-<td>匹配零个或者多个a(包括空串)</td>
-</tr>
-<tr>
-<td>a+</td>
-<td>匹配一个或者多个a(不包括空串)</td>
-</tr>
-<tr>
-<td>a?</td>
-<td>匹配零个或者一个a</td>
-</tr>
-<tr>
-<td>a1|a2</td>
-<td>匹配a1或a2</td>
-</tr>
-<tr>
-<td>a(m)</td>
-<td>匹配m个a</td>
-</tr>
-<tr>
-<td>a(m,)</td>
-<td>至少匹配m个a</td>
-</tr>
-<tr>
-<td>a(m,n)</td>
-<td>匹配m个a 到 n个a</td>
-</tr>
-<tr>
-<td>a(,n)</td>
-<td>匹配0到n个a</td>
-</tr>
-<tr>
-<td>(…)</td>
-<td>将模式元素组成单一元素</td>
-</tr>
-</tbody></table>
-<h4 id="3、常用函数"><a href="#3、常用函数" class="headerlink" title="3、常用函数"></a>3、常用函数</h4><h5 id="3-1-数字函数"><a href="#3-1-数字函数" class="headerlink" title="3.1 数字函数"></a>3.1 数字函数</h5><table>
-<thead>
-<tr>
-<th>函数名称</th>
-<th>作 用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>abs</td>
-<td>求绝对值</td>
-</tr>
-<tr>
-<td>sqrt</td>
-<td>求二次方根</td>
-</tr>
-<tr>
-<td>mod</td>
-<td>求余数</td>
-</tr>
-<tr>
-<td>ceil 和 CEILING</td>
-<td>两个函数功能相同，都是返回不小于参数的最小整数，即向上取整</td>
-</tr>
-<tr>
-<td>floor</td>
-<td>向下取整，返回值转化为一个BIGINT</td>
-</tr>
-<tr>
-<td>RAND</td>
-<td>生成一个0~1之间的随机数，传入整数参数是，用来产生重复序列</td>
-</tr>
-<tr>
-<td>ROUND</td>
-<td>对所传参数进行四舍五入</td>
-</tr>
-<tr>
-<td>SIGN</td>
-<td>返回参数的符号</td>
-</tr>
-<tr>
-<td>POW 和 POWER</td>
-<td>两个函数的功能相同，都是所传参数的次方的结果值</td>
-</tr>
-<tr>
-<td>sin</td>
-<td>求正弦值</td>
-</tr>
-<tr>
-<td>asin</td>
-<td>求反正弦值，与函数 SIN 互为反函数</td>
-</tr>
-<tr>
-<td>COS</td>
-<td>求余弦值</td>
-</tr>
-<tr>
-<td>ACOS</td>
-<td>求反余弦值，与函数 COS 互为反函数</td>
-</tr>
-<tr>
-<td>TAN</td>
-<td>求正切值</td>
-</tr>
-<tr>
-<td>ATAN</td>
-<td>求反正切值，与函数 TAN 互为反函数</td>
-</tr>
-<tr>
-<td>COT</td>
-<td>求余切值</td>
-</tr>
-</tbody></table>
-<h5 id="3-2-字符串函数"><a href="#3-2-字符串函数" class="headerlink" title="3.2 字符串函数"></a>3.2 字符串函数</h5><table>
-<thead>
-<tr>
-<th>函数名称</th>
-<th>作 用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>LENGTH</td>
-<td>计算字符串长度函数，返回字符串的字节长度</td>
-</tr>
-<tr>
-<td>CONCAT</td>
-<td>合并字符串函数，返回结果为连接参数产生的字符串，参数可以使一个或多个</td>
-</tr>
-<tr>
-<td>INSERT</td>
-<td>替换字符串函数</td>
-</tr>
-<tr>
-<td>LOWER</td>
-<td>将字符串中的字母转换为小写</td>
-</tr>
-<tr>
-<td>UPPER</td>
-<td>将字符串中的字母转换为大写</td>
-</tr>
-<tr>
-<td>LEFT</td>
-<td>从左侧字截取符串，返回字符串左边的若干个字符  left(‘javass’,4)</td>
-</tr>
-<tr>
-<td>RIGHT</td>
-<td>从右侧字截取符串，返回字符串右边的若干个字符</td>
-</tr>
-<tr>
-<td>TRIM</td>
-<td>删除字符串左右两侧的空格</td>
-</tr>
-<tr>
-<td>REPLACE</td>
-<td>字符串替换函数，返回替换后的新字符串</td>
-</tr>
-<tr>
-<td>SUBSTRING</td>
-<td>索引从1 开始，截取字符串，返回从指定位置开始的指定长度的字符换  substring(‘javahello’,1,4)</td>
-</tr>
-<tr>
-<td>REVERSE</td>
-<td>字符串反转（逆序）函数，返回与原始字符串顺序相反的字符串</td>
-</tr>
-</tbody></table>
-<h6 id="1、合并concat"><a href="#1、合并concat" class="headerlink" title="1、合并concat"></a>1、合并concat</h6><p>concat(a,b,c)  合并</p>
-<p>select empno,ename,<strong>concat(empno,ename)</strong> from emp;</p>
-<p>select concatt(‘hello’,’world’)</p>
-<h6 id="2、length"><a href="#2、length" class="headerlink" title="2、length()"></a>2、length()</h6><p>select *from emp where length(ename)=5;</p>
-<h6 id="3、strcmp"><a href="#3、strcmp" class="headerlink" title="3、strcmp()"></a>3、strcmp()</h6><p>相同返回0，大于返回1，小于返回</p>
-<h5 id="3-3-日期函数"><a href="#3-3-日期函数" class="headerlink" title="3.3 日期函数"></a>3.3 日期函数</h5><table>
-<thead>
-<tr>
-<th>函数名称</th>
-<th>作 用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>CURDATE 和 CURRENT_DATE</td>
-<td>两个函数作用相同，返回当前系统的日期值</td>
-</tr>
-<tr>
-<td>CURTIME 和 CURRENT_TIME</td>
-<td>两个函数作用相同，返回当前系统的时间值</td>
-</tr>
-<tr>
-<td>NOW 和  SYSDATE</td>
-<td>两个函数作用相同，返回当前系统的日期和时间值</td>
-</tr>
-<tr>
-<td>MONTH</td>
-<td>获取指定日期中的月份</td>
-</tr>
-<tr>
-<td>MONTHNAME</td>
-<td>获取指定日期中的月份英文名称</td>
-</tr>
-<tr>
-<td>DAYNAME</td>
-<td>获取指定曰期对应的星期几的英文名称</td>
-</tr>
-<tr>
-<td>DAYOFWEEK</td>
-<td>获取指定日期对应的一周的索引位置值</td>
-</tr>
-<tr>
-<td>WEEK</td>
-<td>获取指定日期是一年中的第几周，返回值的范围是否为 0〜52 或 1〜53</td>
-</tr>
-<tr>
-<td>DAYOFYEAR</td>
-<td>获取指定曰期是一年中的第几天，返回值范围是1~366</td>
-</tr>
-<tr>
-<td>DAYOFMONTH</td>
-<td>获取指定日期是一个月中是第几天，返回值范围是1~31</td>
-</tr>
-<tr>
-<td>YEAR</td>
-<td>获取年份，返回值范围是 1970〜2069</td>
-</tr>
-<tr>
-<td>TIME_TO_SEC</td>
-<td>将时间参数转换为秒数</td>
-</tr>
-<tr>
-<td>SEC_TO_TIME</td>
-<td>将秒数转换为时间，与TIME_TO_SEC 互为反函数</td>
-</tr>
-<tr>
-<td>DATE_ADD 和 ADDDATE</td>
-<td>两个函数功能相同，都是向日期添加指定的时间间隔</td>
-</tr>
-<tr>
-<td>DATE_SUB 和 SUBDATE</td>
-<td>两个函数功能相同，都是向日期减去指定的时间间隔</td>
-</tr>
-<tr>
-<td>ADDTIME</td>
-<td>时间加法运算，在原始时间上添加指定的时间</td>
-</tr>
-<tr>
-<td>SUBTIME</td>
-<td>时间减法运算，在原始时间上减去指定的时间</td>
-</tr>
-<tr>
-<td>DATEDIFF</td>
-<td>获取两个日期之间间隔，返回参数 1 减去参数 2 的值</td>
-</tr>
-<tr>
-<td>DATE_FORMAT</td>
-<td>格式化指定的日期，根据参数返回指定格式的值</td>
-</tr>
-<tr>
-<td>WEEKDAY</td>
-<td>获取指定日期在一周内的对应的工作日索引</td>
-</tr>
-</tbody></table>
-<p>current_date() 、current_time() 、<strong>now</strong>()</p>
-<p><strong>year</strong>(now())、<strong>day</strong>(now())、<strong>hour</strong>(now())</p>
-<p>day of week(now())、day of week(‘2020-8-22’)</p>
-<p><strong>减法:</strong> <strong>datediff</strong> (‘2012-2-20’,’2012-2-22’)</p>
-<p><strong>加法:</strong>  <strong>date_add</strong> (‘2020-2-20’, interval 1 date)</p>
-<h5 id="3-4-聚合函数"><a href="#3-4-聚合函数" class="headerlink" title="3.4 聚合函数"></a>3.4 聚合函数</h5><table>
-<thead>
-<tr>
-<th>函数名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>MAX</td>
-<td>查询指定列的最大值</td>
-</tr>
-<tr>
-<td>MIN</td>
-<td>查询指定列的最小值</td>
-</tr>
-<tr>
-<td>COUNT</td>
-<td>统计查询结果的行数</td>
-</tr>
-<tr>
-<td>SUM</td>
-<td>求和，返回指定列的总和</td>
-</tr>
-<tr>
-<td>AVG</td>
-<td>求平均值，返回指定列数据的平均值</td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2508,7 +2202,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2561,12 +2255,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">466k</span>
+    <span title="站点总字数">481k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:04</span>
+    <span title="站点阅读时长">7:17</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>

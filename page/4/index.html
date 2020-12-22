@@ -185,6 +185,427 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/03%E7%B4%A2%E5%BC%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/03%E7%B4%A2%E5%BC%95/" class="post-title-link" itemprop="url">索引</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 13:06:31" itemprop="dateModified" datetime="2020-12-17T13:06:31+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、索引分析"><a href="#一、索引分析" class="headerlink" title="一、索引分析"></a>一、索引分析</h3><h4 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h4><h5 id="1-1-索引作用"><a href="#1-1-索引作用" class="headerlink" title="1.1 索引作用"></a>1.1 索引作用</h5><blockquote>
+<ul>
+<li><p><strong>索引是帮助MySql高效获取数据的数据结构B+树(有序)</strong></p>
+</li>
+<li><p>索引是数据库中用来<strong>提高性能</strong>的常用工具</p>
+</li>
+<li><p>索引往往以索引文件的形式存储在<strong>磁盘</strong>上。</p>
+</li>
+</ul>
+</blockquote>
+<img src="https://csn.damyoung.cn/ss.png" alt="ss" style="zoom:80%;" />
+
+
+
+<h5 id="1-2-优劣势"><a href="#1-2-优劣势" class="headerlink" title="1.2 优劣势"></a>1.2 优劣势</h5><p><strong>优势</strong></p>
+<blockquote>
+<ul>
+<li>提高数据检索的效率，降低数据库的IO成本</li>
+<li>通过索引对数据进行排序，降低数据排序的成本，降低CPU的消耗</li>
+</ul>
+</blockquote>
+<p><strong>劣势</strong></p>
+<blockquote>
+<ul>
+<li>索引也是一张表，保存了主键与索引字段，并指向实体类的记录，占用空间</li>
+<li>提高了查询效率，但也降低了更新表的速度。更新表时，还需要保存一下索引文件每次更新添加索引列的字段，都会调整因为更新带来的键值变化后的索引信息</li>
+</ul>
+</blockquote>
+<h5 id="1-3-索引分类"><a href="#1-3-索引分类" class="headerlink" title="1.3 索引分类"></a>1.3 索引分类</h5><blockquote>
+<ul>
+<li>BTREE 索引 ： 最常见的索引类型，大部分索引都支持 B 树索引。</li>
+<li>HASH 索引：只有Memory引擎支持 ， 使用场景简单 。</li>
+<li>R-tree 索引（空间索引）：空间索引是MyISAM引擎的一个特殊索引类型，主要用于地理空间数据类型，通常使用较少，不做特别介绍。</li>
+<li>Full-text （全文索引） ：全文索引也是MyISAM的一个特殊索引类型，主要用于全文索引，InnoDB从Mysql5.6版本开始支持全文索引。</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th>InnoDB引擎</th>
+<th>MyISAM引擎</th>
+<th>Memory引擎</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BTREE索引</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>HASH 索引</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>R-tree 索引</td>
+<td>不支持</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>Full-text</td>
+<td>5.6版本之后支持</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>索引，如果没有特别指明，都是指B+树（多路搜索树，并不一定是二叉的）结构组织的索引。其中聚集索引、复合索引、前缀索引、唯一索引默认都是使用 B+tree 索引，统称为 索引</p>
+</blockquote>
+<h4 id="2、索引数据结构"><a href="#2、索引数据结构" class="headerlink" title="2、索引数据结构"></a>2、索引数据结构</h4><blockquote>
+<p><strong>索引是在MySQL的存储引擎层实现</strong></p>
+</blockquote>
+<h5 id="2-1-BTree结构"><a href="#2-1-BTree结构" class="headerlink" title="2.1 BTree结构"></a>2.1 BTree结构</h5><p><strong>因为对于相同的数据量来说，BTREE的层级结构比二叉树小，因此搜索速度快。</strong></p>
+<blockquote>
+<p>B+树-多路平衡搜索树</p>
+</blockquote>
+<h6 id="m叉树特性"><a href="#m叉树特性" class="headerlink" title="m叉树特性"></a><strong>m叉树特性</strong></h6><blockquote>
+<ul>
+<li>树中每个节点最多包含m个孩子。</li>
+<li>除根节点与叶子节点外，每个节点至少有[ceil(m/2)]个孩子。</li>
+<li>若根节点不是叶子节点，则至少有两个孩子。</li>
+<li>所有的叶子节点都在同一层。</li>
+<li>每个非叶子节点由n个key与n+1个指针组成，其中[ceil(m/2)-1] &lt;= n &lt;= m-1 </li>
+</ul>
+</blockquote>
+<h6 id="构建m叉树"><a href="#构建m叉树" class="headerlink" title="构建m叉树"></a>构建m叉树</h6><blockquote>
+<p>以5叉BTree为例</p>
+<p><strong>key的数量</strong>：公式推导[ceil(m/2)-1] &lt;= n &lt;= m-1，2 &lt;= n &lt;=4 。</p>
+<p>当n&gt;4时，中间节点分裂到父节点，两边节点分裂。</p>
+</blockquote>
+<p>插入 C N G A H E K Q M F W L T Z D P R X Y S 数据为例。</p>
+<p>演变过程如下：</p>
+<p>1). 插入前4个字母 C N G A </p>
+<p><img src="https://csn.damyoung.cn/1555944126588.png" alt="1555944126588"> </p>
+<p>2). 插入H，n&gt;4，中间元素G字母向上分裂到新的节点</p>
+<p><img src="https://csn.damyoung.cn/1555944549825.png" alt="1555944549825"> </p>
+<p>3). 插入E，K，Q不需要分裂</p>
+<p><img src="https://csn.damyoung.cn/1555944596893.png" alt="1555944596893"> </p>
+<p>4). 插入M，中间元素M字母向上分裂到父节点G</p>
+<p><img src="https://csn.damyoung.cn/1555944652560.png" alt="1555944652560"> </p>
+<p>5). 插入F，W，L，T不需要分裂</p>
+<p><img src="https://csn.damyoung.cn/1555944686928.png" alt="1555944686928"> </p>
+<p>6). 插入Z，中间元素T向上分裂到父节点中 </p>
+<p><img src="https://csn.damyoung.cn/1555944713486.png" alt="1555944713486"> </p>
+<p>7). 插入D，中间元素D向上分裂到父节点中。然后插入P，R，X，Y不需要分裂</p>
+<p><img src="https://csn.damyoung.cn/1555944749984.png" alt="1555944749984"> </p>
+<p>8). 最后插入S，NPQR节点n&gt;5，中间节点Q向上分裂，但分裂后父节点DGMT的n&gt;5，中间节点M向上分裂</p>
+<p><img src="https://csn.damyoung.cn/1555944848294.png" alt="1555944848294"> </p>
+<h5 id="2-2-B-TREE-结构"><a href="#2-2-B-TREE-结构" class="headerlink" title="2.2  B+TREE 结构"></a>2.2  B+TREE 结构</h5><ul>
+<li>由于B+Tree只有叶子节点保存key信息，<strong>查询任何key都要从root走到叶子</strong>。所以B+Tree的<strong>查询效率更加稳定。</strong></li>
+</ul>
+<p>B+Tree为BTree的变种，B+Tree与BTree的区别为：</p>
+<blockquote>
+<ul>
+<li>m叉B+Tree最多含有m个key，而BTree最多含有m-1个key。</li>
+<li>B+Tree的叶子节点保存所有的key信息，依key大小顺序排列。</li>
+<li>所有的非叶子节点都可以看作是key的索引部分。</li>
+</ul>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/00001.jpg" alt="1555906287178"> </p>
+<h5 id="2-3-MySQL中的B-Tree"><a href="#2-3-MySQL中的B-Tree" class="headerlink" title="2.3 MySQL中的B+Tree"></a>2.3 MySQL中的B+Tree</h5><blockquote>
+<p>MySql索引数据结构对经典的B+Tree进行了优化。</p>
+<p>在原B+Tree的基础上，<strong>增加一个指向相邻叶子节点的链表指针，就形成了带有顺序指针的B+Tree，提高区间访问的性能。</strong></p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/1555906287178.png" alt="1555906287178">  </p>
+<h4 id="3、-索引分类"><a href="#3、-索引分类" class="headerlink" title="3、 索引分类"></a>3、 索引分类</h4><blockquote>
+<ul>
+<li>单值索引 ：即一个索引只包含单个列，一个表可以有多个单列索引</li>
+<li>唯一索引 ：索引列的值必须唯一，但允许有空值</li>
+<li>复合索引 ：即一个索引包含多个列</li>
+</ul>
+</blockquote>
+<h4 id="4、索引语法"><a href="#4、索引语法" class="headerlink" title="4、索引语法"></a>4、索引语法</h4><blockquote>
+<p>可以创建表同时创建，也可以随时创建新的索引</p>
+</blockquote>
+<h5 id="4-1-环境准备"><a href="#4-1-环境准备" class="headerlink" title="4.1 环境准备"></a>4.1 环境准备</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">create database demo_01 default charset&#x3D;utf8mb4;</span><br><span class="line"></span><br><span class="line">use demo_01;</span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;city&#96; (</span><br><span class="line">  &#96;city_id&#96; int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;city_name&#96; varchar(50) NOT NULL,</span><br><span class="line">  &#96;country_id&#96; int(11) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;city_id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;country&#96; (</span><br><span class="line">  &#96;country_id&#96; int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;country_name&#96; varchar(100) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;country_id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">insert into &#96;city&#96; (&#96;city_id&#96;, &#96;city_name&#96;, &#96;country_id&#96;) values(1,&#39;西安&#39;,1);</span><br><span class="line">insert into &#96;city&#96; (&#96;city_id&#96;, &#96;city_name&#96;, &#96;country_id&#96;) values(2,&#39;NewYork&#39;,2);</span><br><span class="line">insert into &#96;city&#96; (&#96;city_id&#96;, &#96;city_name&#96;, &#96;country_id&#96;) values(3,&#39;北京&#39;,1);</span><br><span class="line">insert into &#96;city&#96; (&#96;city_id&#96;, &#96;city_name&#96;, &#96;country_id&#96;) values(4,&#39;上海&#39;,1);</span><br><span class="line"></span><br><span class="line">insert into &#96;country&#96; ( country_id, country_name) values(1,&#39;China&#39;);</span><br><span class="line">insert into &#96;country&#96; (&#96;country_id&#96;, country_name) values(2,&#39;America&#39;);</span><br><span class="line">insert into &#96;country&#96; (&#96;country_id&#96;, &#96;country_name&#96;) values(3,&#39;Japan&#39;);</span><br><span class="line">insert into &#96;country&#96; (&#96;country_id&#96;, &#96;country_name&#96;) values(4,&#39;UK&#39;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-2-主键索引"><a href="#4-2-主键索引" class="headerlink" title="4.2 主键索引"></a>4.2 主键索引</h5><blockquote>
+<p>创建表时，主键自带主键索引 primary-key</p>
+</blockquote>
+<h5 id="4-3-创建索引"><a href="#4-3-创建索引" class="headerlink" title="4.3 创建索引"></a>4.3 创建索引</h5><blockquote>
+<p><strong>create index</strong> 索引名称 <strong>on</strong> 表名(字段名)</p>
+<p><strong>默认索引数据结构BTREE;</strong></p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201018195002240.png" alt="image-20201018195002240"></p>
+<h5 id="4-4-查看索引"><a href="#4-4-查看索引" class="headerlink" title="4.4 查看索引"></a>4.4 查看索引</h5><blockquote>
+<p>show index from 表名\G;</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201018195115914.png" alt="image-20201018195115914"></p>
+<h5 id="4-5-删除索引"><a href="#4-5-删除索引" class="headerlink" title="4.5 删除索引"></a>4.5 删除索引</h5><blockquote>
+<p>drop index 索引名 on 表名</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201018195404722.png" alt="image-20201018195404722" style="zoom:80%;" />
+
+
+
+<h5 id="4-6-创建唯一索引"><a href="#4-6-创建唯一索引" class="headerlink" title="4.6 创建唯一索引"></a>4.6 创建唯一索引</h5><blockquote>
+<p>alter table 表名 add unique 索引名(字段名)；</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>这条语句创建索引的值必须是唯一的（除了NULL外，NULL可能会出现多次）</li>
+</ul>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201018200026641.png" alt="image-20201018200026641" style="zoom:80%;" />
+
+<blockquote>
+<p>alter  table  tb_name  add  index 索引名(字段名);</p>
+<ul>
+<li>添加普通索引， 索引值重复可出现多次。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>alter  table  tb_name  add  fulltext  索引名(字段名);    </p>
+<ul>
+<li>该语句指定了索引为<strong>FULLTEXT</strong>， 用于<strong>全文索引</strong></li>
+</ul>
+</blockquote>
+<h5 id="4-7-创建复合索引"><a href="#4-7-创建复合索引" class="headerlink" title="4.7 创建复合索引"></a>4.7 创建复合索引</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">创建复合索引:</span><br><span class="line"></span><br><span class="line">CREATE INDEX idx_name_email_status ON tb_seller(NAME,email,STATUS);</span><br><span class="line"></span><br><span class="line">就相当于</span><br><span class="line">	对name 创建索引 ;</span><br><span class="line">	对name , email 创建了索引 ;</span><br><span class="line">	对name , email, status 创建了索引 ;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="5、索引设计原则"><a href="#5、索引设计原则" class="headerlink" title="5、索引设计原则"></a>5、索引设计原则</h4><blockquote>
+<ul>
+<li>查询频次较高且数据量较大的表建立索引</li>
+<li>索引字段：选择经常在<strong>where</strong>的条件中使用的字段提取</li>
+<li>尽量使用<strong>唯一索引</strong>，区分度较高，使用索引的效率较高</li>
+<li>可以有效提高查询数据的效率，索引越多，维护索引的<strong>代价</strong>就越高；对于insert、delete、update的DML操作较为频繁的表来说，索引过多，会引入相当高的维护代价，降低DML操作的效率。增加相应操作的时间消耗。</li>
+<li>索引创建后也是使用硬盘进行存储，使用<strong>短索引</strong>可以提升索引访问的I/O效率。</li>
+<li>利用<strong>最左前缀</strong>，N个列组合而成的组合索引，那么相当于是创建了N个索引，如果查询时<strong>where子句中使用了组成该索引的前几个字段</strong>，那么这条查询SQL可以利用<strong>复合索引</strong>来提升查询效率</li>
+</ul>
+</blockquote>
+<h3 id="二、索引的使用"><a href="#二、索引的使用" class="headerlink" title="二、索引的使用"></a>二、索引的使用</h3><blockquote>
+<p>索引是数据库优化最常用也是最重要的手段之一, 通过索引通常可以帮助用户解决大多数的MySQL的性能优化问题。</p>
+</blockquote>
+<h4 id="1、环境准备"><a href="#1、环境准备" class="headerlink" title="1、环境准备"></a>1、环境准备</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">create table &#96;tb_seller&#96; (</span><br><span class="line">	&#96;sellerid&#96; varchar (100),</span><br><span class="line">	&#96;name&#96; varchar (100),</span><br><span class="line">	&#96;nickname&#96; varchar (50),</span><br><span class="line">	&#96;password&#96; varchar (60),</span><br><span class="line">	&#96;status&#96; varchar (1),</span><br><span class="line">	&#96;address&#96; varchar (100),</span><br><span class="line">	&#96;createtime&#96; datetime,</span><br><span class="line">    primary key(&#96;sellerid&#96;)</span><br><span class="line">)engine&#x3D;innodb default charset&#x3D;utf8mb4; </span><br><span class="line"></span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;alibaba&#39;,&#39;阿里巴巴&#39;,&#39;阿里小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;baidu&#39;,&#39;百度科技有限公司&#39;,&#39;百度小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;huawei&#39;,&#39;华为科技有限公司&#39;,&#39;华为小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;0&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;itcast&#39;,&#39;传智播客教育科技有限公司&#39;,&#39;传智播客&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;itheima&#39;,&#39;黑马程序员&#39;,&#39;黑马程序员&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;0&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;luoji&#39;,&#39;罗技科技有限公司&#39;,&#39;罗技小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;oppo&#39;,&#39;OPPO科技有限公司&#39;,&#39;OPPO官方旗舰店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;0&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;ourpalm&#39;,&#39;掌趣科技股份有限公司&#39;,&#39;掌趣小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;qiandu&#39;,&#39;千度科技&#39;,&#39;千度小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;2&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;sina&#39;,&#39;新浪科技有限公司&#39;,&#39;新浪官方旗舰店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;xiaomi&#39;,&#39;小米科技&#39;,&#39;小米官方旗舰店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;西安市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;yijia&#39;,&#39;宜家家居&#39;,&#39;宜家家居旗舰店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create index idx_seller_name_sta_addr on tb_seller(name,status,address);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2、避免索引失效"><a href="#2、避免索引失效" class="headerlink" title="2、避免索引失效"></a>2、避免索引失效</h4><h5 id="2-1-全值索引"><a href="#2-1-全值索引" class="headerlink" title="2.1 全值索引"></a>2.1 全值索引</h5><blockquote>
+<p>对索引中所有列都指定具体值，该情况下，索引生效，执行效率高。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from tb_seller where name&#x3D;&#39;小米科技&#39; and status&#x3D;&#39;1&#39; and address&#x3D;&#39;北京市&#39;\G;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201020161200971.png" alt="image-20201020161200971"></p>
+<h5 id="2-2-最左前缀法则"><a href="#2-2-最左前缀法则" class="headerlink" title="2.2 最左前缀法则"></a>2.2 最左前缀法则</h5><blockquote>
+<p>指的是查询从索引的<strong>最左前列开始，并且不跳过索引中的列。</strong>(爬楼梯)</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201020161615741.png" alt="image-20201020161615741" style="zoom:80%;" />
+
+<img src="https://csn.damyoung.cn/image-20201020161638749.png" alt="image-20201020161638749" style="zoom:80%;" />
+
+<blockquote>
+<p>与顺序无关，而与是否有字段有关</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020161907488.png" alt="image-20201020161907488"></p>
+<blockquote>
+<p>跳过status,只有name有索引，address无索引</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201020162055081.png" alt="image-20201020162055081" style="zoom:80%;" />
+
+
+
+<h5 id="2-3-范围查询"><a href="#2-3-范围查询" class="headerlink" title="2.3 范围查询"></a>2.3 范围查询</h5><ul>
+<li>范围查询右边的列，不能使用索引 。</li>
+</ul>
+<blockquote>
+<p>根据前面的两个字段name ， status 查询是走索引的， 但是最后一个条件<strong>address 没有用到索引。</strong></p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020163038952.png" alt="image-20201020163038952"></p>
+<h5 id="2-4-运算操作"><a href="#2-4-运算操作" class="headerlink" title="2.4 运算操作"></a>2.4 运算操作</h5><blockquote>
+<p>不要在索引列上进行运算操作， 索引将失效。</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201020163325815.png" alt="image-20201020163325815" style="zoom:80%;" />
+
+
+
+<h5 id="2-5-字符串"><a href="#2-5-字符串" class="headerlink" title="2.5 字符串"></a>2.5 字符串</h5><ul>
+<li>字符串不加单引号，造成索引失效。</li>
+</ul>
+<blockquote>
+<p>数字也要，否则不走索引(不加单引号，底层进行隐式运算操作)</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020163529790.png" alt="image-20201020163529790"></p>
+<h5 id="2-6-使用覆盖索引"><a href="#2-6-使用覆盖索引" class="headerlink" title="2.6 使用覆盖索引"></a>2.6 使用覆盖索引</h5><ul>
+<li>尽量使用覆盖索引，避免select*</li>
+</ul>
+<blockquote>
+<p>尽量使用<strong>覆盖索引</strong>（只访问索引的查询（索引列完全包含查询列）），减少select * 。</p>
+<ul>
+<li>但<strong>查询非索引字段还是需要回表查询</strong></li>
+</ul>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020163837667.png" alt="image-20201020163837667"></p>
+<p><strong>ps</strong></p>
+<blockquote>
+<ul>
+<li><p>using index ：使用覆盖索引的时候就会出现</p>
+</li>
+<li><p>using where：在查找使用索引的情况下，需要回表去查询所需的数据</p>
+</li>
+<li><p>using index condition：查找使用了索引，但是需要回表查询数据</p>
+</li>
+<li><p>using index ; using where：查找使用了索引，但是需要的数据都在索引列中能找到，所以不需要回表查询数据    </p>
+</li>
+</ul>
+</blockquote>
+<h5 id="2-7-or"><a href="#2-7-or" class="headerlink" title="2.7 or"></a>2.7 or</h5><ul>
+<li>用or分割开的条件， 如果or前的条件中的列有索引，而后面的列中没有索引，那么涉及的索引都不会被用到。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from tb_seller where name&#x3D;&#39;黑马程序员&#39; or createtime &#x3D; &#39;2088-01-01 12:00:00&#39;\G;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201020164303908.png" alt="image-20201020164303908"></p>
+<h5 id="2-8-模糊查询"><a href="#2-8-模糊查询" class="headerlink" title="2.8 %模糊查询"></a>2.8 %模糊查询</h5><ul>
+<li>以%开头的Like模糊查询，索引失效。</li>
+</ul>
+<blockquote>
+<p>如果仅仅是尾部模糊匹配，索引不会失效。如果是头部模糊匹配，索引失效。</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020164653957.png" alt="image-20201020164653957"></p>
+<p><strong>解决：用覆盖索引解决</strong></p>
+<p><img src="https://csn.damyoung.cn/image-20201020164819251.png" alt="image-20201020164819251"></p>
+<p><img src="https://csn.damyoung.cn/image-20201020165132336.png" alt="image-20201020165132336"></p>
+<h5 id="2-9-全表索引更快"><a href="#2-9-全表索引更快" class="headerlink" title="2.9 全表索引更快"></a>2.9 全表索引更快</h5><ul>
+<li>如果MySQL评估使用索引比全表更慢，则不使用索引</li>
+</ul>
+<p><img src="https://csn.damyoung.cn/image-20201020172558272.png" alt="image-20201020172558272"></p>
+<h5 id="2-10-is-not-null"><a href="#2-10-is-not-null" class="headerlink" title="2.10 is not null"></a>2.10 is not null</h5><ul>
+<li>is  NULL ， is NOT NULL  <font color='red'>有时</font>索引失效。</li>
+</ul>
+<blockquote>
+<p>因为当前字段null是少量的</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020172804973.png" alt="image-20201020172804973"></p>
+<h5 id="2-11-not-in"><a href="#2-11-not-in" class="headerlink" title="2.11 not in"></a>2.11 not in</h5><ul>
+<li>in 走索引， not in 索引失效</li>
+</ul>
+<p><img src="https://csn.damyoung.cn/image-20201020173302116.png" alt="image-20201020173302116"></p>
+<h5 id="2-12-单列索引"><a href="#2-12-单列索引" class="headerlink" title="2.12 单列索引"></a>2.12 单列索引</h5><ul>
+<li>单列索引和复合索引。</li>
+</ul>
+<blockquote>
+<p>尽量使用复合索引，而少使用单列索引 。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create index idx_name_sta_address on tb_seller(name, status, address);</span><br><span class="line"></span><br><span class="line">就相当于创建了三个索引 ： </span><br><span class="line">	name</span><br><span class="line">	name + status</span><br><span class="line">	name + status + address</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create index idx_seller_name on tb_seller(name);</span><br><span class="line">create index idx_seller_status on tb_seller(status);</span><br><span class="line">create index idx_seller_address on tb_seller(address);</span><br><span class="line"></span><br><span class="line">数据库会选择一个最优的索引（辨识度最高索引）来使用，并不会使用全部索引 。</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3、查看索引使用情况"><a href="#3、查看索引使用情况" class="headerlink" title="3、查看索引使用情况"></a>3、查看索引使用情况</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- 当前会话使用情况</span><br><span class="line">show status like &#39;Handler_read%&#39;;	</span><br><span class="line"></span><br><span class="line">show global status like &#39;Handler_read%&#39;;	</span><br></pre></td></tr></table></figure>
+
+<img src="https://csn.damyoung.cn/image-20201020173925206.png" alt="image-20201020173925206" style="zoom:80%;" />
+
+<blockquote>
+<ul>
+<li><p>Handler_read_first：索引中第一条被读的次数。如果较高，表示服务器正执行大量全索引扫描（这个值越低越好）。</p>
+</li>
+<li><p>Handler_read_key：如果索引正在工作，这个值代表一个行被索引值读的次数，如果值越低，表示索引得到的性能改善不高，因为索引不经常使用（这个值越高越好）。</p>
+</li>
+<li><p>Handler_read_next ：按照键顺序读下一行的请求数。如果你用范围约束或如果执行索引扫描来查询索引列，该值增加。</p>
+</li>
+<li><p>Handler_read_prev：按照键顺序读前一行的请求数。该读方法主要用于优化ORDER BY … DESC。</p>
+</li>
+<li><p>Handler_read_rnd ：根据固定位置读一行的请求数。如果你正执行大量查询并需要对结果进行排序该值较高。你可能使用了大量需要MySQL扫描整个表的查询或你的连接没有正确使用键。这个值较高，意味着运行效率低，应该建立索引来补救。</p>
+</li>
+<li><p>Handler_read_rnd_next：在数据文件中读下一行的请求数。如果你正进行大量的表扫描，该值较高。通常说明你的表索引不正确或写入的查询没有利用索引。</p>
+</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/05%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4618,277 +5039,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/09/11/04jQuery/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/11/04jQuery/" class="post-title-link" itemprop="url">jquery</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-09-11T12:33:33+08:00">2020-09-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:44:17" itemprop="dateModified" datetime="2020-12-06T22:44:17+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>14k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>13 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="JQuery"><a href="#JQuery" class="headerlink" title="JQuery"></a>JQuery</h2><p><strong>jQuery对象通过选择器获取</strong></p>
-<p>语法：**$(“选择器”)== jQuery(“选择器”)**</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> content=<span class="string">&quot;&lt;p&gt;&lt;span&gt;用户&quot;</span>+count+<span class="string">&quot;:&lt;/span&gt;&quot;</span>+$(<span class="string">&quot;#text&quot;</span>).val()+<span class="string">&quot;&lt;/p&gt;&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="一、动画效果"><a href="#一、动画效果" class="headerlink" title="一、动画效果"></a>一、动画效果</h2><p><strong>利用可见性过滤</strong></p>
-<h4 id="1、淡入和淡出"><a href="#1、淡入和淡出" class="headerlink" title="1、淡入和淡出"></a>1、淡入和淡出</h4><blockquote>
-<p>fadeIn() fadeOut() fadeTo()</p>
-</blockquote>
-<p>css<strong>设置为不可见</strong></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;ad.jpg&quot; style=&quot;display:none&quot;/&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;input[name=fadein_btn]&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;img&quot;</span>).fadeIn(<span class="number">2000</span>);</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">&quot;input[name=fadeout_btn]&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;img&quot;</span>).fadeOut(<span class="number">2000</span>);</span><br><span class="line">&#125;);	</span><br><span class="line">$(<span class="string">&quot;input[name=fadeinout_btn]&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;img&quot;</span>).fadeToggle(<span class="number">2000</span>);</span><br><span class="line">&#125;);	</span><br><span class="line">$(<span class="string">&quot;input[name=fadeto_btn]&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;img&quot;</span>).fadeTo(<span class="number">2000</span>,<span class="number">0.3</span>); </span><br><span class="line">&#125;);	</span><br></pre></td></tr></table></figure>
-
-<h4 id="2、上拉下拉"><a href="#2、上拉下拉" class="headerlink" title="2、上拉下拉"></a>2、上拉下拉</h4><blockquote>
-<p>slideDown() slideUp()</p>
-</blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;txt&quot; style=&quot;display:none&quot;&gt;	</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#btn_down&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		$(<span class="string">&quot;.txt&quot;</span>).slideDown(<span class="number">5000</span>);  <span class="comment">//下拉5秒</span></span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">&quot;#btn_up&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		$(<span class="string">&quot;.txt&quot;</span>).slideUp(<span class="number">5000</span>);  <span class="comment">//上拉5秒</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="3、显示和隐藏"><a href="#3、显示和隐藏" class="headerlink" title="3、显示和隐藏"></a>3、显示和隐藏</h4><blockquote>
-<p>show()  hide()</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#btn1&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;#pic&quot;</span>).show(<span class="number">2000</span>);</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">&quot;#btn2&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;#pic&quot;</span>).hide(<span class="number">2000</span>);</span><br><span class="line">&#125;);	</span><br><span class="line">$(<span class="string">&quot;#btn3&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;#pic&quot;</span>).toggle(<span class="number">2000</span>); <span class="comment">//显示与隐藏中切换</span></span><br><span class="line">&#125;);							</span><br></pre></td></tr></table></figure>
-
-<h2 id="二、属性操作"><a href="#二、属性操作" class="headerlink" title="二、属性操作"></a>二、属性操作</h2><p><strong>attr、prop</strong></p>
-<h4 id="1、attr"><a href="#1、attr" class="headerlink" title="1、attr"></a>1、attr</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#btn1&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//attribute读</span></span><br><span class="line">        <span class="keyword">var</span> title=$(<span class="string">&quot;li:first&quot;</span>).attr(<span class="string">&quot;title&quot;</span>);</span><br><span class="line">        alert(title);</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">&quot;#btn2&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		$(<span class="string">&quot;li:first&quot;</span>).attr(<span class="string">&quot;title&quot;</span>,<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;#btn4&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> alt=$(<span class="string">&quot;img&quot;</span>).attr(<span class="string">&quot;alt&quot;</span>);</span><br><span class="line">		alert(alt);</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">&quot;#btn5&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		$(<span class="string">&quot;img&quot;</span>).attr(&#123;</span><br><span class="line">			width:<span class="string">&quot;75&quot;</span>,	<span class="comment">//写多个属性</span></span><br><span class="line">			height:<span class="string">&quot;100&quot;</span></span><br><span class="line">		&#125;);		</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h5 id="removeAttr"><a href="#removeAttr" class="headerlink" title="removeAttr"></a>removeAttr</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#btn3&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//移除属性</span></span><br><span class="line">    $(<span class="string">&quot;li:first&quot;</span>).removeAttr(<span class="string">&quot;title&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="2、prop"><a href="#2、prop" class="headerlink" title="2、prop"></a>2、prop</h4><p><strong>适用于enable disenable selected checked</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#btn6&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	$(<span class="string">&quot;#ckx&quot;</span>).prop(<span class="string">&quot;checked&quot;</span>,<span class="string">&quot;true&quot;</span>); <span class="comment">//enabled disabled selected checked</span></span><br><span class="line">&#125;);</span><br><span class="line">				</span><br><span class="line">$(<span class="string">&quot;#btn7&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="comment">// $(&quot;#ckx&quot;).prop(&quot;checked&quot;,&quot;false&quot;);//不可行</span></span><br><span class="line">      $(<span class="string">&quot;#ckx&quot;</span>).removeAttr(<span class="string">&quot;checked&quot;</span>) <span class="comment">//可行</span></span><br><span class="line">     <span class="comment">// $(&quot;#ckx&quot;)[0].checked=false;	//可行</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="三、事件"><a href="#三、事件" class="headerlink" title="三、事件"></a>三、事件</h2><h4 id="1、change事件"><a href="#1、change事件" class="headerlink" title="1、change事件"></a>1、change事件</h4><p><strong>change</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注册改变事件</span></span><br><span class="line">$(<span class="string">&quot;.info&quot;</span>).change(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// alert(&quot;性别为:&quot;+$(&quot;.info&gt;option:selected&quot;).val());</span></span><br><span class="line">    $(<span class="built_in">this</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;#7FE&quot;</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="2、键盘事件"><a href="#2、键盘事件" class="headerlink" title="2、键盘事件"></a>2、键盘事件</h4><p><strong>keydown、keypress、keyup</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#password&quot;</span>).keydown(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;#events&quot;</span>).append(<span class="string">&quot;keyup&quot;</span>);</span><br><span class="line">&#125;).keydown(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;#events&quot;</span>).append(<span class="string">&quot;keydown&quot;</span>);</span><br><span class="line">&#125;).keypress(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;#events&quot;</span>).append(<span class="string">&quot;keypress&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#userName&quot;</span>).keydown(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(e.keyCode==<span class="number">13</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#password&quot;</span>).focus();</span><br><span class="line">        e.preventDefault();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">&quot;#password&quot;</span>).keydown(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(e.keyCode==<span class="number">13</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#form1&quot;</span>).submit(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> confirm(<span class="string">&quot;你确认提交吗&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="3、焦点事件"><a href="#3、焦点事件" class="headerlink" title="3、焦点事件"></a>3、焦点事件</h4><p><strong>focus</strong>、<strong>blus失去焦点</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获得焦点</span></span><br><span class="line">$(<span class="string">&quot;input&quot;</span>).focus(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> $(<span class="built_in">this</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line">&#125;); </span><br><span class="line"><span class="comment">// 失去焦点</span></span><br><span class="line">$(<span class="string">&quot;input&quot;</span>).blur(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> $(<span class="built_in">this</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;white&quot;</span>);</span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
-
-<h4 id="4、事件绑定事件"><a href="#4、事件绑定事件" class="headerlink" title="4、事件绑定事件"></a>4、事件绑定事件</h4><p><strong>on绑定、off解绑</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#btn1&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//通过on()方式为div中添加一个元素</span></span><br><span class="line">    $(<span class="string">&quot;#btn&quot;</span>).on(<span class="string">&quot;click&quot;</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        $(<span class="string">&#x27;&lt;p&gt;这是第一个&lt;/p&gt;&#x27;</span>).appendTo($(<span class="string">&#x27;#dv&#x27;</span>));</span><br><span class="line">        $(<span class="string">&#x27;&lt;p&gt;这是第二个&lt;/p&gt;&#x27;</span>).appendTo($(<span class="string">&#x27;#dv&#x27;</span>));</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);	</span><br><span class="line">$(<span class="string">&quot;#btn2&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;#btn&quot;</span>).off(<span class="string">&quot;click&quot;</span>);                                                         </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="5、鼠标事件"><a href="#5、鼠标事件" class="headerlink" title="5、鼠标事件"></a>5、鼠标事件</h4><p><strong>mouseover鼠标移入、mouseout鼠标移出</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;h3 style=<span class="string">&quot;background-color:white;&quot;</span>&gt;</span><br><span class="line">    mouseover事件被触发&lt;span id=<span class="string">&quot;mover&quot;</span>&gt;<span class="number">0</span>&lt;<span class="regexp">/span&gt;次&lt;/</span>br&gt;</span><br><span class="line">	mouseout事件被触发&lt;span id=<span class="string">&quot;mout&quot;</span>&gt;<span class="number">0</span>&lt;/span&gt;次</span><br><span class="line">&lt;/h3&gt;</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;.dv&quot;</span>).mouseover(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="built_in">this</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line">    $(<span class="string">&#x27;#mover&#x27;</span>).text(y+=<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">&quot;.dv&quot;</span>).mouseout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="built_in">this</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;blue&quot;</span>);</span><br><span class="line">    $(<span class="string">&#x27;#mout&#x27;</span>).text(x+=<span class="number">1</span>);</span><br><span class="line">&#125;);				</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;.dv&quot;</span>).hover(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;	<span class="comment">//光标移入</span></span><br><span class="line">	$(<span class="built_in">this</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;	<span class="comment">//光标移出</span></span><br><span class="line">	$(<span class="built_in">this</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;blue&quot;</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="四、选择器"><a href="#四、选择器" class="headerlink" title="四、选择器"></a>四、选择器</h2><h3 id="1、基本选择器"><a href="#1、基本选择器" class="headerlink" title="1、基本选择器"></a>1、基本选择器</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#byId&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);	<span class="comment">//id选择器</span></span><br><span class="line">$(<span class="string">&quot;.byClass&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);	<span class="comment">//类选择器</span></span><br><span class="line">$(<span class="string">&quot;p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);	<span class="comment">//标签选择器</span></span><br><span class="line">$(<span class="string">&quot;*&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);  <span class="comment">//通配符选择器</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//只选择有类为byClass或者id为byId的标签对象</span></span><br><span class="line">$(<span class="string">&quot;#byId,.byClass&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、层级选择器"><a href="#2、层级选择器" class="headerlink" title="2、层级选择器"></a>2、层级选择器</h3><p><strong>“&gt;直接后代==children()”</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#dv&gt;p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);<span class="comment">//选择div下的儿子p标签</span></span><br><span class="line"><span class="comment">//children方法</span></span><br><span class="line">$(<span class="string">&quot;#dv&quot;</span>).children(<span class="string">&quot;p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>全部后代  “空格”、find()</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找后代的全部p标签</span></span><br><span class="line">$(<span class="string">&quot;#dv p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"><span class="comment">//find方法</span></span><br><span class="line">$(<span class="string">&quot;#dv&quot;</span>).find(<span class="string">&quot;p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>后面的第一个   +</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#dv+p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>); <span class="comment">//dv的第一个p元素</span></span><br><span class="line">$(<span class="string">&quot;#dv&quot;</span>).next(<span class="string">&quot;p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>后面的所有    ~</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#dv~p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>); <span class="comment">//dv后的所有p元素</span></span><br><span class="line">$(<span class="string">&quot;#dv&quot;</span>).nextAll()(<span class="string">&quot;p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>前面元素prev</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#dv&quot;</span>).prev(<span class="string">&quot;p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;#dv&quot;</span>).prev(<span class="string">&quot;p&quot;</span>).prev(<span class="string">&quot;p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>); <span class="comment">//连缀</span></span><br><span class="line">$(<span class="string">&quot;#dv&quot;</span>).prevAll(<span class="string">&quot;p&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>siblings==== nextAll+prevAll</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#dv&quot;</span>).siblings(<span class="string">&#x27;p&#x27;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>父级选择</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#p1&quot;</span>).parent().prev().css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;#p1&quot;</span>).parent().parent().parent().next().next().css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3、属性选择器"><a href="#3、属性选择器" class="headerlink" title="3、属性选择器"></a>3、属性选择器</h3><p><strong>可选择包含有 id属性等等</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//改变含有title属性=cartoonlist的元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;[title=cartoonlist]&quot;</span>).css(<span class="string">&quot;color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"><span class="comment">//改变含有title属性的&lt;li&gt;元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;li[title]&quot;</span>).css(<span class="string">&quot;color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//改变title属性的值中以h开头的元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;[title^=h]&quot;</span>).css(<span class="string">&quot;color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"><span class="comment">//改变title属性的值中以jp结尾的元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;[title$=jp]&quot;</span>).css(<span class="string">&quot;color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"><span class="comment">//改变title属性的值中含有s的元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;[title*=s]&quot;</span>).css(<span class="string">&quot;color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//改变包含events属性，且title属性的值中含有y的&lt;li&gt;元素的背景颜色 </span></span><br><span class="line">$(<span class="string">&quot;li[title*=y][class=evens]&quot;</span>).css(<span class="string">&quot;color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="4、过滤"><a href="#4、过滤" class="headerlink" title="4、过滤"></a>4、过滤</h3><h4 id="a、基本过滤"><a href="#a、基本过滤" class="headerlink" title="a、基本过滤"></a>a、基本过滤</h4><p><strong>first</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//改变第1个&lt;li&gt;元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;li:first&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;li&quot;</span>).first().css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>last</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//改变最后一个&lt;li&gt;元素的背景颜色</span></span><br><span class="line"> $(<span class="string">&quot;li:last&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"> $(<span class="string">&quot;li&quot;</span>).last().css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>not</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//改变class不为three的&lt;li&gt;元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;li:not(.three)&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>odd</strong>、<strong>even</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//改变索引值为偶数的&lt;li&gt;元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;li:even&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"><span class="comment">//改变索引值为奇数的&lt;li&gt;元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;li:odd&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>eq相等、gt大于、lt小于</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//改变索引值等于1的&lt;li&gt;元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;li:eq(1)&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"><span class="comment">//改变索引值大于1的&lt;li&gt;元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;li:gt(1)&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"><span class="comment">//改变索引值小于1的&lt;li&gt;元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;li:lt(1)&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>header</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//改变所有标题元素，例如&lt;h1&gt;,&lt;h2&gt;,&lt;h3&gt;……这些元素的背景颜色</span></span><br><span class="line">$(<span class="string">&quot;:header&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="b、可见性过滤"><a href="#b、可见性过滤" class="headerlink" title="b、可见性过滤"></a>b、可见性过滤</h4><p>CSS: <strong>display:none</strong>  不可见   <strong>display:block</strong>  可见</p>
-<p><strong>:visible show()</strong></p>
-<p><strong>:hidden  hide()</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;input[name=show]&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// $(&quot;p:hidden&quot;).css(&quot;display&quot;,&quot;block&quot;);</span></span><br><span class="line">    $(<span class="string">&quot;p:hidden&quot;</span>).show();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;input[name=hide]&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// $(&quot;p:visible&quot;).css(&quot;display&quot;,&quot;none&quot;);</span></span><br><span class="line">    $(<span class="string">&quot;p:visible&quot;</span>).hide();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="c、内容过滤"><a href="#c、内容过滤" class="headerlink" title="c、内容过滤"></a>c、内容过滤</h4><p><strong>:contains</strong>    文本内容</p>
-<p><strong>:has</strong>          标签</p>
-<p><strong>:empty</strong>      空</p>
-<p><strong>:parent</strong>      是否为父标签</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;div:contains(&#x27;也&#x27;)&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;div:has(span)&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;div:empty&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br><span class="line"><span class="comment">//:parent判断当前元素是否是父元素</span></span><br><span class="line">$(<span class="string">&quot;div:parent&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;red&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="d、表单过滤"><a href="#d、表单过滤" class="headerlink" title="d、表单过滤"></a>d、表单过滤</h4><p><strong>:enable</strong> 可用</p>
-<p><strong>:disable</strong> 不可用</p>
-<p><strong>:checked</strong> 选中 单选框radio 复选框checkbox</p>
-<p><strong>:selected</strong> 选择 下拉列表select option</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;:input&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;orange&quot;</span>);</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;:text&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;orange&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;:password&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;orange&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;:radio&quot;</span>).hide();</span><br><span class="line">$(<span class="string">&quot;:checkbox&quot;</span>).hide();</span><br><span class="line">$(<span class="string">&quot;:button&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;orange&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;:image&quot;</span>).hide();</span><br><span class="line">$(<span class="string">&quot;:reset&quot;</span>).hide();</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;input:checked&quot;</span>).hide();</span><br><span class="line">alert($(<span class="string">&quot;option:selected&quot;</span>).val());</span><br></pre></td></tr></table></figure>
-
-<h2 id="五、样式css"><a href="#五、样式css" class="headerlink" title="五、样式css"></a>五、样式css</h2><h3 id="1、样式"><a href="#1、样式" class="headerlink" title="1、样式"></a>1、样式</h3><h4 id="（1）设置样式"><a href="#（1）设置样式" class="headerlink" title="（1）设置样式"></a>（1）设置样式</h4><p>设置多个属性使用<strong>大括号</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;div&quot;</span>).css(<span class="string">&quot;background-color&quot;</span>,<span class="string">&quot;pink&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;div&quot;</span>).css(<span class="string">&quot;width&quot;</span>,<span class="string">&quot;150px&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;div&quot;</span>).css(<span class="string">&quot;height&quot;</span>,<span class="string">&quot;150px&quot;</span>);</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;div&quot;</span>).css(&#123;<span class="attr">backgroundColor</span>:<span class="string">&quot;pink&quot;</span>,<span class="attr">width</span>:<span class="string">&quot;150px&quot;</span>,<span class="string">&quot;height&quot;</span>:<span class="string">&quot;150px&quot;</span>,</span><br><span class="line"><span class="string">&quot;border-radius&quot;</span>:<span class="string">&quot;5%&quot;</span>&#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="（2）获取样式"><a href="#（2）获取样式" class="headerlink" title="（2）获取样式"></a>（2）获取样式</h4><p>获取多个样式使用<strong>中括号</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取单个属性的值</span></span><br><span class="line"><span class="keyword">var</span> obj=$(<span class="string">&quot;div&quot;</span>).css(<span class="string">&quot;color&quot;</span>);</span><br><span class="line">alert(obj);</span><br><span class="line"><span class="comment">//获取多个属性的值</span></span><br><span class="line"><span class="keyword">var</span> obj=$(<span class="string">&quot;div&quot;</span>).css([<span class="string">&quot;color&quot;</span>,<span class="string">&quot;font-size&quot;</span>,<span class="string">&quot;font-family&quot;</span>]);</span><br><span class="line"><span class="comment">//在控制台查看obj</span></span><br><span class="line"><span class="built_in">console</span>.log(obj)</span><br></pre></td></tr></table></figure>
-
-<h4 id="（3）添加样式"><a href="#（3）添加样式" class="headerlink" title="（3）添加样式"></a>（3）添加样式</h4><p><strong>addClass、removeClass、toggleClass</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#btn1&#x27;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	$(<span class="string">&#x27;div&#x27;</span>).addClass(<span class="string">&quot;style1&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="string">&#x27;#btn3&#x27;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	$(<span class="string">&#x27;div&#x27;</span>).removeClass(<span class="string">&quot;style2&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//切换样式</span></span><br><span class="line">$(<span class="string">&#x27;#btn5&#x27;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	$(<span class="string">&#x27;div&#x27;</span>).toggleClass(<span class="string">&quot;style3&quot;</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、html"><a href="#2、html" class="headerlink" title="2、html"></a>2、html</h3><p><strong>.html()和.text()方法不能使用在表单元素上,而.val()只能使用在表单元素上；</strong></p>
-<p><strong>.val()方法和.html()相同，如果其应用在元素集合上时，只能读取第一个表单元素的”value”值</strong></p>
-<p><strong>但是.text()不一样，如果.text()应用在多个元素上时，将会读取所有选中元素的文本内容；</strong></p>
-<p><strong>进行字符串拼接 ps: 利用标签属性（p/span/div/tr/td/li）</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建行  拼接字符串,添加到tbody中</span></span><br><span class="line"><span class="keyword">var</span> newcows=<span class="string">&quot;&lt;tr&gt;&lt;td&gt;&quot;</span>+lesson+<span class="string">&quot;&lt;/td&gt;&lt;td&gt;&quot;</span>+accedemic</span><br><span class="line">			+<span class="string">&quot;&lt;/td&gt;&lt;td&gt;&lt;a href=&#x27;javascrip:;&#x27; class=&#x27;del&#x27;&gt;删除&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&quot;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> content=<span class="string">&quot;&lt;p&gt;&lt;span&gt;用户&quot;</span>+count+<span class="string">&quot;:&lt;/span&gt;&quot;</span>+$(<span class="string">&quot;#text&quot;</span>).val()+<span class="string">&quot;&lt;/p&gt;&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<h4 id="（1）html方法"><a href="#（1）html方法" class="headerlink" title="（1）html方法"></a>（1）html方法</h4><p>获得html代码，含有标签</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#btn1&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//读取innerHtml，只适用与DOM对象</span></span><br><span class="line">	<span class="keyword">var</span> content=$(<span class="string">&quot;#d1&quot;</span>).html();</span><br><span class="line">	alert(content);</span><br><span class="line">&#125;)</span><br><span class="line">$(<span class="string">&quot;#btn2&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">&quot;#d1&quot;</span>).html(<span class="string">&quot;ssss&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="（2）text方法"><a href="#（2）text方法" class="headerlink" title="（2）text方法"></a>（2）text方法</h4><p>获得文本值，将标签进行过滤</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#btn1&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;	 </span><br><span class="line">	<span class="keyword">var</span> content=$(<span class="string">&quot;.left&quot;</span>).text(); <span class="comment">//读，相当与DOM的innerText</span></span><br><span class="line">	alert(content);</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">&quot;#btn2&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">//写</span></span><br><span class="line">	$(<span class="string">&quot;.left&quot;</span>).text(<span class="string">&quot;ssss&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="（3）val方法"><a href="#（3）val方法" class="headerlink" title="（3）val方法"></a>（3）val方法</h4><p>获得value的值</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;.btn1&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//不带参的方法，读value</span></span><br><span class="line">	alert($(<span class="string">&quot;.txt&quot;</span>).val());</span><br><span class="line">	<span class="comment">// alert($(&quot;.txt&quot;)[0].value);</span></span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">&quot;.btn2&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//带参的方法，写</span></span><br><span class="line">	$(<span class="string">&quot;.txt&quot;</span>).val(<span class="string">&quot;&quot;</span>);<span class="comment">//清空</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="六、元素宽高"><a href="#六、元素宽高" class="headerlink" title="六、元素宽高"></a>六、元素宽高</h2><h4 id="（1）元素的宽和高"><a href="#（1）元素的宽和高" class="headerlink" title="（1）元素的宽和高"></a>（1）元素的宽和高</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="string">&quot;宽：&quot;</span>+$(<span class="string">&#x27;div&#x27;</span>).width()+<span class="string">&quot;高：&quot;</span>+$(<span class="string">&#x27;div&#x27;</span>).height());</span><br><span class="line"></span><br><span class="line">$(<span class="string">&#x27;div&#x27;</span>).width($(<span class="string">&#x27;div&#x27;</span>).width()+<span class="number">50</span>);</span><br><span class="line">$(<span class="string">&#x27;div&#x27;</span>).height($(<span class="string">&#x27;div&#x27;</span>).width()+<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="（2）元素的位置"><a href="#（2）元素的位置" class="headerlink" title="（2）元素的位置"></a>（2）元素的位置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="string">&quot;left:&quot;</span>+$(<span class="string">&#x27;div&#x27;</span>).offset().left+<span class="string">&quot;top:&quot;</span>+$(<span class="string">&#x27;div&#x27;</span>).offset().top);</span><br><span class="line">$(<span class="string">&#x27;div&#x27;</span>).offset(&#123;<span class="attr">left</span>:<span class="number">300</span>,<span class="attr">top</span>:<span class="number">300</span>&#125;); </span><br></pre></td></tr></table></figure>
-
-<h4 id="（3）元素内部宽高"><a href="#（3）元素内部宽高" class="headerlink" title="（3）元素内部宽高"></a>（3）元素内部宽高</h4><p><strong>包括内边缘</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alert($(<span class="string">&#x27;div&#x27;</span>).width());</span><br><span class="line">alert($(<span class="string">&#x27;div&#x27;</span>).height());</span><br><span class="line">alert($(<span class="string">&#x27;div&#x27;</span>).innerHeight());<span class="comment">// 100+10+10</span></span><br><span class="line">alert($(<span class="string">&#x27;div&#x27;</span>).innerWidth());</span><br></pre></td></tr></table></figure>
-
-<h4 id="（4）元素外部宽高"><a href="#（4）元素外部宽高" class="headerlink" title="（4）元素外部宽高"></a>（4）元素外部宽高</h4><p><strong>outerWidth() 包括边框</strong></p>
-<p><strong>outerWidth(true) 包括边框和外边缘</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alert($(<span class="string">&#x27;div&#x27;</span>).outerHeight()); <span class="comment">//100+10+10+5+5</span></span><br><span class="line">alert($(<span class="string">&#x27;div&#x27;</span>).outerWidth());</span><br><span class="line">alert($(<span class="string">&#x27;div&#x27;</span>).outerHeight(<span class="literal">true</span>)); <span class="comment">//100+10+10+5+5+20+20</span></span><br><span class="line">alert($(<span class="string">&#x27;div&#x27;</span>).outerWidth(<span class="literal">true</span>)); </span><br></pre></td></tr></table></figure>
-
-<h4 id="（5）节点操作"><a href="#（5）节点操作" class="headerlink" title="（5）节点操作"></a>（5）节点操作</h4><h5 id="a、内部插入"><a href="#a、内部插入" class="headerlink" title="a、内部插入"></a>a、内部插入</h5><p><strong>append、appendTo</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $newNode1=$(<span class="string">&quot;&lt;li&gt;爱神&lt;/li&gt;&quot;</span>);</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;ul&quot;</span>).append($newNode1);</span><br><span class="line">$newNode1.appendTo(<span class="string">&quot;ul&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>前置插入prepend</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;ul&quot;</span>).prepend($newNode1);</span><br></pre></td></tr></table></figure>
-
-<h5 id="b、外部插入"><a href="#b、外部插入" class="headerlink" title="b、外部插入"></a>b、外部插入</h5><p><strong>元素之前插入同辈节点</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;ul&quot;</span>).after($newNode1);</span><br><span class="line">$newNode1.insertAfter(<span class="string">&quot;ul&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>元素之后同辈节点</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;ul&quot;</span>).before($newNode1);</span><br><span class="line">$newNode1.insertBefore(<span class="string">&quot;ul&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h5 id="c、删除清空"><a href="#c、删除清空" class="headerlink" title="c、删除清空"></a>c、删除清空</h5><p><strong>删除、清空节点</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;ul li:eq(1)&quot;</span>).remove();</span><br><span class="line">$(<span class="string">&quot;ul li:eq(1)&quot;</span>).detach(); <span class="comment">//拆卸</span></span><br><span class="line">$(<span class="string">&quot;ul li:eq(1)&quot;</span>).empty();     </span><br></pre></td></tr></table></figure>
-
-<h5 id="d、替换"><a href="#d、替换" class="headerlink" title="d、替换"></a>d、替换</h5><p><strong>替换节点</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;ul li:eq(1)&quot;</span>).replaceWith($newNode1);</span><br></pre></td></tr></table></figure>
-
-<h5 id="e、复制"><a href="#e、复制" class="headerlink" title="e、复制"></a>e、复制</h5><p><strong>复制节点</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;ul li:eq(1)&quot;</span>).clone().appendTo(<span class="string">&quot;ul&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>输出元素本身html</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert($(<span class="string">&quot;&lt;div&gt;&lt;/div&gt;&quot;</span>).append($(<span class="string">&quot;ul li:eq(1)&quot;</span>).clone()).html());</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btn=$(<span class="built_in">this</span>).clone(<span class="literal">true</span>); <span class="comment">//true指复印获得原件的事件</span></span><br><span class="line">$(<span class="string">&quot;body&quot;</span>).append(btn);</span><br></pre></td></tr></table></figure>
-
-<h4 id="（6）素材遍历"><a href="#（6）素材遍历" class="headerlink" title="（6）素材遍历"></a>（6）素材遍历</h4><p><strong>each(function(i,e){</strong></p>
-<p><strong>})</strong></p>
-<p><strong>i 为元素下标，e为元素本身</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#btn&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	$(<span class="string">&quot;li&quot;</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params">i,e</span>)</span>&#123;</span><br><span class="line">		<span class="comment">// alert(i);</span></span><br><span class="line">		alert($(e).text())</span><br><span class="line">		<span class="comment">// alert($(this).text());</span></span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="（7）is"><a href="#（7）is" class="headerlink" title="（7）is"></a>（7）is</h4><p><strong>得到按钮状态</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> check=$(<span class="built_in">this</span>).is(<span class="string">&quot;:checked&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4958,7 +5108,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -5011,12 +5161,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">466k</span>
+    <span title="站点总字数">481k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:04</span>
+    <span title="站点阅读时长">7:17</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
