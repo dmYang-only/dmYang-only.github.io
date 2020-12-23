@@ -185,6 +185,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/01%E6%95%B0%E7%BB%84&%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/01%E6%95%B0%E7%BB%84&%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" class="post-title-link" itemprop="url">数组&流程控制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-22 15:59:55" itemprop="dateModified" datetime="2020-12-22T15:59:55+08:00">2020-12-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、一维数组"><a href="#一、一维数组" class="headerlink" title="一、一维数组"></a>一、一维数组</h3><blockquote>
+<p>一维数组：相同属性数据类型的集合</p>
+<p>基本数据类型的数组(  int [ ] a)、引用数据类型的数组（Student [] student）</p>
+</blockquote>
+<h4 id="1、声明"><a href="#1、声明" class="headerlink" title="1、声明"></a>1、声明</h4><p>（在栈空间创建对象，存放地址）int []a     （ int [40]a错误）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> []arr1;             <span class="comment">//声明</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2、初始化"><a href="#2、初始化" class="headerlink" title="2、初始化"></a>2、初始化</h4><blockquote>
+<p><strong>在堆空间开辟一块连续的空间</strong></p>
+</blockquote>
+<h5 id="2-1-静态初始化"><a href="#2-1-静态初始化" class="headerlink" title="2.1 静态初始化"></a>2.1 静态初始化</h5><p>长度系统指定   int []a=new int[]{1,2,3} //简化int []a={1,2,3},声明和初始化不能分开写</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//静态初始化声明和初始化不能分开</span></span><br><span class="line"><span class="keyword">int</span> []arr=<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">10</span>,<span class="number">30</span>,<span class="number">34</span>&#125;;      <span class="comment">//声明+初始化</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/11/01%E6%95%B0%E7%BB%84&%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02TomCat/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1941,198 +2049,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E4%BA%8B%E5%8A%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/04%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">事务</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:51:16" itemprop="dateModified" datetime="2020-12-06T22:51:16+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>事务是一组SQL语句组成的逻辑处理单元，事务执行是一个整体，<strong>所有SQL语句都必须执行成功</strong></p>
-<h3 id="1、手动提交事务"><a href="#1、手动提交事务" class="headerlink" title="1、手动提交事务"></a>1、手动提交事务</h3><p>开启事务 start transaction</p>
-<p>提交事务 commit</p>
-<p>回滚事务 rollback：回退到开启事务时的状态</p>
-<h3 id="2、自动提交事务"><a href="#2、自动提交事务" class="headerlink" title="2、自动提交事务"></a>2、自动提交事务</h3><p>每一条<strong>insert、update、delete</strong>都会默认构成一条事务，会自动提交，永久改变数据库</p>
-<h3 id="3、执行过程"><a href="#3、执行过程" class="headerlink" title="3、执行过程"></a>3、执行过程</h3><h4 id="（1）执行成功"><a href="#（1）执行成功" class="headerlink" title="（1）执行成功"></a>（1）执行成功</h4><p>开启事务–&gt;执行多条SQL语句–&gt;成功提交事务</p>
-<h4 id="（2）执行失败"><a href="#（2）执行失败" class="headerlink" title="（2）执行失败"></a>（2）执行失败</h4><p>开启事务–&gt;执行多条SQL语句–&gt;事务回滚</p>
-<p><strong>回滚事务即是结束</strong></p>
-<p><strong>select @@autocommit;  自动提交 1，</strong></p>
-<p><strong>set @@autocommit =0;</strong></p>
-<h3 id="4、事务原理"><a href="#4、事务原理" class="headerlink" title="4、事务原理"></a>4、事务原理</h3><p>事务开启后，所有的操作会保存到事务日志中，事务日志只有得到commit命令才会同步到数据库中，</p>
-<p>其他任何情况都会清空事务日志（rollback，断开连接）</p>
-<h3 id="5、回滚点"><a href="#5、回滚点" class="headerlink" title="5、回滚点"></a>5、回滚点</h3><p>设置回滚点：<strong>savepoint 名字</strong></p>
-<p>回到回滚点：<strong>rollback to 名字；</strong></p>
-<h3 id="6、事务的特性"><a href="#6、事务的特性" class="headerlink" title="6、事务的特性"></a>6、事务的特性</h3><table>
-<thead>
-<tr>
-<th>ACID属性</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>原子性（Atomicity）</td>
-<td>事务是一个原子操作单元，其对数据的修改，要么全部成功，要么全部失败。</td>
-</tr>
-<tr>
-<td>一致性（Consistent）</td>
-<td>在事务开始和完成时，数据都必须保持一致状态。</td>
-</tr>
-<tr>
-<td>隔离性（Isolation）</td>
-<td>数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的 “独立” 环境下运行。</td>
-</tr>
-<tr>
-<td>持久性（Durable）</td>
-<td>事务完成之后，对于数据的修改是永久的。</td>
-</tr>
-</tbody></table>
-<p><strong>并发事务处理带来的问题</strong></p>
-<table>
-<thead>
-<tr>
-<th>问题</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>丢失更新（Lost Update）</td>
-<td>当两个或多个事务选择同一行，最初的事务修改的值，会被后面的事务修改的值覆盖。</td>
-</tr>
-<tr>
-<td>脏读（Dirty Reads）</td>
-<td>当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</td>
-</tr>
-<tr>
-<td>不可重复读（Non-Repeatable Reads）</td>
-<td>一个事务在读取某些数据后的某个时间，再次读取以前读过的数据，却发现和以前读出的数据不一致。数据内容不一致，update引起的</td>
-</tr>
-<tr>
-<td>幻读（Phantom Reads）</td>
-<td>一个事务按照相同的查询条件重新读取以前查询过的数据，却发现其他事务插入了满足其查询条件的新数据。数据的数量不一致，是insert/delete引起的</td>
-</tr>
-</tbody></table>
-<p><strong>隔离级别越高，性能越差，安全性越高，效率越低</strong></p>
-<table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>丢失更新</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻读</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Read uncommitted</td>
-<td>×</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>Read committed(Oracke和SQL Server)</td>
-<td>×</td>
-<td>×</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>Repeatable read（MySql默认）</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-<td>√</td>
-</tr>
-<tr>
-<td>Serializable串行化</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-</tr>
-</tbody></table>
-<p><strong>设置隔离级别</strong> ：<strong>set global transaction isolation level —;</strong></p>
-<p><strong>查看隔离级别</strong>：<strong>select @@tx_isolation;</strong> </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2202,7 +2118,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2255,12 +2171,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">481k</span>
+    <span title="站点总字数">495k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:17</span>
+    <span title="站点阅读时长">7:30</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
