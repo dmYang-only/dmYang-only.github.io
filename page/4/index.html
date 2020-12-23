@@ -185,6 +185,241 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/09%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/09%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">反射</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:36:43" itemprop="dateModified" datetime="2020-12-06T22:36:43+08:00">2020-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、反射"><a href="#一、反射" class="headerlink" title="一、反射"></a>一、反射</h3><blockquote>
+<p><strong>反射就是把java类中的各种成分映射成一个个的java对象模板</strong></p>
+</blockquote>
+<h3 id="1、基本应用"><a href="#1、基本应用" class="headerlink" title="1、基本应用"></a>1、基本应用</h3><h4 id="1-1-getClass"><a href="#1-1-getClass" class="headerlink" title="1.1 getClass"></a>1.1 getClass</h4><p>根据一个字符串得到类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String s=<span class="string">&quot;jjj&quot;</span>;</span><br><span class="line"><span class="comment">//根据字符串得到一个类</span></span><br><span class="line">Class c=s.getClass();</span><br><span class="line">System.out.println(c.getName());</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-Class-forName"><a href="#1-2-Class-forName" class="headerlink" title="1.2 Class.forName"></a>1.2 Class.forName</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//包名+类名</span></span><br><span class="line">String s1=<span class="string">&quot;java.lang.String&quot;</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Class c1=Class.forName(s1);</span><br><span class="line">    System.out.println(c1.getName());</span><br><span class="line">&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2、获取class对象"><a href="#2、获取class对象" class="headerlink" title="2、获取class对象"></a>2、获取class对象</h3><h4 id="2-1-根据对象获取"><a href="#2-1-根据对象获取" class="headerlink" title="2.1 根据对象获取"></a>2.1 根据对象获取</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Student stu1 = <span class="keyword">new</span> Student();<span class="comment">//这一new 产生一个Student对象，一个Class对象。</span></span><br><span class="line">Class stuClass = stu1.getClass();<span class="comment">//获取Class对象</span></span><br><span class="line">System.out.println(stuClass.getName());</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-class"><a href="#2-2-class" class="headerlink" title="2.2 .class"></a>2.2 .class</h4><blockquote>
+<p>任何数据类型都有一个静态的class属性</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class stuClass2 = Student.class;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-forName"><a href="#2-3-forName" class="headerlink" title="2.3 forName"></a>2.3 forName</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class stuClass3 = Class.forName(<span class="string">&quot;fanshe.Student&quot;</span>);</span><br><span class="line"><span class="comment">//注意此字符串必须是真实路径，就是带包名的类路径，包名.类名</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>第一种对象都有了还要反射干什么。</strong></p>
+<p><strong>第二种需要导入类的包，依赖太强，不导包就抛编译错误。</strong></p>
+<p><strong>一般都第三种，一个字符串可以传入也可写在配置文件中等多种方法。</strong></p>
+</blockquote>
+<h3 id="3、获取构造方法"><a href="#3、获取构造方法" class="headerlink" title="3、获取构造方法"></a>3、获取构造方法</h3><blockquote>
+<p>通过反射调用私有属性</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class class1=Class.forName(<span class="string">&quot;反射.Test&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-1-批量"><a href="#3-1-批量" class="headerlink" title="3.1 批量"></a>3.1 批量</h4><blockquote>
+<p>获取所有公有构造<code>getConstructors()</code></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Constructor[] constructors=class1.getConstructors();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>获取<strong>所有</strong>构造方法（包括私有，受保护）<code>getDeclaredConstrustors()</code></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Constructor[] constructors=class1.getDeclaredConstructors();</span><br><span class="line"><span class="keyword">for</span> (Constructor c:constructors) &#123;</span><br><span class="line">    System.out.println(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-2-单个"><a href="#3-2-单个" class="headerlink" title="3.2 单个"></a>3.2 单个</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用无参公有构造方法</span></span><br><span class="line">Constructor con=class1.getConstructor(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用私有构造方法</span></span><br><span class="line">Constructor constructor=class1.getDeclaredConstructor(String.class);</span><br><span class="line">constructor.setAccessible(<span class="keyword">true</span>); <span class="comment">//暴力访问，忽略访问修饰符</span></span><br><span class="line">obj=constructor.newInstance(<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line">System.out.println(constructor);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-3-newInstance"><a href="#3-3-newInstance" class="headerlink" title="3.3 newInstance"></a>3.3 newInstance</h4><blockquote>
+<p>默认调用无参构造器 </p>
+<p>newInstance是 Constructor类的方法（管理构造函数的类）</p>
+<p>newInstance是创建了一个构造方法的声明类的新实例对象。并为之调用</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; aClass1 = Class.forName(<span class="string">&quot;demo.Student&quot;</span>);</span><br><span class="line">Object o = aClass1.newInstance();</span><br><span class="line">System.out.println(o);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>反射出无参构造</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Constructor con=s.getConstructor(<span class="keyword">null</span>);</span><br><span class="line">Object obj=con.newInstance(); <span class="comment">//调用构造方法</span></span><br><span class="line">Test test1=(Test) obj;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>反射出有参构造</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Constructor&lt;?&gt; declaredConstructor = aClass1.getDeclaredConstructor(String.class);</span><br><span class="line">Student o1 = (Student) declaredConstructor.newInstance(<span class="string">&quot;hhh&quot;</span>);</span><br><span class="line">System.out.println(o1.getB());</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4、获取成员属性"><a href="#4、获取成员属性" class="headerlink" title="4、获取成员属性"></a>4、获取成员属性</h3><h4 id="4-1-批量"><a href="#4-1-批量" class="headerlink" title="4.1 批量"></a>4.1 批量</h4><blockquote>
+<p>获取成员字段值：field.<strong>get</strong>(<strong>实例对象</strong>)</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object o = aClass1.newInstance();  <span class="comment">//反射实例对象</span></span><br><span class="line"></span><br><span class="line">Field[] declaredFields = aClass1.getDeclaredFields();</span><br><span class="line"><span class="keyword">for</span> (Field field:declaredFields)&#123;</span><br><span class="line">    field.setAccessible(<span class="keyword">true</span>); <span class="comment">//暴力访问私有字段</span></span><br><span class="line">    System.out.println(field.getName()+<span class="string">&quot;:&quot;</span>+field.get(o));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-2-单个"><a href="#4-2-单个" class="headerlink" title="4.2 单个"></a>4.2 单个</h4><blockquote>
+<p>aClass1.getField(“<strong>字段名</strong>“)；</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取共有属性</span></span><br><span class="line">Field f=aClass1.getField(<span class="string">&quot;num&quot;</span>);</span><br><span class="line"><span class="comment">//获取私有属性</span></span><br><span class="line">Field f1=aClass1.getDeclaredField(<span class="string">&quot;age&quot;</span>);</span><br><span class="line">f1.setAccessible(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-3-设置字段值"><a href="#4-3-设置字段值" class="headerlink" title="4.3 设置字段值"></a>4.3 设置字段值</h4><blockquote>
+<p><strong>set</strong>(obj,value)</p>
+<ul>
+<li><p>obj:要设置的字段所在的<strong>对象</strong></p>
+</li>
+<li><p>value:要为字段设置的<strong>值</strong>；</p>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Object obj = stuClass.getConstructor().newInstance();//产生Student对象–》Student stu = new Student();<br>//为字段设置值<br><strong>f.set(obj, “刘德华”)</strong>;//为Student对象中的name属性赋值–》stu.name = “刘德华”</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Field field=aClass1.getField(<span class="string">&quot;num&quot;</span>);</span><br><span class="line">Object obj=aClass1.getConstructor().newInstance();</span><br><span class="line">field.set(obj,<span class="number">1</span>);</span><br><span class="line">Teacher teacher1=(Teacher) obj;</span><br><span class="line">System.out.println(teacher1.num);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//私有属性</span></span><br><span class="line">Field field1=aClass1.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">field1.setAccessible(<span class="keyword">true</span>); <span class="comment">//暴力反射，解除私有限定</span></span><br><span class="line">field1.set(obj,<span class="string">&quot;ss&quot;</span>);</span><br><span class="line">System.out.println(teacher1.getName());</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5、获取成员方法"><a href="#5、获取成员方法" class="headerlink" title="5、获取成员方法"></a>5、获取成员方法</h3><h4 id="5-1-批量"><a href="#5-1-批量" class="headerlink" title="5.1 批量"></a>5.1 批量</h4><blockquote>
+<p>getMethods()</p>
+<p>getDeclaredMethods()</p>
+</blockquote>
+<h4 id="5-2-单个"><a href="#5-2-单个" class="headerlink" title="5.2 单个"></a>5.2 单个</h4><blockquote>
+<p><strong>getMethod</strong>(String name, Class&lt;?&gt; parameterType)</p>
+<ul>
+<li><p>name:方法名</p>
+</li>
+<li><p>Class…:形参的Class类型对象</p>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//公有方法</span></span><br><span class="line">Method method=class1.getMethod(<span class="string">&quot;show1&quot;</span>, String.class)</span><br><span class="line"><span class="comment">//私有方法</span></span><br><span class="line">method2=c.getDeclareMethod(<span class="string">&quot;show4&quot;</span>,<span class="keyword">int</span>.class);</span><br><span class="line">method2.setAcessible(<span class="keyword">true</span>); <span class="comment">//解除私有限定</span></span><br><span class="line">method2.invoke(obj,<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="5-3-调用方法"><a href="#5-3-调用方法" class="headerlink" title="5.3 调用方法"></a>5.3 调用方法</h4><blockquote>
+<p><strong>invoke</strong>(Object obj,Object… args):</p>
+<ul>
+<li><p>obj : 要调用方法的对象；</p>
+</li>
+<li><p>args:调用方式时所传递的实参</p>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实例一个Student对象</span></span><br><span class="line">Object obj=c.getConstrustor().newInstance()</span><br><span class="line">m.invoke(obj,<span class="string">&quot;hhh&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="6、反射main方法"><a href="#6、反射main方法" class="headerlink" title="6、反射main方法"></a>6、反射main方法</h3><blockquote>
+<p><strong>invoke</strong></p>
+<p>第一个参数，对象类型，因为方法是static静态的，所以为null可以</p>
+<p>第二个参数是String数组，这里要注意在jdk1.4时是数组，jdk1.5之后是可变参数</p>
+<p> methodMain.invoke(null, (Object)new String[]{“a”,”b”,”c”})</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> fanshe.main;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取Student类的main方法、不要与当前的main方法搞混了</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">//1、获取Student对象的字节码</span></span><br><span class="line">			Class clazz = Class.forName(<span class="string">&quot;fanshe.main.Student&quot;</span>);</span><br><span class="line">			<span class="comment">//2、获取main方法</span></span><br><span class="line">			 Method methodMain = clazz.getMethod(<span class="string">&quot;main&quot;</span>, String[].class);</span><br><span class="line">			<span class="comment">//3、调用main方法</span></span><br><span class="line"><span class="comment">//第一个参数，对象类型，因为方法是static静态的，所以为null可以，第二个参数是String数组，这里要注意在jdk1.4时是数组，jdk1.5之后是可变参数</span></span><br><span class="line">			 <span class="comment">//这里拆的时候将  new String[]&#123;&quot;a&quot;,&quot;b&quot;,&quot;c&quot;&#125; 拆成3个对象。。。所以需要将它强转。</span></span><br><span class="line">			 methodMain.invoke(<span class="keyword">null</span>, (Object)<span class="keyword">new</span> String[]&#123;<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>&#125;);<span class="comment">//方式一</span></span><br><span class="line">			<span class="comment">// methodMain.invoke(null, new Object[]&#123;new String[]&#123;&quot;a&quot;,&quot;b&quot;,&quot;c&quot;&#125;&#125;);//方式二</span></span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、反射的应用"><a href="#7、反射的应用" class="headerlink" title="7、反射的应用"></a>7、反射的应用</h3><h4 id="7-1-越过泛型检查"><a href="#7-1-越过泛型检查" class="headerlink" title="7.1 越过泛型检查"></a>7.1 越过泛型检查</h4><p><strong>泛型是在编译期间起作用的。在编译后的.class文件中是没有泛型的</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  ArrayList&lt;String&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        list.add(<span class="string">&quot;ss&quot;</span>);</span><br><span class="line">        list.add(<span class="string">&quot;11&quot;</span>);</span><br><span class="line"><span class="comment">//        list.add(11); //类型不一致，报错</span></span><br><span class="line">        <span class="comment">//获取Arraylist的class对象，反向调用add()方法</span></span><br><span class="line">        Class listClass=list.getClass();</span><br><span class="line">        Method m=listClass.getMethod(<span class="string">&quot;add&quot;</span>, Object.class);</span><br><span class="line">        m.invoke(list,<span class="number">11</span>);</span><br><span class="line">        <span class="keyword">for</span> (Object o:list)&#123;</span><br><span class="line">            System.out.println(list);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-2-运行配置文件内容"><a href="#7-2-运行配置文件内容" class="headerlink" title="7.2 运行配置文件内容"></a>7.2 运行配置文件内容</h4><p>我们利用反射和配置文件，可以使：应用程序更新时，对源码无需进行任何修改</p>
+<p> 我们只需要将新类发送给客户端，并修改配置文件即可</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">className</span>=<span class="string">反射.调用配置文件</span></span><br><span class="line"><span class="attr">methodName</span>=<span class="string">show</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> 调用配置文件 </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;show&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException </span>&#123;</span><br><span class="line">        Class s=Class.forName(getValue(<span class="string">&quot;className&quot;</span>));</span><br><span class="line">        Object o1=s.getConstructor().newInstance(); <span class="comment">//获取实例</span></span><br><span class="line">        Method m=s.getMethod(getValue(<span class="string">&quot;methodName&quot;</span>));   <span class="comment">//获取show()方法</span></span><br><span class="line">        m.invoke(o1);                       <span class="comment">//调用</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getValue</span><span class="params">(String key)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//获取配置文件对象</span></span><br><span class="line">        Properties pro=<span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="comment">//pro获取流</span></span><br><span class="line">        FileReader fileReader=<span class="keyword">new</span> FileReader(<span class="string">&quot;Stream\\调用配置文件&quot;</span>);</span><br><span class="line">        pro.load(fileReader);</span><br><span class="line">        <span class="keyword">return</span> pro.getProperty(key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当我们升级这个系统时，不要Student类，而需要新写一个Student2的类时，这时只需要更改pro.txt的文件内容就可以了。代码就一点不用改动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">className &#x3D; cn.fanshe.Student2</span><br><span class="line">methodName &#x3D; show2</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02SQL%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -5361,168 +5596,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/09/11/01Html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/11/01Html/" class="post-title-link" itemprop="url">html</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-09-11T12:33:33+08:00">2020-09-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:43:39" itemprop="dateModified" datetime="2020-12-06T22:43:39+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>网页</strong>是放在服务器上一个文件，浏览网页时，文件会被下载电脑上，由浏览器解析</p>
-<p><strong>网站</strong>就是一个绑定了域名的文件夹，该文件夹中可以包含子文件夹以及各种各样的文件（网页），这些文件都可以通过域名来访问。</p>
-<h1 id="html"><a href="#html" class="headerlink" title="html"></a>html</h1><p>（1）有开始标签和结束标签</p>
-<p>（2）空标签《br/》==《br》《/br》 </p>
-<p>（3）不分大小写</p>
-<h2 id="head"><a href="#head" class="headerlink" title="head"></a>head</h2><p>《title》表示文档的标题</p>
-<p>《link》配合href属性引用外部CSS文件</p>
-<p>《style》内部编写CSS样式    </p>
-<p>《script》配合src属性引入外部javaScript文件</p>
-<p><strong>src</strong>   表示来源地址，用来引入地址中的内容，浏览器在解析引入文件时，会停止对后续文档的处理，直到 src 的内容加载完毕</p>
-<p><strong>href</strong> 表示超文本引用，href 属性中的内容只是与当前页面有关联，然后当前页面对它进行一次引用。</p>
-<h2 id="body"><a href="#body" class="headerlink" title="body"></a>body</h2><ul>
-<li><p>《p》标签用来表示一个段落，能容纳一段文本；</p>
-</li>
-<li><p>《a》标签用来表示一个超链接，用鼠标点击后可以跳转到其它网页；</p>
-</li>
-<li><p>《ul》《ol》标签用来表示一个列表，其中的每个 <li> 都是子标签，用来表示一个列表项。</p>
-</li>
-</ul>
-<h2 id="一、基本标签"><a href="#一、基本标签" class="headerlink" title="一、基本标签"></a>一、基本标签</h2><h3 id="1、文件标签"><a href="#1、文件标签" class="headerlink" title="1、文件标签"></a>1、文件标签</h3><p>body: text,bgcolor 背景颜色,background背景图片</p>
-<h3 id="2、排版标签"><a href="#2、排版标签" class="headerlink" title="2、排版标签"></a>2、排版标签</h3><!-- 注释文字 -->
-
-<p>换行&lt; br/&gt;</p>
-<p> 文段&lt; p&gt;  段与段之间存在空行</p>
-<p>​        属性align对齐方式left/center/right</p>
-<p>水平线：&lt; hr/&gt;  width/size/color/align</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		白日依山尽<span class="tag">&lt;<span class="name">br</span>&gt;</span>黄河入海流</span><br><span class="line">		<span class="tag">&lt;<span class="name">hr</span> <span class="attr">width</span>=<span class="string">&quot;500px&quot;</span> <span class="attr">align</span>=<span class="string">&quot;left&quot;</span><span class="attr">color</span>=<span class="string">&quot;blue&quot;</span> <span class="attr">size</span>=<span class="string">&quot;10&quot;</span>/&gt;</span> </span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span> <span class="attr">align</span>=<span class="string">&quot;left&quot;</span>&gt;</span>服务器一般放在专业的机<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span> <span class="attr">align</span>=<span class="string">&quot;right&quot;</span>&gt;</span>另外，为了让服务器<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- &lt;文字标签&gt; --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">font</span> <span class="attr">size</span>=<span class="string">&quot;4&quot;</span> <span class="attr">color</span>=<span class="string">&quot;seagreen&quot;</span>&gt;</span>哈哈哈<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">font</span> <span class="attr">size</span>=<span class="string">&quot;5&quot;</span> <span class="attr">color</span>=<span class="string">&quot;red&quot;</span>&gt;</span>哈哈哈<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">hr</span> &gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 标题自动换行 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span>&gt;</span>哈哈哈<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h2</span>&gt;</span>哈哈哈<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h3</span>&gt;</span>哈哈哈<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h4</span>&gt;</span>哈哈哈<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3、块标签"><a href="#3、块标签" class="headerlink" title="3、块标签"></a>3、块标签</h3><p>div 块级标签（独占一行或多行）</p>
-<p>span 行级标签（同一行，若同一行放不下才换行）</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;background-color: aquamarine;&quot;</span>&gt;</span></span><br><span class="line">    春眠不觉晓<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;background-color: blue;&quot;</span>&gt;</span></span><br><span class="line">    处处闻啼鸟</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;background-color: black;&quot;</span>&gt;</span>span1sssss<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;background-color: blue;&quot;</span>&gt;</span>span2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4、文字标签"><a href="#4、文字标签" class="headerlink" title="4、文字标签"></a>4、文字标签</h3><h4 id="（1）font"><a href="#（1）font" class="headerlink" title="（1）font"></a>（1）font</h4><p>color/size/face文字类型</p>
-<h4 id="（2）标题标签"><a href="#（2）标题标签" class="headerlink" title="（2）标题标签"></a>（2）标题标签</h4><p>h1–h6   随着数字的增大逐渐变小，字体是加粗的，内置字号 默认占据一行</p>
-<h3 id="5、列表标签"><a href="#5、列表标签" class="headerlink" title="5、列表标签"></a>5、列表标签</h3><h4 id="（1）无序标签-ul"><a href="#（1）无序标签-ul" class="headerlink" title="（1）无序标签 ul"></a>（1）无序标签 ul</h4><p>type：有三个值，分别为disc、 square和circle</p>
-<h4 id="（2）有序标签-ol"><a href="#（2）有序标签-ol" class="headerlink" title="（2）有序标签 ol"></a>（2）有序标签 ol</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 无序列表 unorderlist --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">ul</span> <span class="attr">type</span>=<span class="string">&quot;square&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">li</span>&gt;</span>苹果<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">li</span>&gt;</span>西瓜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">li</span>&gt;</span>葡萄<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 有序列表 orderlist --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">ol</span> <span class="attr">type</span>=<span class="string">&quot;1&quot;</span> <span class="attr">start</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">li</span>&gt;</span>苹果<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">li</span>&gt;</span>西瓜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">li</span>&gt;</span>葡萄<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">li</span>&gt;</span>香蕉<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">				</span><br><span class="line">			<span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="6、图形标签"><a href="#6、图形标签" class="headerlink" title="6、图形标签"></a>6、图形标签</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;image/1.jpg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;6000px&quot;</span> <span class="attr">height</span>=<span class="string">&quot;6000px&quot;</span> <span class="attr">border</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="7、链接标签"><a href="#7、链接标签" class="headerlink" title="7、链接标签"></a>7、链接标签</h3><p>a </p>
-<p>href:跳转页面地址</p>
-<p>name:名称，锚点</p>
-<p>target ：_self(自己)  _blank（新页面，之前的页面还有）</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://www.baidu.com&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_self&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">font</span> <span class="attr">size</span>=<span class="string">&quot;500&quot;</span> <span class="attr">color</span>=<span class="string">&quot;blue&quot;</span>&gt;</span>点击跳转到百度<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;images.html&quot;</span><span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span>&gt;</span>图片1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#bottom&quot;</span>&gt;</span>到达底部<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#middle&quot;</span>&gt;</span>到达中部<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"> 嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻<span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">name</span>=<span class="string">&quot;top&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="8、表格标签"><a href="#8、表格标签" class="headerlink" title="8、表格标签"></a>8、表格标签</h3><p>tr–th/td</p>
-<p>th标签默认居中，td标签默认靠左</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1&quot;</span> <span class="attr">width</span>=<span class="string">&quot;50%&quot;</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span> <span class="attr">bgcolor</span>=<span class="string">&quot;yellow&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">caption</span>&gt;</span>表标题<span class="tag">&lt;/<span class="name">caption</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 行标题th --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>学号<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>性别<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">align</span>=<span class="string">&quot;right&quot;</span>&gt;</span>2-1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">align</span>=<span class="string">&quot;left&quot;</span>&gt;</span>2-2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>2-3<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>2-1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>2-2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 跨行 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">rowspan</span>=<span class="string">&quot;2&quot;</span>&gt;</span>2-3<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 跨列 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">&quot;2&quot;</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span>3-1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="二、表单标签"><a href="#二、表单标签" class="headerlink" title="二、表单标签"></a>二、表单标签</h2><h3 id="form"><a href="#form" class="headerlink" title="form"></a>form</h3><p>name:表单名称、action:提交的路径地址、<strong>method:提交方式（get和post）</strong></p>
-<p><strong>form里面嵌套table</strong></p>
-<p><strong>get和post的区别</strong></p>
-<p>(1)get提交将数据加在地址栏的后面，格式?name=value&amp;name=value；post提交将数据封装在请求体中<br>    ?username=zhangsan&amp;password=123&amp;sex=male&amp;hobby=football&amp;hobby=paiqiu&amp;city=bj#</p>
-<p>(2)get提交相对不安全；post提交相对安全</p>
-<p>(3)get提交有大小限制，根据浏览器不同而不同；post不限制大小                            </p>
-<h3 id="2-1-input"><a href="#2-1-input" class="headerlink" title="2.1 input"></a>2.1 input</h3><p>type属性： text、password、radio、checkbox、file、button、submit、reset(重置按钮)、</p>
-<p>​                    image（图片按钮）</p>
-<p>​                    hidden  隐藏表单   作用是在<strong>提交数据的时候，服务器需要这个数据，但是不需要用户看到</strong>。</p>
-<p><strong>name属性一定要写</strong></p>
-<h3 id="2-2-select"><a href="#2-2-select" class="headerlink" title="2.2 select"></a>2.2 select</h3><p><strong>下拉框</strong></p>
-<p>name</p>
-<p>option可选项： value 表单项中的值、selected 默认被选中</p>
-<h3 id="2-3-testArea"><a href="#2-3-testArea" class="headerlink" title="2.3 testArea"></a>2.3 testArea</h3><p><strong>文本域</strong>，cols列数 rows 行数</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- method-&gt;get/post --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;selvet&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">table</span> &gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span> /&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				</span><br><span class="line">				<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span>密码<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;password&quot;</span> /&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				</span><br><span class="line">				<span class="comment">&lt;!-- 单选框 --&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span>性别<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">id</span>=<span class="string">&quot;male&quot;</span> /&gt;</span>男</span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">id</span>=<span class="string">&quot;female&quot;</span> <span class="attr">checked</span>=<span class="string">&quot;checked&quot;</span> /&gt;</span>女</span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				</span><br><span class="line">				<span class="comment">&lt;!-- 复选框 --&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						爱好</span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					</span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">id</span>=<span class="string">&quot;football&quot;</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span> <span class="attr">checked</span>=<span class="string">&quot;checked&quot;</span> /&gt;</span>足球</span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">id</span>=<span class="string">&quot;basketball&quot;</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span> /&gt;</span>篮球</span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">id</span>=<span class="string">&quot;baseball&quot;</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span> /&gt;</span>排球</span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				</span><br><span class="line">				<span class="comment">&lt;!-- 下拉框 --&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						地址</span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;city&quot;</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;beijing&quot;</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span> =<span class="string">&quot;shanghai&quot;</span> <span class="attr">selected</span>=<span class="string">&quot;selected&quot;</span>&gt;</span>上海<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span> =<span class="string">&quot;guangzhou&quot;</span>&gt;</span>广州<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">					</span><br><span class="line">						<span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;area&quot;</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;cp&quot;</span>&gt;</span>昌平区<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span> =<span class="string">&quot;haidin&quot;</span> <span class="attr">selected</span>=<span class="string">&quot;selected&quot;</span>&gt;</span>海淀区<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				</span><br><span class="line">				<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						邮箱</span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span>	</span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;普通输入框&quot;</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">					</span><br><span class="line">				<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span>上传头像<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">value</span>=<span class="string">&quot;file&quot;</span> /&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					</span><br><span class="line">				<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						备注</span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">textarea</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span>&gt;</span></span><br><span class="line">							write down your list</span><br><span class="line">						<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						</span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">value</span>=<span class="string">&quot;提交&quot;</span> /&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">value</span>=<span class="string">&quot;普通按钮&quot;</span> /&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">value</span>=<span class="string">&quot;重置&quot;</span> /&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						</span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;image&quot;</span> <span class="attr">src</span>=<span class="string">&quot;btn.gif&quot;</span> /&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">value</span>=<span class="string">&quot;20190101&quot;</span> /&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				</span><br><span class="line">			<span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="三、html框架"><a href="#三、html框架" class="headerlink" title="三、html框架"></a>三、html框架</h2><p>frameset 属性 rows/cols 划分格式： rows=”120,*”</p>
-<p>*表示其他</p>
-<p>frame  ：name/src</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">frameset</span> <span class="attr">rows</span>=<span class="string">&quot;120,450,*&quot;</span> <span class="attr">border</span>=<span class="string">&quot;10&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">frame</span> <span class="attr">src</span>=<span class="string">&quot;http://www.baidu.com&quot;</span> &gt;</span><span class="tag">&lt;<span class="name">frame</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">frameset</span> <span class="attr">cols</span>=<span class="string">&quot;120,*&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">frame</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">frame</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span> &gt;</span><span class="tag">&lt;<span class="name">frame</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">frameset</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">frame</span> <span class="attr">src</span>=<span class="string">&quot;http://www.qq.com&quot;</span> &gt;</span>&lt;/frame/&gt;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">frameset</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>iframe</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span>&gt;</span>内部框架<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;http://www.baidu.com&quot;</span> <span class="attr">width</span>=<span class="string">&quot;300px&quot;</span> <span class="attr">height</span>=<span class="string">&quot;200px&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="四、特殊字符"><a href="#四、特殊字符" class="headerlink" title="四、特殊字符"></a>四、特殊字符</h2><p>&amp;nbsp:空格、&amp;qt：大于号 &amp;lt小于号、&amp;copy版权符号 、&amp;reg注册符号</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		首页<span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;gt;</span><span class="symbol">&amp;nbsp;</span>旅游<span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;lt;</span>图书列表</span><br><span class="line">		<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">			<span class="symbol">&amp;copy;</span>copyright 广州<span class="symbol">&amp;reg;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">©copyright 广州®</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -5592,7 +5665,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -5645,12 +5718,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">495k</span>
+    <span title="站点总字数">511k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:30</span>
+    <span title="站点阅读时长">7:45</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
