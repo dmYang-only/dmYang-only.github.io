@@ -185,6 +185,141 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/10/17/Redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/17/Redis/" class="post-title-link" itemprop="url">redis</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-17 23:33:33" itemprop="dateCreated datePublished" datetime="2020-10-17T23:33:33+08:00">2020-10-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-20 23:57:10" itemprop="dateModified" datetime="2020-12-20T23:57:10+08:00">2020-12-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>28k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>25 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1、非关系型数据库"><a href="#1、非关系型数据库" class="headerlink" title="1、非关系型数据库"></a>1、非关系型数据库</h1><p>NoSql：Not-only SQL(泛指非关系型数据库)，作为关系型数据库的补充</p>
+<ul>
+<li><p>redis</p>
+</li>
+<li><p>MongoDB: Bson格式</p>
+</li>
+</ul>
+<p>作用：应对基于海量用户和海量数据前提下的数据处理问题</p>
+<p>特征</p>
+<ul>
+<li>可扩容，可伸缩</li>
+<li>大数据量下高性能</li>
+<li>灵活的数据模型</li>
+<li>高可用</li>
+</ul>
+<img src="https://csn.damyoung.cn/image-20201027195426479.png" alt="image-20201027195426479" style="zoom:80%;" />
+
+<h1 id="2、Redis数据类型"><a href="#2、Redis数据类型" class="headerlink" title="2、Redis数据类型"></a>2、Redis数据类型</h1><p>Redis提供了<code>String</code>,<code>Hash</code>,<code>List</code>,<code>Set</code>,<code>Zset</code>五种数据类型</p>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p><code>String</code>数据结构是最简单的<code>key-value</code>类型，<code>value</code>不仅可以是<code>String</code>,也可以是数字，包括整数，浮点数和二进制数。</p>
+<p>主要的应用有：缓存，计数（比如用户的访问次数、热点文章的点赞转发数量等等），共享<code>session</code>和限速。</p>
+<p>内部编码主要有：</p>
+<ul>
+<li><code>int</code>:8个字节的长整型</li>
+<li><code>embstr</code>:小于等于39个字节的字符串</li>
+<li><code>raw</code>:大于39个字节的字符</li>
+</ul>
+<h3 id="各个指令的时间复杂度"><a href="#各个指令的时间复杂度" class="headerlink" title="各个指令的时间复杂度"></a>各个指令的时间复杂度</h3><h4 id="单数据操作O-1"><a href="#单数据操作O-1" class="headerlink" title="单数据操作O(1)"></a>单数据操作O(1)</h4><ul>
+<li><strong>set</strong>：为一个 key 设置 value，可以配合 EX/PX 参数指定 key 的有效期，通过 NX/XX 参数针对 key 是否存在的情况进行区别操作，时间复杂度 <code>O(1)</code></li>
+<li><strong>get</strong>：获取某个 key 对应的 value，时间复杂度 <code>O(1)</code></li>
+<li><strong>getset</strong>：为一个 key 设置 value，并返回该 key 的<strong>原 value</strong>，时间复杂度 <code>O(1)</code></li>
+</ul>
+<h4 id="多数据操作O-N"><a href="#多数据操作O-N" class="headerlink" title="多数据操作O(N)"></a>多数据操作O(N)</h4><ul>
+<li><strong>mset</strong>：为多个 key 设置 value，时间复杂度 <code>O(N)</code></li>
+<li><strong>msetnx</strong>：同 MSET，如果指定的 key 中有任意一个已存在，则不进行任何操作，时间复杂度 <code>O(N)</code></li>
+<li><strong>mget</strong>：获取多个 key 对应的 value，时间复杂度 <code>O(N)</code></li>
+</ul>
+<h4 id="自增-减O-1"><a href="#自增-减O-1" class="headerlink" title="自增/减O(1)"></a>自增/减O(1)</h4><ul>
+<li><strong>incr</strong>：将 key 对应的 value 值自增1，并返回自增后的值。只对可以<strong>转换为整型</strong>的 String 数据起作用。时间复杂度 <code>O(1)</code></li>
+<li><strong>incrby</strong>：将 key 对应的 value 值自增指定的整型数值，并返回自增后的值。只对可以转换为整型的 String 数据起作用。时间复杂度 <code>O(1)</code></li>
+<li><strong>decr/decrby</strong>：同 INCR/INCRBY，自增改为自减。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/17/Redis/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/09/11/01Html/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2221,20 +2356,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2274,12 +2409,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">511k</span>
+    <span title="站点总字数">520k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:45</span>
+    <span title="站点阅读时长">7:53</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>
