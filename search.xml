@@ -11903,13 +11903,13 @@
 <ul>
 <li><strong>常数阶O(1)&lt;O(log 2 n)&lt;O(n)&lt;O(nlog2n)&lt;O(n2)&lt;O(n3)&lt;O(2^n)&lt;阶乘O(n!)</strong></li>
 </ul>
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200905224810577.png" alt="image-20200905224810577"></p>
+<p><img src="https://csn.damyoung.cn/image-20200905224810577.png" alt="image-20200905224810577"></p>
 <p>O(n):线性阶for循环</p>
 <p>O(nlog2n):线性对数阶</p>
 <p>O(n^2):平方阶</p>
 <a id="more"></a>
 
-<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20200908232939363.png" alt="image-20200908232939363"></p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p><img src="https://csn.damyoung.cn/image-20200908232939363.png" alt="image-20200908232939363"></p>
 <p><strong>还取决于n的规模</strong></p>
 <p>冒泡、选择、插入排序：O(n^2)</p>
 <p>希尔、归并、快速排序：O(nlog2n)</p>
@@ -12040,7 +12040,7 @@
 <li>等于 pivot 的元素</li>
 <li>大于 pivot 的元素。这种处理方式，会大大节省递归次数</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/2510824-dab14d648daa9ef1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/820/format/webp" alt="img"></p>
+<p><img src="https://csn.damyoung.cn/2510824-dab14d648daa9ef1.png" alt="img"></p>
 <p><strong>算法思路：</strong></p>
 <ol>
 <li><p>由于最初红色和蓝色区域没有元素，初始化 <code>less = left - 1，more = right + 1，cur = left</code>。整个区间为未知部分（白色</p>
