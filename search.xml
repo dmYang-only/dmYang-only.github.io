@@ -12378,6 +12378,7 @@
         <category>Linux</category>
       </categories>
       <tags>
+        <tag>MySql</tag>
         <tag>linux</tag>
       </tags>
   </entry>
@@ -12971,6 +12972,95 @@
         <category>Linux</category>
       </categories>
       <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux安装redis</title>
+    <url>/2020/10/11/04Redis%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h4 id="Linux安装redis"><a href="#Linux安装redis" class="headerlink" title="Linux安装redis"></a>Linux安装redis</h4><blockquote>
+<p>下载redis安装包</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>解压</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tar -zxvf redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>安装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd redis-4.0.8</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>还需要安装gcc编译     </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install -y gcc</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>出现fatal error</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">make MALLOC&#x3D;libc</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启动服务</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd src </span><br><span class="line">.&#x2F;redis-server&amp; &#x2F;&#x2F;启动服务</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>关闭服务</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;redis-cli shutdown</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启动客户端</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;redis-cli</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>启动多台redis服务</strong></p>
+<p>1、改端口号</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;redis-server --port 6380</span><br><span class="line"></span><br><span class="line"> .&#x2F;redis-cli -p 6380</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2、配置文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat redis.conf |grep -v &quot;#&quot; |grep -v &quot;^$&quot;&gt;redis-6379.conf</span><br><span class="line">vim redis-6379.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201101103021970.png" alt="image-20201101103021970"></p>
+<p><strong>ps -ef</strong> #用标准的格式显示进程</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查看是否存在redis服务</span><br><span class="line">ps -ef| grep redis-</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;配置文件启动服务端</span><br><span class="line">.&#x2F;redis-cli </span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改redis.conf</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@VM_0_10_centos redis-5.0.5]# vim &#x2F;usr&#x2F;local&#x2F;redis&#x2F;redis.conf</span><br><span class="line"># 注释掉bind 127.0.0.1</span><br><span class="line"># bind 127.0.0.1</span><br><span class="line"></span><br><span class="line"># 取消ip绑定 更改 yes 为 no</span><br><span class="line">protected-mode no</span><br><span class="line"></span><br><span class="line"># 开启守护进程 更改 no 为 yes</span><br><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
+
+<p>检查redis服务是否启动</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ps -ef|grep redis</span><br></pre></td></tr></table></figure>
+
+<p>启动，并指定配置文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;redis</span><br><span class="line"> .&#x2F;bin&#x2F;redis-server .&#x2F;redis.conf(第一个)</span><br></pre></td></tr></table></figure>
+
+<p>本地客户端连接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;redis-cli</span><br></pre></td></tr></table></figure>
+
+<p>redis服务关闭</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;redis-cli shutdown</span><br></pre></td></tr></table></figure>
+
+<p>开放云服务端口</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">./bin/redis-cli -h <span class="number">49.</span>ip.ip<span class="number">.2</span> -p <span class="number">6379</span> -a 密码</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
         <tag>linux</tag>
       </tags>
   </entry>

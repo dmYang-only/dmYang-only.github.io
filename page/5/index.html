@@ -646,7 +646,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-28 01:04:20" itemprop="dateModified" datetime="2020-12-28T01:04:20+08:00">2020-12-28</time>
+                <time title="修改时间：2020-12-28 01:10:37" itemprop="dateModified" datetime="2020-12-28T01:10:37+08:00">2020-12-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1404,6 +1404,170 @@
 <li><p>替换：:ab x1 x2。可以用x1代替x2显示</p>
 </li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/10/11/04Redis%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/11/04Redis%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">Linux安装redis</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-11 14:14:03" itemprop="dateCreated datePublished" datetime="2020-10-11T14:14:03+08:00">2020-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-28 01:10:22" itemprop="dateModified" datetime="2020-12-28T01:10:22+08:00">2020-12-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Linux安装redis"><a href="#Linux安装redis" class="headerlink" title="Linux安装redis"></a>Linux安装redis</h4><blockquote>
+<p>下载redis安装包</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>解压</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>安装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd redis-4.0.8</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>还需要安装gcc编译     </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gcc</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>出现fatal error</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make MALLOC&#x3D;libc</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启动服务</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd src </span><br><span class="line">.&#x2F;redis-server&amp; &#x2F;&#x2F;启动服务</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>关闭服务</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis-cli shutdown</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启动客户端</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis-cli</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>启动多台redis服务</strong></p>
+<p>1、改端口号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis-server --port 6380</span><br><span class="line"></span><br><span class="line"> .&#x2F;redis-cli -p 6380</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2、配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat redis.conf |grep -v &quot;#&quot; |grep -v &quot;^$&quot;&gt;redis-6379.conf</span><br><span class="line">vim redis-6379.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201101103021970.png" alt="image-20201101103021970"></p>
+<p><strong>ps -ef</strong> #用标准的格式显示进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;查看是否存在redis服务</span><br><span class="line">ps -ef| grep redis-</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;配置文件启动服务端</span><br><span class="line">.&#x2F;redis-cli </span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改redis.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_10_centos redis-5.0.5]# vim &#x2F;usr&#x2F;local&#x2F;redis&#x2F;redis.conf</span><br><span class="line"># 注释掉bind 127.0.0.1</span><br><span class="line"># bind 127.0.0.1</span><br><span class="line"></span><br><span class="line"># 取消ip绑定 更改 yes 为 no</span><br><span class="line">protected-mode no</span><br><span class="line"></span><br><span class="line"># 开启守护进程 更改 no 为 yes</span><br><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
+
+<p>检查redis服务是否启动</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep redis</span><br></pre></td></tr></table></figure>
+
+<p>启动，并指定配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;redis</span><br><span class="line"> .&#x2F;bin&#x2F;redis-server .&#x2F;redis.conf(第一个)</span><br></pre></td></tr></table></figure>
+
+<p>本地客户端连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;redis-cli</span><br></pre></td></tr></table></figure>
+
+<p>redis服务关闭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;redis-cli shutdown</span><br></pre></td></tr></table></figure>
+
+<p>开放云服务端口</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/redis-cli -h <span class="number">49.</span>ip.ip<span class="number">.2</span> -p <span class="number">6379</span> -a 密码</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -2518,363 +2682,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/08/11/05%E5%B8%B8%E8%A7%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/11/05%E5%B8%B8%E8%A7%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-08-11T12:33:33+08:00">2020-08-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:17:24" itemprop="dateModified" datetime="2020-12-17T13:17:24+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、创建型模式"><a href="#一、创建型模式" class="headerlink" title="一、创建型模式"></a>一、创建型模式</h2><h3 id="1、单例模式"><a href="#1、单例模式" class="headerlink" title="1、单例模式"></a><strong>1</strong>、单例模式</h3><p>Singleton</p>
-<blockquote>
-<p>一个类只有一个实例，且该类能自行创建这个实例的一种模式</p>
-</blockquote>
-<p><strong>特点</strong></p>
-<blockquote>
-<ul>
-<li>私有的构造方法，外部不能直接创建该类的实例</li>
-</ul>
-</blockquote>
-<p><strong>应用</strong></p>
-<blockquote>
-<ul>
-<li>某类只要求生成一个对象，对象需要被共享的场合</li>
-<li>当某类需要频繁实例化，而创建的对象又频繁被销毁的时候</li>
-</ul>
-<p>​    如多线程的线程池、tomcat连接池等</p>
-</blockquote>
-<h4 id="1-1-懒汉式"><a href="#1-1-懒汉式" class="headerlink" title="1.1 懒汉式"></a>1.1 懒汉式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Lhan</span></span>&#123;</span><br><span class="line">    <span class="comment">//私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Lhan</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Lhan instance=<span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Lhan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//balking模式</span></span><br><span class="line">        <span class="keyword">if</span>(instance!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">        instance=<span class="keyword">new</span> Lhan();</span><br><span class="line">        returen instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>多次调用都会调用Synchronized锁，性能较低。</li>
-</ul>
-<h4 id="1-2-饿汉式"><a href="#1-2-饿汉式" class="headerlink" title="1.2 饿汉式"></a>1.2 饿汉式</h4><blockquote>
-<p>实例在初始化的时候已经创建，<strong>JVM在加载类的时候是单线程的，由于实例被static修饰</strong>，故没有线程安全的问题</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Ehan</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="comment">//私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Ehan</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Lhan instance=<span class="keyword">new</span> Ehan();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Ehan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        returen instance;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//防止反序列化破坏单例</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">readResolve</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>final–防止子类继承覆盖，破坏单例</li>
-<li>构造方法私有，防止创建新的实例，但不能防止反射创建新的实例</li>
-<li>static修饰在加载类时创建，JVM在加载类的时候是单线程，可以保证是线程安全的。</li>
-<li><strong>方法封装提供一些懒惰的初始化，提供泛型的支持</strong></li>
-</ul>
-<h4 id="1-3-双检锁式"><a href="#1-3-双检锁式" class="headerlink" title="1.3 双检锁式"></a>1.3 双检锁式</h4><blockquote>
-<p>特点是在synchronized关键字内外都加了一层 if 条件判断</p>
-<p>既保证了线程安全，又比直接上锁提高了执行效率，还节省了内存空间</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="comment">//私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Lhan</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton instance=<span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(Singleton.class)&#123;</span><br><span class="line">                <span class="comment">//防止并发下，单例对象不会被重复创建。</span></span><br><span class="line">                <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">                    <span class="comment">//当t1到达这里，未实例化null</span></span><br><span class="line">                    instance=<span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>双重if，防止并发条件下，单例对象不会被重复创建。</li>
-</ul>
-<h4 id="1-4-静态内部类"><a href="#1-4-静态内部类" class="headerlink" title="1.4 静态内部类"></a>1.4 静态内部类</h4><blockquote>
-<p>实例化设置为静态内部类的一个静态属性。</p>
-<p>只适用于静态域的情况，双检锁方式可在实例域需要延迟初始化时使用。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE=<span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>第一次使用时，才会触发类加载操作的，故属于懒汉式</p>
-</li>
-<li><p>类加载时JVM是单线程的，无线程安全问题。</p>
-</li>
-</ul>
-<h4 id="1-5-枚举单例"><a href="#1-5-枚举单例" class="headerlink" title="1.5 枚举单例"></a>1.5 枚举单例</h4><blockquote>
-<p>可为饿汉式的改进</p>
-<p>自动支持序列化机制，绝对防止多次实例化。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="comment">//实例化</span></span><br><span class="line">    INSTANCE;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;枚举单例&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Singleton instance = Singleton.INSTANCE;</span><br><span class="line">    instance.get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>枚举实例是静态的，创建时线程安全</li>
-<li>不能被反射破坏单例</li>
-<li>枚举类默认实现序列化接口，不会被反序列破坏单例</li>
-<li>属于饿汉式单例</li>
-</ul>
-<h3 id="2、原型模式"><a href="#2、原型模式" class="headerlink" title="2、原型模式"></a>2、原型模式</h3><blockquote>
-<p>Prototype</p>
-<p><strong>用一个已经创建的实例作为原型，通过拷贝这些原型创建新的对象</strong></p>
-<p>Object类clone()方法提供了浅克隆，实现Cloneable接口实现浅克隆</p>
-</blockquote>
-<p><strong>应用</strong></p>
-<ul>
-<li>对象的创建过程比较麻烦，但复制比较简单</li>
-<li>对象之间相同或相似，仅有个别属性不同</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        Dog dog=<span class="keyword">new</span> Dog();</span><br><span class="line">        dog.id=<span class="keyword">this</span>.id;</span><br><span class="line">        dog.name=<span class="keyword">this</span>.name;</span><br><span class="line">        <span class="keyword">return</span> dog;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Dog dog=<span class="keyword">new</span> Dog();</span><br><span class="line"><span class="comment">//需要强转</span></span><br><span class="line">Dog clone = (Dog) dog.clone();</span><br><span class="line">System.out.println(dog);</span><br><span class="line">System.out.println(clone);</span><br></pre></td></tr></table></figure>
-
-<p><strong>改进</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> score;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Student <span class="title">copy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Student std = <span class="keyword">new</span> Student();</span><br><span class="line">        std.id = <span class="keyword">this</span>.id;</span><br><span class="line">        std.name = <span class="keyword">this</span>.name;</span><br><span class="line">        std.score = <span class="keyword">this</span>.score;</span><br><span class="line">        <span class="keyword">return</span> std;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3、工厂模式"><a href="#3、工厂模式" class="headerlink" title="3、工厂模式"></a>3、工厂模式</h3><h4 id="3-1-简单工厂模式"><a href="#3-1-简单工厂模式" class="headerlink" title="3.1 简单工厂模式"></a>3.1 简单工厂模式</h4><blockquote>
-<ul>
-<li>将全部创建逻辑集中到了一个工厂类中；</li>
-<li>它所能创建的类只能是事先考虑到的，如果需要添加新的类，则就需要改变工厂类了，而增加、删除某个子类对象的创建都需要打开简单工厂类来进行修改违背了开闭原则。</li>
-<li>又称为<strong>静态工厂模式</strong></li>
-</ul>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">interface</span> <span class="title">Oberation</span></span>&#123;</span><br><span class="line"> 	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA,<span class="keyword">double</span> numberB)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//具体实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Add</span> <span class="keyword">implements</span> <span class="title">Operation</span></span>&#123;</span><br><span class="line">    <span class="comment">// 加法计算</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA, <span class="keyword">double</span> numberB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> numberA + numberB;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sub</span> <span class="keyword">implements</span> <span class="title">Operation</span></span>&#123;</span><br><span class="line">    <span class="comment">// 减法计算</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA, <span class="keyword">double</span> numberB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> numberA-numberB;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//定义简单工厂类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleFatory</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 简单工厂，根据字符串创建相应的对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Operation <span class="title">createOperation</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        Operation operationObj = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (name) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;+&quot;</span>:</span><br><span class="line">                operationObj = <span class="keyword">new</span> Add();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;-&quot;</span>:</span><br><span class="line">                operationObj = <span class="keyword">new</span> Sub();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">     	&#125;</span><br><span class="line">     	<span class="keyword">return</span> operationObj;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Opera</span></span>&#123;</span><br><span class="line">    Operation op=SimpleFatort.createOperation(<span class="string">&quot;+&quot;</span>);</span><br><span class="line">    op.getResult(<span class="number">3</span>,<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="3-2-工厂方法模式"><a href="#3-2-工厂方法模式" class="headerlink" title="3.2 工厂方法模式"></a>3.2 工厂方法模式</h4><blockquote>
-<ul>
-<li>用户只需要知道具体工厂的名称就可得到所要的产品，无须知道产品的具体创建过程；</li>
-<li>在系统增加新的产品时只需要添加具体产品类和对应的具体工厂类，无须对原工厂进行任何修改，满足开闭原则</li>
-</ul>
-</blockquote>
-<blockquote>
-<ol>
-<li>抽象工厂（Abstract Factory）：提供了创建产品的接口，调用者通过它访问具体工厂的工厂方法 newProduct() 来创建产品。</li>
-<li>具体工厂（ConcreteFactory）：主要是实现抽象工厂中的抽象方法，完成具体产品的创建。</li>
-<li>抽象产品（Product）：定义了产品的规范，描述了产品的主要特性和功能。</li>
-<li>具体产品（ConcreteProduct）：实现了抽象产品角色所定义的接口，由具体工厂来创建，它同具体工厂之间一一对应。</li>
-</ol>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//工厂抽象接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Operation <span class="title">createOperation</span><span class="params">()</span> </span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//产品抽象接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Operation</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA,<span class="keyword">double</span> numberB)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加法类工厂</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AddFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Operation <span class="title">createOperation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;加法运算&quot;</span>);</span><br><span class="line">        <span class="comment">//加法对象</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 减法类工厂</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Operation <span class="title">createOperation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;减法运算&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Sub();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Add</span> <span class="keyword">implements</span> <span class="title">Operation</span></span>&#123;</span><br><span class="line">    <span class="comment">// 加法计算</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA, <span class="keyword">double</span> numberB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> numberA + numberB;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sub</span> <span class="keyword">implements</span> <span class="title">Operation</span></span>&#123;</span><br><span class="line">    <span class="comment">// 减法计算</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getResult</span><span class="params">(<span class="keyword">double</span> numberA, <span class="keyword">double</span> numberB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> numberA-numberB;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 使用反射机制实例化工厂对象，因为字符串是可以通过变量改变的</span></span><br><span class="line">        Factory addFactory = (Factory) Class.forName(<span class="string">&quot;org.zero01.factory.AddFactory&quot;</span>).newInstance();</span><br><span class="line">        Factory subFactory=(Factory) Class.forName(<span class="string">&quot;org.zero01.factory.SubFactory&quot;</span>).newInstance();</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 通过工厂对象创建相应的实例对象</span></span><br><span class="line">        Operation add = addFactory.createOperation();</span><br><span class="line">        Operation sub = subFactory.createOperation();</span><br><span class="line"> </span><br><span class="line">        System.out.println(add.getResult(<span class="number">1</span>, <span class="number">1</span>));</span><br><span class="line">        System.out.println(sub.getResult(<span class="number">1</span>, <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>应用</strong></p>
-<blockquote>
-<ul>
-<li>客户只知道创建产品的工厂名，而不知道具体的产品名。如 TCL 电视工厂、海信电视工厂等。</li>
-<li>创建对象的任务由多个具体子工厂中的某一个完成，而抽象工厂只提供创建产品的接口。</li>
-<li>客户不关心创建产品的细节，只关心产品的品牌。</li>
-</ul>
-</blockquote>
-<h4 id="3-3-抽象工厂模式"><a href="#3-3-抽象工厂模式" class="headerlink" title="3.3 抽象工厂模式"></a>3.3 抽象工厂模式</h4><blockquote>
-<p>抽象工厂模式将考虑多等级产品的生产，将同一个具体工厂所生产的位于不同等级的一组产品称为一个产品族</p>
-<p><strong>应用</strong></p>
-<ul>
-<li>系统中有多个产品族，每个具体工厂创建同一族但属于不同等级结构的产品。</li>
-<li>系统一次只可能消费其中某一族产品，即同族的产品一起使用。</li>
-</ul>
-<p><strong>优点</strong></p>
-<ul>
-<li>可以在类的内部对产品族中相关联的多等级产品共同管理，而不必专门引入多个新的类来进行管理。</li>
-<li>当增加一个<strong>新的产品族</strong>时不需要修改原代码，满足开闭原则。</li>
-<li>但当产品族中需要增加一个<strong>新种类的产品</strong>时，则所有的工厂类都需要进行修改，不满足开闭原则。</li>
-</ul>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Horse</span> <span class="keyword">implements</span> <span class="title">Aniaml</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Plant</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fruitage</span> <span class="keyword">implements</span> <span class="title">Plant</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象工厂</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Farm</span></span>&#123;</span><br><span class="line">    <span class="comment">//Animal产品</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animal <span class="title">newAnimal</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//Plant产品</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Plant <span class="title">newPlant</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SGfarm</span> <span class="keyword">implements</span> <span class="title">Farm</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animal <span class="title">newAnimal</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Cattle();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Plant <span class="title">newPlant</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Vegetables();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="二、结构型模式"><a href="#二、结构型模式" class="headerlink" title="二、结构型模式"></a>二、结构型模式</h2><h3 id="1、享元模式"><a href="#1、享元模式" class="headerlink" title="1、享元模式"></a>1、享元模式</h3><blockquote>
-<p><strong>重用数量有限的同一类对象</strong></p>
-</blockquote>
-<h4 id="1-1-体现"><a href="#1-1-体现" class="headerlink" title="1.1 体现"></a>1.1 体现</h4><p><strong>包装类</strong></p>
-<p>Long.valueOf(long l) 避免重复数量的重复创建。-128~127</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">valueOf</span><span class="params">(<span class="keyword">long</span> l)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> offset = <span class="number">128</span>;</span><br><span class="line">    <span class="keyword">if</span> (l &gt;= -<span class="number">128</span> &amp;&amp; l &lt;= <span class="number">127</span>) &#123; <span class="comment">// will cache</span></span><br><span class="line">        <span class="keyword">return</span> LongCache.cache[(<span class="keyword">int</span>)l + offset];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Long(l);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="1-2-自定义线程池"><a href="#1-2-自定义线程池" class="headerlink" title="1.2 自定义线程池"></a>1.2 自定义线程池</h4><blockquote>
-<p>一次请求到达后，从连接池获取连接，使用完毕再还回连接池。</p>
-<p>节约了连接的创建和关闭时间，也实现了<strong>连接的复用</strong>，不至于让庞大的连接数压垮数据库</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Pool pool=<span class="keyword">new</span> Pool(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            Connection connection=pool.borrow();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">1000</span>));</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            pool.free(connection);</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pool</span></span>&#123;</span><br><span class="line">    <span class="comment">//1.连接池大小</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> poolSize;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2.连接对象 数组</span></span><br><span class="line">    <span class="keyword">private</span> Connection[] connections;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//3.连接状态数组 0表示空闲 1表示繁忙</span></span><br><span class="line">    <span class="keyword">private</span> AtomicIntegerArray state;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pool</span><span class="params">(<span class="keyword">int</span> poolSize)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.poolSize = poolSize;</span><br><span class="line">        <span class="keyword">this</span>.connections = <span class="keyword">new</span> Connection[poolSize];</span><br><span class="line">        <span class="keyword">this</span>.state = <span class="keyword">new</span> AtomicIntegerArray(<span class="keyword">new</span> <span class="keyword">int</span>[poolSize]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;poolSize ; i++) &#123;</span><br><span class="line">            connections[i]=<span class="keyword">new</span> MockConnection();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//借连接</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Connection <span class="title">borrow</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;poolSize; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (state.get(i)==<span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="comment">//CAS</span></span><br><span class="line">                    <span class="keyword">if</span> (state.compareAndSet(i,<span class="number">0</span>,<span class="number">1</span>))&#123;</span><br><span class="line">                        <span class="keyword">return</span> connections[i];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//如果没有空闲连接，当前线程进入等待！！！</span></span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="keyword">this</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">this</span>.wait();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//归还连接</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">free</span><span class="params">(Connection connection)</span></span>&#123;</span><br><span class="line">        <span class="comment">//判断归还的连接对象是否为连接池的连接！！！</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;poolSize; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (connections[i]==connection) &#123;</span><br><span class="line">                state.set(i,<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">synchronized</span> (<span class="keyword">this</span>)&#123;</span><br><span class="line">                    <span class="comment">//唤醒wait线程</span></span><br><span class="line">                    <span class="keyword">this</span>.notifyAll();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockConnection</span> <span class="keyword">implements</span> <span class="title">Connection</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2、适配器模式"><a href="#2、适配器模式" class="headerlink" title="2、适配器模式"></a>2、适配器模式</h3><blockquote>
-<p>Adapter</p>
-<p><strong>将一个类的接口转换成另一个接口，使得原本接口不兼容而不能工作的类可以工作</strong></p>
-<p><code>InputStreamReader</code>、<code>Array.asList(T[])</code></p>
-</blockquote>
-<h5 id="2-1-自定义适配器"><a href="#2-1-自定义适配器" class="headerlink" title="2.1 自定义适配器"></a>2.1 <strong>自定义适配器</strong></h5><blockquote>
-<p>由于new Thread(Runnable runnable)，不能接收Callable接口，可以使用适配器。</p>
-</blockquote>
-<p><strong>适配器构建</strong></p>
-<ul>
-<li>实现目标接口Runnable</li>
-<li>内部进行接口转化，Callable</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Task</span> <span class="keyword">implements</span> <span class="title">Callable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            System.out.println(sum+=i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RunnableAdapter</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Callable callable;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RunnableAdapter</span><span class="params">(Callable callable)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.callable=callable;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            callable.call();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Task task=<span class="keyword">new</span> Task();</span><br><span class="line">    Thread thread=<span class="keyword">new</span> Thread(<span class="keyword">new</span> RunnableAdapter(task));</span><br><span class="line">    thread.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="2-2-API使用"><a href="#2-2-API使用" class="headerlink" title="2.2 API使用"></a>2.2 API使用</h5><blockquote>
-<p>string[] ==&gt; Set的构造方法需要一个集合</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashSet</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</span><br><span class="line">    map = <span class="keyword">new</span> HashMap&lt;&gt;(Math.max((<span class="keyword">int</span>) (c.size()/<span class="number">.75f</span>) + <span class="number">1</span>, <span class="number">16</span>));</span><br><span class="line">    addAll(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] strings=&#123;<span class="string">&quot;ag&quot;</span>,<span class="string">&quot;sa&quot;</span>,<span class="string">&quot;sfd&quot;</span>&#125;;</span><br><span class="line">HashSet&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;(Arrays.asList(strings));</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>InputStream==Reader</p>
-<ul>
-<li>要求使用字符流，而只提供字节流</li>
-</ul>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">InputStream inputStream=<span class="keyword">new</span> FileInputStream(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">Reader reader=<span class="keyword">new</span> InputStreamReader(inputStream);</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3、代理模式"><a href="#3、代理模式" class="headerlink" title="3、代理模式"></a>3、代理模式</h3><blockquote>
-<p>Proxy</p>
-<p><strong>为其他对象提供一种代理以控制对这个对象的访问</strong></p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> AProxy implements A&#123;</span><br><span class="line">	<span class="keyword">private</span> A a;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">AProxy</span><span class="params">(A a)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.a=a;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">a</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (getCurrentUser().isRoot()) &#123;</span><br><span class="line">        	<span class="keyword">this</span>.a.a();</span><br><span class="line">   		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        	<span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">&quot;Forbidden&quot;</span>);</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>优点</strong></p>
-<ul>
-<li>在客户端与目标对象之间起到一个中介作用和保护目标对象的作用</li>
-<li>扩展目标对象的功能</li>
-<li>将客户端与目标对象分离，在一定程度上降低了系统的耦合度，增加程序的可扩展性</li>
-</ul>
-<p><strong>代理类型</strong></p>
-<p>远程代理：把对接口的方法访问转换成远程调用，返回结果</p>
-<p>虚代理：先让调用者先持有一个代理对象，真正的对象尚未创建。</p>
-<p>保护代理：用代理对象控制对原始对象的访问，用于鉴权</p>
-<p>​    </p>
-<h3 id="4、装饰器模式"><a href="#4、装饰器模式" class="headerlink" title="4、装饰器模式"></a>4、装饰器模式</h3><blockquote>
-<p>decorator</p>
-<p><strong>动态的给对象添加一些额外的职责</strong></p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">             ┌───────────┐</span><br><span class="line">             │ Component │</span><br><span class="line">             └───────────┘</span><br><span class="line">                   ▲</span><br><span class="line">      ┌────────────┼─────────────────┐</span><br><span class="line">      │            │                 │</span><br><span class="line">┌───────────┐┌───────────┐     ┌───────────┐</span><br><span class="line">│ComponentA ││ComponentB │...  │ Decorator │</span><br><span class="line">└───────────┘└───────────┘     └───────────┘</span><br><span class="line">                                     ▲</span><br><span class="line">                              ┌──────┴──────┐</span><br><span class="line">                              │             │</span><br><span class="line">                        ┌───────────┐ ┌───────────┐</span><br><span class="line">                        │DecoratorA │ │DecoratorB │...</span><br><span class="line">                        └───────────┘ └───────────┘</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>把核心功能和附加功能给分开了</strong></p>
-<p>核心功能指<code>FileInputStream</code>这些真正读数据的源头，附加功能指加缓冲、压缩、解密这些功能。</p>
-<p>新增核心功能，就增加Component的子类，例如<code>ByteInputStream</code>。</p>
-<p>增加附加功能，就增加Decorator的子类，例如<code>CipherInputStream</code>。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建原始的数据源:</span></span><br><span class="line">InputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;test.gz&quot;</span>);</span><br><span class="line"><span class="comment">// 增加缓冲功能:</span></span><br><span class="line">InputStream bis = <span class="keyword">new</span> BufferedInputStream(fis);</span><br><span class="line"><span class="comment">// 增加解压缩功能:</span></span><br><span class="line">InputStream gis = <span class="keyword">new</span> GZIPInputStream(bis);</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="三、行为型模式"><a href="#三、行为型模式" class="headerlink" title="三、行为型模式"></a>三、行为型模式</h2><h3 id="1、责任链模式"><a href="#1、责任链模式" class="headerlink" title="1、责任链模式"></a>1、责任链模式</h3><blockquote>
-<p>chain of Responsibility</p>
-<p>使多个对象都有机会处理请求，将这些对象连成一条链，并沿着这条链传递请求，直到有一个对象处理它为止，避免请求的发送者与接收者之间的耦合关系。</p>
-</blockquote>
-<blockquote>
-<p>当每个Handler都做一些工作，处理request,通常这些责任链被称为拦截器、过滤器</p>
-<ul>
-<li>记录日志；</li>
-<li>检查权限；</li>
-<li>准备相关资源；</li>
-<li>…</li>
-</ul>
-</blockquote>
-<p><strong>Servlet中filter</strong></p>
-<blockquote>
-<p>不但允许每个<code>Filter</code>都有机会处理请求，还允许每个<code>Filter</code>决定是否将请求“放行”给下一个<code>Filter</code>：</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuditFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse resp, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        log(req);</span><br><span class="line">        <span class="keyword">if</span> (check(req)) &#123;</span><br><span class="line">            <span class="comment">// 放行:</span></span><br><span class="line">            chain.doFilter(req, resp);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 拒绝:</span></span><br><span class="line">            sendError(resp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2、模板模式"><a href="#2、模板模式" class="headerlink" title="2、模板模式"></a>2、模板模式</h3><blockquote>
-<p>template method</p>
-<p><strong>定义一个操作中的算法的骨架，而将一些步骤延迟到子类</strong></p>
-<p><strong>使得子类可以不改变算法结构而重定义算法中的某些特定步骤</strong></p>
-<ul>
-<li>父类定义骨架，子类实现某些细节</li>
-<li>为了防止子类重写父类的骨架方法，可以在父类中对骨架方法使用<code>final</code>。</li>
-<li>对于需要子类实现的抽象方法，一般声明为<code>protected</code>，使得这些方法对外部客户端不可见。</li>
-</ul>
-</blockquote>
-<p><strong>应用数据库缓存</strong></p>
-<blockquote>
-<p>定义一个算法骨架,而将一些步骤延迟到子类(lookupCache/putIntoCache)</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractSetting</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">getSetting</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        String value = lookupCache(key);</span><br><span class="line">        <span class="keyword">if</span> (value == <span class="keyword">null</span>) &#123;</span><br><span class="line">            value = readFromDatabase(key);</span><br><span class="line">            putIntoCache(key, value);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> String <span class="title">lookupCache</span><span class="params">(String key)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">putIntoCache</span><span class="params">(String key, String value)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>假设我们希望用一个<code>Map</code>做缓存，那么可以写一个<code>LocalSetting</code>：</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalSetting</span> <span class="keyword">extends</span> <span class="title">AbstractSetting</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, String&gt; cache = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> String <span class="title">lookupCache</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> cache.get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">putIntoCache</span><span class="params">(String key, String value)</span> </span>&#123;</span><br><span class="line">        cache.put(key, value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>如果我们要使用Redis做缓存，那么可以再写一个<code>RedisSetting</code>：</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisSetting</span> <span class="keyword">extends</span> <span class="title">AbstractSetting</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> RedisClient client = RedisClient.create(<span class="string">&quot;redis://localhost:6379&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> String <span class="title">lookupCache</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (StatefulRedisConnection&lt;String, String&gt; connection = client.connect()) &#123;</span><br><span class="line">            RedisCommands&lt;String, String&gt; commands = connection.sync();</span><br><span class="line">            <span class="keyword">return</span> commands.get(key);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">putIntoCache</span><span class="params">(String key, String value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (StatefulRedisConnection&lt;String, String&gt; connection = client.connect()) &#123;</span><br><span class="line">            RedisCommands&lt;String, String&gt; commands = connection.sync();</span><br><span class="line">            commands.set(key, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2944,7 +2751,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2997,12 +2804,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">529k</span>
+    <span title="站点总字数">530k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:01</span>
+    <span title="站点阅读时长">8:02</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>
