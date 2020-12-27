@@ -320,6 +320,1109 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/10/11/02%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/11/02%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">linux软件包管理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-11 14:14:03" itemprop="dateCreated datePublished" datetime="2020-10-11T14:14:03+08:00">2020-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-28 01:03:59" itemprop="dateModified" datetime="2020-12-28T01:03:59+08:00">2020-12-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="软件包管理"><a href="#软件包管理" class="headerlink" title="软件包管理"></a>软件包管理</h4><h4 id="1、软件包分类"><a href="#1、软件包分类" class="headerlink" title="1、软件包分类"></a>1、软件包分类</h4><ul>
+<li>源码包（脚本安装包）</li>
+<li>二进制包（RPM包、系统默认包）</li>
+</ul>
+<p><strong>RPM命名规则</strong></p>
+<blockquote>
+<p>httpd-2.2.15-15.e16.centos.1.i686.rpm</p>
+<p>包名-版本-版本发布次数-适合的Linux平台-适合的硬件平台-rpm扩展名</p>
+</blockquote>
+<h4 id="2、RPM命令管理"><a href="#2、RPM命令管理" class="headerlink" title="2、RPM命令管理"></a>2、RPM命令管理</h4><blockquote>
+<p>问题：依赖性</p>
+</blockquote>
+<h5 id="1-1-RPM包依赖性"><a href="#1-1-RPM包依赖性" class="headerlink" title="1.1 RPM包依赖性"></a>1.1 RPM包依赖性</h5><blockquote>
+<p>树形依赖：a-b-c</p>
+<p>环形依赖：a-b-c-a</p>
+<p>模块依赖：<a target="_blank" rel="noopener" href="http://www.rpmfind.net/">www.rpmfind.net</a></p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201016180147333.png" alt="image-20201016180147333" style="zoom:80%;" />
+
+
+
+<h5 id="1-2-包全名和包名"><a href="#1-2-包全名和包名" class="headerlink" title="1.2 包全名和包名"></a>1.2 包全名和包名</h5><blockquote>
+<p>包全名：操作的包是没有安装的软件包时，使用包全包。而且要注意路径</p>
+<p>包名：操作已经安装的软件包，使用包名是，是搜索<code>/var/lib/rpm/</code>中的数据库</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201016181334820.png" alt="image-20201016181334820" style="zoom:80%;" />
+
+
+
+<ul>
+<li><strong>rpm安装升级卸载都要在packages下运行</strong></li>
+</ul>
+<h5 id="1-3-RPM安装"><a href="#1-3-RPM安装" class="headerlink" title="1.3 RPM安装"></a>1.3 RPM安装</h5><blockquote>
+<p>rpm -ivh 包全包</p>
+<p>选项：-i(install)  安装</p>
+<p>​            -v(verbose)  显示详细信息</p>
+<p>​            -h(hash)  显示进度</p>
+</blockquote>
+<h5 id="1-4-RPM包升级"><a href="#1-4-RPM包升级" class="headerlink" title="1.4 RPM包升级"></a>1.4 RPM包升级</h5><blockquote>
+<p>rpm -Uvh 包全名</p>
+<p>选型：-U(upgrage)  升级</p>
+</blockquote>
+<h5 id="1-5-卸载"><a href="#1-5-卸载" class="headerlink" title="1.5 卸载"></a>1.5 卸载</h5><blockquote>
+<p>rpm -e 包名 卸载</p>
+<p>选项： -e 卸载</p>
+</blockquote>
+<h5 id="1-6-查询"><a href="#1-6-查询" class="headerlink" title="1.6 查询"></a>1.6 查询</h5><blockquote>
+<ul>
+<li><p>rpm -q 包名 查询是否安装</p>
+</li>
+<li><p>rqm -qa 查询所有已经安装的rpm包</p>
+</li>
+<li><p>rqm -qi 包名 查询软件详细信息。</p>
+</li>
+</ul>
+<p>​                -pi 包全名 查看未安装包信息</p>
+<ul>
+<li><p>rqm -ql 包名 查看包中文件安装位置</p>
+</li>
+<li><p>rqm -qf 系统文件名  -f 查询系统文件属于哪一个软件包</p>
+</li>
+<li><p>rqm -qR 包名   -R 查询软件包的依赖性</p>
+<p>​                          -p 查询未安装包</p>
+</li>
+</ul>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201016184525261.png" alt="image-20201016184525261" style="zoom:80%;" />
+
+
+
+<h5 id="1-7-校验"><a href="#1-7-校验" class="headerlink" title="1.7 校验"></a>1.7 校验</h5><blockquote>
+<p>rpm -V 已安装包名  -V 校验指定RPM包中文件是否被修改</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201016184749532.png" alt="image-20201016184749532" style="zoom:80%;" />
+
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201016202738096.png" alt="image-20201016202738096" style="zoom:80%;" />
+
+<h5 id="1-9-文件提取"><a href="#1-9-文件提取" class="headerlink" title="1.9 文件提取"></a>1.9 文件提取</h5><blockquote>
+<p>rpm2cpio 包全名 | cpio -idv .文件绝对路径</p>
+<p>​        rpm2cpio：2(to)  #将rpm包转换未cpio格式的命令  </p>
+<p>​        cpio: 标准工具，用于创建软件档案文件和从档案文件中提取文件</p>
+<p>cpio 选项 &lt;[文件| 设备]</p>
+</blockquote>
+<h4 id="3、yum在线管理"><a href="#3、yum在线管理" class="headerlink" title="3、yum在线管理"></a>3、yum在线管理</h4><h5 id="1、常用yum命令"><a href="#1、常用yum命令" class="headerlink" title="1、常用yum命令"></a>1、常用yum命令</h5><h6 id="1-1-查询"><a href="#1-1-查询" class="headerlink" title="1.1 查询"></a>1.1 查询</h6><blockquote>
+<p>yum list 查询所有可用软件包列表</p>
+<p>yum search 关键字</p>
+</blockquote>
+<h6 id="1-2-安装"><a href="#1-2-安装" class="headerlink" title="1.2 安装"></a>1.2 安装</h6><blockquote>
+<p>yum -y install 包名</p>
+<p>​        -y 自动回答yes  install 安装</p>
+</blockquote>
+<blockquote>
+<p>yum -y install gcc 安装编译器</p>
+</blockquote>
+<h6 id="1-3-升级"><a href="#1-3-升级" class="headerlink" title="1.3 升级"></a>1.3 升级</h6><blockquote>
+<p>yum -y update 包名      </p>
+</blockquote>
+<h6 id="1-4-卸载"><a href="#1-4-卸载" class="headerlink" title="1.4 卸载"></a>1.4 卸载</h6><blockquote>
+<p>yum -y remove 包名   </p>
+<ul>
+<li>a-b-c 先卸载c</li>
+<li>不要轻易使用</li>
+</ul>
+</blockquote>
+<h5 id="2、yum软件组管理命令"><a href="#2、yum软件组管理命令" class="headerlink" title="2、yum软件组管理命令"></a>2、yum软件组管理命令</h5><blockquote>
+<p>yum grouplist </p>
+<p>yum groupinstall 安装软件包组</p>
+</blockquote>
+<h5 id="3、光盘yum源"><a href="#3、光盘yum源" class="headerlink" title="3、光盘yum源"></a>3、光盘yum源</h5><h6 id="3-1-挂载光盘"><a href="#3-1-挂载光盘" class="headerlink" title="3.1 挂载光盘"></a>3.1 挂载光盘</h6><blockquote>
+<p>mount /dev/cdroom /mnt/cdroom(光盘挂载点)</p>
+</blockquote>
+<h6 id="3-2-让网络yum源文件失效"><a href="#3-2-让网络yum源文件失效" class="headerlink" title="3.2 让网络yum源文件失效"></a>3.2 让网络yum源文件失效</h6><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017160533971.png" alt="image-20201017160533971" style="zoom:80%;" />
+
+<blockquote>
+<p>mv CentOS-Base.repo  CentOS-Base.repo.bak</p>
+<p>mv CentOS-Debuginfo.repo  CentOS-Debuginfo.repo.bak</p>
+<p>mv CentOS-Vault.repo  CentOS-Vault.repo.bak</p>
+</blockquote>
+<h6 id="3-3-修改光盘yum源文件"><a href="#3-3-修改光盘yum源文件" class="headerlink" title="3.3 修改光盘yum源文件"></a>3.3 修改光盘yum源文件</h6><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017160753271.png" alt="image-20201017160753271" style="zoom:80%;" />
+
+
+
+<h4 id="4、源码包"><a href="#4、源码包" class="headerlink" title="4、源码包"></a>4、源码包</h4><h5 id="4-1-区别"><a href="#4-1-区别" class="headerlink" title="4.1 区别"></a>4.1 区别</h5><blockquote>
+<p>安装之前：概念上的区别</p>
+<p>安装之后：安装位置不同</p>
+</blockquote>
+<h6 id="RPM包安装位置"><a href="#RPM包安装位置" class="headerlink" title="RPM包安装位置"></a>RPM包安装位置</h6><ul>
+<li>安装在默认位置</li>
+</ul>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017161811830.png" alt="image-20201017161811830" style="zoom:80%;" />
+
+<ul>
+<li>位置影响，可以使用系统服务管理命令(service)来管理<ul>
+<li>例：RPM安装apache启动<ul>
+<li>/etc/rc.d/init.d/httpd start</li>
+<li>systemctl start httpd  (在网页中输入ip地址)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017162729226.png" alt="image-20201017162729226" style="zoom:80%;" />
+
+<h6 id="源码包安装位置"><a href="#源码包安装位置" class="headerlink" title="源码包安装位置"></a>源码包安装位置</h6><ul>
+<li><p>安装在指定位置中，一般是/usr/local/软件名</p>
+</li>
+<li><p><strong>不能通过系统服务管理命令启动，而使用绝对路径进行服务的管理</strong></p>
+</li>
+</ul>
+<h5 id="4-2-源码包安装"><a href="#4-2-源码包安装" class="headerlink" title="4.2 源码包安装"></a>4.2 源码包安装</h5><blockquote>
+<ul>
+<li>安装C语言编译器  yum -y gcc</li>
+<li>下载源码包 <a target="_blank" rel="noopener" href="http://mirror.bit.edu.cn/apache/httpd/">http://mirror.bit.edu.cn/apache/httpd/</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>源码包保存位置：/usr/local/src/</p>
+<p>软件安装位置 ： /usr/local</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>下载源码包(使用winSCP上传源码包到Linux)</li>
+<li>解压缩 tar -xzvf …..</li>
+<li>进入解压缩目录：cd httpd-2.4.46</li>
+</ul>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017165711312.png" alt="image-20201017165711312" style="zoom:80%;" />
+
+<blockquote>
+<p>./configure 软件配置与检查</p>
+<ul>
+<li>定义需要的功能选项</li>
+<li>检测系统环境是否符合安装要求</li>
+<li>把定义好的功能选项和检测系统环境的信息都写入Makefile文件，用于后续的编辑</li>
+</ul>
+<p>make 编译</p>
+<ul>
+<li>make clean</li>
+</ul>
+<p>make install 编译安装</p>
+<p>/usr/loacl/apache2/bin/apachectl start 启动</p>
+<p>当端口被占用：service httpd stop</p>
+</blockquote>
+<blockquote>
+<p>无卸载命令，直接删除目录即可，不会产生垃圾</p>
+</blockquote>
+<h4 id="5、脚本安装包"><a href="#5、脚本安装包" class="headerlink" title="5、脚本安装包"></a>5、脚本安装包</h4><blockquote>
+<p>并不是独立的软件包类型，常见安装的是源码包</p>
+<p>认为把<strong>安装过程写成自动安装的脚本，只要执行脚本，定义简单的参数，就可以完成安装。</strong></p>
+</blockquote>
+<h5 id="5-1-Webmin"><a href="#5-1-Webmin" class="headerlink" title="5.1 Webmin"></a>5.1 Webmin</h5><blockquote>
+<p>基于Web的linux系统管理界面，通过图形化的方式设置用户账号、Apache、DNS、文件共享等服务</p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://sourceforge.net/projects/webadmin/files/webmin/">http://sourceforge.net/projects/webadmin/files/webmin/</a></p>
+<ul>
+<li>解压缩</li>
+<li>进入目录</li>
+<li>安装./setup.sh</li>
+</ul>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017213845842.png" alt="image-20201017213845842" style="zoom:80%;" />
+
+<blockquote>
+<p><strong>[admin@localhost ~]$ su root</strong><br>Password:<br>[root@localhost admin]# ls<br>Desktop  Documents  Downloads  Firewall  Music  Pictures  Public  Templates  Videos<br><strong>[root@localhost admin]# ls /root</strong><br>anaconda-ks.cfg                         mysql-server<br>httpd-2.4.46                            MySQL-server-5.6.22-1.el6.i686.rpm<br>httpd-2.4.46.tar.gz                     MySQL-shared-5.6.22-1.el6.i686.rpm<br>initial-setup-ks.cfg                    MySQL-shared-compat-5.6.22-1.el6.i686.rpm<br>mysql                                   MySQL-test-5.6.22-1.el6.i686.rpm<br>MySQL-5.6.22-1.el6.i686.rpm-bundle.tar  original-ks.cfg<br>MySQL-client-5.6.22-1.el6.i686.rpm      usermin-webmail-1.510<br>MySQL-devel-5.6.22-1.el6.i686.rpm       usermin-webmail-1.510.tar.gz<br>MySQL-embedded-5.6.22-1.el6.i686.rpm<br><strong>[root@localhost admin]# cd /root</strong><br>[root@localhost ~]# cd usermin-webmail-1.510/</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017215430688.png" alt="image-20201017215430688" style="zoom:80%;" />
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/10/11/03MySql%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/11/03MySql%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">Linux安装MySQL</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-11 14:14:03" itemprop="dateCreated datePublished" datetime="2020-10-11T14:14:03+08:00">2020-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-28 01:04:20" itemprop="dateModified" datetime="2020-12-28T01:04:20+08:00">2020-12-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Linux安装MySQL"><a href="#Linux安装MySQL" class="headerlink" title="Linux安装MySQL"></a>Linux安装MySQL</h2><h4 id="1、下载MySql安装包"><a href="#1、下载MySql安装包" class="headerlink" title="1、下载MySql安装包"></a>1、下载MySql安装包</h4><blockquote>
+<p><a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/5.7.html#downloads">https://dev.mysql.com/downloads/mysql/5.7.html#downloads</a></p>
+</blockquote>
+<h4 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h4><h5 id="2-1-卸载原有mysql"><a href="#2-1-卸载原有mysql" class="headerlink" title="2.1 卸载原有mysql"></a>2.1 卸载原有mysql</h5><blockquote>
+<p>[root@localhost ~]# rpm -qa|grep -i mysql<br>perl-DBD-MySQL-4.023-5.el7.x86_64<br>[root@localhost ~]# rpm -e perl-DBD-MySQL-4.023-5.e17.x86_64</p>
+</blockquote>
+<h5 id="2-2-上传MySql安装包"><a href="#2-2-上传MySql安装包" class="headerlink" title="2.2 上传MySql安装包"></a>2.2 上传MySql安装包</h5><blockquote>
+<p>在远程端：alt+p</p>
+<p>put  E:/test/MySQL-5.6.22-1.el6.i686.rpm-bundle.tar(安装包的绝对路径)</p>
+</blockquote>
+<h5 id="2-3-解压MySql的安装包"><a href="#2-3-解压MySql的安装包" class="headerlink" title="2.3 解压MySql的安装包"></a>2.3 解压MySql的安装包</h5><blockquote>
+<p>创建存放目录：mkdir MySql</p>
+<p>解压：tar -xvf MySQL-5.6.22-1.el6.i686.rpm-bundle.tar -C /root/mysql</p>
+</blockquote>
+<h5 id="2-4-安装MySql依赖"><a href="#2-4-安装MySql依赖" class="headerlink" title="2.4 安装MySql依赖"></a>2.4 安装MySql依赖</h5><blockquote>
+<p>安装：yum -y install libaio.so.1 libgcc_s.so.1 libstdc++.so.6 libncurses.so.5 –setopt=protected_multilib=false</p>
+<p>更新：yum  update libstdc++-4.4.7-4.el6.x86_64</p>
+</blockquote>
+<h5 id="2-5-安装服务端、客户端"><a href="#2-5-安装服务端、客户端" class="headerlink" title="2.5 安装服务端、客户端"></a>2.5 安装服务端、客户端</h5><blockquote>
+<p>服务端：rpm -ivh MySQL-client-5.6.22-1.el6.i686.rpm</p>
+<p>客户端：rpm -ivh MySQL-server-5.6.22-1.el6.i686.rpm</p>
+</blockquote>
+<p><strong>问题</strong></p>
+<blockquote>
+<p>无法启动客户端server：</p>
+<ol>
+<li><p>wget命令：yum -y install wget </p>
+</li>
+<li><p>创建存放安装文件：mkdir mysql-server , cd mysql-server</p>
+</li>
+<li><p>下载mysql的<strong>repo包</strong>：wget <a target="_blank" rel="noopener" href="http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm">http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm</a></p>
+</li>
+<li><p>安装 ：rpm -ivh mysql-community-release-el7-5.noarch.rpm</p>
+<p>​             yum install mysql-server</p>
+</li>
+</ol>
+</blockquote>
+<h4 id="3、启动MySql服务"><a href="#3、启动MySql服务" class="headerlink" title="3、启动MySql服务"></a>3、启动MySql服务</h4><h5 id="3-1-启动"><a href="#3-1-启动" class="headerlink" title="3.1 启动"></a>3.1 启动</h5><blockquote>
+<p>启动数据库：systemctl start mysqld.service</p>
+<p>登录：mysql -u root -p  密码：默认为空</p>
+</blockquote>
+<h5 id="3-2-修改权限"><a href="#3-2-修改权限" class="headerlink" title="3.2 修改权限"></a>3.2 修改权限</h5><blockquote>
+<p>连接数据库：修改权限，刷新</p>
+<p>grant all privileges on <em>.</em> to ‘root’ @’%’ identified by ‘password’;</p>
+<p>flush privileges;</p>
+</blockquote>
+<h5 id="3-3-存在连接问题解决"><a href="#3-3-存在连接问题解决" class="headerlink" title="3.3 存在连接问题解决"></a>3.3 存在连接问题解决</h5><blockquote>
+<p>无法连接问题解决</p>
+<ul>
+<li>关闭Linux防火墙：systemctl stop firewald.service</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/10/11/01%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/11/01%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">linux常见命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-11 14:14:03" itemprop="dateCreated datePublished" datetime="2020-10-11T14:14:03+08:00">2020-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-28 01:03:38" itemprop="dateModified" datetime="2020-12-28T01:03:38+08:00">2020-12-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><blockquote>
+<p>SecureCRT 8.3.3最新版本（含注册机）<br>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/19xLtSOL7bnWlaXqt55Uhqw">https://pan.baidu.com/s/19xLtSOL7bnWlaXqt55Uhqw</a><br>提取码：ww8b</p>
+<p><a target="_blank" rel="noopener" href="https://download.csdn.net/download/dest_dest/10711362?utm_source=bbsseo">https://download.csdn.net/download/dest_dest/10711362?utm_source=bbsseo</a></p>
+</blockquote>
+<h4 id="1、注意"><a href="#1、注意" class="headerlink" title="1、注意"></a>1、注意</h4><ul>
+<li><p>严格区分大小写</p>
+</li>
+<li><p>所有内容以文件形式保存，包括硬件</p>
+<ul>
+<li>硬盘文件/dev/sd[a-p]</li>
+<li>光盘文件/dev/sr0等</li>
+</ul>
+</li>
+<li><p>Linux不靠扩展名区分文件类型，靠权限。</p>
+</li>
+<li><p>Linux所有的存储设备必须挂载之后用户才能使用，包括硬盘、U盘、光盘</p>
+</li>
+<li><p>windows下程序不能直接在Linux中安装和运行</p>
+</li>
+</ul>
+<h4 id="2、目录"><a href="#2、目录" class="headerlink" title="2、目录"></a>2、目录</h4><blockquote>
+<ul>
+<li><strong>/bin</strong>：<br>bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令。</li>
+<li><strong>/sbin</strong>：<br>s 就是 Super User 的意思，是 Superuser Binaries (超级用户的二进制文件) 的缩写，这里存放的是系统管理员使用的系统管理程序。</li>
+<li><strong>/boot：</strong><br>这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件。</li>
+<li><strong>/dev ：</strong><br>dev 是 Device(设备) 的缩写, 该目录下存放的是 Linux 的外部设备，在 <strong>Linux 中访问设备的方式和访问文件的方式是相同的。</strong></li>
+<li><strong>/etc：</strong><br>etc 是 Etcetera(等等) 的缩写,这个目录用来存放所有的<strong>系统管理所需要的配置文件和子目录。</strong></li>
+<li><strong>/home</strong>：<br>用户的主目录，在 Linux 中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的，如上图中的 alice、bob 和 eve</li>
+<li><strong>/srv</strong>：<br> 该目录存放一些<strong>服务启动之后需要提取的数据。</strong></li>
+<li><strong>/root</strong>：<br>该目录为系统管理员，也称作超级权限者的用户主目录。</li>
+<li><strong>/tmp</strong>：<br>tmp 是 temporary(临时) 的缩写这个目录是用来存放一些临时文件的。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>日志</strong></p>
+<p><strong>/var</strong>：<br>var 是 variable(变量) 的缩写，这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件</p>
+</blockquote>
+<blockquote>
+<p><strong>资源数据</strong></p>
+<ul>
+<li><strong>/usr</strong>：<br> usr 是 unix shared resources(共享资源) 的缩写，这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于 windows 下的 program files 目录。</li>
+<li><strong>/usr/bin：</strong><br>系统用户使用的应用程序</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>非法关机</strong></p>
+<ul>
+<li><strong>/lost+found</strong>：<br>这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>挂载</strong></p>
+<ul>
+<li><strong>/media</strong>：<br>linux 系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。</li>
+<li><strong>/mnt</strong>：<br>系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在 /mnt/ 上，然后进入该目录就可以查看光驱里的内容</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>进程，不能写东西</strong></p>
+<p><strong>/proc</strong>：<br>proc 是 Processes(进程) 的缩写，/proc 是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。<br>这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：</p>
+<p><strong>/sys</strong>：</p>
+<p>这是 Linux2.6 内核的一个很大的变化。该目录下安装了 2.6 内核中新出现的一个文件系统 sysfs 。</p>
+<p>sysfs 文件系统集成了下面3种文件系统的信息：针对进程信息的 proc 文件系统、针对设备的 devfs 文件系统以及针对伪终端的 devpts 文件系统。</p>
+<p>该文件系统是内核设备树的一个直观反映。</p>
+<p>当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中被创建。</p>
+</blockquote>
+<h4 id="3、服务器注意"><a href="#3、服务器注意" class="headerlink" title="3、服务器注意"></a>3、服务器注意</h4><ul>
+<li><p>远程服务器不允许关机，只能重启</p>
+</li>
+<li><p>重启应该关闭服务</p>
+</li>
+<li><p>合理分配权限</p>
+</li>
+<li><p>定期备份重要数据和日志</p>
+</li>
+</ul>
+<h3 id="二、常见命令"><a href="#二、常见命令" class="headerlink" title="二、常见命令"></a>二、常见命令</h3><blockquote>
+<p>su username 更改用户</p>
+</blockquote>
+<blockquote>
+<p>命令格式： <strong>命令[ -选项] [参数]</strong>    exp: ls -la /etc</p>
+<ul>
+<li>个别命令不遵循该格式</li>
+<li>有多个选项时，可以写在一起</li>
+<li>简化选项与完整选项  -a == –all</li>
+</ul>
+</blockquote>
+<h4 id="1、文件处理命令"><a href="#1、文件处理命令" class="headerlink" title="1、文件处理命令"></a>1、文件处理命令</h4><h5 id="1-1-目录查看命令"><a href="#1-1-目录查看命令" class="headerlink" title="1.1 目录查看命令"></a>1.1 目录查看命令</h5><blockquote>
+<p>ls  (list) </p>
+<p>命令所在路径  /bin/ls  执行权限: 所有用户  功能: 显示目录文件 </p>
+<p>语法：ls 选项[-ald] [文件或目录]  </p>
+<ul>
+<li>-a 显示所有文件，包括隐藏文件</li>
+<li>-l 详细信息显示</li>
+<li>-d 查看目录属性</li>
+</ul>
+</blockquote>
+<p><strong>文件类型</strong>:  - 二进制文件   d 目录    l软链接文件</p>
+<p><strong>权限</strong>:   w写         r写        x执行   </p>
+<p><strong>用户</strong>:   u所有者 g所属组 o其他人    </p>
+<h5 id="1-2-目录处理命令"><a href="#1-2-目录处理命令" class="headerlink" title="1.2 目录处理命令"></a>1.2 目录处理命令</h5><p><strong>可以使用相对路径，但要保证文件在当前目录下</strong></p>
+<blockquote>
+<p>mkdir (make directories)  所在路径：/bin/mkdir</p>
+<p>权限: 所有用户 语法： mkdir -p [目录名]</p>
+<p>功能：创建新目录 -p递归创建</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201011232156487.png" alt="image-20201011232156487" style="zoom:80%;" />
+
+<blockquote>
+<p>cd (change directory)  所在路径：shell内置命令</p>
+<p>权限：所有用户 语法：cd[目录]</p>
+<p>功能：切换目录</p>
+</blockquote>
+<blockquote>
+<p>pwd 功能：显示当前工作目录</p>
+<p>cd . 当前目录  cd ..上一级目录</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201011232735209.png" alt="image-20201011232735209" style="zoom:80%;" />
+
+<blockquote>
+<p>rmdir  所在路径 /bin/rmdir</p>
+<p>rmdir[目录]  </p>
+<p>功能：删除<strong>空目录</strong></p>
+</blockquote>
+<blockquote>
+<p>cp  所在路径/bin/cp</p>
+<p>语法：cp -rp[原文件或目录] [可复制多个]     [目标目录]</p>
+<p>​                  -r 复制目录</p>
+<p>​                  -p 保留文本属性</p>
+<p>功能：<strong>复制</strong>文件或目录</p>
+</blockquote>
+<blockquote>
+<p>mv (move)  路径：/bin/mv</p>
+<p>权限：所有用户 语法：mv[原文件或目录] [目标目录]</p>
+<p>功能：<strong>剪切</strong>文件、改名</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012102428841.png" alt="image-20201012102428841" style="zoom:80%;" />
+
+<blockquote>
+<p>rm(remove) 路径/bin/rm </p>
+<p>权限：所有用户 功能：删除文件或目录</p>
+<p>语法：rm -rf[文件或目录]</p>
+<p>​                    -r 删除目录</p>
+<p>​                    -f 强制执行</p>
+</blockquote>
+<h5 id="1-3-文件处理命令"><a href="#1-3-文件处理命令" class="headerlink" title="1.3 文件处理命令"></a>1.3 文件处理命令</h5><blockquote>
+<p>touch  /bin/touch</p>
+<p>权限：所有用户 语法：touch[文件名]</p>
+<p>功能：创建空文件</p>
+</blockquote>
+<img src="C:%5CUsers%5Cadmin%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201012105004851.png" alt="image-20201012105004851" style="zoom:80%;" />
+
+<blockquote>
+<ul>
+<li>cat /bin/cat</li>
+</ul>
+<p>权限：所有用户 语法：cat[文件名]</p>
+<p>功能：显示文件内容     -n显示行号</p>
+<ul>
+<li>tac 功能：反向显示</li>
+</ul>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012105630797.png" alt="image-20201012105630797" style="zoom:80%;" />
+
+<blockquote>
+<ul>
+<li><p>more 语法 more[文件名]  </p>
+<p>​            （空格)或f 翻页</p>
+<p>​                Enter  换行</p>
+<p>​                q或Q 退出</p>
+<p>功能：分页显示文件内容</p>
+</li>
+<li><p>less 路径：/usr/bin/less</p>
+<p>功能：分页显示文件内容(可向上翻页<code>pg up</code>，<code>/搜索内容,n看下个搜索</code>)</p>
+</li>
+<li><p>head -n 行号  功能：前几行</p>
+</li>
+<li><p>tail     -n 行号  功能：后几行</p>
+<p>​          -f 功能：动态显示</p>
+</li>
+</ul>
+</blockquote>
+<h5 id="1-4-链接文件"><a href="#1-4-链接文件" class="headerlink" title="1.4 链接文件"></a>1.4 链接文件</h5><blockquote>
+<p>ln /bin/ln 权限：所有用户</p>
+<p>ln -s[原文件] [目标文件]   -s 创建软链接</p>
+</blockquote>
+<ul>
+<li>软链接：类似windows快捷方式  lrwxrwxrwx</li>
+</ul>
+<p>​                只是符号链接，箭头指向源文件。</p>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012140408781.png" alt="image-20201012140408781" style="zoom:80%;" />
+
+<ul>
+<li><p>硬链接</p>
+<ul>
+<li>拷贝 cp -p+同步更新</li>
+<li>通过i节点识别</li>
+<li>不能跨分区，不能针对目录使用</li>
+</ul>
+<p>​                </p>
+</li>
+</ul>
+<h4 id="2、权限管理命令"><a href="#2、权限管理命令" class="headerlink" title="2、权限管理命令"></a>2、权限管理命令</h4><blockquote>
+<p>权限用数字表示 ：r–4(100) w–2(010)  x–1(001)</p>
+</blockquote>
+<h5 id="2-1-改变权限"><a href="#2-1-改变权限" class="headerlink" title="2.1 改变权限"></a>2.1 改变权限</h5><blockquote>
+<p>chmod  路径 /bin/chmod</p>
+<p>语法： chmod[{ugoa}{+-=}{rwx}] [文件或目录]    </p>
+<p>​                         [421] [文件或目录]</p>
+<p>​                        -R递归修改</p>
+<p>功能：改变文件权限</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012221017562.png" alt="image-20201012221017562" style="zoom:80%;" />
+
+<p><strong>目录和文件权限</strong></p>
+<p>file r: 可以查看文件 cat/tac/more/less/tail/head</p>
+<p>​    w:  可以修改文件内容  vim</p>
+<p>​    x: 可以执行文件   script command</p>
+<p>directory  r  可以列出目录内容 ls</p>
+<p>​                w 可以目录中创建/删除文件目录 touch/rm/mkdir/rmdir</p>
+<p>​                x 可以进入目录 cd</p>
+<ul>
+<li>删除文件必须在<strong>文件所在目录</strong>有w权限</li>
+</ul>
+<h5 id="2-2-改变所有者"><a href="#2-2-改变所有者" class="headerlink" title="2.2 改变所有者"></a>2.2 改变所有者</h5><blockquote>
+<p>chown </p>
+<p>语法： chown[用户] [文件或目录]</p>
+<p>功能：改变文件或目录的所有者</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012220606717.png" alt="image-20201012220606717" style="zoom:80%;" />
+
+<h5 id="2-3-改变组名"><a href="#2-3-改变组名" class="headerlink" title="2.3 改变组名"></a>2.3 改变组名</h5><blockquote>
+<p>chgrp 功能：改变组名</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012221249409.png" alt="image-20201012221249409" style="zoom:80%;" />
+
+<h5 id="2-4-缺省权限"><a href="#2-4-缺省权限" class="headerlink" title="2.4 缺省权限"></a>2.4 缺省权限</h5><blockquote>
+<p>umask 语法：umask[-S] </p>
+<p>​                        -S以rwx形式显示新建文件缺省权限 </p>
+<p>​                        默认为022 </p>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012223216078.png" alt="image-20201012223216078" style="zoom:80%;" />
+
+<p>功能：显示、设置文件的缺省权限</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012223943522.png" alt="image-20201012223943522" style="zoom:80%;" />
+
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012223429003.png" alt="image-20201012223429003" style="zoom:80%;" /><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012224220851.png" alt="image-20201012224220851"></p>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012224249302.png" alt="image-20201012224249302" style="zoom:80%;" />
+
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012222757643.png" alt="image-20201012222757643" style="zoom: 80%;" />
+
+<p><strong>默认新建的文件不具有执行x权限</strong></p>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201012221852338.png" alt="image-20201012221852338" style="zoom:80%;" />
+
+
+
+<h4 id="3、文件搜索命令"><a href="#3、文件搜索命令" class="headerlink" title="3、文件搜索命令"></a>3、文件搜索命令</h4><h5 id="3-1-find"><a href="#3-1-find" class="headerlink" title="3.1 find"></a>3.1 find</h5><blockquote>
+<p><strong>find 对系统负载高</strong></p>
+<p>语法：find [搜索范围] [匹配条件] [搜索内容]</p>
+<p>功能：文件精准搜索</p>
+<ul>
+<li>-name 根据文件名<ul>
+<li>-iname 不区分大小写</li>
+</ul>
+</li>
+<li>-size 根据文件大小(1数据块==512字节==0.5k)<ul>
+<li>+n 大于 -n小于 =等于</li>
+</ul>
+</li>
+<li>-user 根据所有者</li>
+<li>-group 根据所属组</li>
+<li>-type 文件类型 f文件 d目录 l链接</li>
+<li>-inum 根据i节点查找</li>
+</ul>
+</blockquote>
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013101128989.png" alt="image-20201013101128989"></p>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013115930522.png" alt="image-20201013115930522" style="zoom:80%;" />
+
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013143924192.png" alt="image-20201013143924192" style="zoom:80%;" />
+
+<blockquote>
+<ul>
+<li>-amin 访问时间access</li>
+<li>-cmin 文件属性change</li>
+<li>-mmin 文件内容modify</li>
+</ul>
+<blockquote>
+<p>find /etc -cmin -5(分钟)</p>
+</blockquote>
+</blockquote>
+<p><strong>逻辑搜索</strong></p>
+<blockquote>
+<ul>
+<li><p>-a 俩个条件都满足</p>
+</li>
+<li><p>-o 满足一个</p>
+</li>
+</ul>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013135912911.png" alt="image-20201013135912911" style="zoom:80%;" />
+
+<p><strong>搜索同时ls</strong></p>
+<blockquote>
+<ul>
+<li>-exec ls -l {} ;</li>
+<li>-ok  ls -l {} ;</li>
+</ul>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013140333410.png" alt="image-20201013140333410" style="zoom:80%;" />
+
+
+
+<h5 id="3-2-其他"><a href="#3-2-其他" class="headerlink" title="3.2 其他"></a>3.2 其他</h5><h6 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h6><blockquote>
+<p>路径 /usr/bin/locate  </p>
+<p>语法: locate 文件名  功能：在<strong>文件资料库</strong>中查找文件</p>
+<p>ps: 资料库是定时更新的(/tmp目录下文件不会更新到资料库),<code>updatedb</code>更新命令</p>
+</blockquote>
+<h6 id="which"><a href="#which" class="headerlink" title="which"></a>which</h6><blockquote>
+<p>路径 /usr/bin/which  所有用户可以使用</p>
+<p>功能： 搜索命令所在目录及<strong>别名信息</strong></p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013163455860.png" alt="image-20201013163455860" style="zoom:80%;" />
+
+<h6 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h6><blockquote>
+<p>语法：whereis[命令名称] </p>
+<p>功能:搜索命令所在目录及<strong>帮助文档路径</strong></p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013163836339.png" alt="image-20201013163836339" style="zoom:80%;" />
+
+
+
+<h6 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h6><blockquote>
+<p>路径：/bin/grep</p>
+<p>语法：grep -iv [指定字串] [文件]</p>
+<p>功能：<strong>在文件内搜寻字串匹配的行并输出</strong></p>
+<ul>
+<li>-i 不区分大小写</li>
+<li>-v 排除指定字串(屏蔽所在的行)</li>
+</ul>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013164127582.png" alt="image-20201013164127582" style="zoom:80%;" />
+
+
+
+<h4 id="4、帮助命令"><a href="#4、帮助命令" class="headerlink" title="4、帮助命令"></a>4、帮助命令</h4><h5 id="man"><a href="#man" class="headerlink" title="man"></a>man</h5><blockquote>
+<p>路径 /usr/bin/man</p>
+<p>语法：man [<strong>命令或配置文件</strong>] (<strong>不能加上绝对路径</strong>)</p>
+<p>功能：获得帮助信息</p>
+<ul>
+<li>man ls 查看ls命令的帮助信息(NAME存放信息 /选项)</li>
+<li>man services 查看配置文件services的帮助信息(NAME存放信息 文件格式)</li>
+</ul>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013170052757.png" alt="image-20201013170052757" style="zoom:80%;" />
+
+
+
+<h5 id="info"><a href="#info" class="headerlink" title="info"></a>info</h5><h5 id="help"><a href="#help" class="headerlink" title="help"></a>help</h5><blockquote>
+<p>功能：获得Shell内置命令的帮助信息</p>
+</blockquote>
+<h4 id="5、用户管理命令"><a href="#5、用户管理命令" class="headerlink" title="5、用户管理命令"></a>5、用户管理命令</h4><blockquote>
+<p>useradd</p>
+<p>/usr/sbin/useradd  权限：root</p>
+<p>功能：添加新用户</p>
+</blockquote>
+<blockquote>
+<p>passwd </p>
+<p>/usr/bin/passwd</p>
+<p>功能：更改密码</p>
+</blockquote>
+<blockquote>
+<p>who</p>
+<p>/usr/bin/who</p>
+<p>功能：查看登录用户信息</p>
+<p>tty本地终端/pts远程终端  登录时间 </p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013171801669.png" alt="image-20201013171801669" style="zoom:80%;" />
+
+<blockquote>
+<p>w</p>
+<p>功能：查看登录用户的详细信息</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013171923727.png" alt="image-20201013171923727" style="zoom:80%;" />
+
+
+
+<h4 id="6、压缩和解压命令"><a href="#6、压缩和解压命令" class="headerlink" title="6、压缩和解压命令"></a>6、压缩和解压命令</h4><blockquote>
+<p>.zip在windows和linux都可以</p>
+</blockquote>
+<h5 id="6-1-gzip"><a href="#6-1-gzip" class="headerlink" title="6.1 gzip"></a>6.1 gzip</h5><blockquote>
+<p>路径 /bin/gzip </p>
+<p>权限：所有用户</p>
+<p>语法 gzip[文件]  </p>
+<p>功能：<strong>只能压缩文件，不能压缩目录，不保留原文件</strong></p>
+<p>压缩格式：.gz</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013174552682.png" alt="image-20201013174552682" style="zoom:80%;" />
+
+<blockquote>
+<p>gunzip/ gzip -d 功能:解压缩</p>
+</blockquote>
+<h5 id="6-2-tar"><a href="#6-2-tar" class="headerlink" title="6.2 tar"></a>6.2 tar</h5><blockquote>
+<p>tar 路径 /bin/tar</p>
+<p>语法： tar 选项[-zcf] <strong>[压缩后文件名]</strong> [目录]</p>
+<ul>
+<li>-c 打包</li>
+<li>-v 显示详细信息</li>
+<li>-f 指定文件名</li>
+<li>-z 打包同时压缩</li>
+</ul>
+<p>功能：打包目录，<strong>保留原文件</strong></p>
+<p>文件格式：.tar.gz</p>
+</blockquote>
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013175548070.png" alt="image-20201013175548070" style="zoom:80%;" /><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013175639950.png" alt="image-20201013175639950"></p>
+<blockquote>
+<p>tar 解包</p>
+<ul>
+<li>-x 解包</li>
+<li>-z 解压缩</li>
+<li>-f 指定解压文件</li>
+<li>-v 显示详细信息</li>
+</ul>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013180032803.png" alt="image-20201013180032803" style="zoom:80%;" />
+
+<h5 id="6-3-zip"><a href="#6-3-zip" class="headerlink" title="6.3 zip"></a>6.3 zip</h5><blockquote>
+<p>路径 /usr/bin/zip</p>
+<p>语法：zip 选项[-r] [压缩后文件名] [文件或目录]</p>
+<p>​            -r 压缩目录</p>
+<p>语法：压缩文件或目录   压缩后格式：.zip</p>
+<ul>
+<li><strong>能保留原文件</strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>unzip 功能：解压.zip的压缩文件</p>
+</blockquote>
+<h5 id="6-4-bzip2"><a href="#6-4-bzip2" class="headerlink" title="6.4 bzip2"></a>6.4 bzip2</h5><blockquote>
+<p>bzip2 路径： /usr/bin/bzip2</p>
+<p>语法：bzip2 选项[-k] [文件]</p>
+<p>​                        -k 产生压缩文件后保留原文件</p>
+<p>格式  .bz2   功能：压缩文件</p>
+<p><code>bzip2 -k bodu</code></p>
+</blockquote>
+<blockquote>
+<p>目录的压缩</p>
+<p><strong>选项：-j</strong></p>
+<ul>
+<li>配合tar打包：<code>tar -cjf Japan.tar.bz2 Japan</code></li>
+<li>解压：<code>tar -xjf -k Japan.tar.bz2</code></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>bunzip2  功能：解压 .bz2文件</p>
+</blockquote>
+<h4 id="7、网络命令"><a href="#7、网络命令" class="headerlink" title="7、网络命令"></a>7、网络命令</h4><h5 id="7-1-会话"><a href="#7-1-会话" class="headerlink" title="7.1 会话"></a>7.1 会话</h5><blockquote>
+<p>write  用户名</p>
+<p>路径： /usr/bin/write</p>
+<p>功能：给用户发信息，（Ctrl+D保存结束）</p>
+</blockquote>
+<blockquote>
+<p>crtl+alt+f1 切换用户</p>
+</blockquote>
+<blockquote>
+<p>wall 功能：发广播信息</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013225705334.png" alt="image-20201013225705334" style="zoom:80%;" />
+
+<blockquote>
+<p>ping 功能：测试网络连通性</p>
+<p>语法: ping 选项 Ip地址</p>
+<p>​        -c 指定发送次数   （ctrl+c停止）</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201014000802771.png" alt="image-20201014000802771" style="zoom:80%;" />
+
+<blockquote>
+<p>ifconfig  路径：/sbin/ifconfig</p>
+<p>权限：root 语法：ifconfig 网卡名称  IP地址</p>
+<p>功能：查看和设置网卡信息</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201014000345718.png" alt="image-20201014000345718" style="zoom:80%;" />
+
+<blockquote>
+<p>mail  路径 /bin/mail</p>
+<p>语法：mail [用户名]  功能：<strong>查看发送电子邮件</strong></p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013231948397.png" alt="image-20201013231948397" style="zoom:80%;" />
+
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013232046831.png" alt="image-20201013232046831" style="zoom:80%;" />
+
+<h5 id="7-2-用户"><a href="#7-2-用户" class="headerlink" title="7.2 用户"></a>7.2 用户</h5><blockquote>
+<p>last  功能：列出目前与过去登入系统的用户</p>
+<p>lastlog 功能：列出所有用户以及最后登录信息</p>
+<ul>
+<li>last -u 用户uid</li>
+</ul>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013232312403.png" alt="image-20201013232312403" style="zoom:80%;" />
+
+<blockquote>
+<p>traceroute 功能：显示数据包到主机间的路径</p>
+</blockquote>
+<blockquote>
+<p>netstat 语法：netstat[选项]  </p>
+<p>功能：显示网络相关信息</p>
+<ul>
+<li>-t  TCP协议</li>
+<li>-u UDP协议</li>
+<li>-l  监听</li>
+<li>-r  路由</li>
+<li>-n  显示ip地址和端口号</li>
+</ul>
+<p>ps： netstat -tlun 查看本机监听的端口</p>
+<p>​        netstat -an 查看本机所有的网络连接</p>
+<p>​        netstat -rn 查看本机路由器</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201014000308056.png" alt="image-20201014000308056" style="zoom:80%;" />
+
+<blockquote>
+<p>setup 权限：root  </p>
+<p>功能：配置网络</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201014000225061.png" alt="image-20201014000225061" style="zoom:80%;" />
+
+<h5 id="7-3-挂载命令"><a href="#7-3-挂载命令" class="headerlink" title="7.3 挂载命令"></a>7.3 挂载命令</h5><blockquote>
+<p>mount 权限：所有用户</p>
+<p>语法：mount[-t 文件系统] 设备文件名 挂载点</p>
+<p><strong>类似windows分配盘符</strong></p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013235723511.png" alt="image-20201013235723511" style="zoom:80%;" />
+
+<blockquote>
+<p>umount 功能：卸载</p>
+</blockquote>
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201013235939526.png" alt="image-20201013235939526"></p>
+<h4 id="8、关机重启命令"><a href="#8、关机重启命令" class="headerlink" title="8、关机重启命令"></a>8、关机重启命令</h4><blockquote>
+<p>shutdown [选项] 时间</p>
+<p>​                    -c 取消前一个关机命令</p>
+<p>​                    -h 关机</p>
+<p>​                    -r  重启</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201014073819226.png" alt="image-20201014073819226" style="zoom:80%;" />
+
+<p><strong>系统运行级别</strong></p>
+<blockquote>
+<p>0 关机   1 单用户(类似windows安全模式root)  </p>
+<p>2 不完全多用户，不含NFS服务(网络文件系统(俩个linux文件共享，有安全隐患))   3 完全多用户  </p>
+<p>4 未分配    5 图形界面   6重启</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201014074814868.png" alt="image-20201014074814868" style="zoom:80%;" />
+
+<blockquote>
+<p>logout 退出登录</p>
+</blockquote>
+<h4 id="9、显示当前线程"><a href="#9、显示当前线程" class="headerlink" title="9、显示当前线程"></a>9、显示当前线程</h4><p><strong>ps -ef</strong> #用标准的格式显示进程</p>
+<h3 id="三、Vim编辑器"><a href="#三、Vim编辑器" class="headerlink" title="三、Vim编辑器"></a>三、Vim编辑器</h3><blockquote>
+<p>作用：<strong>建立、编辑、显示文本文件</strong></p>
+<p>Vim没有菜单，只有命令</p>
+</blockquote>
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201014092643584.png" alt="image-20201014092643584" style="zoom:80%;" />
+
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201014093455541.png" alt="image-20201014093455541" style="zoom:80%;" />
+
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201014093508345.png" alt="image-20201014093508345" style="zoom:80%;" />
+
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201014193737239.png" alt="image-20201014193737239" style="zoom:80%;" />
+
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201014194101704.png" alt="image-20201014194101704" style="zoom:80%;" />
+
+<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201015083655954.png" alt="image-20201015083655954" style="zoom:80%;" />
+
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201015083904770.png" alt="image-20201015083904770" style="zoom:80%;" /><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201015084245455.png" alt="image-20201015084245455" style="zoom:80%;" /></p>
+<ul>
+<li><p>连续行注释 <code>：1(开始行)，2(结束行)s/^(行首)/#(注释符号)/g(确认？)</code></p>
+<ul>
+<li><code>1,4s/^#//g</code>     去除行首#</li>
+<li>1，4s/^////g :（\转义符号</li>
+</ul>
+</li>
+<li><p>替换：:ab x1 x2。可以用x1代替x2显示</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/09/11/01Html/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1772,525 +2875,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/07/11/01JDBC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/11/01JDBC/" class="post-title-link" itemprop="url">jdbc</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-07-11T12:33:33+08:00">2020-07-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:18:30" itemprop="dateModified" datetime="2020-12-17T13:18:30+08:00">2020-12-17</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>24k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>22 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><ul>
-<li><p>Java Data Base Connectivity（java数据库连接）是一种用于执行SQL语句的<strong>JavaAPI</strong></p>
-</li>
-<li><p><strong>它由一组类和接口组成</strong></p>
-</li>
-<li><p>JDBC API使用java的<strong>反射机制</strong>来实现java程序和JDBC驱动的松耦合</p>
-</li>
-</ul>
-<p><img src="https://csn.damyoung.cn/image-20200909103051980.png" alt="image-20200909103051980"></p>
-<h3 id="二、JDBC-API"><a href="#二、JDBC-API" class="headerlink" title="二、JDBC API"></a>二、<strong>JDBC API</strong></h3><h4 id="（1）接口"><a href="#（1）接口" class="headerlink" title="（1）接口"></a>（1）接口</h4><ul>
-<li><p>DriverManager驱动管理类，它可以<strong>创建连接</strong>，本身就是一个创建Connection的工厂</p>
-</li>
-<li><p>java.sql.Driver 主要功能是描述驱动程序，<strong>提供驱动信息</strong>，最重要<strong>实现数据库连接的抽象</strong></p>
-</li>
-<li><p>java.sql.Connection 是数据库jdbc连接的抽象层，主要<strong>生成SQL并发送给数据库</strong></p>
-</li>
-<li><p>ResultSet接口（结果集），用来接收select语句返回的查询结果（true/false(query)、num(Update)）</p>
-</li>
-</ul>
-<h4 id="（2）Statement接口"><a href="#（2）Statement接口" class="headerlink" title="（2）Statement接口"></a>（2）Statement接口</h4><p>​    <strong>编译语句</strong> java.sql.Statement</p>
-<ul>
-<li>由createStatement创建</li>
-</ul>
-<p>​    <strong>预编译</strong>     java.sql.PreparedStatement</p>
-<ul>
-<li>继承自Statement接口，有preparedStatement创建，用于发送含有一个或多个参数的SQL语句</li>
-<li>效率比Statement高，并且可以防止SQL注入</li>
-</ul>
-<p>​    <strong>数据库存储过程</strong> java.sql.CallableStatement</p>
-<ul>
-<li>继承自PrepareStament接口，由prepareCall创建</li>
-</ul>
-<h4 id="（3）Statement方法"><a href="#（3）Statement方法" class="headerlink" title="（3）Statement方法"></a>（3）Statement方法</h4><ul>
-<li><p>execute:  返回是否有结果集</p>
-</li>
-<li><p>excuteQuery：运行select语句，返回Result结果集合</p>
-</li>
-<li><p>excuteUpdate：运行insert/update/delete操作，返回更新的行数</p>
-</li>
-<li><p>addBatch(String sql): 将多条sql语句放到一个批处理中</p>
-</li>
-<li><p>executeBatch() :  向数据库发送一批sql语句</p>
-</li>
-<li><p>set<Type>(int colunmIndex,Type val) ：为PreparedStatement回填参数值</p>
-</li>
-<li><p>getString(int index)  getString(String columnIndex)</p>
-</li>
-</ul>
-<h3 id="三、步骤"><a href="#三、步骤" class="headerlink" title="三、步骤"></a>三、步骤</h3><p>1、导入jar包（<strong>JDBC驱动，jdbc接口的实现</strong>）</p>
-<p><strong>idea导入</strong>：File–&gt;project Structure–&gt;Modules–&gt;Dependencies–&gt;+JARS or Directory</p>
-<p>2、加载驱动</p>
-<p>加载<strong>驱动类Driver</strong>，并执行初始化，这个动作会触发Driver类中的static静态块</p>
-<p><strong>创建自己的实例并向DriverManager注册该实例</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        DriverManager.registerDriver(<span class="keyword">new</span> Driver());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (SQLException var1) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;Can&#x27;t register driver!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 不这样写的原因：</span></span><br><span class="line"><span class="comment">* 1. 会导致注册两次</span></span><br><span class="line"><span class="comment">* 2. 会时程序依赖于MySQL数据包</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//DriverManager.registerDriver(new Driver());//第二种注册方式</span></span><br></pre></td></tr></table></figure>
-
-<p>3、<strong>驱动管理类</strong>获取连接</p>
-<p>DriverManager类，本身就是一个创建Connection的工厂</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String url=<span class="string">&quot;jdbc:mysql://localhost:3306/myabl?useSSL=true&quot;</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String user=<span class="string">&quot;root&quot;</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String password=<span class="string">&quot;*******&quot;</span>;</span><br><span class="line"></span><br><span class="line">Connection conn = DriverManager.getConnection(url,user,password);</span><br></pre></td></tr></table></figure>
-
-<p>4、关闭连接</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn.close();</span><br></pre></td></tr></table></figure>
-
-<h3 id="四、查询"><a href="#四、查询" class="headerlink" title="四、查询"></a>四、查询</h3><h4 id="prepareStatement接口"><a href="#prepareStatement接口" class="headerlink" title="prepareStatement接口"></a><strong>prepareStatement接口</strong></h4><p>优点:预编译，使用占位符</p>
-<h4 id="executeQuery"><a href="#executeQuery" class="headerlink" title="executeQuery"></a>executeQuery</h4><p>1、数据库操作</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String sql=<span class="string">&quot;select *from emp&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>2、装载MySql语句</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PreparedStatement preparedStatement=conn.prepareStatement(sql);</span><br></pre></td></tr></table></figure>
-
-<p>3、发送MySql语句到数据库执行，获取返回结果</p>
-<p><strong>execute()</strong>: 可以执行任何SQL语句，返回boolean值</p>
-<p>​                执行后第一个结果是ResultSet,否则返回true</p>
-<p><strong>executeQuery()</strong>:执行select语句</p>
-<p><strong>executeUpdate()</strong> :执行DML语句（insert,update,delect),影响返回的记录条数</p>
-<h4 id="Resultset"><a href="#Resultset" class="headerlink" title="Resultset"></a>Resultset</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ResultSet resultSet=preparedStatement.executeQuery();</span><br></pre></td></tr></table></figure>
-
-<p>4、遍历返回结果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (resultSet.next())&#123;</span><br><span class="line">    <span class="comment">//根据第几列获取值</span></span><br><span class="line">   	System.out.println(resultSet.getInt(<span class="number">1</span>));</span><br><span class="line">    <span class="comment">//根据字段名获取</span></span><br><span class="line">    System.out.println(resultSet.getString(<span class="string">&quot;ename&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="占位符"><a href="#占位符" class="headerlink" title="占位符"></a>占位符</h4><p>set<Type>(int colunmIndex,Type val) ：为PreparedStatement回填参数值</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Scanner s=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">System.out.println(<span class="string">&quot;请输入员工工号&quot;</span>);</span><br><span class="line"><span class="keyword">int</span> i=s.nextInt();</span><br><span class="line"></span><br><span class="line">Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">Connection connection= DriverManager.getConnection(url,user,password);</span><br><span class="line"><span class="comment">//?为占位符</span></span><br><span class="line"><span class="comment">//使用？占位符，执行时会替换成实际数据，预编译</span></span><br><span class="line">String sql=<span class="string">&quot;select *from emp where ename=?&quot;</span>;</span><br><span class="line"><span class="comment">//发送sql语句到MySql数据库并执行，返回执行结果，如果有占位符，对占位符先赋值</span></span><br><span class="line">PreparedStatement preparedStatement=connection.prepareStatement(sql);</span><br><span class="line"><span class="comment">//给preparedStatement设置参数,第一个参数是索引从1开始，第二个是具体值</span></span><br><span class="line">preparedStatement.setInt(<span class="number">1</span>,i);</span><br><span class="line"></span><br><span class="line">ResultSet resultSet=preparedStatement.executeQuery();</span><br></pre></td></tr></table></figure>
-
-<h3 id="五、Sql注入"><a href="#五、Sql注入" class="headerlink" title="五、Sql注入"></a>五、Sql注入</h3><h4 id="statement接口"><a href="#statement接口" class="headerlink" title="statement接口"></a>statement接口</h4><p><strong>使用拼接验证，若密码，使用  1’or’1’=’1,也会被验证成功</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Statement statement=connection.createStatement();</span><br><span class="line">ResultSet resultSet=statement.executeQuery(sql);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String sql=<span class="string">&quot;select *from userpass where username=&#x27;&quot;</span>+username+<span class="string">&quot;&#x27; and password=&#x27;&quot;</span>+passwordin+<span class="string">&quot;&#x27;&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Scanner s=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">System.out.println(<span class="string">&quot;请输入用户名&quot;</span>);</span><br><span class="line">String username=s.next();</span><br><span class="line">System.out.println(<span class="string">&quot;请输入密码&quot;</span>);</span><br><span class="line">String passwordin=s.next();</span><br><span class="line"></span><br><span class="line">Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">Connection connection= DriverManager.getConnection(url,user,password);</span><br><span class="line">String sql=<span class="string">&quot;select *from userpass where username=&#x27;&quot;</span>+username+<span class="string">&quot;&#x27; and password=&#x27;&quot;</span>+password+<span class="string">&quot;&#x27;&quot;</span>;</span><br><span class="line"><span class="comment">//发送sql语句到MySql数据库并执行，返回执行结果</span></span><br><span class="line">Statement statement=connection.createStatement();</span><br><span class="line">ResultSet resultSet=statement.executeQuery(sql);</span><br><span class="line"><span class="keyword">if</span> (resultSet.next())&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;登录成功&quot;</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;登录失败&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="六、DML"><a href="#六、DML" class="headerlink" title="六、DML"></a>六、DML</h3><h4 id="executeUpdate"><a href="#executeUpdate" class="headerlink" title="executeUpdate"></a>executeUpdate</h4><p>insert/update/delete</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">       connection = DriverManager.getConnection(</span><br><span class="line">           <span class="string">&quot;jdbc:mysql://127.0.0.1:3306/blog?useSSL=false&quot;</span>,</span><br><span class="line">           <span class="string">&quot;root&quot;</span>,</span><br><span class="line">           <span class="string">&quot;xxxxxx&quot;</span></span><br><span class="line">       )</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//修改update</span></span><br><span class="line">       statement = connection.createStatement();</span><br><span class="line">       <span class="comment">//返回执行受影响的条数，执行失败返回0</span></span><br><span class="line">       <span class="keyword">int</span> i = statement.executeUpdate(</span><br><span class="line">           <span class="string">&quot;update categories set path=&#x27;改一下试试&#x27; where id=1&quot;</span></span><br><span class="line">       );</span><br><span class="line">       <span class="keyword">if</span>(i&gt;<span class="number">0</span>)&#123;</span><br><span class="line">           System.out.println(<span class="string">&quot;更新成功&quot;</span>);</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           System.out.println(<span class="string">&quot;更新失败&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入insert</span></span><br><span class="line">       <span class="keyword">int</span> j = statement.executeUpdate(</span><br><span class="line">  <span class="string">&quot;insert into categories(name,pid,path) values (&#x27;插入语句&#x27;,2,&#x27;要用单引号&#x27;);&quot;</span></span><br><span class="line">       );</span><br><span class="line">       <span class="keyword">if</span>(j&gt;<span class="number">0</span>)&#123;</span><br><span class="line">           System.out.println(<span class="string">&quot;插入成功&quot;</span>);</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           System.out.println(<span class="string">&quot;插入失败&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">	<span class="comment">//删除delete</span></span><br><span class="line">       <span class="keyword">int</span> k = statement.executeUpdate(</span><br><span class="line">           <span class="string">&quot;delete from categories where id = 2;&quot;</span></span><br><span class="line">       );</span><br><span class="line">       <span class="keyword">if</span>(k&gt;<span class="number">0</span>)&#123;</span><br><span class="line">           System.out.println(<span class="string">&quot;删除成功&quot;</span>);</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           System.out.println(<span class="string">&quot;删除失败&quot;</span>);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="七、批处理"><a href="#七、批处理" class="headerlink" title="七、批处理"></a>七、批处理</h3><p>一次执行多条语句</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Connection conn=<span class="keyword">null</span>;</span><br><span class="line">    Statement stmt=<span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        conn=getConnection();</span><br><span class="line">        stmt=conn.createStatement();</span><br><span class="line">        String sql=<span class="string">&quot;drop table if exists school&quot;</span>;</span><br><span class="line">        String sql2=<span class="string">&quot;create table school(id int,name varchar(20))&quot;</span>;</span><br><span class="line">        String sql3=<span class="string">&quot;insert into school values(2,&#x27;hh&#x27;)&quot;</span>;</span><br><span class="line">        String sql4=<span class="string">&quot;update school set id=1&quot;</span>;</span><br><span class="line"></span><br><span class="line">        stmt.addBatch(sql);</span><br><span class="line">        stmt.addBatch(sql2);</span><br><span class="line">        stmt.addBatch(sql3);</span><br><span class="line">        stmt.addBatch(sql4);</span><br><span class="line">        stmt.executeBatch();</span><br><span class="line">        System.out.println(<span class="string">&quot;批处理成功&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">        closeAll(conn,stmt,<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">batchDelete</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Connection conn=<span class="keyword">null</span>;</span><br><span class="line">    PreparedStatement pre=<span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        conn=getConnection();</span><br><span class="line">        String sql=<span class="string">&quot;delete from users where username=?&quot;</span>;</span><br><span class="line">        pre=conn.prepareStatement(sql);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">100</span>; i++) &#123;</span><br><span class="line">            pre.setString(<span class="number">1</span>, <span class="string">&quot;name&quot;</span> + i);</span><br><span class="line">            pre.addBatch();</span><br><span class="line">        &#125;</span><br><span class="line">        pre.executeBatch();</span><br><span class="line">        System.out.println(<span class="string">&quot;成功&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">        closeAll(conn,pre,<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="八、存储过程"><a href="#八、存储过程" class="headerlink" title="八、存储过程"></a>八、存储过程</h3><h4 id="prepareCall"><a href="#prepareCall" class="headerlink" title="prepareCall"></a>prepareCall</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testInOut</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Scanner sc=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">    System.out.println(<span class="string">&quot;请输入部门编号&quot;</span>);</span><br><span class="line">    <span class="keyword">int</span> deptno=sc.nextInt();</span><br><span class="line">    Connection conn=<span class="keyword">null</span>;</span><br><span class="line">    CallableStatement c=<span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        conn=getConnection();</span><br><span class="line">        String sql=<span class="string">&quot;call sp_emp4(?,?)&quot;</span>;</span><br><span class="line">        c=conn.prepareCall(sql);</span><br><span class="line">        <span class="comment">//设置输入参数</span></span><br><span class="line">        c.setInt(<span class="number">1</span>,deptno);</span><br><span class="line">        <span class="comment">//设置输出参数</span></span><br><span class="line">        c.registerOutParameter(<span class="number">2</span>, Types.INTEGER);</span><br><span class="line"></span><br><span class="line">        c.executeQuery();</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">        closeAll(conn,c,<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testIn</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Scanner sc=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">    System.out.println(<span class="string">&quot;请输入部门编号&quot;</span>);</span><br><span class="line">    <span class="keyword">int</span> deptno=sc.nextInt();</span><br><span class="line">    Connection conn=<span class="keyword">null</span>;</span><br><span class="line">    CallableStatement c=<span class="keyword">null</span>;</span><br><span class="line">    ResultSet rs=<span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        conn=getConnection();</span><br><span class="line">        String sql=<span class="string">&quot;call sp_emp2(?)&quot;</span>;</span><br><span class="line">        c=conn.prepareCall(sql);</span><br><span class="line">        <span class="comment">//设置输入参数</span></span><br><span class="line">        c.setInt(<span class="number">1</span>,deptno);</span><br><span class="line">        <span class="comment">//发送参数</span></span><br><span class="line">        rs=c.executeQuery();</span><br><span class="line">        System.out.println(deptno+<span class="string">&quot;员工&quot;</span>);</span><br><span class="line">        <span class="keyword">while</span> (rs.next())&#123;</span><br><span class="line">            System.out.println(rs.getInt(<span class="number">1</span>)+rs.getString(<span class="number">2</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">        closeAll(conn,c,<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="九、jdbc分层"><a href="#九、jdbc分层" class="headerlink" title="九、jdbc分层"></a>九、jdbc分层</h3><h4 id="使用属性文件动态切换数据库"><a href="#使用属性文件动态切换数据库" class="headerlink" title="使用属性文件动态切换数据库"></a>使用属性文件动态切换数据库</h4><h5 id="配置文件propertise"><a href="#配置文件propertise" class="headerlink" title="配置文件propertise"></a>配置文件propertise</h5><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url</span>=<span class="string">jdbc:mysql://localhost:3306/emp</span></span><br><span class="line"><span class="attr">username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">password</span>=<span class="string">86795462m</span></span><br><span class="line"><span class="attr">driverClass</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="使用statis代码块"><a href="#使用statis代码块" class="headerlink" title="使用statis代码块"></a>使用statis代码块</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String url = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String user = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String password = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String driverClass=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Properties properties=<span class="keyword">new</span> Properties();</span><br><span class="line">			InputStream in=JdbcUtil.class.getResourceAsStream(<span class="string">&quot;/jdbcEmp.properties&quot;</span>);</span><br><span class="line">			properties.load(in);</span><br><span class="line"></span><br><span class="line">			url=properties.getProperty(<span class="string">&quot;url&quot;</span>);</span><br><span class="line">			user=properties.getProperty(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">			password=properties.getProperty(<span class="string">&quot;password&quot;</span>);</span><br><span class="line">			driverClass=properties.getProperty(<span class="string">&quot;driverClass&quot;</span>);</span><br><span class="line"></span><br><span class="line">			Class.forName(driverClass);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="1、创建工具类"><a href="#1、创建工具类" class="headerlink" title="1、创建工具类"></a>1、创建工具类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 建立连接</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 数据连接对象</span></span><br><span class="line">   Connection conn = <span class="keyword">null</span>;</span><br><span class="line">   <span class="comment">// 获取连接并捕获异常</span></span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">      Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">      conn = DriverManager.getConnection(url, user, password);</span><br><span class="line">   &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      e.printStackTrace();<span class="comment">// 异常处理</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 返回连接对象</span></span><br><span class="line">   <span class="keyword">return</span> conn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 关闭资源</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> conn</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> stmt</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> rs</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">closeAll</span><span class="params">(Connection conn, Statement stmt, ResultSet rs)</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 若结果集对象不为空，则关闭</span></span><br><span class="line">   <span class="keyword">if</span> (rs != <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">         rs.close();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 若Statement对象不为空，则关闭</span></span><br><span class="line">   <span class="keyword">if</span> (stmt != <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">         stmt.close();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 若数据库连接对象不为空，则关闭</span></span><br><span class="line">   <span class="keyword">if</span> (conn != <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">         conn.close();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">executeUpdate</span><span class="params">(String sql, Object[] param)</span> </span>&#123;</span><br><span class="line">   Connection conn = getConnection();</span><br><span class="line">   <span class="comment">// 数据连接对象</span></span><br><span class="line">   PreparedStatement pstmt = <span class="keyword">null</span>;</span><br><span class="line">   <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">      pstmt = conn.prepareStatement(sql);</span><br><span class="line">      <span class="keyword">if</span> (param != <span class="keyword">null</span>) &#123;</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; param.length; i++) &#123;</span><br><span class="line">            pstmt.setObject(i + <span class="number">1</span>, param[i]);</span><br><span class="line">            <span class="comment">// 为预编译sql设置参数</span></span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      num = pstmt.executeUpdate();</span><br><span class="line">   &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">   &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      closeAll(conn, pstmt, <span class="keyword">null</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String sql=<span class="string">&quot;insert into emp values (?,?,?,?,?,?,?,?)&quot;</span>;</span><br><span class="line">Object[] params=&#123;empno,ename,job,mgr,<span class="keyword">new</span> java.sql.Date(hiredate.getTime()),sal,comm,deptno&#125;;</span><br><span class="line"><span class="keyword">int</span> result=JdbcUtil.executeUpdate(sql,params);</span><br></pre></td></tr></table></figure>
-
-<h5 id="实体类"><a href="#实体类" class="headerlink" title="实体类"></a>实体类</h5><p><img src="https://csn.damyoung.cn/image-20200908125204782.png" alt="image-20200908125204782"><img src="https://csn.damyoung.cn/image-20200908125225154.png" alt="image-20200908125225154"></p>
-<h4 id="2、创建数据访问层"><a href="#2、创建数据访问层" class="headerlink" title="2、创建数据访问层"></a>2、创建数据访问层</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 连接User表</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDao</span> <span class="keyword">extends</span> <span class="title">JdbcUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findUserByUsernameAndPassword</span><span class="params">(String username,String pwd)</span></span>&#123;</span><br><span class="line">        User user=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Connection conn=getConnection();</span><br><span class="line">            String sql=<span class="string">&quot;select *from user where username=? and password=?&quot;</span>;</span><br><span class="line">            PreparedStatement p=conn.prepareStatement(sql);</span><br><span class="line">            <span class="comment">//给通配符添加数据</span></span><br><span class="line">            p.setString(<span class="number">1</span>,username);</span><br><span class="line">            p.setString(<span class="number">2</span>,pwd);</span><br><span class="line">            <span class="comment">//将sql语句发送到数据库查询，并返回结果boolean</span></span><br><span class="line">            ResultSet r=p.executeQuery();</span><br><span class="line">            <span class="comment">//如果存在该用户</span></span><br><span class="line">            <span class="keyword">if</span> (r.next())&#123;</span><br><span class="line">                user=<span class="keyword">new</span> User(username,pwd);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmpDao</span> <span class="keyword">extends</span> <span class="title">JdbcUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">deleteEmp</span><span class="params">(<span class="keyword">int</span> empno)</span></span>&#123;</span><br><span class="line">        String sql=<span class="string">&quot;delete from emp where empno=?&quot;</span>;</span><br><span class="line">        Object[] params=&#123;empno&#125;;</span><br><span class="line">        <span class="keyword">return</span> executeUpdate(sql,params);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">addEmp</span><span class="params">(Emp emp)</span></span>&#123;</span><br><span class="line">        String sql=<span class="string">&quot;insert into emp valuse(?,?,?,?,?,?,?,?)&quot;</span>;</span><br><span class="line">        Object[] params=&#123;emp.getEmpno(),emp.getEname(),emp.getJob(),emp.getMgr(),<span class="keyword">new</span> java.sql.Date(emp.getHiredate().getTime()),emp.getSal(),emp.getComm(),emp.getDeptno()&#125;;</span><br><span class="line">        <span class="keyword">return</span> executeUpdate(sql,params);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Emp&gt; <span class="title">selectAllEmps</span><span class="params">()</span></span>&#123;</span><br><span class="line">        List&lt;Emp&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Connection conn=getConnection();</span><br><span class="line">            System.out.println(<span class="string">&quot;数据库连接成功&quot;</span>);</span><br><span class="line">            String sql=<span class="string">&quot;select *from emp&quot;</span>;</span><br><span class="line">            PreparedStatement p=conn.prepareStatement(sql);</span><br><span class="line">            ResultSet rs=p.executeQuery();</span><br><span class="line">            <span class="keyword">while</span> (rs.next())&#123;</span><br><span class="line">                Emp emp=<span class="keyword">new</span> Emp();</span><br><span class="line">              	emp.setSal(rs.getInt(<span class="string">&quot;sal&quot;</span>));</span><br><span class="line">                emp.setComm(rs.getInt(<span class="string">&quot;comm&quot;</span>));</span><br><span class="line">                emp.setDeptno(rs.getInt(<span class="string">&quot;deptno&quot;</span>));</span><br><span class="line">                emp.setEmpno(rs.getInt(<span class="string">&quot;empno&quot;</span>));</span><br><span class="line">                emp.setEname(rs.getString(<span class="string">&quot;ename&quot;</span>));</span><br><span class="line">                emp.setHiredate(rs.getDate(<span class="string">&quot;hiredate&quot;</span>));</span><br><span class="line">                emp.setMgr(rs.getInt(<span class="string">&quot;mgr&quot;</span>));</span><br><span class="line">                emp.setJob(rs.getString(<span class="string">&quot;job&quot;</span>));</span><br><span class="line">                list.add(emp);</span><br><span class="line">            &#125;</span><br><span class="line">            closeAll(conn,p,rs);</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3、创建视图层"><a href="#3、创建视图层" class="headerlink" title="3、创建视图层"></a>3、创建视图层</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//表示层</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Scanner sc=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入用户名&quot;</span>);</span><br><span class="line">        String username=sc.next();</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入密码&quot;</span>);</span><br><span class="line">        String pwd=sc.next();</span><br><span class="line"></span><br><span class="line">        UserDao userDao=<span class="keyword">new</span> UserDao();</span><br><span class="line">        User user=userDao.findUserByUsernameAndPassword(username,pwd);</span><br><span class="line">        <span class="keyword">if</span> (user!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;登录成功&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;登录失败&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询所有员工信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectAllEmps</span><span class="params">()</span></span>&#123;</span><br><span class="line">        EmpDao empDao=<span class="keyword">new</span> EmpDao();</span><br><span class="line">        List&lt;Emp&gt; list=empDao.selectAllEmps();</span><br><span class="line"><span class="comment">//        for (Emp e:list) &#123;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addEmp</span><span class="params">()</span>  </span>&#123;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           Scanner sc=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">           System.out.println(<span class="string">&quot;编号&quot;</span>);</span><br><span class="line">           <span class="keyword">int</span> empno=sc.nextInt();</span><br><span class="line">           System.out.println(<span class="string">&quot;姓名&quot;</span>);</span><br><span class="line">           String ename=sc.next();</span><br><span class="line">           System.out.println(<span class="string">&quot;职位&quot;</span>);</span><br><span class="line">           String job=sc.next();</span><br><span class="line">           System.out.println(<span class="string">&quot;经理编号&quot;</span>);</span><br><span class="line">           <span class="keyword">int</span> mgr=sc.nextInt();</span><br><span class="line">           System.out.println(<span class="string">&quot;yyyy-mm-dd&quot;</span>);</span><br><span class="line">           String date=sc.next();</span><br><span class="line">           SimpleDateFormat dateFormat=<span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd&quot;</span>);</span><br><span class="line">           Date hiredate=dateFormat.parse(date);</span><br><span class="line">           System.out.println(<span class="string">&quot;工资&quot;</span>);</span><br><span class="line">           <span class="keyword">double</span> sal=sc.nextDouble();</span><br><span class="line">           System.out.println(<span class="string">&quot;奖金&quot;</span>);</span><br><span class="line">           <span class="keyword">double</span> comm=sc.nextDouble();</span><br><span class="line">           System.out.println(<span class="string">&quot;部门编号&quot;</span>);</span><br><span class="line">           <span class="keyword">int</span> deptno=sc.nextInt();</span><br><span class="line">           Emp emp=<span class="keyword">new</span> Emp(empno,ename,job,mgr,hiredate,sal,comm,deptno);</span><br><span class="line"></span><br><span class="line">           EmpDao empDao=<span class="keyword">new</span> EmpDao();</span><br><span class="line">           <span class="keyword">int</span> result=empDao.addEmp(emp);</span><br><span class="line">           <span class="keyword">if</span> (result&gt;<span class="number">0</span>)&#123;</span><br><span class="line">               System.out.println(<span class="string">&quot;添加成功&quot;</span>);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deletEmp</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Scanner sc=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入员工编号&quot;</span>);</span><br><span class="line">        <span class="keyword">int</span> empno=sc.nextInt();</span><br><span class="line">        EmpDao empDao=<span class="keyword">new</span> EmpDao();</span><br><span class="line">        <span class="keyword">int</span> result =empDao.deleteEmp(empno);</span><br><span class="line">        <span class="keyword">if</span> (result&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;删除成功&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="十、事务"><a href="#十、事务" class="headerlink" title="十、事务"></a>十、事务</h3><p>connection.setAutoCommit(false) 默认true，自动提交</p>
-<p>connection.commit() 提交事务</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">try</span> &#123;</span><br><span class="line">            conn=getConnection();</span><br><span class="line">            <span class="comment">//设置提交方式</span></span><br><span class="line">            conn.setAutoCommit(<span class="keyword">false</span>);</span><br><span class="line">            String delSql=<span class="string">&quot;update account set balance=balance-500 where name=&#x27;张三&#x27;&quot;</span>;</span><br><span class="line">            String addSql=<span class="string">&quot;update account set balance=balance+500 where name=&#x27;李四&#x27;&quot;</span>;</span><br><span class="line"></span><br><span class="line">            stmt=conn.prepareStatement(delSql);</span><br><span class="line">            stmt.executeUpdate();</span><br><span class="line"></span><br><span class="line"><span class="comment">//            int i=100/0;</span></span><br><span class="line">            stmt=conn.prepareStatement(addSql);</span><br><span class="line">            stmt.executeUpdate();</span><br><span class="line"></span><br><span class="line">            conn.commit();</span><br><span class="line">            System.out.println(<span class="string">&quot;转账成功&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">assert</span> conn != <span class="keyword">null</span>;</span><br><span class="line">                conn.rollback();</span><br><span class="line">            &#125;<span class="keyword">catch</span> (SQLException e1)&#123;</span><br><span class="line">                e1.printStackTrace();</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h2><p>创建一个连接池，每次需要的的时候从连接池获取连接，减少每次用户都要从服务器获取连接，效率低</p>
-<p>使用<code>DataSource</code>接口</p>
-<h3 id="1、C3P0"><a href="#1、C3P0" class="headerlink" title="1、C3P0"></a>1、C3P0</h3><p>导入c3p0-0.9.1.2.jar包</p>
-<p><strong>配置文件</strong></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">c3p0-config</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">default-config</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 使用默认的配置读取连接池对象 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--mysql数据库连接的各项参数--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClass&quot;</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcUrl&quot;</span>&gt;</span>jdbc:mysql://localhost:3306/myabl?useUnicode=true<span class="symbol">&amp;amp;</span>characterEncoding=utf8<span class="symbol">&amp;amp;</span>serverTimezone=GMT%2B8<span class="symbol">&amp;amp;</span>useSSL=false<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;user&quot;</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span>86795462m<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--配置数据库连接池的初始连接数、最小链接数、获取连接数、最大连接数、最大空闲时间--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;initialPoolSize&quot;</span>&gt;</span>10<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;minPoolSize&quot;</span>&gt;</span>10<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;acquireIncrement&quot;</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxPoolSize&quot;</span>&gt;</span>100<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxIdleTime&quot;</span>&gt;</span>30<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">default-config</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 使用mysql的配置读取连接池对象 --&gt;</span></span><br><span class="line"></span><br><span class="line">    -<span class="tag">&lt;<span class="name">named-config</span> <span class="attr">name</span>=<span class="string">&quot;mysql&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClass&quot;</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 设置字符集和时区 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcUrl&quot;</span>&gt;</span>jdbc:mysql://127.0.0.1:3306/emp<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;user&quot;</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 初始化连接池中的连接数，取值应在minPoolSize与maxPoolSize之间，默认为3--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;initialPoolSize&quot;</span>&gt;</span>6<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--最大空闲时间，超过该秒数未使用则连接被丢弃。若为0则永不丢弃。默认值: 0 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxIdleTime&quot;</span>&gt;</span>20<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--连接池中保留的最大连接数。默认值: 15 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxPoolSize&quot;</span>&gt;</span>20<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 连接池中保留的最小连接数，默认为：3--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;minPoolSize&quot;</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 当连接池连接耗尽时，客户端调用getConnection()后等待获取新连接的时间，超时后将抛出SQLException，如设为0则无限期等待。单位毫秒。默认: 0 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;checkoutTimeout&quot;</span>&gt;</span>3000<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。默认值: 3 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;acquireIncrement&quot;</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--定义在从数据库获取新连接失败后重复尝试的次数。默认值: 30 ；小于等于0表示无限次--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;acquireRetryAttempts&quot;</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--重新尝试的时间间隔，默认为：1000毫秒--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;acquireRetryDelay&quot;</span>&gt;</span>1000<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--关闭连接时，是否提交未提交的事务，默认为false，即关闭连接，回滚未提交的事务 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;autoCommitOnClose&quot;</span>&gt;</span>false<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--c3p0将建一张名为Test的空表，并使用其自带的查询语句进行测试。如果定义了这个参数那么属性preferredTestQuery将被忽略。你不能在这张Test表上进行任何操作，它将只供c3p0测试使用。默认值: null --&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;automaticTestTable&quot;</span>&gt;</span>Test<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--如果为false，则获取连接失败将会引起所有等待连接池来获取连接的线程抛出异常，但是数据源仍有效保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试获取连接失败后该数据源将申明已断开并永久关闭。默认: false--&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;breakAfterAcquireFailure&quot;</span>&gt;</span>false<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--每60秒检查所有连接池中的空闲连接。默认值: 0，不检查 --&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;idleConnectionTestPeriod&quot;</span>&gt;</span>60<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。默认值: 0 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements 属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxStatements&quot;</span>&gt;</span>200<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxStatementsPerConnection&quot;</span>&gt;</span>100<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">named-config</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- This is my config for oracle --&gt;</span></span><br><span class="line"></span><br><span class="line">    -<span class="tag">&lt;<span class="name">named-config</span> <span class="attr">name</span>=<span class="string">&quot;oracle&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClass&quot;</span>&gt;</span>oracle.jdbc.driver.OracleDriver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcUrl&quot;</span>&gt;</span>jdbc:oracle:thin:@localhost:1521:orcl<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;user&quot;</span>&gt;</span>scott<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span>123<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;initialPoolSize&quot;</span>&gt;</span>10<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxIdleTime&quot;</span>&gt;</span>30<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxPoolSize&quot;</span>&gt;</span>100<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;minPoolSize&quot;</span>&gt;</span>10<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxStatements&quot;</span>&gt;</span>200<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">named-config</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">c3p0-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>工具类</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">C3P0Utils</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *使用ComboPooledDataSource来生成DataSource的实例</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> DataSource dataSource = <span class="keyword">new</span> ComboPooledDataSource();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取连接池方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DataSource <span class="title">getDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span>  dataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 从连接池中获取连接</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 连接</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> dataSource.getConnection();</span><br><span class="line">            <span class="comment">//1/10</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    *释放连接回连接池</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">release</span><span class="params">(Connection conn, Statement stmt, ResultSet rs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (rs != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            rs = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (stmt != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                stmt.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            stmt = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (conn != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            conn = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addEmp</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Connection conn=<span class="keyword">null</span>;</span><br><span class="line">    PreparedStatement pstmt=<span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//从池子获取连接</span></span><br><span class="line">        conn= com.seehope.util.C3P0Utils.getConnection();</span><br><span class="line">        String sql=<span class="string">&quot;insert into emp(empno,ename) values(?,?)&quot;</span>;</span><br><span class="line">     <span class="comment">//必须在自定义的connection类中重写prepareStatement(sql)方法</span></span><br><span class="line">        pstmt=conn.prepareStatement(sql);</span><br><span class="line">        pstmt.setInt(<span class="number">1</span>,<span class="number">123</span>);</span><br><span class="line">        pstmt.setString(<span class="number">2</span>,<span class="string">&quot;ss&quot;</span>);</span><br><span class="line">        <span class="keyword">int</span> rows =pstmt.executeUpdate();</span><br><span class="line">        System.out.println(<span class="string">&quot;受影响的行数&quot;</span>+rows);</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、Druid"><a href="#2、Druid" class="headerlink" title="2、Druid"></a>2、Druid</h3><p>导入druid-1.0.9.jar包</p>
-<p>阿里巴巴</p>
-<p><strong>配置文件properties</strong></p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">driverClassName</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="attr">url</span>=<span class="string">jdbc:mysql://localhost:3306/emp</span></span><br><span class="line"><span class="attr">username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">password</span>=<span class="string">*******</span></span><br><span class="line"><span class="comment"># \u521D\u59CB\u5316\u8FDE\u63A5\u6570\u91CF</span></span><br><span class="line"><span class="attr">initialSize</span>=<span class="string">5</span></span><br><span class="line"><span class="comment"># \u6700\u5927\u8FDE\u63A5\u6570</span></span><br><span class="line"><span class="attr">maxActive</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># \u6700\u5927\u7B49\u5F85\u65F6\u95F4</span></span><br><span class="line"><span class="attr">maxWait</span>=<span class="string">3000</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>工具类</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.seehope.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSourceFactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> admin</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidUtils</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *     1.定义成员变量 DataSource</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DataSource ds ;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取连接池方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DataSource <span class="title">getDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span>  ds;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//1.加载配置文件</span></span><br><span class="line">            Properties pro = <span class="keyword">new</span> Properties();</span><br><span class="line">            InputStream in=DruidUtils.class.getClassLoader().getResourceAsStream(<span class="string">&quot;druid.properties&quot;</span>);</span><br><span class="line">            pro.load(in);</span><br><span class="line">            <span class="comment">//2.获取DataSource</span></span><br><span class="line">            ds = DruidDataSourceFactory.createDataSource(pro);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取连接</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;<span class="comment">//1/10</span></span><br><span class="line">        <span class="keyword">return</span> ds.getConnection();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 释放资源</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(Statement stmt,Connection conn)</span></span>&#123;</span><br><span class="line">        close(<span class="keyword">null</span>,stmt,conn);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(ResultSet rs , Statement stmt, Connection conn)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(rs != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                stmt.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                conn.close();<span class="comment">//归还连接</span></span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDruid</span> <span class="keyword">extends</span> <span class="title">DruidUtils</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Connection conn=<span class="keyword">null</span>;</span><br><span class="line">        PreparedStatement psmt=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            conn=getConnection();</span><br><span class="line">            String sql=<span class="string">&quot;insert into account(name,balance) values(?,?)&quot;</span>;</span><br><span class="line">            psmt=conn.prepareStatement(sql);</span><br><span class="line">            psmt.setString(<span class="number">1</span>,<span class="string">&quot;试试&quot;</span>);</span><br><span class="line">            psmt.setDouble(<span class="number">2</span>,<span class="number">3000</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">int</span> count=psmt.executeUpdate();</span><br><span class="line">            System.out.println(count);</span><br><span class="line">            </span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            DruidUtils.close(psmt,conn);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、DButils"><a href="#3、DButils" class="headerlink" title="3、DButils"></a>3、DButils</h3><p>导入 commons-dbutils-1.4.jar</p>
-<h4 id="（1）update"><a href="#（1）update" class="headerlink" title="（1）update"></a>（1）update</h4><blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">queryRunner.update(<span class="string">&quot;update book set name=?,price=?,category=?,pnum=?,imgurl=?,description=?,author=?,sales=? where id=?&quot;</span>, params);</span><br></pre></td></tr></table></figure>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UButilDemo1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testInsert</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        QueryRunner qr=<span class="keyword">new</span> QueryRunner(DruidUtils.getDataSource());</span><br><span class="line">        qr.update(<span class="string">&quot;insert into user values (?,?)&quot;</span>,<span class="string">&quot;alice&quot;</span>,<span class="string">&quot;123&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testUpdate</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        QueryRunner qr=<span class="keyword">new</span> QueryRunner(C3P0Utils.getDataSource());</span><br><span class="line">        qr.update(<span class="string">&quot;update user set username=?,password=? where username=?&quot;</span>,<span class="string">&quot;rose&quot;</span>,<span class="string">&quot;111&quot;</span>,<span class="string">&quot;alice&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testDelete</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        QueryRunner qr=<span class="keyword">new</span> QueryRunner(DruidUtils.getDataSource());</span><br><span class="line">        qr.update(<span class="string">&quot;delete from user where username=?&quot;</span>,<span class="string">&quot;rose&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testBatch</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        QueryRunner qr=<span class="keyword">new</span> QueryRunner(DruidUtils.getDataSource());</span><br><span class="line">        Object[][] params=<span class="keyword">new</span> Object[<span class="number">10</span>][];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;params.length; i++) &#123;</span><br><span class="line">            params[i]=<span class="keyword">new</span> Object[]&#123;<span class="string">&quot;seehope&quot;</span>+i,<span class="string">&quot;123&quot;</span>&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        qr.batch(<span class="string">&quot;insert into user(username,password) values(?,?)&quot;</span>,params);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="（2）query"><a href="#（2）query" class="headerlink" title="（2）query"></a>（2）query</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * ScalarHandler:适合取单行单列数据</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    QueryRunner qr=<span class="keyword">new</span> QueryRunner(C3P0Utils.getDataSource());</span><br><span class="line">    Object o=qr.query(<span class="string">&quot;select count(*) from emp&quot;</span>,<span class="keyword">new</span> ScalarHandler(<span class="number">1</span>));</span><br><span class="line">    System.out.println(o.toString());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * BeanHandler: 适合取单行数据，返回指定泛型对象类型</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    QueryRunner qr = <span class="keyword">new</span> QueryRunner(C3P0Utils.getDataSource());</span><br><span class="line">    Emp emp = qr.query(<span class="string">&quot;select *from emp where empno=?&quot;</span>, <span class="keyword">new</span> BeanHandler&lt;Emp&gt;(Emp.class), <span class="number">7369</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;  &quot;</span>);</span><br><span class="line">    System.out.println(emp.getComm()+<span class="string">&quot;\t&quot;</span>+emp.getDeptno()+<span class="string">&quot;\t&quot;</span>+emp.getEmpno()+<span class="string">&quot;\t&quot;</span>+emp.getMgr());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * BeanListHandler: 返回泛型集合多行多列</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    QueryRunner qr = <span class="keyword">new</span> QueryRunner(C3P0Utils.getDataSource());</span><br><span class="line">    List&lt;Emp&gt; emp = qr.query(<span class="string">&quot;select *from emp&quot;</span>, <span class="keyword">new</span> BeanListHandler&lt;Emp&gt;(Emp.class));</span><br><span class="line">    System.out.println(<span class="string">&quot;  &quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (Emp e :emp)&#123;</span><br><span class="line">        System.out.println(e.getComm()+<span class="string">&quot;\t&quot;</span>+e.getDeptno()+<span class="string">&quot;\t&quot;</span>+e.getEmpno()+<span class="string">&quot;\t&quot;</span>+e.getMgr());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/05/01/06Maven/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/01/06Maven/" class="post-title-link" itemprop="url">Maven</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-01 20:20:22" itemprop="dateCreated datePublished" datetime="2020-05-01T20:20:22+08:00">2020-05-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:20:30" itemprop="dateModified" datetime="2020-12-17T13:20:30+08:00">2020-12-17</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h3><blockquote>
-<p>Maven的Apache公司开源项目，是<strong>项目构建工具</strong>，用来<strong>管理依赖</strong>。</p>
-<p>优点：没有jar包</p>
-<p>实现：maven项目，在maven项目中配置jar包坐标信息，根据坐标信息去jar包仓库中查找jar包。</p>
-<p>环境：maven程序纯java开发，运行依赖jdk</p>
-</blockquote>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//使得maven项目支持jdk1.8</span><br><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="一、环境配置"><a href="#一、环境配置" class="headerlink" title="一、环境配置"></a>一、环境配置</h3><h4 id="1、window环境变量"><a href="#1、window环境变量" class="headerlink" title="1、window环境变量"></a>1、window环境变量</h4><img src="https://csn.damyoung.cn/image-20201025223737952.png" alt="image-20201025223737952" style="zoom: 67%;" />
-
-<img src="https://csn.damyoung.cn/image-20201025223913347.png" alt="image-20201025223913347" style="zoom:67%;" />
-
-<img src="https://csn.damyoung.cn/image-20201025223959954.png" alt="image-20201025223959954" style="zoom:67%;" />
-
-<h4 id="2、配置本地仓库"><a href="#2、配置本地仓库" class="headerlink" title="2、配置本地仓库"></a>2、配置本地仓库</h4><blockquote>
-<p>conf-setting.xml</p>
-</blockquote>
-<img src="https://csn.damyoung.cn/image-20201026160220588.png" alt="image-20201026160220588" style="zoom:80%;" />
-
-<h4 id="3、配置阿里云镜像"><a href="#3、配置阿里云镜像" class="headerlink" title="3、配置阿里云镜像"></a>3、配置阿里云镜像</h4><img src="https://csn.damyoung.cn/image-20201027154949169.png" alt="image-20201027154949169" style="zoom:80%;" />
-
-
-
-<h3 id="二、Maven"><a href="#二、Maven" class="headerlink" title="二、Maven"></a>二、Maven</h3><blockquote>
-<p><strong>搜索第三方组件</strong>：<a target="_blank" rel="noopener" href="https://search.maven.org/">search.maven.org</a></p>
-</blockquote>
-<h4 id="1、maven概述"><a href="#1、maven概述" class="headerlink" title="1、maven概述"></a>1、maven概述</h4><h5 id="1-1-俩个核心"><a href="#1-1-俩个核心" class="headerlink" title="1.1 俩个核心"></a>1.1 俩个核心</h5><ul>
-<li><p><strong>依赖管理</strong>：对jar包统一管理</p>
-</li>
-<li><p><strong>项目构建</strong>：项目在编译完成后，对项目进行编译、测试、打包、部署等一系列操作通过命令完成</p>
-</li>
-</ul>
-<h5 id="1-2-仓库类型"><a href="#1-2-仓库类型" class="headerlink" title="1.2 仓库类型"></a>1.2 仓库类型</h5><blockquote>
-<ul>
-<li>本地仓库：在个人计算机上</li>
-<li>私服：存在于<strong>局域网</strong>内一台服务器，存jar包</li>
-<li>中央仓库：在<strong>互联网</strong>上，存放基本上所有开源的jar包(<a target="_blank" rel="noopener" href="https://repo1.maven.org/">repo1.maven.org</a>)</li>
-</ul>
-<p><strong>一个jar包一旦被下载过，就会被Maven自动缓存在本地目录</strong></p>
-</blockquote>
-<h4 id="2、项目结构"><a href="#2、项目结构" class="headerlink" title="2、项目结构"></a>2、项目结构</h4><ul>
-<li><p>pom.xml-maven<strong>项目核心配置文件</strong>project object model</p>
-<ul>
-<li>groupId-类似java的包名，往往是公司名称</li>
-<li>artifactId-构建名</li>
-<li>version- 构建版本号</li>
-</ul>
-<blockquote>
-<p><strong>作为maven项目的唯一标识。</strong></p>
-<p>引用其他第三方库时，也是通过这3个变量确定。</p>
-</blockquote>
-<img src="https://csn.damyoung.cn/image-20201026171335080.png" alt="image-20201026171335080" style="zoom:80%;" />
-</li>
-<li><p>main</p>
-<ul>
-<li>java-java文件</li>
-<li>resources-资源配置文件</li>
-</ul>
-</li>
-<li><p>test-单元测试</p>
-</li>
-<li><p><strong>target</strong>-编译打包生成的文件</p>
-</li>
-</ul>
-<h4 id="3、依赖关系"><a href="#3、依赖关系" class="headerlink" title="3、依赖关系"></a>3、依赖关系</h4><blockquote>
-<p>compile、test、runtime、provided</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="left">scope</th>
-<th align="left">说明</th>
-<th align="left">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">compile</td>
-<td align="left">编译时需要用到该jar包（默认）</td>
-<td align="left">commons-logging</td>
-</tr>
-<tr>
-<td align="left">test</td>
-<td align="left">编译Test时需要用到该jar包</td>
-<td align="left">junit</td>
-</tr>
-<tr>
-<td align="left">runtime</td>
-<td align="left">编译时不需要，但运行时需要用到</td>
-<td align="left">mysql/jdbc驱动</td>
-</tr>
-<tr>
-<td align="left">provided</td>
-<td align="left">编译时需要用到，但运行时由JDK或某个服务器提供</td>
-<td align="left">servlet-api</td>
-</tr>
-</tbody></table>
-<h4 id="4、生命周期"><a href="#4、生命周期" class="headerlink" title="4、生命周期"></a>4、生命周期</h4><blockquote>
-<p><strong>lifecycle-phase-goal</strong></p>
-</blockquote>
-<blockquote>
-<p>Maven的生命周期lifecycle由<strong>一系列阶段phase构成</strong></p>
-<ul>
-<li><code>mvn</code>这个命令时，后面的参数是phase，Maven<strong>自动根据生命周期运行到指定的phase。</strong></li>
-</ul>
-</blockquote>
-<blockquote>
-<p>**生命周期default:**validate - initialize - generate-sources - ……..</p>
-<p><strong>生命周期clean：</strong>preclean - clean - postclean</p>
-</blockquote>
-<ul>
-<li><p>运行<code>mvn package</code>，Maven就会执行<code>default</code>生命周期，它会从开始一直运行到<code>package</code>这个phase为止：</p>
-</li>
-<li><p>运行<code>mvn compile</code>，Maven也会执行<code>default</code>生命周期，但这次它只会运行到<code>compile</code></p>
-</li>
-</ul>
-<p><strong>常见的命令</strong></p>
-<ul>
-<li><code>mvn clean</code>：清理所有生成的<strong>class和jar</strong>；</li>
-<li><code>mvn clean compile</code>：先清理，再执行到<code>compile</code>；</li>
-<li><code>mvn clean test</code>：先清理，再执行到<code>test</code>，因为执行<code>test</code>前必须执行<code>compile</code>，所以这里不必指定<code>compile</code>；</li>
-<li><code>mvn clean package</code>：先清理，再执行到<code>package</code>。</li>
-</ul>
-<p><strong>Goal</strong></p>
-<blockquote>
-<p><strong>执行一个phase又会触发一个或多个goal</strong></p>
-<p><strong>goal是最小任务单元</strong></p>
-<p>goal的命名总是<code>abc:xyz</code>这种形式 <strong>plugins:goal</strong> </p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="left">执行的Phase</th>
-<th align="left">对应执行的Goal</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">compile</td>
-<td align="left">compiler:compile</td>
-</tr>
-<tr>
-<td align="left">test</td>
-<td align="left">compiler:testCompile surefire:test</td>
-</tr>
-</tbody></table>
-<h4 id="5、插件"><a href="#5、插件" class="headerlink" title="5、插件"></a>5、插件</h4><blockquote>
-<p>执行每个phase，都是通过某个插件plugin来执行</p>
-<p>Maven本身其实并不知道如何执行<code>compile</code>，它只是负责找到对应的<code>compiler</code>插件，然后执行默认的<code>compiler:compile</code>这个goal来完成编译。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="left">插件名称</th>
-<th align="left">对应执行的phase</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">clean</td>
-<td align="left">clean</td>
-</tr>
-<tr>
-<td align="left">compiler</td>
-<td align="left">compile</td>
-</tr>
-<tr>
-<td align="left">surefire</td>
-<td align="left">test</td>
-</tr>
-<tr>
-<td align="left">jar</td>
-<td align="left">package</td>
-</tr>
-</tbody></table>
-<h4 id="6、Maven的模块管理"><a href="#6、Maven的模块管理" class="headerlink" title="6、Maven的模块管理"></a>6、Maven的模块管理</h4><blockquote>
-<p>Maven支持模块化管理,分拆成多个模块降低软件复杂度</p>
-<ul>
-<li>可以通过继承parent的pom.xml统一定义重复配置</li>
-<li>通过&lt; modules&gt;编译多个模块</li>
-</ul>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">                        ┌ ─ ─ ─ ─ ─ ─ ┐</span><br><span class="line">                          ┌─────────┐</span><br><span class="line">                        │ │Module A │ │</span><br><span class="line">                          └─────────┘</span><br><span class="line">┌──────────────┐ split  │ ┌─────────┐ │</span><br><span class="line">│Single Project│───────&gt;  │Module B │</span><br><span class="line">└──────────────┘        │ └─────────┘ │</span><br><span class="line">                          ┌─────────┐</span><br><span class="line">                        │ │Module C │ │</span><br><span class="line">                          └─────────┘</span><br><span class="line">                        └ ─ ─ ─ ─ ─ ─ ┘</span><br><span class="line">  </span><br><span class="line"> &#x2F;&#x2F;多个模块的项目结构</span><br><span class="line">multiple-project</span><br><span class="line">├── pom.xml</span><br><span class="line">├── parent</span><br><span class="line">│   └── pom.xml</span><br><span class="line">├── module-a</span><br><span class="line">│   ├── pom.xml</span><br><span class="line">│   └── src</span><br><span class="line">├── module-b</span><br><span class="line">│   ├── pom.xml</span><br><span class="line">│   └── src</span><br><span class="line">└── module-c</span><br><span class="line">    ├── pom.xml</span><br><span class="line">    └── src</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	//继承parent的xml</span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itranswarp.learnjava<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>../parent/pom.xml<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>module-a<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>module-a<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果模块A依赖模块B，则模块A需要模块B的jar包才能正常编译，我们需要在模块A中引入模块B：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itranswarp.learnjava<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>module-b<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>最后，在编译的时候，需要在根目录创建一个<code>pom.xml</code>统一编译：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itranswarp.learnjava<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>build<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>build<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>parent<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>module-a<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>module-b<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>module-c<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="三、Maven-Wrapper"><a href="#三、Maven-Wrapper" class="headerlink" title="三、Maven Wrapper"></a>三、Maven Wrapper</h3><blockquote>
-<p>默认情况下，系统所有项目都会使用全局安装的这个Maven版本</p>
-<p>Maven Wrapper就是给一个项目<strong>提供一个独立的，指定版本的Maven给它使用</strong></p>
-</blockquote>
-<blockquote>
-<p>在项目下执行命令为项目安装指定版本的Maven</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mvn -N io.takari:maven:0.7.6:wrapper</span><br><span class="line"></span><br><span class="line">mvn -N io.takari:maven:0.7.6:wrapper -Dmaven&#x3D;3.3.3</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://csn.damyoung.cn/image-20201029130517820.png" alt="image-20201029130517820"></p>
-<blockquote>
-<p>执行命令时，将mvn 改成 mvnw 就可以使用跟项目关联的Maven。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvnw clean package</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2356,20 +2944,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2409,12 +2997,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">520k</span>
+    <span title="站点总字数">529k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:53</span>
+    <span title="站点阅读时长">8:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>
