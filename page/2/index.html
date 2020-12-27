@@ -1634,7 +1634,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E5%BA%94%E7%94%A8&%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E4%BA%8B%E5%8A%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1648,7 +1648,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/11/04%E5%BA%94%E7%94%A8&%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">内存优化</a>
+            <a href="/2020/11/11/04%E4%BA%8B%E5%8A%A1/" class="post-title-link" itemprop="url">事务</a>
         </h2>
 
         <div class="post-meta">
@@ -1665,7 +1665,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:07:01" itemprop="dateModified" datetime="2020-12-17T13:07:01+08:00">2020-12-17</time>
+                <time title="修改时间：2020-12-06 22:51:16" itemprop="dateModified" datetime="2020-12-06T22:51:16+08:00">2020-12-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1683,14 +1683,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -1702,242 +1702,111 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一、应用优化"><a href="#一、应用优化" class="headerlink" title="一、应用优化"></a>一、应用优化</h3><h4 id="1、使用连接池"><a href="#1、使用连接池" class="headerlink" title="1、使用连接池"></a>1、使用连接池</h4><blockquote>
-<p>建立连接的代价的比较昂贵的，因为我们频繁的创建关闭连接，是比较耗费资源</p>
-<p>我们有必要建立数据库连接池，以提高访问的性能。</p>
-</blockquote>
-<h4 id="2、减少对MySql的访问"><a href="#2、减少对MySql的访问" class="headerlink" title="2、减少对MySql的访问"></a>2、减少对MySql的访问</h4><h5 id="2-1-避免数据重复检索"><a href="#2-1-避免数据重复检索" class="headerlink" title="2.1 避免数据重复检索"></a>2.1 避免数据重复检索</h5><blockquote>
-<p>要向数据库提交两次请求，数据库就要做两次查询操作</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select id , name from tb_book;</span><br><span class="line">select id , status from tb_book;</span><br></pre></td></tr></table></figure>
-
-<p>优化后：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id, name , status from tb_book;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="2-2-增加cache层"><a href="#2-2-增加cache层" class="headerlink" title="2.2 增加cache层"></a>2.2 增加cache层</h5><blockquote>
-<p>在应用中，我们可以在应用中增加 <strong>缓存层</strong> 来达到<strong>减轻数据库负担</strong>的目的</p>
-<ul>
-<li>可以部分数据从数据库中抽取出来放到应用端以文本方式存储</li>
-<li>使用框架(Mybatis, Hibernate)提供的一级缓存/二级缓存</li>
-<li>使用redis数据库来缓存数据 </li>
-</ul>
-</blockquote>
-<h4 id="3、负载均衡"><a href="#3、负载均衡" class="headerlink" title="3、负载均衡"></a>3、负载均衡</h4><blockquote>
-<p>利用某种均衡算法，将固定的负载量分布到不同的服务器上， 以此来降低单台服务器的负载，达到优化的效果</p>
-</blockquote>
-<h5 id="3-1-利用MySql复制分流查询"><a href="#3-1-利用MySql复制分流查询" class="headerlink" title="3.1 利用MySql复制分流查询"></a>3.1 利用MySql复制分流查询</h5><blockquote>
-<p>通过MySql的主从复制，实现读写分离，使增删改操作走主节点，查询操作走从节点，从而降低单台服务器的压力</p>
-</blockquote>
-<img src="https://csn.damyoung.cn/1.jpg" style="zoom:80%;" />
-
-<h5 id="3-2-采用分布式数据库架构"><a href="#3-2-采用分布式数据库架构" class="headerlink" title="3.2 采用分布式数据库架构"></a>3.2 采用分布式数据库架构</h5><blockquote>
-<p>分布式数据库架构适合大数据量、负载高的情况，有良好的拓展性和高可用性，通过在多台服务器之间分布数据，可以实现多台服务器间的负载均衡，提高访问效率。</p>
-</blockquote>
-<h3 id="二、查询缓存"><a href="#二、查询缓存" class="headerlink" title="二、查询缓存"></a>二、查询缓存</h3><blockquote>
-<p>开启MySql的查询缓存时，当<strong>执行完全相同</strong>的Sql语句时，服务器就会直接从缓存中读取结果。</p>
-<p>当数据被修改，之前的缓存会失效，<strong>修改比较频繁的表不适合做查询缓存。</strong></p>
-</blockquote>
-<h4 id="1、操作流程"><a href="#1、操作流程" class="headerlink" title="1、操作流程"></a>1、操作流程</h4><img src="https://csn.damyoung.cn/20180919131632347.png" alt="20180919131632347" style="zoom:80%;" />
-
-<blockquote>
-<ul>
-<li>客户端发送一条查询给服务器server；</li>
-<li>服务器先会检查查询缓存，如果命中了缓存，则立即返回存储在缓存中的结果。否则进入下一阶段；</li>
-<li>服务器端进行SQL解析、预处理，再由优化器<code>optimiter</code>生成对应的执行计划；</li>
-<li>MySQL根据优化器生成的执行计划，调用存储引擎的API来执行查询；</li>
-<li>将结果返回给客户端，同时将结果缓存在缓存层中。</li>
-</ul>
-</blockquote>
-<h4 id="2、查询缓存配置"><a href="#2、查询缓存配置" class="headerlink" title="2、查询缓存配置"></a>2、查询缓存配置</h4><blockquote>
-<p>查看是否支持查询缓存</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;have_query_cache&#39;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>查看是否开启了查询缓存</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;query_cache_type&#39;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>查看查询缓存的占用大小</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;query_cache_size&#39;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>查看查询缓存的状态变量</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like &#39;Qcache%&#39;;</span><br></pre></td></tr></table></figure>
-
-<img src="https://csn.damyoung.cn/image-20201021231234834.png" alt="image-20201021231234834" style="zoom:80%;" />
-
+          <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>事务是一组SQL语句组成的逻辑处理单元，事务执行是一个整体，<strong>所有SQL语句都必须执行成功</strong></p>
+<h3 id="1、手动提交事务"><a href="#1、手动提交事务" class="headerlink" title="1、手动提交事务"></a>1、手动提交事务</h3><p>开启事务 start transaction</p>
+<p>提交事务 commit</p>
+<p>回滚事务 rollback：回退到开启事务时的状态</p>
+<h3 id="2、自动提交事务"><a href="#2、自动提交事务" class="headerlink" title="2、自动提交事务"></a>2、自动提交事务</h3><p>每一条<strong>insert、update、delete</strong>都会默认构成一条事务，会自动提交，永久改变数据库</p>
+<h3 id="3、执行过程"><a href="#3、执行过程" class="headerlink" title="3、执行过程"></a>3、执行过程</h3><h4 id="（1）执行成功"><a href="#（1）执行成功" class="headerlink" title="（1）执行成功"></a>（1）执行成功</h4><p>开启事务–&gt;执行多条SQL语句–&gt;成功提交事务</p>
+<h4 id="（2）执行失败"><a href="#（2）执行失败" class="headerlink" title="（2）执行失败"></a>（2）执行失败</h4><p>开启事务–&gt;执行多条SQL语句–&gt;事务回滚</p>
+<p><strong>回滚事务即是结束</strong></p>
+<p><strong>select @@autocommit;  自动提交 1，</strong></p>
+<p><strong>set @@autocommit =0;</strong></p>
+<h3 id="4、事务原理"><a href="#4、事务原理" class="headerlink" title="4、事务原理"></a>4、事务原理</h3><p>事务开启后，所有的操作会保存到事务日志中，事务日志只有得到commit命令才会同步到数据库中，</p>
+<p>其他任何情况都会清空事务日志（rollback，断开连接）</p>
+<h3 id="5、回滚点"><a href="#5、回滚点" class="headerlink" title="5、回滚点"></a>5、回滚点</h3><p>设置回滚点：<strong>savepoint 名字</strong></p>
+<p>回到回滚点：<strong>rollback to 名字；</strong></p>
+<h3 id="6、事务的特性"><a href="#6、事务的特性" class="headerlink" title="6、事务的特性"></a>6、事务的特性</h3><table>
+<thead>
+<tr>
+<th>ACID属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原子性（Atomicity）</td>
+<td>事务是一个原子操作单元，其对数据的修改，要么全部成功，要么全部失败。</td>
+</tr>
+<tr>
+<td>一致性（Consistent）</td>
+<td>在事务开始和完成时，数据都必须保持一致状态。</td>
+</tr>
+<tr>
+<td>隔离性（Isolation）</td>
+<td>数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的 “独立” 环境下运行。</td>
+</tr>
+<tr>
+<td>持久性（Durable）</td>
+<td>事务完成之后，对于数据的修改是永久的。</td>
+</tr>
+</tbody></table>
+<p><strong>并发事务处理带来的问题</strong></p>
 <table>
 <thead>
 <tr>
-<th>参数</th>
+<th>问题</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Qcache_free_blocks</td>
-<td>查询缓存中的可用内存块数</td>
+<td>丢失更新（Lost Update）</td>
+<td>当两个或多个事务选择同一行，最初的事务修改的值，会被后面的事务修改的值覆盖。</td>
 </tr>
 <tr>
-<td>Qcache_free_memory</td>
-<td>查询缓存的可用内存量</td>
+<td>脏读（Dirty Reads）</td>
+<td>当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</td>
 </tr>
 <tr>
-<td>Qcache_hits</td>
-<td>查询缓存命中数</td>
+<td>不可重复读（Non-Repeatable Reads）</td>
+<td>一个事务在读取某些数据后的某个时间，再次读取以前读过的数据，却发现和以前读出的数据不一致。数据内容不一致，update引起的</td>
 </tr>
 <tr>
-<td>Qcache_inserts</td>
-<td>添加到查询缓存的查询数</td>
-</tr>
-<tr>
-<td>Qcache_lowmen_prunes</td>
-<td>由于内存不足而从查询缓存中删除的查询数</td>
-</tr>
-<tr>
-<td>Qcache_not_cached</td>
-<td>非缓存查询的数量（由于 query_cache_type 设置而无法缓存或未缓存）</td>
-</tr>
-<tr>
-<td>Qcache_queries_in_cache</td>
-<td>查询缓存中注册的查询数</td>
-</tr>
-<tr>
-<td>Qcache_total_blocks</td>
-<td>查询缓存中的块总数</td>
+<td>幻读（Phantom Reads）</td>
+<td>一个事务按照相同的查询条件重新读取以前查询过的数据，却发现其他事务插入了满足其查询条件的新数据。数据的数量不一致，是insert/delete引起的</td>
 </tr>
 </tbody></table>
-<h4 id="3、开启查询缓存"><a href="#3、开启查询缓存" class="headerlink" title="3、开启查询缓存"></a>3、开启查询缓存</h4><table>
+<p><strong>隔离级别越高，性能越差，安全性越高，效率越低</strong></p>
+<table>
 <thead>
 <tr>
-<th>值</th>
-<th>含义</th>
+<th>隔离级别</th>
+<th>丢失更新</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>OFF 或 0</td>
-<td>查询缓存功能关闭</td>
+<td>Read uncommitted</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
 </tr>
 <tr>
-<td>ON 或 1</td>
-<td>查询缓存功能打开，SELECT的结果符合缓存条件即会缓存，否则，不予缓存，显式指定 SQL_NO_CACHE，不予缓存</td>
+<td>Read committed(Oracke和SQL Server)</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
 </tr>
 <tr>
-<td>DEMAND 或 2</td>
-<td>查询缓存功能按需进行，显式指定 <strong>sql_cache</strong> 的SELECT语句才会缓存；其它均不予缓存</td>
+<td>Repeatable read（MySql默认）</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Serializable串行化</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
 </tr>
 </tbody></table>
-<blockquote>
-<p>在/etc/my.cnf配置中，增加配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query_cache_type&#x3D;1;</span><br></pre></td></tr></table></figure>
-
-<img src="https://csn.damyoung.cn/image-20201021234236344.png" alt="image-20201021234236344" style="zoom:80%;" />
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart mysql.service;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<img src="https://csn.damyoung.cn/image-20201021234210231.png" alt="image-20201021234210231" style="zoom:80%;" />
-
-
-
-<h4 id="4、查询缓存select选项"><a href="#4、查询缓存select选项" class="headerlink" title="4、查询缓存select选项"></a>4、查询缓存select选项</h4><blockquote>
-<ul>
-<li><p>sql_cache：如果查询结果是可缓存的，并且 query_cache_type 系统变量的值为ON或 DEMAND ，则缓存查询结果 。</p>
-</li>
-<li><p>sql_no_cache：服务器不使用查询缓存。它既不检查查询缓存，也不检查结果是否已缓存，也不缓存查询结果。</p>
-</li>
-</ul>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select sql_cache username from tb_user_1 where id&#x3D;1;</span><br><span class="line">SELECT SQL_NO_CACHE id, name FROM customer;</span><br></pre></td></tr></table></figure>
-
-<img src="https://csn.damyoung.cn/image-20201021235706488.png" alt="image-20201021235706488" style="zoom:80%;" />
-
-<img src="https://csn.damyoung.cn/image-20201021235401748.png" alt="image-20201021235401748" style="zoom:80%;" />
-
-
-
-<h4 id="5、缓存失效"><a href="#5、缓存失效" class="headerlink" title="5、缓存失效"></a>5、缓存失效</h4><blockquote>
-<p>要想命中缓存，<strong>sql语句必须完全相同</strong></p>
-</blockquote>
-<h5 id="5-1-存在不确定"><a href="#5-1-存在不确定" class="headerlink" title="5.1 存在不确定"></a>5.1 存在不确定</h5><blockquote>
-<p>查询语句中有一些不确定函数时，则不会缓存。</p>
-<p>如 now() , current_date() , curdate() , curtime() , rand() , uuid() , user() , database() 。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL1 : select * from tb_item where updatetime &lt; now() limit 1;</span><br><span class="line">SQL2 : select user();</span><br><span class="line">SQL3 : select database();</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://csn.damyoung.cn/image-20201022000250422.png" alt="image-20201022000250422"></p>
-<h5 id="5-2-不使用任何表查询"><a href="#5-2-不使用任何表查询" class="headerlink" title="5.2 不使用任何表查询"></a>5.2 不使用任何表查询</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &#39;a&#39;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="5-3-查询系统表"><a href="#5-3-查询系统表" class="headerlink" title="5.3 查询系统表"></a>5.3 查询系统表</h5><blockquote>
-<p>查询 mysql， information_schema或  performance_schema 数据库中的表时，不会走查询缓存。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from information_schema.engines;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>在<strong>存储函数，触发器或事件</strong>的主体内执行的查询。</p>
-</blockquote>
-<blockquote>
-<p>如果<strong>表更改</strong>，则使用该表的所有高速缓存查询都将变为无效并从高速缓存中删除。</p>
-<ul>
-<li>用<code>MERGE</code>映射到已更改表的表的查询。</li>
-<li>一个表可以被许多类型的语句，如被改变 insert， update， delete， truncate table，alter table，drop table 或 drop database; </li>
-</ul>
-</blockquote>
-<h3 id="三、MySql内存管理及优化"><a href="#三、MySql内存管理及优化" class="headerlink" title="三、MySql内存管理及优化"></a>三、MySql内存管理及优化</h3><h4 id="1、内存优化原则"><a href="#1、内存优化原则" class="headerlink" title="1、内存优化原则"></a>1、内存优化原则</h4><blockquote>
-<ul>
-<li> 将尽量多的内存分配给MySQL做缓存，但要给操作系统和其他程序预留足够内存</li>
-<li><code>MyISAM</code> 存储引擎的数据文件读取<strong>依赖于操作系统自身的IO缓存</strong>，因此，如果有<code>MyISAM</code>表，就要预留更多的内存给操作系统做IO缓存</li>
-<li> <strong>排序区、连接区</strong>等缓存是分配给每个数据库会话（session）专用的，<strong>其默认值的设置要根据最大连接数合理分配</strong>，如果设置太大，不但浪费资源，而且在并发连接较高时会导致物理内存耗尽</li>
-</ul>
-</blockquote>
-<h4 id="2、MyISAM内存优化"><a href="#2、MyISAM内存优化" class="headerlink" title="2、MyISAM内存优化"></a>2、MyISAM内存优化</h4><blockquote>
-<ul>
-<li><p>myisam存储引擎使用 key_buffer 缓存<strong>索引块</strong>，加速myisam索引的读写速度。</p>
-</li>
-<li><p>对于myisam表的<strong>数据块</strong>，mysql没有特别的缓存机制，完全依赖于操作系统的IO缓存。</p>
-</li>
-</ul>
-</blockquote>
-<p><strong>key_buffer_size</strong></p>
-<blockquote>
-<p>key_buffer_size决定MyISAM<strong>索引块缓存区</strong>的大小，直接影响到MyISAM表的存取效率。</p>
-<p>在MySQL参数文件(<code>/usr/my.cnf</code>)中设置key_buffer_size的值，对于一般MyISAM数据库，建议至少将1/4可用内存分配给key_buffer_size。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key_buffer_size&#x3D;512M</span><br></pre></td></tr></table></figure>
-
-<img src="https://csn.damyoung.cn/image-20201022001306901.png" alt="image-20201022001306901" style="zoom:80%;" />
-
-<p><strong>read_buffer_size</strong></p>
-<blockquote>
-<p>如果需要经常<strong>顺序扫描</strong>myisam表，可以通过增大read_buffer_size的值来改善性能。</p>
-<p>但需要注意的是read_buffer_size是<strong>每个session独占</strong>的，如果默认值设置太大，就会造成内存浪费</p>
-</blockquote>
-<p><strong>read_rnd_buffer_size</strong></p>
-<blockquote>
-<p>对于需要做排序的myisam表的查询，如带有<strong>order by</strong>子句的sql，适当增加 read_rnd_buffer_size 的值，可以改善此类的sql性能。</p>
-<p>但需要注意的是 read_rnd_buffer_size 是<strong>每个session独占</strong>的，如果默认值设置太大，就会造成内存浪费。</p>
-</blockquote>
-<h4 id="3、InnoDB内存优化"><a href="#3、InnoDB内存优化" class="headerlink" title="3、InnoDB内存优化"></a>3、InnoDB内存优化</h4><blockquote>
-<p>innodb用<strong>一块内存区做IO缓存池</strong></p>
-<p>该缓存池不仅用来缓存innodb的索引块，而且也用来缓存innodb的数据块。</p>
-</blockquote>
-<p><strong>innodb_buffer_pool_size</strong></p>
-<blockquote>
-<p>决定了 innodb 存储引擎<strong>表数据</strong>和<strong>索引数据</strong>的最大缓存区大小</p>
-<p>在保证操作系统及其他程序有足够内存可用的情况下，innodb_buffer_pool_size 的值越大，<strong>缓存命中率越高，访问InnoDB表需要的磁盘I/O 就越少，性能也就越高。</strong></p>
-</blockquote>
-<p><strong>innodb_log_buffer_size</strong></p>
-<blockquote>
-<p>决定了innodb重做<strong>日志缓存</strong>的大小，对于可能产生大量更新记录的大事务，增加innodb_log_buffer_size的大小，可以避免innodb在事务提交前就执行不必要的日志写入磁盘操作。</p>
-</blockquote>
+<p><strong>设置隔离级别</strong> ：<strong>set global transaction isolation level —;</strong></p>
+<p><strong>查看隔离级别</strong>：<strong>select @@tx_isolation;</strong> </p>
 
       
     </div>
