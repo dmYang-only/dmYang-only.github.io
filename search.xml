@@ -10630,7 +10630,7 @@
       </tags>
   </entry>
   <entry>
-    <title>java集合类</title>
+    <title>java集合</title>
     <url>/2021/01/02/java%E9%9B%86%E5%90%88%E7%B1%BB/</url>
     <content><![CDATA[<h1 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h1><h2 id="collection接口"><a href="#collection接口" class="headerlink" title="collection接口"></a>collection接口</h2><blockquote>
 <p>Collection接口是list,set接口的上级接口；而Map是键值对映射容器，不是Collection接口的下级接口，不同于Set和list只存储元素</p>
@@ -11233,10 +11233,10 @@
 
 <img src="https://csn.damyoung.cn/image-20200731223511191.png" alt="image-20200731223511191" style="zoom:67%;" />]]></content>
       <categories>
-        <category>java基础</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>JAVA基础</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
