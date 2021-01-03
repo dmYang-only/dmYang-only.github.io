@@ -11112,9 +11112,9 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Set s=map.keySet();</span><br><span class="line">Collection s1=map.values();</span><br><span class="line">System.out.println(s1);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(Object key:map.keySet())&#123;</span><br><span class="line">    System.out.println(key+<span class="string">&quot;--&quot;</span>+map.get(key));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="HashMap线程不安全"><a href="#HashMap线程不安全" class="headerlink" title="HashMap线程不安全"></a>HashMap线程不安全</h2><h4 id="put的时候导致多线程数据的不一致"><a href="#put的时候导致多线程数据的不一致" class="headerlink" title="put的时候导致多线程数据的不一致"></a>put的时候导致多线程数据的不一致</h4><p>俩个线程A和B，首先A希望插入一个key-value对到HashMap中，首先计算记录要落到的桶的索引坐标，然后获取到桶里面的链表头结点，此时线程A的时间片用完了，此时线程B得到调度得以执行，与A不同的是B成功将记录插入到桶中</p>
+<h2 id="HashMap线程不安全"><a href="#HashMap线程不安全" class="headerlink" title="HashMap线程不安全"></a>HashMap线程不安全</h2><h3 id="put的时候导致多线程数据的不一致"><a href="#put的时候导致多线程数据的不一致" class="headerlink" title="put的时候导致多线程数据的不一致"></a>put的时候导致多线程数据的不一致</h3><p>俩个线程A和B，首先A希望插入一个key-value对到HashMap中，首先计算记录要落到的桶的索引坐标，然后获取到桶里面的链表头结点，此时线程A的时间片用完了，此时线程B得到调度得以执行，与A不同的是B成功将记录插入到桶中</p>
 <p>假设线程A插入的记录计算出来的桶索引和线程B要插入的记录计算出来的桶索引是一样的，那B 成功插入之后，线程A再次被调度运行时，它依然持有过期的链表头但是它对此一无所知，以至于它认为它应该这样做，如此一来就覆盖了线程 B 插入的记录，这样线程B插入的记录就凭空消失了，造成了数据不一致的行为。</p>
-<h4 id="多线程下Rehash导致的死循环问题"><a href="#多线程下Rehash导致的死循环问题" class="headerlink" title="多线程下Rehash导致的死循环问题"></a>多线程下Rehash导致的死循环问题</h4><p>主要原因在于并发下的<code>Rehash</code>会造成元素之间会形成一个<strong>循环链表</strong>。不过，jdk 1.8 后解决了这个问题，在 1.8 的情况下，resize 是不需要对原数组链表中的所有节点都进行再次 hash，<strong>移动之后节点的顺序也不会改变，而且在一定程度上也避免了1.7中死锁的发生</strong></p>
+<h3 id="多线程下Rehash导致的死循环问题"><a href="#多线程下Rehash导致的死循环问题" class="headerlink" title="多线程下Rehash导致的死循环问题"></a>多线程下Rehash导致的死循环问题</h3><p>主要原因在于并发下的<code>Rehash</code>会造成元素之间会形成一个<strong>循环链表</strong>。不过，jdk 1.8 后解决了这个问题，在 1.8 的情况下，resize 是不需要对原数组链表中的所有节点都进行再次 hash，<strong>移动之后节点的顺序也不会改变，而且在一定程度上也避免了1.7中死锁的发生</strong></p>
 <p>并发环境下推荐使用 <code>ConcurrentHashMap</code>。</p>
 <h2 id="HashMap和HashTable的区别"><a href="#HashMap和HashTable的区别" class="headerlink" title="HashMap和HashTable的区别"></a>HashMap和HashTable的区别</h2><ol>
 <li><p>线程是否安全</p>
