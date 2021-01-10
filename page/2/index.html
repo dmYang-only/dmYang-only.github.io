@@ -185,6 +185,135 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/00java%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/00java%E6%A6%82%E8%BF%B0/" class="post-title-link" itemprop="url">java概述</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:37:12" itemprop="dateModified" datetime="2020-12-06T22:37:12+08:00">2020-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>831</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、java编译解析"><a href="#1、java编译解析" class="headerlink" title="1、java编译解析"></a>1、java编译解析</h3><p>源代码.java——字节码.class———机器码0101010</p>
+<p>​                (通过编译器)        （通过jvm虚拟机解析）</p>
+<p>常见java程序：Application(应用程序)，Servlet(服务器端小程序)</p>
+<h3 id="2、java特性"><a href="#2、java特性" class="headerlink" title="2、java特性"></a>2、java特性</h3><blockquote>
+<p>面向对象、跨平台、健壮性</p>
+</blockquote>
+<ul>
+<li>跨平台性：在不同的操作系统只要安装一个java虚拟机，</li>
+</ul>
+<p>​                          即面向UNIX的jvm、面向Windows的jvm、、、、</p>
+<ul>
+<li>健壮性：java是一种强类型语言，在编译和运行时进行大量的类型检查</li>
+</ul>
+<p>​                       java有自动垃圾回收功能GC，防止内存分配的错误</p>
+<p>​                       java有异常处理机制exception</p>
+<ul>
+<li>JAVA SE:标准版 standard edition</li>
+<li>JAVE EE:企业版 Enterprise Edition</li>
+<li>JAVA ME:用于移动设备和嵌入式设备</li>
+</ul>
+<h3 id="3、JDK开发环境"><a href="#3、JDK开发环境" class="headerlink" title="3、JDK开发环境"></a>3、JDK开发环境</h3><p>（java开发工具）java的核心类库（JAVA API）、JRE 运行环境（jvm虚拟机+一些核心类库API）</p>
+<h3 id="4、dos命令环境"><a href="#4、dos命令环境" class="headerlink" title="4、dos命令环境"></a>4、dos命令环境</h3><p>cd..返回上一级目录，dir当前目录，del删除文件</p>
+<p>F:改变路径，cd/返回根目录，cd进入目录</p>
+<p>md创建目录  ，rd删除目录 ，</p>
+<p>ipconfig ip地址 ，systeminfo查看系统信息，</p>
+<p>java -version java版本号</p>
+<h3 id="5、配置环境变量"><a href="#5、配置环境变量" class="headerlink" title="5、配置环境变量"></a>5、配置环境变量</h3><ul>
+<li><p>在path中编辑，%JAVA_HOME%\bin</p>
+</li>
+<li><p>添加  变量名    JAVA_HOME,</p>
+<p>​          变量值：C:\Program Files (x86)\Java\jdk1.8.0_45</p>
+</li>
+</ul>
+<h3 id="6、DOS命令"><a href="#6、DOS命令" class="headerlink" title="6、DOS命令"></a>6、DOS命令</h3><ul>
+<li><p>通过javac hello.java命令调用javac.exe程序，生成字节码文件.class</p>
+</li>
+<li><p>通过java hello命令，调用java.exe程序，使JVM解析字节码文件</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">hello</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;<span class="comment">//主方法，程序的入口</span></span><br><span class="line">		System.out.println(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/00%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1477,248 +1606,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04jsp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/04jsp/" class="post-title-link" itemprop="url">jsp</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:19:00" itemprop="dateModified" datetime="2020-12-17T13:19:00+08:00">2020-12-17</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h2><p><strong>html静态内容</strong></p>
-<p>java Server Pages <strong>开发动态Web资源</strong></p>
-<h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><p>Java JDK、Tomcat服务器、配置环境变量</p>
-<h3 id="一、生命周期"><a href="#一、生命周期" class="headerlink" title="一、生命周期"></a>一、生命周期</h3><p><strong>解析JSP文件，将JSP文件转为servlet，编译servlet</strong></p>
-<ul>
-<li>初始化阶段</li>
-<li>执行阶段</li>
-<li>销毁阶段</li>
-</ul>
-<h3 id="二、jsp和Servlet"><a href="#二、jsp和Servlet" class="headerlink" title="二、jsp和Servlet"></a>二、jsp和Servlet</h3><p>Servlet:负责 <strong>获取表单数据、处理业务逻辑、分发转向</strong></p>
-<p>Jsp:代码显示模块。重点在于<strong>显示数据</strong></p>
-<img src="https://csn.damyoung.cn/image-20200916162638158.png" alt="image-20200916162638158" style="zoom:80%;" />
-
-<img src="https://csn.damyoung.cn/image-20200917102959090.png" alt="image-20200917102959090" style="zoom: 80%;" />
-
-<h3 id="三、jsp基本语法"><a href="#三、jsp基本语法" class="headerlink" title="三、jsp基本语法"></a>三、jsp基本语法</h3><h4 id="1、jsp脚本"><a href="#1、jsp脚本" class="headerlink" title="1、jsp脚本"></a>1、jsp脚本</h4><p>**&lt;%    java代码    %&gt;、&lt;%    =2+3(表达式)**    %&gt; == out.print(2+3)</p>
-<h4 id="2、三大指令"><a href="#2、三大指令" class="headerlink" title="2、三大指令"></a>2、三大指令</h4><p><strong>&lt;%@ page/include/taglib =””%&gt;</strong></p>
-<h5 id="（1）page"><a href="#（1）page" class="headerlink" title="（1）page"></a>（1）page</h5><p>用于定义jsp页面的各种属性</p>
-<img src="https://csn.damyoung.cn/image-20200916163841073.png" alt="image-20200916163841073" style="zoom: 80%;" />
-
-<h5 id="（2）include"><a href="#（2）include" class="headerlink" title="（2）include"></a>（2）include</h5><p>把其他资源包含到当前页面中</p>
-<img src="https://csn.damyoung.cn/image-20200916163911731.png" alt="image-20200916163911731" style="zoom: 80%;" />
-
-<p>静态包含：&lt;%@ include file=”**/**include/header.jsp” %&gt;</p>
-<p>动态包含：&lt;jsp:include page=”/include/header.jsp”&gt;&lt; /jsp:include&gt;</p>
-<p><strong>区别：</strong></p>
-<p>前者：在解析时就把两个文件合并</p>
-<p>后者：不会合并文件，当代码执行到include时，才包含另一个文件的内容。</p>
-<h5 id="（3）taglib"><a href="#（3）taglib" class="headerlink" title="（3）taglib"></a>（3）taglib</h5><p>在JSP页面中导入JSTL标签库。替换jsp中的java代码片段。</p>
-<h4 id="3、六大动作"><a href="#3、六大动作" class="headerlink" title="3、六大动作"></a>3、六大动作</h4><p>动态包含&lt; jsp:include&gt;</p>
-<p>请求转发 &lt; jsp:forward &gt;</p>
-<p>设置请求参数 &lt; jsp:param&gt;</p>
-<p>创建对象  &lt; jsp:useBean&gt;</p>
-<p>对象属性赋值&lt; jsp:setProperty&gt;</p>
-<p>取出对象属性值&lt; jsp:getProperty&gt;</p>
-<h4 id="4、内置对象"><a href="#4、内置对象" class="headerlink" title="4、内置对象"></a>4、内置对象</h4><p>request、reponse、session、application、</p>
-<p>exception、page、config、out</p>
-<p>pageContext</p>
-<h4 id="5、pageContext域"><a href="#5、pageContext域" class="headerlink" title="5、pageContext域"></a>5、pageContext域</h4><p><strong>域对象，生命周期为当前jsp页面</strong></p>
-<p>findAttribute(String name);   自动从page request session application依次查找，找到了就取值，结束查找。</p>
-<p><strong>可以操作其他三个域对象</strong></p>
-<p><img src="https://csn.damyoung.cn/image-20200916165030469.png" alt="image-20200916165030469"></p>
-<h3 id="四、EL表达式"><a href="#四、EL表达式" class="headerlink" title="四、EL表达式"></a>四、EL表达式</h3><p>expression language</p>
-<p><strong>jsp获取数据的规范</strong></p>
-<blockquote>
-<p>当el表达式首字母大写，会判断第二个字母大小写，小写，抛异常；大写，则直接拼接get，形成getter方法</p>
-<p>当el表达式首字母小写，会判断第二个字母大小写，大写，必须第一个字母大写；否则无法获取值</p>
-<p>el首字母大写，至少第二个字母必须大写。</p>
-</blockquote>
-<h4 id="1、直接获取"><a href="#1、直接获取" class="headerlink" title="1、直接获取"></a>1、直接获取</h4><img src="https://csn.damyoung.cn/image-20200917111912413.png" alt="image-20200917111912413" style="zoom:80%;" />
-
-<img src="https://csn.damyoung.cn/image-20200917115049001.png" alt="image-20200917115049001" style="zoom:80%;" />
-
-<img src="https://csn.damyoung.cn/image-20200917111942792.png" alt="image-20200917111942792" style="zoom:80%;" />
-
-<img src="https://csn.damyoung.cn/image-20200917111953729.png" alt="image-20200917111953729" style="zoom:80%;" />
-
-<h4 id="2、域"><a href="#2、域" class="headerlink" title="2、域"></a>2、域</h4><p><strong>未指定则按从上往下找</strong></p>
-<p><img src="https://csn.damyoung.cn/image-20200917113240622.png" alt="image-20200917113240622"></p>
-<table>
-<thead>
-<tr>
-<th>EL隐式对象引用名称</th>
-<th>类型</th>
-<th>JSP内置对象名称</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>pageContext</td>
-<td>javax.servlet.jsp.PageContext</td>
-<td>pageContext</td>
-<td align="center">一样的</td>
-</tr>
-<tr>
-<td>pageScope</td>
-<td>java.util.Map&lt;String,Object&gt;</td>
-<td>没有对应的</td>
-<td align="center">pageContext范围中存放的数据,页面范围</td>
-</tr>
-<tr>
-<td>requestScope</td>
-<td>java.util.Map&lt;String,Object&gt;</td>
-<td>没有对应的</td>
-<td align="center">请求范围数据</td>
-</tr>
-<tr>
-<td>sessionScope</td>
-<td>java.util.Map&lt;String,Object&gt;</td>
-<td>没有对应的</td>
-<td align="center">会话范围数据</td>
-</tr>
-<tr>
-<td>applicationScope</td>
-<td>java.util.Map&lt;String,Object&gt;</td>
-<td>没有对应的</td>
-<td align="center">应用范围数据</td>
-</tr>
-<tr>
-<td>param</td>
-<td>java.util.Map&lt;String,String&gt;</td>
-<td>没有对应的</td>
-<td align="center">一个请求参数</td>
-</tr>
-<tr>
-<td>paramValues</td>
-<td>java.util.Map&lt;String,String[]&gt;</td>
-<td>没有对应的</td>
-<td align="center">重名请求参数</td>
-</tr>
-<tr>
-<td>header</td>
-<td>java.util.Map&lt;String,String&gt;</td>
-<td>没有对应的</td>
-<td align="center">一个请求消息头</td>
-</tr>
-<tr>
-<td>headerValues</td>
-<td>java.util.Map&lt;String,String[]&gt;</td>
-<td>没有对应的</td>
-<td align="center">重名请求消息头</td>
-</tr>
-<tr>
-<td>initParam</td>
-<td>java.util.Map&lt;String,String&gt;</td>
-<td>没有对应的</td>
-<td align="center">web.xml中全局参数</td>
-</tr>
-<tr>
-<td>cookie</td>
-<td>java.util.Map&lt;String,Cookie&gt;</td>
-<td>没有对应的</td>
-<td align="center">key:cookie对象的name值</td>
-</tr>
-</tbody></table>
-<h4 id="3、param请求参数"><a href="#3、param请求参数" class="headerlink" title="3、param请求参数"></a>3、param请求参数</h4><p><strong>获取表单元素</strong></p>
-<img src="https://csn.damyoung.cn/image-20200917113941184.png" alt="image-20200917113941184" style="zoom:80%;" />
-
-<img src="https://csn.damyoung.cn/image-20200917113918244.png" alt="image-20200917113918244" style="zoom: 80%;" />
-
-<h4 id="4、运算"><a href="#4、运算" class="headerlink" title="4、运算"></a>4、运算</h4><h5 id="empty"><a href="#empty" class="headerlink" title="empty"></a>empty</h5><p>判断null</p>
-<img src="https://csn.damyoung.cn/image-20200917141810079.png" alt="image-20200917141810079" style="zoom:80%;" />
-
-<h5 id="三目运算符"><a href="#三目运算符" class="headerlink" title="三目运算符"></a>三目运算符</h5><img src="https://csn.damyoung.cn/image-20200917141828111.png" alt="image-20200917141828111" style="zoom:80%;" />
-
-<h3 id="五、JSTL"><a href="#五、JSTL" class="headerlink" title="五、JSTL"></a>五、JSTL</h3><p>导入jstl-1.2.jar包</p>
-<p>javaServletPages Standard Tag Library <strong>JSP标准标签库</strong></p>
-<p>作用：<strong>实现JSP页面中逻辑处理</strong>，如循环判断</p>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>（1）添加taglib指令 </p>
-<blockquote>
-<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@taglib</span> prefix=<span class="string">&quot;c&quot;</span> uri=<span class="string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>（2）使用JSTL标签</p>
-<h4 id="常用标签"><a href="#常用标签" class="headerlink" title="常用标签"></a>常用标签</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">设置变量:&lt;c:set var=&quot;num&quot; value=&quot;$&#123;10+5&#125;&quot; scope=&quot;request&quot; &gt;&lt;/c:set&gt;&lt;br&gt;</span><br><span class="line">输出数据:&lt;c:out value=&quot;$&#123;num&#125;&quot;&gt;&lt;/c:out&gt;&lt;br&gt;</span><br><span class="line">移除变量:&lt;c:remove var=&quot;$&#123;num&#125;&quot;&gt;&lt;/c:remove&gt;&lt;br&gt;</span><br><span class="line">移除后输出:&lt;c:out value=&quot;$&#123;num&#125;&quot; default=&quot;aaa&quot;&gt;&lt;/c:out&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="条件标签"><a href="#条件标签" class="headerlink" title="条件标签"></a>条件标签</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:set var=&quot;num&quot; value=&quot;3&quot;&gt;&lt;/c:set&gt;</span><br><span class="line">&lt;c:<span class="keyword">if</span> test=<span class="string">&quot;$&#123;num&lt;5&#125;&quot;</span>&gt;</span><br><span class="line">    结果为<span class="keyword">true</span></span><br><span class="line">&lt;/c:if&gt;</span><br><span class="line">&lt;br&gt;</span><br><span class="line">&lt;hr&gt;</span><br><span class="line"></span><br><span class="line">&lt;c:choose&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;num==1&#125;&quot;</span>&gt;</span><br><span class="line">        第一名</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;num==2&#125;&quot;</span>&gt;</span><br><span class="line">        第二名<span class="number">0</span></span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;num==3&#125;&quot;</span>&gt;</span><br><span class="line">        第三名</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">     &lt;c:otherwise&gt;</span><br><span class="line">        不及格</span><br><span class="line">    &lt;/c:otherwise&gt;</span><br><span class="line">&lt;/c:choose&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="迭代标签"><a href="#迭代标签" class="headerlink" title="迭代标签"></a>迭代标签</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:forEach <span class="keyword">var</span>=<span class="string">&quot;i&quot;</span> begin=<span class="string">&quot;2&quot;</span> end=<span class="string">&quot;10&quot;</span> step=<span class="string">&quot;2&quot;</span>&gt;</span><br><span class="line">    &lt;hr&gt;$&#123;i&#125;</span><br><span class="line">&lt;/c:forEach&gt;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>items表示遍历的集合</p>
-<p>varStatus表示引用一个对象(count、first、last、index)</p>
-<p>var表示变量</p>
-</blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:forEach items=<span class="string">&quot;$&#123;list&#125;&quot;</span> <span class="keyword">var</span>=<span class="string">&quot;li&quot;</span> varStatus=<span class="string">&quot;vs&quot;</span>&gt;</span><br><span class="line">   &lt;tr $&#123;vs.count%<span class="number">2</span>==<span class="number">1</span>? <span class="string">&quot;style=&#x27;background-color:yellow&#x27;&quot;</span>:<span class="string">&quot;&quot;</span>&#125;&gt;</span><br><span class="line">       &lt;td&gt;$&#123;li.key&#125;&lt;/td&gt;</span><br><span class="line">       &lt;td&gt;$&#123;li.value&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;$&#123;li&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;$&#123;vs.index&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;$&#123;vs.count&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;$&#123;vs.first&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;$&#123;vs.last&#125;&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;&lt;hr&gt;</span><br><span class="line">&lt;/c:forEach&gt;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1788,7 +1675,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1841,12 +1728,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">569k</span>
+    <span title="站点总字数">609k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:37</span>
+    <span title="站点阅读时长">9:13</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>
