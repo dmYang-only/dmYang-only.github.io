@@ -185,6 +185,214 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/25/03Mybatis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/25/03Mybatis/" class="post-title-link" itemprop="url">Mybatis</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-25 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-25T00:00:00+08:00">2020-11-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-22 15:30:43" itemprop="dateModified" datetime="2020-12-22T15:30:43+08:00">2020-12-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MyBatis/" itemprop="url" rel="index"><span itemprop="name">MyBatis</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>24k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>21 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Mybatis简介"><a href="#Mybatis简介" class="headerlink" title="Mybatis简介"></a>Mybatis简介</h1><p>基于Java的持久层框架，还有封装程度更高的框架Hibernate</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>mybatis 是一个优秀的基于 java 的持久层框架，它<strong>内部封装了 jdbc</strong>，使开发者只需要关注 sql 语句本身， 而不需要花费精力去处理加载驱动、创建连接、创建 statement 等繁杂的过程。 </p>
+<p>mybatis 通过 <strong>xml 或注解</strong>的方式将要执行的各种 statement 配置起来，并通过 java 对象和 statement 中 sql 的动态参数进行映射生成最终执行的 sql 语句，最后由 mybatis 框架执行 sql 并将<strong>结果</strong>映射为 java 对象并 返回。 </p>
+<p>采用 <strong>ORM</strong> 思想解决了实体和数据库映射的问题，对 jdbc 进行了封装，屏蔽了 jdbc api 底层访问细节，使我 们不用与 jdbc api 打交道，就可以完成对数据库的持久化操作。</p>
+<h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Connection connection = <span class="keyword">null</span>;</span><br><span class="line">    PreparedStatement preparedStatement = <span class="keyword">null</span>;</span><br><span class="line">    ResultSet resultSet = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//加载数据库驱动</span></span><br><span class="line">        Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">        <span class="comment">//通过驱动管理类获取数据库链接</span></span><br><span class="line">        connection = DriverManager</span><br><span class="line">       .getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/mybatis?characterEncoding=utf-8&quot;</span>,<span class="string">&quot;root&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">//定义 sql 语句 ?表示占位符</span></span><br><span class="line">        String sql = <span class="string">&quot;select * from user where username = ?&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取预处理 statement</span></span><br><span class="line">        preparedStatement = connection.prepareStatement(sql);</span><br><span class="line">        <span class="comment">//设置参数，第一个参数为 sql 语句中参数的序号（从 1 开始），第二个参数为设置的</span></span><br><span class="line">        参数值</span><br><span class="line">        preparedStatement.setString(<span class="number">1</span>, <span class="string">&quot;王五&quot;</span>);</span><br><span class="line">        <span class="comment">//向数据库发出 sql 执行查询，查询出结果集</span></span><br><span class="line">        resultSet = preparedStatement.executeQuery();</span><br><span class="line">        <span class="comment">//遍历查询结果集</span></span><br><span class="line">        <span class="keyword">while</span>(resultSet.next())&#123;</span><br><span class="line">             System.out.println(resultSet.getString(<span class="string">&quot;id&quot;</span>)+<span class="string">&quot;</span></span><br><span class="line"><span class="string">             &quot;</span>+resultSet.getString(<span class="string">&quot;username&quot;</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    	e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        <span class="comment">//释放资源</span></span><br><span class="line">        <span class="keyword">if</span>(resultSet!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">        	resultSet.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">        	e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(preparedStatement!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            preparedStatement.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">        	e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(connection!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            connection.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>存在的问题</strong></p>
+<p>1、数据库链接创建、释放频繁造成系统资源浪费从而影响系统性能，如果使用数据库链接池可解决此问题。 </p>
+<p>2、Sql 语句在代码中硬编码，造成代码不易维护，实际应用 sql 变化的可能较大，sql 变动需要改变 java 代码。 </p>
+<p>3、使用 preparedStatement 向占有位符号传参数存在硬编码，因为 sql 语句的 where 条件不一定，可能 多也可能少，修改 sql 还要修改代码，系统不易维护。 </p>
+<p>4、对结果集解析存在硬编码（查询列名），sql 变化导致解析代码变化，系统不易维护，如果能将数据库记 录封装成 pojo 对象解析比较方</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/25/03Mybatis/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/25/05springSecurity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/25/05springSecurity/" class="post-title-link" itemprop="url">Spring Security</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-25 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-25T00:00:00+08:00">2020-11-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-23 00:10:09" itemprop="dateModified" datetime="2020-12-23T00:10:09+08:00">2020-12-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>31k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>28 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>使用安全框架，我们可以通过配置的方式实现对资源的访问限制</p>
+<h2 id="常用安全框架"><a href="#常用安全框架" class="headerlink" title="常用安全框架"></a>常用安全框架</h2><ul>
+<li>Spring Security：Spring家族一员。是一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方案的安全框架。它提供了一组可以在Spring应用上下文中配置的Bean，充分利用了 Spring IoC ， DI（控制反转Inversion of Control,DI:Dependency Injection 依赖注入） 和 AOP（面向切面编程） 功能，为应用系统提供声明式的安全访问控制功能，减少了为企业系统安 全控制编写大量重复代码的工作。 </li>
+<li>Apache Shiro：一个功能强大且易于使用的Java安全框架,提供了认证,授权,加密,和会话管理</li>
+</ul>
+<h3 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h3><ul>
+<li>“<strong>认证</strong>”，是建立一个他声明的主体的过程（一个“主体”一般是指用户， 设备或一些可以在你的应用程序中执行动作的其他系统），通俗点说就是系统认为用户是否能登录。 </li>
+<li>“<strong>授权</strong>”指确定一个主体是否允许在你的应用程序执行一个动作的过程。通俗点讲就是系统判断用户是否 有权限去做某些事情。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/25/05springSecurity/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/17/04springboot/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -431,7 +639,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:37:12" itemprop="dateModified" datetime="2020-12-06T22:37:12+08:00">2020-12-06</time>
+                <time title="修改时间：2021-01-02 20:05:20" itemprop="dateModified" datetime="2021-01-02T20:05:20+08:00">2021-01-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -439,7 +647,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                  <a href="/categories/javaSe/" itemprop="url" rel="index"><span itemprop="name">javaSe</span></a>
                 </span>
             </span>
 
@@ -560,7 +768,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:37:39" itemprop="dateModified" datetime="2020-12-06T22:37:39+08:00">2020-12-06</time>
+                <time title="修改时间：2021-01-02 20:05:11" itemprop="dateModified" datetime="2021-01-02T20:05:11+08:00">2021-01-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -568,7 +776,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                  <a href="/categories/javaSe/" itemprop="url" rel="index"><span itemprop="name">javaSe</span></a>
                 </span>
             </span>
 
@@ -760,7 +968,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-22 15:59:55" itemprop="dateModified" datetime="2020-12-22T15:59:55+08:00">2020-12-22</time>
+                <time title="修改时间：2021-01-02 20:05:26" itemprop="dateModified" datetime="2021-01-02T20:05:26+08:00">2021-01-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -768,7 +976,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                  <a href="/categories/javaSe/" itemprop="url" rel="index"><span itemprop="name">javaSe</span></a>
                 </span>
             </span>
 
@@ -973,7 +1181,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:09:10" itemprop="dateModified" datetime="2020-12-17T13:09:10+08:00">2020-12-17</time>
+                <time title="修改时间：2021-01-02 20:05:31" itemprop="dateModified" datetime="2021-01-02T20:05:31+08:00">2021-01-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -981,7 +1189,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                  <a href="/categories/javaSe/" itemprop="url" rel="index"><span itemprop="name">javaSe</span></a>
                 </span>
             </span>
 
@@ -1167,356 +1375,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/01%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/01%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2/" class="post-title-link" itemprop="url">数据库查询</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-22 15:59:18" itemprop="dateModified" datetime="2020-12-22T15:59:18+08:00">2020-12-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、数据库DB"><a href="#一、数据库DB" class="headerlink" title="一、数据库DB"></a>一、数据库DB</h2><p><strong>数据库</strong>：存储和管理数据的仓库，按照有关规则组织起来，可以被各种用户或应用共享的数据集合</p>
-<p><strong>数据库管理系统DBMS</strong>：用户通过数据库管理系统DBMS访问数据库中的数据</p>
-<p>​        特点：<strong>持久化</strong>存储数据，本质上是一个文件系统，关系型数据库通过的SQL语句进行管理DBMS</p>
-<p>关系型数据库：MySQL</p>
-<p>非关系型数据库: </p>
-<h2 id="二、MySQL"><a href="#二、MySQL" class="headerlink" title="二、MySQL"></a>二、MySQL</h2><h3 id="1、结构"><a href="#1、结构" class="headerlink" title="1、结构"></a>1、结构</h3><p>一个数据库服务器包含多个库，一个数据库包含多个表，一个表包含多条记录，一条记录包含多个字段</p>
-<h3 id="2、SQL语句"><a href="#2、SQL语句" class="headerlink" title="2、SQL语句"></a>2、SQL语句</h3><p>（Structure Query Language）结构化查询语言 <strong>操作所有关系型数据</strong></p>
-<h4 id="（1）分类"><a href="#（1）分类" class="headerlink" title="（1）分类"></a>（1）分类</h4><p>​        DDL：数据定义语言    <strong>create,drop,alter</strong></p>
-<p>​        DML（manipulation）：数据操作语言 <strong>insert delete update</strong></p>
-<p>​        DQL:   数据查询语言     <strong>select where</strong></p>
-<p>​        DCL:   数据控制语言  定义数据库的访问权限和安全级别以及创建用户  <strong>grant revoke</strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/11/01%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/03IO%E6%B5%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/03IO%E6%B5%81/" class="post-title-link" itemprop="url">IO流</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:09:17" itemprop="dateModified" datetime="2020-12-17T13:09:17+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、File工具类"><a href="#一、File工具类" class="headerlink" title="一、File工具类"></a>一、File工具类</h2><blockquote>
-<p>通过IO流来对文件进行操作</p>
-</blockquote>
-<h3 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h3><h4 id="1-1-分隔符"><a href="#1-1-分隔符" class="headerlink" title="1.1 分隔符"></a>1.1 分隔符</h4><ul>
-<li><p>路径分隔符    pathSeparator（；）</p>
-</li>
-<li><p>名称分隔符     separator(Windows \   linux  /)</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String path=<span class="string">&quot;D:\\TopView\\java&quot;</span>;</span><br><span class="line">path=<span class="string">&quot;D:&quot;</span>+File.separator+<span class="string">&quot;TopView&quot;</span>+File.separator+<span class="string">&quot;java&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<h4 id="1-2-路径"><a href="#1-2-路径" class="headerlink" title="1.2 路径"></a>1.2 路径</h4><ul>
-<li>绝对路径：有盘符</li>
-<li>相对路径:   相对项目而言，无盘符</li>
-</ul>
-<h3 id="2、构造方法"><a href="#2、构造方法" class="headerlink" title="2、构造方法"></a>2、构造方法</h3><ul>
-<li>File(String pathname);            </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">File f=<span class="keyword">new</span> File(<span class="string">&quot;E:\\aa&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>File(String parent, String child)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">File f1=<span class="keyword">new</span> File(<span class="string">&quot;E:&quot;</span>,<span class="string">&quot;A.txt&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>File(File parent,String child);</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">File f=<span class="keyword">new</span> File(<span class="string">&quot;E:\\aa&quot;</span>);</span><br><span class="line">File f2=<span class="keyword">new</span> File(f,<span class="string">&quot;test3.txt&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、普通方法"><a href="#3、普通方法" class="headerlink" title="3、普通方法"></a>3、普通方法</h3><h4 id="3-1-创建"><a href="#3-1-创建" class="headerlink" title="3.1 创建"></a>3.1 创建</h4><p><code>createNewFile()</code> 创建新文件，返回boolean类型</p>
-<p><code>mkdir()</code>: 创建目录（文件夹），不能越级创建（中间目录不会被创建）</p>
-<p><code>mkdirs()</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">File file=<span class="keyword">new</span> File(<span class="string">&quot;E:\\a\\b&quot;</span>);</span><br><span class="line"><span class="comment">//        System.out.println(file.mkdir()); //只能创建单级目录</span></span><br><span class="line">System.out.println(file.mkdirs()); <span class="comment">//mkdirs()</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-2-删除"><a href="#3-2-删除" class="headerlink" title="3.2 删除"></a>3.2 删除</h4><p><code>delete()</code>: 删除,文件夹必须是空才能删除（先删除文件在删除文件夹）</p>
-<h4 id="3-3-获取"><a href="#3-3-获取" class="headerlink" title="3.3 获取"></a>3.3 获取</h4><p><code>listFiles()</code>:返回所有文件(含文件夹)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">File file=<span class="keyword">new</span> File(<span class="string">&quot;F:\\&quot;</span>);</span><br><span class="line">File[] files=file.listFiles();</span><br><span class="line"><span class="keyword">for</span>(File s:files)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!s.isFile()) &#123;</span><br><span class="line">       System.out.println(s.getName());</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>list()</code> :  返回的String数组</p>
-<p>getPath()     getAbsolutePath() 获取绝对路径</p>
-<p>getName() 获取文件名     </p>
-<p>length() 获取文件的长度</p>
-<h4 id="3-4-判断"><a href="#3-4-判断" class="headerlink" title="3.4 判断"></a>3.4 判断</h4><p>isFile()     isDirectory()是否是目录      exists()</p>
-<h4 id="3-5-重命名"><a href="#3-5-重命名" class="headerlink" title="3.5 重命名"></a>3.5 重命名</h4><p>renameTo(File)</p>
-<ul>
-<li>路径相同，则是重命名</li>
-<li>路径不同，则重命名且剪切（复制并删除）</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//旧命名</span></span><br><span class="line">File file=<span class="keyword">new</span> File(<span class="string">&quot;&quot;</span>);</span><br><span class="line"> <span class="comment">//新命名</span></span><br><span class="line">File file1=<span class="keyword">new</span> File(<span class="string">&quot;&quot;</span>);</span><br><span class="line">file.renameTo(file1)</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-6-递归"><a href="#3-6-递归" class="headerlink" title="3.6 递归"></a>3.6 递归</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">dd</span><span class="params">(File file)</span></span>&#123;</span><br><span class="line">    File[] fileArray=file.listFiles();</span><br><span class="line">    <span class="keyword">if</span>(fileArray!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(File file1:fileArray)&#123;</span><br><span class="line">            <span class="keyword">if</span> (file.isDirectory())&#123;</span><br><span class="line">                dd(file);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;删除&quot;</span>+file.getName()+file.delete());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://csn.damyoung.cn/image-20200804203021432.png" alt="image-20200804203021432"></p>
-<h2 id="二、IO流"><a href="#二、IO流" class="headerlink" title="二、IO流"></a>二、IO流</h2><h3 id="0、IO流的分类"><a href="#0、IO流的分类" class="headerlink" title="0、IO流的分类"></a>0、IO流的分类</h3><ul>
-<li>按照流的流向，分为<strong>输入流</strong>和<strong>输出流</strong></li>
-<li>按照操作单元划分，分为<strong>字节流</strong>和<strong>字符流</strong></li>
-<li>按照流的角色划分为<strong>节点流</strong>和<strong>处理流</strong></li>
-</ul>
-<blockquote>
-<p>字符流、缓冲流一般都要刷新flush();</p>
-<p><strong>输入输出是相对java编译器而言</strong></p>
-</blockquote>
-<ul>
-<li>字节流：1个字节 InputStream OutputStream</li>
-<li>字符流：2个字节 Reader Writer</li>
-<li>高效流：带有缓冲区，处理速度比较高效</li>
-<li>转换流：字节转换为字符</li>
-</ul>
-<blockquote>
-<p>close():关闭IO连接通道，并且释放当前的系统资源,再次使用只能再次创建流</p>
-</blockquote>
-<h3 id="1、字节流"><a href="#1、字节流" class="headerlink" title="1、字节流"></a>1、字节流</h3><p>字节流：字节0-255范围</p>
-<p>构造方法： InputStream f1=new FileInputStream(File file,boolean append)</p>
-<h4 id="1、InputStream"><a href="#1、InputStream" class="headerlink" title="1、InputStream"></a>1、InputStream</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">InputStream f1=<span class="keyword">new</span> FileInputStream(<span class="string">&quot;F:\\Javacode\\Stream\\input.txt&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>read(byte[] b):通过游标移动来读取，若是字符不存在返回-1；</p>
-<h5 id="1-1-单个字符"><a href="#1-1-单个字符" class="headerlink" title="1.1 单个字符"></a>1.1 单个字符</h5><p> read():游标移动,无字节返回-1</p>
-<p> read(byte[]a ) 返回的是读取的个数(数组长度够返回文件长度)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>((data=f1.read())!=-<span class="number">1</span>)&#123;</span><br><span class="line">	System.out.println((<span class="keyword">char</span>)data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-2-多个字符"><a href="#1-2-多个字符" class="headerlink" title="1.2 多个字符"></a>1.2 多个字符</h5><p>​        方法：available():获取流的长度</p>
-<p>​        read(byte[] b);</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] b=<span class="keyword">new</span> <span class="keyword">byte</span>[f1.available()];</span><br><span class="line"><span class="keyword">while</span>(f1.read(b)!=-<span class="number">1</span>)&#123;</span><br><span class="line">    System.out.println(<span class="keyword">new</span> String(b)); <span class="comment">//解码</span></span><br><span class="line">    num++;</span><br><span class="line">   <span class="comment">// b=new byte[4];  //清空，不然覆盖后（存在旧字节）</span></span><br><span class="line">&#125;</span><br><span class="line">System.out.println(num);</span><br></pre></td></tr></table></figure>
-
-<h4 id="2、OutputStream"><a href="#2、OutputStream" class="headerlink" title="2、OutputStream"></a>2、OutputStream</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OutputStream out=<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;F:\\Javacode\\Stream\\output.txt&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>write(int o)</p>
-<p>write(byte b[]，int off,int len)off开始偏移量为len,</p>
-<p>write(byte[] b)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] b=<span class="string">&quot;hello World!&quot;</span>.getBytes(<span class="string">&quot;UTF-8&quot;</span>); <span class="comment">//编码</span></span><br><span class="line">out.write(b);</span><br></pre></td></tr></table></figure>
-
-<h4 id="3、文件的拷贝"><a href="#3、文件的拷贝" class="headerlink" title="3、文件的拷贝"></a>3、文件的拷贝</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">InputStream f1=<span class="keyword">new</span> FileInputStream(<span class="string">&quot;F:\\Javacode\\Stream\\hh.gif&quot;</span>);</span><br><span class="line">OutputStream o1=<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;F:\\Javacode\\Stream\\hhhh.gif&quot;</span>);</span><br><span class="line"><span class="keyword">byte</span>[] b1=<span class="keyword">new</span> <span class="keyword">byte</span>[f1.available()];</span><br><span class="line">f1.read(b1);</span><br><span class="line">o1.write(b1);</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、字符流"><a href="#2、字符流" class="headerlink" title="2、字符流"></a>2、字符流</h3><h4 id="2-1-字符编码"><a href="#2-1-字符编码" class="headerlink" title="2.1 字符编码"></a>2.1 字符编码</h4><p>​        utf-8：英文1个字节，中文3个字节</p>
-<pre><code>     GBK:第一个字节为负数，第二个字节可正可负</code></pre>
-<p>（1）编码：” “.getBytes(“GBK”);</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String school=<span class="string">&quot;社会&quot;</span>;</span><br><span class="line"><span class="keyword">byte</span>[] b=school.getBytes(<span class="string">&quot;UTF-8&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>（2）解码：new String(b,”GBK”)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(new String(b,&quot;UTF-8&quot;));</span><br></pre></td></tr></table></figure>
-
-<p>（3）换行：\r\n windows ,\n linux</p>
-<h4 id="2-2-Reader"><a href="#2-2-Reader" class="headerlink" title="2.2 Reader"></a>2.2 Reader</h4><p>Reader–&gt;FileReader,定义一个字符数组</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Reader r=<span class="keyword">new</span> FileReader(<span class="string">&quot;F:\\Javacode\\Stream\\reader.txt&quot;</span>);</span><br><span class="line"><span class="keyword">char</span>[] c=<span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">while</span> (r.read(c)!=-<span class="number">1</span>) &#123;</span><br><span class="line">    System.out.println(c );</span><br><span class="line">    c=<span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">5</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-3-Writer"><a href="#2-3-Writer" class="headerlink" title="2.3 Writer"></a>2.3 Writer</h4><blockquote>
-<p>构造方法：Writer–&gt;FileWriter<strong>存在缓冲区</strong></p>
-<p>​        默认是替换模式false，若<strong>追加模式true</strong></p>
-<pre><code>    Writer w=new FileWriter(String file,boolean append);</code></pre>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Writer w=<span class="keyword">new</span> FileWriter(<span class="string">&quot;F:\\Javacode\\Stream\\reader.txt&quot;</span>,<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>flush()：刷新缓冲区</strong></p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w.write(<span class="string">&quot;床前明月光&quot;</span>);   <span class="comment">//写入缓冲区</span></span><br><span class="line">w.flush(); <span class="comment">//缺少将无法写入</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3、缓冲流（高效流）"><a href="#3、缓冲流（高效流）" class="headerlink" title="3、缓冲流（高效流）"></a>3、缓冲流（高效流）</h3><blockquote>
-<p>BufferWriter、BufferReader</p>
-</blockquote>
-<p>存在8k的缓冲区，数据未达到限值，不会写入文件，需要<strong>刷新flush()</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BufferedWriter bw=<span class="keyword">new</span> BufferedWriter(w);</span><br><span class="line">BufferedReader br=<span class="keyword">new</span> BufferedReader(r);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Writer w=<span class="keyword">new</span> FileWriter(<span class="string">&quot;F:\\Javacode\\Stream\\reader.txt&quot;</span>);</span><br><span class="line">BufferedWriter bw=<span class="keyword">new</span> BufferedWriter(w);</span><br><span class="line">bw.write(<span class="string">&quot;春眠不觉晓&quot;</span>);</span><br><span class="line">bw.newLine();</span><br><span class="line">bw.flush();</span><br><span class="line"></span><br><span class="line">Reader r=<span class="keyword">new</span> FileReader(<span class="string">&quot;F:\\Javacode\\Stream\\reader.txt&quot;</span>);</span><br><span class="line">BufferedReader br=<span class="keyword">new</span> BufferedReader(r);</span><br><span class="line">String line;</span><br><span class="line"><span class="keyword">while</span> ((line=br.readLine())!=<span class="keyword">null</span>)&#123;     <span class="comment">//一次读一行</span></span><br><span class="line">    System.out.println(line);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="4、转换流"><a href="#4、转换流" class="headerlink" title="4、转换流"></a>4、转换流</h3><blockquote>
-<p><strong>将字节流转化为字符流</strong></p>
-</blockquote>
-<h4 id="4-1-InputStreamReader"><a href="#4-1-InputStreamReader" class="headerlink" title="4.1 InputStreamReader"></a>4.1 InputStreamReader</h4><p>​        用于将字节输入流转换为字符流</p>
-<p>​        InputStreamReader(InputStream in , String charseName)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">InputStream in=<span class="keyword">new</span> FileInputStream(<span class="string">&quot;F:\\Javacode\\Stream\\reader.txt&quot;</span>);</span><br><span class="line">Reader r=<span class="keyword">new</span> InputStreamReader(in,<span class="string">&quot;UTF-8&quot;</span>);      <span class="comment">//解码</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="4-2-OutputStreamWriter"><a href="#4-2-OutputStreamWriter" class="headerlink" title="4.2 OutputStreamWriter"></a>4.2 OutputStreamWriter</h4><p>​        用于将字节输出流转换为字符流</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OutputStream out=<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;F:\\Javacode\\Stream\\reader2.txt&quot;</span>);</span><br><span class="line">Writer w=<span class="keyword">new</span> OutputStreamWriter(out,<span class="string">&quot;UTF-8&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-3-键盘输入"><a href="#4-3-键盘输入" class="headerlink" title="4.3 键盘输入"></a>4.3 键盘输入</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> BufferReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Scanner input = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">String s = input.nextLine();</span><br><span class="line">input.close();</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="5、对象流"><a href="#5、对象流" class="headerlink" title="5、对象流"></a>5、对象流</h3><p>   将java对象的基本数据类型和图形写入ObjectOutputStream（支持java.io.Serializable的对象）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OutputStream out=<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;F:\\Javacode\\Stream\\dd.txt&quot;</span>);</span><br><span class="line">ObjectOutputStream objo=<span class="keyword">new</span> ObjectOutputStream(out);</span><br></pre></td></tr></table></figure>
-
-<h4 id="5-1-写入"><a href="#5-1-写入" class="headerlink" title="5.1 写入"></a>5.1 写入</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//逐个写入</span></span><br><span class="line">objo.writeObject(p);</span><br><span class="line">objo.writeObject(p2);</span><br><span class="line">objo.writeObject(p1);</span><br><span class="line"></span><br><span class="line"><span class="comment">//利用list</span></span><br><span class="line">List&lt;Person&gt; list=<span class="keyword">new</span> ArrayList();</span><br><span class="line">list.add(p);list.add(p1); list.add(p2);</span><br></pre></td></tr></table></figure>
-
-<h4 id="5-2-遍历"><a href="#5-2-遍历" class="headerlink" title="5.2 遍历"></a>5.2 遍历</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Person p=(Person) o.readObject();</span><br><span class="line">System.out.println(p);</span><br><span class="line">Person p1=(Person) o.readObject();</span><br><span class="line">System.out.println(p1);</span><br><span class="line">Person p2=(Person) o.readObject();</span><br><span class="line">System.out.println(p2)</span><br><span class="line"></span><br><span class="line">List&lt;Person&gt; list= (List&lt;Person&gt;) o.readObject();</span><br><span class="line">	<span class="keyword">for</span> (Object o1:list) &#123;</span><br><span class="line">		System.out.println(o1);</span><br><span class="line">&#125;</span><br><span class="line">            </span><br><span class="line"> <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line"> 	<span class="keyword">try</span> &#123;</span><br><span class="line"> 		Person p=(Person)o.readObject(); <span class="comment">//指针下移</span></span><br><span class="line"> 		System.out.println(p);</span><br><span class="line">		 &#125;<span class="keyword">catch</span> (EOFException e)&#123;</span><br><span class="line">         <span class="keyword">break</span>;</span><br><span class="line">	 &#125;</span><br><span class="line"> &#125;</span><br><span class="line">            </span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="三、IO模型"><a href="#三、IO模型" class="headerlink" title="三、IO模型"></a>三、IO模型</h2><h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><p>Blocking I/O，同步阻塞IO，数据的读取与写入都必须阻塞在一个线程内等待完成，这种方式在连接数不是特别高的情况下，这种模型比较不错，可以让每个线程都专注于自己的IO，并且编程模型简单，也不用过多的考虑系统的过载、限流等问题。但是面对十万甚至是百万级连接的时候，传统BIO模型是无能为力的，因此需要一些更高效的IO来面对更高的并发量。</p>
-<h4 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h4><p>new I/O,同步非阻塞IO.它是支持面向缓存的，基于通道的IO操作方法。但是其IO行为还是同步的，对于NIO来说，业务线程是在IO操作准备好之后才会得到通知，接着由该线程自行完成IO操作，IO操作本身是同步。</p>
-<h4 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h4><p>Asynchronous IO,是异步非阻塞IO，它是基于事件和回调机制实现的，也是应用操作之后会直接返回，不会阻塞在那里，当后台处理完成后，操作系统会通知相应的线程进行后续的操作。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1586,7 +1444,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1639,12 +1497,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">622k</span>
+    <span title="站点总字数">725k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">9:25</span>
+    <span title="站点阅读时长">10:59</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>

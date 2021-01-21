@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"dmyang-only.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="总结1、JVM、JRE、JDK的区别JVM JVM是运行Java字节码的虚拟机，JVM有针对不同系统的特定实现，目的是使用相同的字节码，它们都会给出相同的结果，显示出java语言的跨平台性，实现”一次编译，随时可以运行”。 JDK 是功能健全的JavaSDK，拥有JRE拥有的一切，编译器Javac和工具Javadoc。能够创建和编译程序 JRE java运行时环境，运行已编译java程序所需内容的">
+  <meta name="description" content="JVM类加载器：将class文件解析成jvm能够看懂的结构体—&gt;方法区 方法区，虚拟机栈，本地方法栈，堆，程序计数器 一、关键字1、final 修饰变量表示常量 ，常量不能被二次赋值 修饰方法，表示方法不能被子类重写( override ) 修饰类，表示类不能被继承extends  fianl修饰的引用数据类型，可以对其对象属性进行更改，但不能对引用数据类型的变量进行修改，也就是不能让其指向">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面向对象">
 <meta property="og:url" content="https://dmyang-only.github.io/2020/11/11/05%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/index.html">
 <meta property="og:site_name" content="DmYoung">
-<meta property="og:description" content="总结1、JVM、JRE、JDK的区别JVM JVM是运行Java字节码的虚拟机，JVM有针对不同系统的特定实现，目的是使用相同的字节码，它们都会给出相同的结果，显示出java语言的跨平台性，实现”一次编译，随时可以运行”。 JDK 是功能健全的JavaSDK，拥有JRE拥有的一切，编译器Javac和工具Javadoc。能够创建和编译程序 JRE java运行时环境，运行已编译java程序所需内容的">
+<meta property="og:description" content="JVM类加载器：将class文件解析成jvm能够看懂的结构体—&gt;方法区 方法区，虚拟机栈，本地方法栈，堆，程序计数器 一、关键字1、final 修饰变量表示常量 ，常量不能被二次赋值 修饰方法，表示方法不能被子类重写( override ) 修饰类，表示类不能被继承extends  fianl修饰的引用数据类型，可以对其对象属性进行更改，但不能对引用数据类型的变量进行修改，也就是不能让其指向">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://csn.damyoung.cn/image-20200727162138190.png">
 <meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200727162224634.png">
@@ -33,9 +33,9 @@
 <meta property="og:image" content="c:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20200727162239189.png">
 <meta property="og:image" content="https://csn.damyoung.cn/image-20200727162244904.png">
 <meta property="article:published_time" content="2020-11-11T04:33:33.000Z">
-<meta property="article:modified_time" content="2020-12-17T05:09:38.758Z">
+<meta property="article:modified_time" content="2021-01-19T02:14:22.428Z">
 <meta property="article:author" content="dmYang">
-<meta property="article:tag" content="JAVA基础">
+<meta property="article:tag" content="javaSe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://csn.damyoung.cn/image-20200727162138190.png">
 
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:09:38" itemprop="dateModified" datetime="2020-12-17T13:09:38+08:00">2020-12-17</time>
+                <time title="修改时间：2021-01-19 10:14:22" itemprop="dateModified" datetime="2021-01-19T10:14:22+08:00">2021-01-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -235,7 +235,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">java基础</span></a>
+                  <a href="/categories/javaSe/" itemprop="url" rel="index"><span itemprop="name">javaSe</span></a>
                 </span>
             </span>
 
@@ -252,14 +252,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>10k</span>
+              <span>6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>9 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -271,177 +271,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h4 id="1、JVM、JRE、JDK的区别"><a href="#1、JVM、JRE、JDK的区别" class="headerlink" title="1、JVM、JRE、JDK的区别"></a>1、JVM、JRE、JDK的区别</h4><p><strong>JVM</strong></p>
-<p>JVM是运行Java字节码的虚拟机，JVM有针对不同系统的特定实现，目的是使用相同的字节码，它们都会给出相同的结果，显示出java语言的跨平台性，实现”一次编译，随时可以运行”。</p>
-<p><strong>JDK</strong></p>
-<p>是功能健全的JavaSDK，拥有JRE拥有的一切，编译器Javac和工具Javadoc。能够创建和编译程序</p>
-<p><strong>JRE</strong></p>
-<p>java运行时环境，运行已编译java程序所需内容的集合，包括jvm,java类库，java命令和其他一些基础构件，但是，它不能用来创建程序</p>
-<p>只是为了运行一下 Java 程序的话，那么你只需要安装 JRE 就可以了。</p>
-<p>如果你需要进行一些 Java 编程方面的工作，那么你就需要安装 JDK 了。</p>
-<p>如果要使用 JSP 部署 Web 应用程序，那么从技术上讲，您只是在应用程序服务器中运行 Java 程序。那你为什么需要 JDK 呢？因为应用程序服务器会将 JSP 转换为 Java servlet，并且需要使用 JDK 来编译 servlet</p>
-<h4 id="2、什么是字节码-采用字节码的好处是什么"><a href="#2、什么是字节码-采用字节码的好处是什么" class="headerlink" title="2、什么是字节码?采用字节码的好处是什么?"></a>2、什么是字节码?采用字节码的好处是什么?</h4><p>在 Java 中，JVM 可以理解的代码就叫做字节码（即扩展名为 .class 的文件），它不面向任何特定的处理器，只面向虚拟机。</p>
-<p>Java 语言通过字节码的方式，在一定程度上解决了传统解释型语言执行效率低的问题，同时又保留了解释型语言可移植的特点。所以 Java 程序运行时比较高效。</p>
-<p>而且，由于字节码并不针对一种特定的机器，因此，Java 程序无须重新编译便可在多种不同操作系统的计算机上运行。</p>
-<h4 id="3、接口与抽象类的区别"><a href="#3、接口与抽象类的区别" class="headerlink" title="3、接口与抽象类的区别"></a>3、接口与抽象类的区别</h4><h5 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h5><ul>
-<li><p>抽象类和抽象方法使用abstract修饰</p>
-</li>
-<li><p>抽象类中可以有实现方法，属性和构造方法</p>
-</li>
-<li><p>一个类中如果包含抽象方法，那么这个类必须声明为抽象类。</p>
-</li>
-<li><p>抽象类不能被实例化，子类必须实现父类抽象方法</p>
-</li>
-<li><p>不能使用final修饰</p>
-</li>
-</ul>
-<h5 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h5><ul>
-<li><p>接口使用interface修饰</p>
-</li>
-<li><p>接口中不能有构造方法，接口可以定义常量(常量默认为final static)，抽象方法，jdk8之后可以有默认实现方法和静态方法</p>
-</li>
-<li><p>可以继承多个接口</p>
-</li>
-<li><p>接口中方法和字段默认为public </p>
-</li>
-</ul>
-<h4 id="4、重写和重载的区别"><a href="#4、重写和重载的区别" class="headerlink" title="4、重写和重载的区别"></a>4、重写和重载的区别</h4><h5 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h5><p>重写存在于继承体系之中，指子类实现了一个与父类在方法声明上完全相同的方法。</p>
-<p>为了满足里式替换原则，重写必须满足以下三个原则：</p>
-<ul>
-<li>子类的访问权限不能低于父类的访问权限</li>
-<li>子类方法返回类型必须是父类方法返回类型或其子类</li>
-<li>子类方法抛出的异常必须是父类方法抛出的异常或其子类</li>
-</ul>
-<blockquote>
-<p>里氏替换原则中说，任何基类可以出现的地方，子类一定可以出现。</p>
-</blockquote>
-<p>在调用一个方法时，先从本类中查找是否有相应的方法，如果没有就到父类中查找。如果没有就对参数进行转型，然后查看本类是否有相应的方法，没有就在父类中找，顺序如下：</p>
-<ul>
-<li><code>this.func(this)</code></li>
-<li><code>super.func(this)</code></li>
-<li><code>this.func(super)</code></li>
-<li><code>super.func(super)</code></li>
-</ul>
-<p><strong>重载</strong></p>
-<p>重载存在于同一个类中，指一个方法与已经存在的方法名称上相同，但是<strong>参数类型、个数、顺序至少有一个不同</strong>,与返回值无关</p>
-<h4 id="5、类加载时的初始化顺序"><a href="#5、类加载时的初始化顺序" class="headerlink" title="5、类加载时的初始化顺序"></a>5、类加载时的初始化顺序</h4><ul>
-<li><p>静态变量和静态代码块（两者谁先取决于代码顺序）</p>
-</li>
-<li><p>实例变量</p>
-</li>
-<li><p>构造代码块</p>
-</li>
-<li><p>构造函数的初始化</p>
-</li>
-</ul>
-<blockquote>
-<p>如果存在继承的情况，初始化顺序如下：</p>
-</blockquote>
-<ul>
-<li>父类（静态变量，静态代码块）</li>
-<li>子类（静态变量，静态代码块）</li>
-<li>父类（实例变量，普通语句块）</li>
-<li>父类（构造函数）</li>
-<li>子类（实例变量，普通语句块）</li>
-<li>子类（构造函数）</li>
-</ul>
-<h4 id="6、构造器是否可以重写"><a href="#6、构造器是否可以重写" class="headerlink" title="6、构造器是否可以重写"></a>6、构造器是否可以重写</h4><p><strong>父类的私有属性和构造方法不能被继承</strong>，所以<code>Constructor</code>不能被重写，但是可以重载。</p>
-<h4 id="7、对象实例与对象引用"><a href="#7、对象实例与对象引用" class="headerlink" title="7、对象实例与对象引用"></a>7、对象实例与对象引用</h4><ul>
-<li>对象实例在堆内存，对象引用在栈空间</li>
-<li>对象引用引用0个或1个对象实例，一个对象实例可以有n个引用</li>
-</ul>
-<h4 id="8、为什么java只有值传递"><a href="#8、为什么java只有值传递" class="headerlink" title="8、为什么java只有值传递"></a>8、为什么java只有值传递</h4><ul>
-<li><p>对于基本数据类型，java参数传递的是值的复制；</p>
-</li>
-<li><p>对于引用数据类型，java参数传递的是指向地址的指针的拷贝。</p>
-</li>
-</ul>
-<blockquote>
-<p>引用传递一般是对于对象型变量而言，传递的是该对象地址的一个副本，并不是原对象本身。</p>
-<p>所以对引用对象进行操作会同时改变原有对象。</p>
-</blockquote>
-<h4 id="9、final关键字的使用"><a href="#9、final关键字的使用" class="headerlink" title="9、final关键字的使用"></a>9、final关键字的使用</h4><p><strong>类</strong></p>
-<p>fianl修饰类时，表明这个类不能被继承。</p>
-<p><code>final</code> 类中的成员变量可以根据需要设为 <code>final</code>，但是要注意 <strong><code>final</code> 类中的所有成员方法都会被隐式地指定为 <code>final</code> 方法</strong>。</p>
-<p><strong>方法</strong></p>
-<p>使用final方法的原因</p>
-<ul>
-<li>把方法锁定，以防任何任何继承类修改它的含义</li>
-<li>效率，早期的Java实现版本中，会将 <code>final</code> 方法转为内嵌调用。但是如果方法过于庞大，可能看不到内嵌调用带来的任何性能提升。在最近的Java版本中，不需要使用 <code>final</code> 方法进行这些优化了。</li>
-</ul>
-<p><strong>变量</strong></p>
-<p>基本数据类型的变量，则其数值一旦在初始化之后便不能更改</p>
-<p>引用类型的变量，保证这个引用类型变量所引用的地址不会发生改变，则在对其初始化之后便不能再让其指向另一个对象</p>
-<h4 id="10、-和-equals的区别"><a href="#10、-和-equals的区别" class="headerlink" title="10、== 和 equals的区别"></a>10、== 和 equals的区别</h4><h5 id="1-1-区别"><a href="#1-1-区别" class="headerlink" title="1.1 区别"></a>1.1 区别</h5><blockquote>
-<ul>
-<li><p>对于基本数据类型，“==” 比较的是值是否相等</p>
-</li>
-<li><p>对于引用数据类型，“==” 比较的是内存地址是否相等</p>
-</li>
-<li><p>equals本质上来说是使用了==作为其底层的实现，但是java中很多类都对equals做了重写，使其可以对值进行判断(String)</p>
-</li>
-</ul>
-</blockquote>
-<h5 id="1-2-使用注意事项"><a href="#1-2-使用注意事项" class="headerlink" title="1.2 使用注意事项"></a>1.2 使用注意事项</h5><ul>
-<li>Object的<code>equals</code>方法容易抛空指针异常，应使用常量或确定有值的对象来调用<code>equals</code></li>
-<li>更推荐使用<code>java.util.Objects.equals</code></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> equals = Objects.equals(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object a, Object b)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 可以避免空指针异常。如果a==null的话此时a.equals(b)就不会得到执行，避免出现空指针异常。</span></span><br><span class="line">    <span class="keyword">return</span> (a == b) || (a != <span class="keyword">null</span> &amp;&amp; a.equals(b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>所有整形包装类对象值的比较都必须使用<code>equals</code>方法</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Integer x = <span class="number">3</span>;<span class="comment">//将3自动装箱成Integer</span></span><br><span class="line">Integer y = <span class="number">3</span>;</span><br><span class="line">System.out.println(x == y);<span class="comment">// true</span></span><br><span class="line">Integer a = <span class="keyword">new</span> Integer(<span class="number">3</span>);</span><br><span class="line">Integer b = <span class="keyword">new</span> Integer(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">int</span> c = <span class="number">3</span>;</span><br><span class="line">System.out.println(a == b);<span class="comment">//false</span></span><br><span class="line">System.out.println(a.equals(b));<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">System.out.println(a == x);<span class="comment">//false！！！</span></span><br><span class="line">System.out.println(a == c);<span class="comment">//true,将a自动拆箱成int再比较</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="11、重写equals方法同时也要重写hashcode"><a href="#11、重写equals方法同时也要重写hashcode" class="headerlink" title="11、重写equals方法同时也要重写hashcode"></a>11、重写equals方法同时也要重写hashcode</h4><blockquote>
-<p>默认情况下，Object 的 <code>hashcode</code> 方法是本地方法，也就是用 C 或者 C++ 语言实现的，该方法直接返回对象的内存地址</p>
-</blockquote>
-<ul>
-<li><p>hashcode 获取得到的是该对象在哈希表中的索引位置，是一个 int 类型的数据，称为哈希码，也叫<strong>散列码</strong></p>
-</li>
-<li><p>hashcode 只有在需要用到<strong>散列表</strong>(HashSet, Hashtable, HashMap)的情况下才需要，不然没有任何关系</p>
-</li>
-<li><p><strong>hashCode() 的默认行为是对堆上的对象产生独特值。</strong>如果没有重写 hashCode()，则该 class 的两个对象无论如何都不会相等（即使这两个对象指向相同的数据）</p>
-</li>
-<li><p>使用实例</p>
-</li>
-</ul>
-<blockquote>
-<p>当在hashset加入新对象，会先计算hashcode来判断对象加入的位置。</p>
-<p>同时也会将该hashcode也已有对象的hashcode进行比较。</p>
-<p>如果不同，则认为对象不同，直接加入</p>
-<p>如果相同，会同时调用equals方法检查对象是否真的相同，如果相同，不会让其加入成功</p>
-<p>不同则散列到其他位置</p>
-</blockquote>
-<ul>
-<li>相关规定<ul>
-<li>如果两个对象相等，则 hashcode 一定也是相同的、</li>
-<li>两个对象相等,对两个对象分别调用 equals 方法都返回true</li>
-<li><strong>两个对象有相同的hashcode 值，它们也不一定是相等</strong></li>
-</ul>
-</li>
-</ul>
-<h4 id="12、-amp-和-amp-amp"><a href="#12、-amp-和-amp-amp" class="headerlink" title="12、&amp;和&amp;&amp;"></a>12、&amp;和&amp;&amp;</h4><p><code>&amp;</code> 运算符有两种用法：</p>
-<ul>
-<li>按位与；</li>
-<li>逻辑与。</li>
-</ul>
-<p><code>&amp;&amp;</code> 运算符是<strong>短路与运算</strong>。</p>
-<p>逻辑与跟短路与的差别是非常巨大的，虽然二者都要求运算符左右两端的布尔值都是 true 整个表达式的值才是 true 。</p>
-<p><code>&amp;&amp;</code> 之所以称为短路运算是因为，如果 <code>&amp;&amp;</code> 左边的表达式的值是 <code>false</code>，右边的表达式会被直接短路掉，不会进行运算。</p>
-<p>很多时候我们可能都需要用 <code>&amp;&amp;</code> 而不是 <code>&amp;</code>，例如在验证用户登录时判定用户名不是 null 而且不是空字符串，应当写为：<code>username != null &amp;&amp;!username.equals(&quot;&quot;)</code>，二者的顺序不能交换，更不能用 <code>&amp;</code> 运算符，因为第一个条件如果不成立，根本不能进行字符串的 <code>equals</code> 比较，否则会产生 <code>NullPointerException</code> 异常。</p>
-<h4 id="13-、Java中是如何支持正则表达式操作的？"><a href="#13-、Java中是如何支持正则表达式操作的？" class="headerlink" title="13 、Java中是如何支持正则表达式操作的？"></a>13 、Java中是如何支持正则表达式操作的？</h4><p>Java 的 String 类中提供了支持正则表达式的操作，包括：<code>matches()</code>,<code>replaceAll()</code>,<code>replaceFirst()</code>,<code>split()</code>。</p>
-<p>此外，Java 中还可以使用 <code>Pattern</code> 和 <code>Macher</code>类进行正则表达式操作。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">&quot;aaaaabbb&quot;</span>;</span><br><span class="line">str.matches(<span class="string">&quot;a*b&quot;</span>);</span><br><span class="line"></span><br><span class="line">Pattern p = Pattern.compile(<span class="string">&quot;a*b&quot;</span>);<span class="comment">//将正则表达式编译成Pattern类在内存中保存</span></span><br><span class="line">Matcher m = p.matcher(str);<span class="comment">//将执行匹配所涉及的状态保留再Matcher类中</span></span><br><span class="line"><span class="keyword">boolean</span> b = m.matches();<span class="comment">//执行Matcher类的matches方法进行比较</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="14-如何通过反射创建对象以及获取和设置对象私有属性字段的值？"><a href="#14-如何通过反射创建对象以及获取和设置对象私有属性字段的值？" class="headerlink" title="14. 如何通过反射创建对象以及获取和设置对象私有属性字段的值？"></a>14. 如何通过反射创建对象以及获取和设置对象私有属性字段的值？</h4><p>对象通过 <code>getClass()</code> 方法可以获得其 <code>Class</code> 对象，之后可以通过该 <code>Class</code> 对象的 <code>getDeclaredFields()</code> 方法获取包括 <code>private</code> 在内所有的属性；通过 <code>getDeclaredMethods()</code> 方法可以获取当前类包括 <code>private</code> 在内所有方法，但是不包括父类。之后通过<code>setAccesssible(true)</code>将其设置成可以访问（去除访问修饰符的检查）。</p>
-<h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><p>类加载器：将class文件解析成jvm能够看懂的结构体—&gt;方法区</p>
+        <h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><p>类加载器：将class文件解析成jvm能够看懂的结构体—&gt;方法区</p>
 <p>方法区，虚拟机栈，本地方法栈，堆，程序计数器</p>
 <h3 id="一、关键字"><a href="#一、关键字" class="headerlink" title="一、关键字"></a>一、关键字</h3><h4 id="1、final"><a href="#1、final" class="headerlink" title="1、final"></a>1、final</h4><ul>
 <li>修饰变量表示<strong>常量</strong> ，常量不能被二次赋值</li>
@@ -647,7 +477,7 @@
 
 
 
-<h4 id="7、抽象类和接口"><a href="#7、抽象类和接口" class="headerlink" title="7、抽象类和接口"></a>7、抽象类和接口</h4><h5 id="抽象类-1"><a href="#抽象类-1" class="headerlink" title="抽象类"></a>抽象类</h5><ul>
+<h4 id="7、抽象类和接口"><a href="#7、抽象类和接口" class="headerlink" title="7、抽象类和接口"></a>7、抽象类和接口</h4><h5 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h5><ul>
 <li>抽象类不能被实例化，只能被继承</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animals</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">shout</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animals</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">shout</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;狗叫&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -662,7 +492,7 @@
 <li><p>继承抽象类的子类必须实现抽象方法</p>
 </li>
 </ul>
-<h5 id="接口-1"><a href="#接口-1" class="headerlink" title="接口"></a>接口</h5><p><strong>实现接口的抽象方法必须要有实现类继承重写接口的抽象方法，匿名实现接口本质上重写了接口的方法</strong></p>
+<h5 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h5><p><strong>实现接口的抽象方法必须要有实现类继承重写接口的抽象方法，匿名实现接口本质上重写了接口的方法</strong></p>
 <p>格式：public interface 接口名{   接口体   }</p>
 <ul>
 <li><p>包含抽象方法、常量：public static final int a=11;</p>
@@ -752,7 +582,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/JAVA%E5%9F%BA%E7%A1%80/" rel="tag"># JAVA基础</a>
+              <a href="/tags/javaSe/" rel="tag"># javaSe</a>
           </div>
 
         
@@ -826,7 +656,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81JVM%E3%80%81JRE%E3%80%81JDK%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.</span> <span class="nav-text">1、JVM、JRE、JDK的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%AD%97%E8%8A%82%E7%A0%81-%E9%87%87%E7%94%A8%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84%E5%A5%BD%E5%A4%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.2.</span> <span class="nav-text">2、什么是字节码?采用字节码的好处是什么?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.3.</span> <span class="nav-text">3、接口与抽象类的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-number">1.3.1.</span> <span class="nav-text">抽象类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.3.2.</span> <span class="nav-text">接口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E9%87%8D%E5%86%99%E5%92%8C%E9%87%8D%E8%BD%BD%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.4.</span> <span class="nav-text">4、重写和重载的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%8D%E5%86%99"><span class="nav-number">1.4.1.</span> <span class="nav-text">重写</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%97%B6%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.5.</span> <span class="nav-text">5、类加载时的初始化顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81%E6%9E%84%E9%80%A0%E5%99%A8%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E9%87%8D%E5%86%99"><span class="nav-number">1.6.</span> <span class="nav-text">6、构造器是否可以重写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7%E3%80%81%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8"><span class="nav-number">1.7.</span> <span class="nav-text">7、对象实例与对象引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88java%E5%8F%AA%E6%9C%89%E5%80%BC%E4%BC%A0%E9%80%92"><span class="nav-number">1.8.</span> <span class="nav-text">8、为什么java只有值传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9%E3%80%81final%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.9.</span> <span class="nav-text">9、final关键字的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10%E3%80%81-%E5%92%8C-equals%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.10.</span> <span class="nav-text">10、&#x3D;&#x3D; 和 equals的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-%E5%8C%BA%E5%88%AB"><span class="nav-number">1.10.1.</span> <span class="nav-text">1.1 区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.10.2.</span> <span class="nav-text">1.2 使用注意事项</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11%E3%80%81%E9%87%8D%E5%86%99equals%E6%96%B9%E6%B3%95%E5%90%8C%E6%97%B6%E4%B9%9F%E8%A6%81%E9%87%8D%E5%86%99hashcode"><span class="nav-number">1.11.</span> <span class="nav-text">11、重写equals方法同时也要重写hashcode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12%E3%80%81-amp-%E5%92%8C-amp-amp"><span class="nav-number">1.12.</span> <span class="nav-text">12、&amp;和&amp;&amp;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-%E3%80%81Java%E4%B8%AD%E6%98%AF%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%9A%84%EF%BC%9F"><span class="nav-number">1.13.</span> <span class="nav-text">13 、Java中是如何支持正则表达式操作的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E8%8E%B7%E5%8F%96%E5%92%8C%E8%AE%BE%E7%BD%AE%E5%AF%B9%E8%B1%A1%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E5%AD%97%E6%AE%B5%E7%9A%84%E5%80%BC%EF%BC%9F"><span class="nav-number">1.14.</span> <span class="nav-text">14. 如何通过反射创建对象以及获取和设置对象私有属性字段的值？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM"><span class="nav-number">2.</span> <span class="nav-text">JVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.</span> <span class="nav-text">一、关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81final"><span class="nav-number">3.1.</span> <span class="nav-text">1、final</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81static"><span class="nav-number">3.2.</span> <span class="nav-text">2、static</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81this"><span class="nav-number">3.3.</span> <span class="nav-text">3、this</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81super"><span class="nav-number">3.4.</span> <span class="nav-text">4、super</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">4.</span> <span class="nav-text">二、代码块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">4.1.</span> <span class="nav-text">1、静态代码块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">4.2.</span> <span class="nav-text">2、构造代码块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%B1%80%E9%83%A8%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">4.3.</span> <span class="nav-text">3、局部代码块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92"><span class="nav-number">5.</span> <span class="nav-text">三、值传递和引用传递</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%BD%A2%E5%8F%82%E5%92%8C%E5%AE%9E%E5%8F%82"><span class="nav-number">5.1.</span> <span class="nav-text">1.形参和实参</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%80%BC%E4%BC%A0%E9%80%92"><span class="nav-number">5.2.</span> <span class="nav-text">2.值传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92"><span class="nav-number">5.3.</span> <span class="nav-text">3.引用传递</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">6.</span> <span class="nav-text">四、面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95"><span class="nav-number">6.1.</span> <span class="nav-text">1、成员方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">6.2.</span> <span class="nav-text">2、构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E7%BB%A7%E6%89%BF"><span class="nav-number">6.3.</span> <span class="nav-text">3、继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E9%87%8D%E5%86%99"><span class="nav-number">6.4.</span> <span class="nav-text">4、重写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E5%B0%81%E8%A3%85"><span class="nav-number">6.5.</span> <span class="nav-text">5、封装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81%E5%A4%9A%E6%80%81"><span class="nav-number">6.6.</span> <span class="nav-text">6、多态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-%E7%BB%A7%E6%89%BF%E5%AE%9E%E7%8E%B0%E5%A4%9A%E6%80%81"><span class="nav-number">6.6.1.</span> <span class="nav-text">6.1 继承实现多态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E5%A4%9A%E6%80%81"><span class="nav-number">6.6.2.</span> <span class="nav-text">6.2 接口实现多态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B"><span class="nav-number">6.6.3.</span> <span class="nav-text">6.3 向上转型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-%E5%90%91%E4%B8%8B%E8%BD%AC%E5%9E%8B"><span class="nav-number">6.6.4.</span> <span class="nav-text">6.4 向下转型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7%E3%80%81%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3"><span class="nav-number">6.7.</span> <span class="nav-text">7、抽象类和接口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB-1"><span class="nav-number">6.7.1.</span> <span class="nav-text">抽象类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3-1"><span class="nav-number">6.7.2.</span> <span class="nav-text">接口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8%E3%80%81%E5%8C%BF%E5%90%8D%E5%AF%B9%E8%B1%A1"><span class="nav-number">6.8.</span> <span class="nav-text">8、匿名对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9%E3%80%81%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">6.9.</span> <span class="nav-text">9、修饰符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10%E3%80%81%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">6.10.</span> <span class="nav-text">10、对象的比较</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%AF%B9%E8%B1%A1%E6%95%B0%E7%BB%84"><span class="nav-number">7.</span> <span class="nav-text">五、对象数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E8%87%AA%E5%8A%A8%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">8.</span> <span class="nav-text">六、自动垃圾回收</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM"><span class="nav-number">1.</span> <span class="nav-text">JVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">2.</span> <span class="nav-text">一、关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81final"><span class="nav-number">2.1.</span> <span class="nav-text">1、final</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81static"><span class="nav-number">2.2.</span> <span class="nav-text">2、static</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81this"><span class="nav-number">2.3.</span> <span class="nav-text">3、this</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81super"><span class="nav-number">2.4.</span> <span class="nav-text">4、super</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">3.</span> <span class="nav-text">二、代码块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">3.1.</span> <span class="nav-text">1、静态代码块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">3.2.</span> <span class="nav-text">2、构造代码块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%B1%80%E9%83%A8%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">3.3.</span> <span class="nav-text">3、局部代码块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92"><span class="nav-number">4.</span> <span class="nav-text">三、值传递和引用传递</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%BD%A2%E5%8F%82%E5%92%8C%E5%AE%9E%E5%8F%82"><span class="nav-number">4.1.</span> <span class="nav-text">1.形参和实参</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%80%BC%E4%BC%A0%E9%80%92"><span class="nav-number">4.2.</span> <span class="nav-text">2.值传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92"><span class="nav-number">4.3.</span> <span class="nav-text">3.引用传递</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">四、面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">1、成员方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">5.2.</span> <span class="nav-text">2、构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E7%BB%A7%E6%89%BF"><span class="nav-number">5.3.</span> <span class="nav-text">3、继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E9%87%8D%E5%86%99"><span class="nav-number">5.4.</span> <span class="nav-text">4、重写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E5%B0%81%E8%A3%85"><span class="nav-number">5.5.</span> <span class="nav-text">5、封装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81%E5%A4%9A%E6%80%81"><span class="nav-number">5.6.</span> <span class="nav-text">6、多态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-%E7%BB%A7%E6%89%BF%E5%AE%9E%E7%8E%B0%E5%A4%9A%E6%80%81"><span class="nav-number">5.6.1.</span> <span class="nav-text">6.1 继承实现多态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E5%A4%9A%E6%80%81"><span class="nav-number">5.6.2.</span> <span class="nav-text">6.2 接口实现多态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B"><span class="nav-number">5.6.3.</span> <span class="nav-text">6.3 向上转型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-%E5%90%91%E4%B8%8B%E8%BD%AC%E5%9E%8B"><span class="nav-number">5.6.4.</span> <span class="nav-text">6.4 向下转型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7%E3%80%81%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.7.</span> <span class="nav-text">7、抽象类和接口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-number">5.7.1.</span> <span class="nav-text">抽象类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.7.2.</span> <span class="nav-text">接口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8%E3%80%81%E5%8C%BF%E5%90%8D%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.8.</span> <span class="nav-text">8、匿名对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9%E3%80%81%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">5.9.</span> <span class="nav-text">9、修饰符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10%E3%80%81%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">5.10.</span> <span class="nav-text">10、对象的比较</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%AF%B9%E8%B1%A1%E6%95%B0%E7%BB%84"><span class="nav-number">6.</span> <span class="nav-text">五、对象数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E8%87%AA%E5%8A%A8%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">7.</span> <span class="nav-text">六、自动垃圾回收</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -840,7 +670,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -893,12 +723,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">622k</span>
+    <span title="站点总字数">725k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">9:25</span>
+    <span title="站点阅读时长">10:59</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>
