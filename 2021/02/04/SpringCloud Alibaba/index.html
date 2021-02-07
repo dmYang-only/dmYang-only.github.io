@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/xxb/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dmyang-only.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="SpringCloud Alibaba git地址http:&#x2F;&#x2F;github.com&#x2F;alibaba&#x2F;spring-cloud-alibaba&#x2F;blob&#x2F;master&#x2F;README-zh.md">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springCloud Alibaba">
+<meta property="og:url" content="https://dmyang-only.github.io/2021/02/04/SpringCloud%20Alibaba/index.html">
+<meta property="og:site_name" content="DmYoung">
+<meta property="og:description" content="SpringCloud Alibaba git地址http:&#x2F;&#x2F;github.com&#x2F;alibaba&#x2F;spring-cloud-alibaba&#x2F;blob&#x2F;master&#x2F;README-zh.md">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201172218049.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201174946053.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201202924740.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201211349320.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201211708949.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201211822353.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201212137369.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201213156245.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201213310567.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201213317677.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201213513739.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201213537568.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201214240955.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201225825019.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201225852865.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201225952308.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201230016253.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210201230040731.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202000902295.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202001027340.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202220942214.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202221153895.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202221341882.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202221126870.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202222515068.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202222631243.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202223029493.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202224112220.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202223659093.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202224434838.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202224940680.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202233044347.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202233606236.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210202233813507.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203002134346.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203002240175.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203003323061.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203003406410.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203194724755.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203201514861.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203202131283.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203202211174.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203203126702.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203203926784.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203204127837.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203204208656.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203204320762.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203204441287.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203204718927.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203204702277.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203205103893.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203205306608.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203205607252.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203205629517.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203205810825.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203205906791.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203205918850.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203205939045.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210203210055780.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204194822358.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204195240843.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204195811172.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204200037378.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204200218433.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204200327159.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204200458434.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204201742114.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204202214005.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204202257530.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204202556381.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204203134381.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204203901101.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204203919956.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204203928416.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204204309347.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204204341751.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204204459804.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204204512422.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204205109766.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204205313122.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204205331443.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204205513896.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204211652125.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204211918969.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204212201371.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204213012372.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204213032795.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204213126954.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204213259723.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204213718955.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204214622324.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204214742428.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204220703573.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204220716944.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204221035935.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204221110662.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204221136932.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204221209168.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204221711342.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210204221635201.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205103929876.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205104523353.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205104829079.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205105626507.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205104924446.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205115951285.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205105157797.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205105740447.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205120152477.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205122006674.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205122151086.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205122517376.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205122909980.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205151312123.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205152124208.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205161253666.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205161815080.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205161830639.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205164318136.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205165853631.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205165937890.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205170002483.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205170029675.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205170051752.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205170428944.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205170609746.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210205170700906.png">
+<meta property="article:published_time" content="2021-02-04T12:30:24.000Z">
+<meta property="article:modified_time" content="2021-02-07T09:53:30.570Z">
+<meta property="article:author" content="dmYang">
+<meta property="article:tag" content="spring">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://csn.damyoung.cn/image-20210201172218049.png">
+
+<link rel="canonical" href="https://dmyang-only.github.io/2021/02/04/SpringCloud%20Alibaba/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>springCloud Alibaba | DmYoung</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">DmYoung</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录美好日常</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2021/02/04/SpringCloud%20Alibaba/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          springCloud Alibaba
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-04 20:30:24" itemprop="dateCreated datePublished" datetime="2021-02-04T20:30:24+08:00">2021-02-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-07 17:53:30" itemprop="dateModified" datetime="2021-02-07T17:53:30+08:00">2021-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>27k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>24 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="SpringCloud-Alibaba"><a href="#SpringCloud-Alibaba" class="headerlink" title="SpringCloud Alibaba"></a>SpringCloud Alibaba</h1><p><img src="https://csn.damyoung.cn/image-20210201172218049.png" alt="image-20210201172218049"></p>
+<p>git地址<a target="_blank" rel="noopener" href="http://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md">http://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md</a></p>
+<a id="more"></a>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--spring cloud alibaba 2.1.0.RELEASE--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-alibaba-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="服务注册和配置中心Nacos"><a href="#服务注册和配置中心Nacos" class="headerlink" title="服务注册和配置中心Nacos"></a>服务注册和配置中心Nacos</h1><h2 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h2><p>Naming Configuration service 一个易于使用的动态服务发现，配置和服务管理平台，用于构建云本机应用程序。替代Eureka做服务注册中心，替代Config做服务配置中心</p>
+<p>官网<a target="_blank" rel="noopener" href="https://github.com/alibaba/Nacos">https://github.com/alibaba/Nacos</a></p>
+<p><img src="https://csn.damyoung.cn/image-20210201174946053.png" alt="image-20210201174946053"></p>
+<h3 id="服务提供者"><a href="#服务提供者" class="headerlink" title="服务提供者"></a>服务提供者</h3><p>cloudalibaba-provider-payment9001</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--SpringCloud ailibaba nacos --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">9001</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">nacos-payment-provider</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="string">localhost:8848</span> <span class="comment">#配置Nacos地址</span></span><br><span class="line"></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">&#x27;*&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210201202924740.png" alt="image-20210201202924740"></p>
+<p><img src="https://csn.damyoung.cn/image-20210201211349320.png" alt="image-20210201211349320"></p>
+<h4 id="拷贝虚拟端口映射"><a href="#拷贝虚拟端口映射" class="headerlink" title="拷贝虚拟端口映射"></a>拷贝虚拟端口映射</h4><p><img src="https://csn.damyoung.cn/image-20210201211708949.png" alt="image-20210201211708949"></p>
+<h4 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h4><p><img src="https://csn.damyoung.cn/image-20210201211822353.png" alt="image-20210201211822353"></p>
+<h3 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h3><p>nacos整合了Ribbon，自带负载均衡</p>
+<p><img src="https://csn.damyoung.cn/image-20210201212137369.png" alt="image-20210201212137369"></p>
+<p>cloudalibaba-consumer-nacos-order83</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--SpringCloud ailibaba nacos --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">83</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">nacos-order-consumer</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">42.192</span><span class="number">.130</span><span class="number">.130</span><span class="string">:8848</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#消费者将要去访问的微服务名称(注册成功进nacos的微服务提供者)</span></span><br><span class="line"><span class="attr">service-url:</span></span><br><span class="line">  <span class="attr">nacos-user-service:</span> <span class="string">http://nacos-payment-provider</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderNacosController</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;service-url.nacos-user-service&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String serverURL;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/consumer/payment/nacos/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long id)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> restTemplate.getForObject(serverURL+<span class="string">&quot;/payment/nacos/&quot;</span>+id,String.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationContextConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@LoadBalanced</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RestTemplate <span class="title">getRestTemplate</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RestTemplate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210201213156245.png" alt="image-20210201213156245"></p>
+<p><img src="https://csn.damyoung.cn/image-20210201213310567.png" alt="image-20210201213310567"></p>
+<p><img src="https://csn.damyoung.cn/image-20210201213317677.png" alt="image-20210201213317677"></p>
+<h3 id="服务注册中心对比"><a href="#服务注册中心对比" class="headerlink" title="服务注册中心对比"></a>服务注册中心对比</h3><p><img src="https://csn.damyoung.cn/image-20210201213513739.png" alt="image-20210201213513739"></p>
+<p><img src="https://csn.damyoung.cn/image-20210201213537568.png" alt="image-20210201213537568"></p>
+<h2 id="配置中心"><a href="#配置中心" class="headerlink" title="配置中心"></a>配置中心</h2><p>cloudalibaba-config-nacos-client3377</p>
+<p><img src="https://csn.damyoung.cn/image-20210201214240955.png" alt="image-20210201214240955"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--nacos-config--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--nacos-discovery--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>bootstrap.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nacos配置</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">3377</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">nacos-config-client</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">42.192</span><span class="number">.130</span><span class="number">.130</span><span class="string">:8848</span> <span class="comment">#Nacos作为配置中心地址</span></span><br><span class="line">        <span class="attr">file-extension:</span> <span class="string">yaml</span> <span class="comment">#指定yaml格式的配置</span></span><br><span class="line"><span class="comment">#        group: DEV_GROUP</span></span><br><span class="line"><span class="comment">#        namespace: 7d8f0f5a-6a53-4785-9686-dd460158e5d4</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">42.192</span><span class="number">.130</span><span class="number">.130</span><span class="string">:8848</span> <span class="comment">#Nacos服务注册中心地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#nacos端配置文件DataId的命名规则是：</span></span><br><span class="line"><span class="comment">#$&#123;spring.application.name&#125;-$&#123;spring.profile.active&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;</span></span><br><span class="line"><span class="comment">#本案例的DataID是:nacos-config-client-dev.yaml</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NacosConfigClietnMain3377</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(NacosConfigClietnMain3377.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RefreshScope</span> <span class="comment">//支持Nacos的动态刷新功能。</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigClientController</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;config.info&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String configInfo;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/get&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getConfigInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> configInfo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@RefreshScope</code>springcloud原生注解，实现配置的自动更新</p>
+<h3 id="配置匹配规则"><a href="#配置匹配规则" class="headerlink" title="配置匹配规则"></a>配置匹配规则</h3><p><a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/docs/quick-start-spring-cloud.html">https://nacos.io/zh-cn/docs/quick-start-spring-cloud.html</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;spring.application.name&#125;-$&#123;spring.profile.active&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210201225825019.png" alt="image-20210201225825019"></p>
+<p><img src="https://csn.damyoung.cn/image-20210201225852865.png" alt="image-20210201225852865"></p>
+<p><img src="https://csn.damyoung.cn/image-20210201225952308.png" alt="image-20210201225952308"></p>
+<p><img src="https://csn.damyoung.cn/image-20210201230016253.png" alt="image-20210201230016253"></p>
+<p><img src="https://csn.damyoung.cn/image-20210201230040731.png" alt="image-20210201230040731"></p>
+<p><img src="https://csn.damyoung.cn/image-20210202000902295.png" alt="image-20210202000902295"></p>
+<h3 id="自带动态刷新"><a href="#自带动态刷新" class="headerlink" title="自带动态刷新"></a>自带动态刷新</h3><p><img src="https://csn.damyoung.cn/image-20210202001027340.png" alt="image-20210202001027340"></p>
+<h2 id="分类配置"><a href="#分类配置" class="headerlink" title="分类配置"></a>分类配置</h2><h3 id="多环境多项目管理"><a href="#多环境多项目管理" class="headerlink" title="多环境多项目管理"></a>多环境多项目管理</h3><p><img src="https://csn.damyoung.cn/image-20210202220942214.png" alt="image-20210202220942214"></p>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>Namespace+Group+Data ID</p>
+<p><img src="https://csn.damyoung.cn/image-20210202221153895.png" alt="image-20210202221153895"></p>
+<p><img src="https://csn.damyoung.cn/image-20210202221341882.png" alt="image-20210202221341882"></p>
+<p><img src="https://csn.damyoung.cn/image-20210202221126870.png" alt="image-20210202221126870"></p>
+<p>同一个data Id，不同group</p>
+<p><img src="https://csn.damyoung.cn/image-20210202222515068.png" alt="image-20210202222515068"></p>
+<p><img src="https://csn.damyoung.cn/image-20210202222631243.png" alt="image-20210202222631243"></p>
+<p><img src="https://csn.damyoung.cn/image-20210202223029493.png" alt="image-20210202223029493"></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nacos配置</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">3377</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">nacos-config-client</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">42.192</span><span class="number">.130</span><span class="number">.130</span><span class="string">:8848</span> <span class="comment">#Nacos作为配置中心地址</span></span><br><span class="line">        <span class="attr">file-extension:</span> <span class="string">yaml</span> <span class="comment">#指定yaml格式的配置</span></span><br><span class="line">        <span class="attr">group:</span> <span class="string">DEFAULT_GROUP</span></span><br><span class="line">        <span class="attr">namespace:</span> <span class="string">cc621bf9-289e-4a2e-b5f6-aa2aab60cdd6</span></span><br><span class="line"></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">42.192</span><span class="number">.130</span><span class="number">.130</span><span class="string">:8848</span> <span class="comment">#Nacos服务注册中心地址</span></span><br><span class="line">  <span class="attr">profiles:</span></span><br><span class="line"><span class="comment">#    active: dev  #表示开发环境</span></span><br><span class="line">    <span class="attr">active:</span> <span class="string">test</span>  <span class="comment">#表示测试环境</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#nacos端配置文件DataId的命名规则是：</span></span><br><span class="line"><span class="comment">#$&#123;spring.application.name&#125;-$&#123;spring.profile.active&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;</span></span><br><span class="line"><span class="comment">#本案例的DataID是:nacos-config-client-dev.yaml</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Nacos集群和持久化配置"><a href="#Nacos集群和持久化配置" class="headerlink" title="Nacos集群和持久化配置"></a>Nacos集群和持久化配置</h2><p><img src="https://csn.damyoung.cn/image-20210202224112220.png" alt="image-20210202224112220"></p>
+<h3 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h3><p><a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/docs/cluster-mode-quick-start.html">https://nacos.io/zh-cn/docs/cluster-mode-quick-start.html</a></p>
+<p><img src="https://csn.damyoung.cn/image-20210202223659093.png" alt="image-20210202223659093"></p>
+<p>默认Nacos使用嵌入式数据库实现数据的存储，所以，如果启动多个默认配置下的Nacos节点，数据存储是存在一致性问题的；为了解决这个问题，Nacos采用了<strong>集中式存储的方式来支持集群化部署，目前只支持MySql的存储</strong></p>
+<h4 id="单机"><a href="#单机" class="headerlink" title="单机"></a>单机</h4><p>Nacos默认自带的是嵌入式数据库derby</p>
+<p><img src="https://csn.damyoung.cn/image-20210202224434838.png" alt="image-20210202224434838"></p>
+<h4 id="集群-1"><a href="#集群-1" class="headerlink" title="集群"></a>集群</h4><p><img src="https://csn.damyoung.cn/image-20210202224940680.png" alt="image-20210202224940680"></p>
+<h4 id="mysql数据库配置"><a href="#mysql数据库配置" class="headerlink" title="mysql数据库配置"></a>mysql数据库配置</h4><h5 id="sql脚本"><a href="#sql脚本" class="headerlink" title="sql脚本"></a>sql脚本</h5><p><a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/blob/master/distribution/conf/nacos-mysql.sql">https://github.com/alibaba/nacos/blob/master/distribution/conf/nacos-mysql.sql</a></p>
+<h4 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp application.properties application.properties.init --备份</span><br><span class="line"></span><br><span class="line">vim application.properties.init</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210202233044347.png" alt="image-20210202233044347"></p>
+<h4 id="配置cluster-conf"><a href="#配置cluster-conf" class="headerlink" title="配置cluster.conf"></a>配置cluster.conf</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp cluster.conf.example cluster.conf</span><br><span class="line"></span><br><span class="line">vim cluster.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210202233606236.png" alt="image-20210202233606236"></p>
+<p><img src="https://csn.damyoung.cn/image-20210202233813507.png" alt="image-20210202233813507"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep nacos|grep -v grep|wc -l --查看启动nacos</span><br></pre></td></tr></table></figure>
+
+<h1 id="熔断和限流Sentinel"><a href="#熔断和限流Sentinel" class="headerlink" title="熔断和限流Sentinel"></a>熔断和限流Sentinel</h1><p><a target="_blank" rel="noopener" href="https://github.com/alibaba/Sentinel/wiki">https://github.com/alibaba/Sentinel/wiki</a></p>
+<p><img src="https://csn.damyoung.cn/image-20210203002134346.png" alt="image-20210203002134346"></p>
+<p>服务雪崩、服务降级、服务熔断、服务限流</p>
+<p><img src="https://csn.damyoung.cn/image-20210203002240175.png" alt="image-20210203002240175"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/alibaba/Sentinel/releases">https://github.com/alibaba/Sentinel/releases</a> 下载</p>
+<p>java -jar sentinel-dashboard-1.7.0.jar</p>
+<p><img src="https://csn.damyoung.cn/image-20210203003323061.png" alt="image-20210203003323061"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203003406410.png" alt="image-20210203003406410"></p>
+<h2 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h2><blockquote>
+<p>sentinel采用懒加载，执行一次访问即可<a target="_blank" rel="noopener" href="http://localhost:8401/testA">http://localhost:8401/testA</a></p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20210203194724755.png" alt="image-20210203194724755"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--        springcloud alibaba sentinel 后续持久化--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-datasource-nacos<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--nacos-discovery--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--        openfeign--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--        springcloud alibaba sentinel--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-sentinel<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8401</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">cloudalibaba-sentinel-service</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="string">localhost:8848</span> <span class="comment">#Nacos服务注册中心地址</span></span><br><span class="line">    <span class="attr">sentinel:</span></span><br><span class="line">      <span class="attr">transport:</span></span><br><span class="line">        <span class="attr">dashboard:</span> <span class="number">42.192</span><span class="number">.130</span><span class="number">.130</span><span class="string">:8080</span> <span class="comment">#配置Sentinel dashboard地址</span></span><br><span class="line"><span class="comment">#        默认8719端口，假如被占用会自动从8719开始依次+1扫描。直至找到未被占用的端口</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">8719</span></span><br><span class="line"></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">&#x27;*&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainApp8401</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(MainApp8401.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlowLimitController</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/testA&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">testA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;------testA&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/testB&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">testB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(Thread.currentThread().getName()+<span class="string">&quot;\t&quot;</span>+<span class="string">&quot;...testB&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;------testB&quot;</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210203201514861.png" alt="image-20210203201514861"></p>
+<h2 id="流控规则"><a href="#流控规则" class="headerlink" title="流控规则"></a>流控规则</h2><p>资源名：唯一名称，默认请求路径</p>
+<p>针对来源：Sentinel可以针对调用者进行限流，填写微服务名，默认default</p>
+<p>阈值类型</p>
+<ul>
+<li>QPS(每秒请求数量)：当调用该api的QPS达到阈值时，进行限流</li>
+<li>线程数：当调用该api的线程数达到阈值时进行限流</li>
+</ul>
+<p>流控模式</p>
+<ul>
+<li>直接：api达到限流条件时，直接限流</li>
+<li>关联：当关联的资源达到阈值时，就限流自己</li>
+<li>链路：只记录指定链路上的流量(指定资源从入口资源进来的流量，如果达到阈值，就进行限流)</li>
+</ul>
+<p>流控效果</p>
+<ul>
+<li>快速失败：直接失败，跑异常</li>
+<li>Warm up：根据codeFactor(冷加载因子，默认3)的值，从阈值/codeFactor，经过预热时长，才达到设置的QPS阈值</li>
+<li>排队等待</li>
+</ul>
+<h3 id="直接快速失败"><a href="#直接快速失败" class="headerlink" title="直接快速失败"></a>直接快速失败</h3><h4 id="QPS"><a href="#QPS" class="headerlink" title="QPS"></a>QPS</h4><p><img src="https://csn.damyoung.cn/image-20210203202131283.png" alt="image-20210203202131283"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203202211174.png" alt="image-20210203202211174"></p>
+<h4 id="线程数"><a href="#线程数" class="headerlink" title="线程数"></a>线程数</h4><p><img src="https://csn.damyoung.cn/image-20210203203126702.png" alt="image-20210203203126702"></p>
+<h3 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h3><p><img src="https://csn.damyoung.cn/image-20210203203926784.png" alt="image-20210203203926784"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203204127837.png" alt="image-20210203204127837"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203204208656.png" alt="image-20210203204208656"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203204320762.png" alt="image-20210203204320762"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203204441287.png" alt="image-20210203204441287"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203204718927.png" alt="image-20210203204718927"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203204702277.png" alt="image-20210203204702277"></p>
+<h3 id="链路"><a href="#链路" class="headerlink" title="链路"></a>链路</h3><h2 id="流控效果"><a href="#流控效果" class="headerlink" title="流控效果"></a>流控效果</h2><h3 id="预热"><a href="#预热" class="headerlink" title="预热"></a>预热</h3><p>秒杀系统在开启的瞬间，会有很多流量上来，很有可能把系统打死，预热方式就是把为了保护系统，可慢慢把流量放进来，慢慢的把阈值增长到设置的阈值</p>
+<p><img src="https://csn.damyoung.cn/image-20210203205103893.png" alt="image-20210203205103893"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203205306608.png" alt="image-20210203205306608"></p>
+<h3 id="排队等待"><a href="#排队等待" class="headerlink" title="排队等待"></a>排队等待</h3><p><img src="https://csn.damyoung.cn/image-20210203205607252.png" alt="image-20210203205607252"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203205629517.png" alt="image-20210203205629517"></p>
+<h2 id="熔断降级"><a href="#熔断降级" class="headerlink" title="熔断降级"></a>熔断降级</h2><p><a target="_blank" rel="noopener" href="http://github.com/alibaba/Sentinel/wiki/%E7%86%94%E6%96%AD%E9%99%8D%E7%BA%A7">http://github.com/alibaba/Sentinel/wiki/熔断降级</a></p>
+<p><img src="https://csn.damyoung.cn/image-20210203205810825.png" alt="image-20210203205810825"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203205906791.png" alt="image-20210203205906791"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203205918850.png" alt="image-20210203205918850"></p>
+<p><img src="https://csn.damyoung.cn/image-20210203205939045.png" alt="image-20210203205939045"></p>
+<p>Sentinel断路器是没有半开状态</p>
+<p><img src="https://csn.damyoung.cn/image-20210203210055780.png" alt="image-20210203210055780"></p>
+<h3 id="RT"><a href="#RT" class="headerlink" title="RT"></a>RT</h3><p><img src="https://csn.damyoung.cn/image-20210204194822358.png" alt="image-20210204194822358"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/testD&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">testD</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">1</span> );</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    log.info(<span class="string">&quot;测试D&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;------testD&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210204195240843.png" alt="image-20210204195240843"></p>
+<p><img src="https://csn.damyoung.cn/image-20210204195811172.png" alt="image-20210204195811172"></p>
+<h3 id="异常比例"><a href="#异常比例" class="headerlink" title="异常比例"></a>异常比例</h3><p><img src="https://csn.damyoung.cn/image-20210204200037378.png" alt="image-20210204200037378"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/testE&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">testE</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    log.info(<span class="string">&quot;testE 测试异常数&quot;</span>);</span><br><span class="line">    <span class="keyword">int</span> age = <span class="number">10</span>/<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;------testE 测试异常数&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210204200218433.png" alt="image-20210204200218433"></p>
+<h3 id="异常数"><a href="#异常数" class="headerlink" title="异常数"></a>异常数</h3><p>异常数是按照分钟统计的</p>
+<p><img src="https://csn.damyoung.cn/image-20210204200327159.png" alt="image-20210204200327159"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/testE&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">testE</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    log.info(<span class="string">&quot;testE 测试异常数&quot;</span>);</span><br><span class="line">    <span class="keyword">int</span> age = <span class="number">10</span>/<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;------testE 测试异常数&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210204200458434.png" alt="image-20210204200458434"></p>
+<h2 id="热点key限流"><a href="#热点key限流" class="headerlink" title="热点key限流"></a>热点key限流</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/testHotKey&quot;)</span></span><br><span class="line"><span class="meta">@SentinelResource(value = &quot;testHotKey&quot;,blockHandler = &quot;deal_testHotKey&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">testHotKey</span><span class="params">(<span class="meta">@RequestParam(value = &quot;p1&quot;,required = false)</span> String p1,</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="meta">@RequestParam(value = &quot;p2&quot;,required = false)</span> String p2)</span></span>&#123;</span><br><span class="line">    <span class="comment">//int age = 10/0;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;------testHotKey&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//兜底方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">deal_testHotKey</span> <span class="params">(String p1, String p2, BlockException exception)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//sentinel系统默认的提示：Blocked by Sentinel (flow limiting)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;------deal_testHotKey,o(╥﹏╥)o&quot;</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210204201742114.png" alt="image-20210204201742114"></p>
+<p>方法testHotKey里面第一个参数只要QPS超过每秒1次，马上降级处理；</p>
+<p>如果没有兜底方法，异常会被打印到前台</p>
+<h3 id="参数例外项"><a href="#参数例外项" class="headerlink" title="参数例外项"></a>参数例外项</h3><p>热点参数的注意点，参数必须是基本类型或者String</p>
+<p><img src="https://csn.damyoung.cn/image-20210204202214005.png" alt="image-20210204202214005"></p>
+<p><img src="https://csn.damyoung.cn/image-20210204202257530.png" alt="image-20210204202257530"></p>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p><img src="https://csn.damyoung.cn/image-20210204202556381.png" alt="image-20210204202556381"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/testHotKey&quot;)</span></span><br><span class="line"><span class="meta">@SentinelResource(value = &quot;testHotKey&quot;,blockHandler = &quot;deal_testHotKey&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">testHotKey</span><span class="params">(<span class="meta">@RequestParam(value = &quot;p1&quot;,required = false)</span> String p1,</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="meta">@RequestParam(value = &quot;p2&quot;,required = false)</span> String p2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> age = <span class="number">10</span>/<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;------testHotKey&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">deal_testHotKey</span> <span class="params">(String p1, String p2, BlockException exception)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//sentinel系统默认的提示：Blocked by Sentinel (flow limiting)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;------deal_testHotKey,o(╥﹏╥)o&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="系统规则"><a href="#系统规则" class="headerlink" title="系统规则"></a>系统规则</h2><p><a target="_blank" rel="noopener" href="https://github.com/alibaba/Sentinel/wiki/%E7%B3%BB%E7%BB%9F%E8%87%AA%E9%80%82%E5%BA%94%E9%99%90%E6%B5%81">https://github.com/alibaba/Sentinel/wiki/%E7%B3%BB%E7%BB%9F%E8%87%AA%E9%80%82%E5%BA%94%E9%99%90%E6%B5%81</a></p>
+<p>系统保护规则是从应用级别的入口流量进行控制，从单台机器的 load、CPU 使用率、平均 RT、入口 QPS 和并发线程数等几个维度监控应用指标，让系统尽可能跑在最大吞吐量的同时保证系统整体的稳定性。</p>
+<p>系统保护规则是应用整体维度的，而不是资源维度的，并且<strong>仅对入口流量生效</strong>。入口流量指的是进入应用的流量（<code>EntryType.IN</code>），比如 Web 服务或 Dubbo 服务端接收的请求，都属于入口流量。</p>
+<p>系统规则支持以下的模式：</p>
+<ul>
+<li><strong>Load 自适应</strong>（仅对 Linux/Unix-like 机器生效）：系统的 load1 作为启发指标，进行自适应系统保护。当系统 load1 超过设定的启发值，且系统当前的并发线程数超过估算的系统容量时才会触发系统保护（BBR 阶段）。系统容量由系统的 <code>maxQps * minRt</code> 估算得出。设定参考值一般是 <code>CPU cores * 2.5</code>。</li>
+<li><strong>CPU usage</strong>（1.5.0+ 版本）：当系统 CPU 使用率超过阈值即触发系统保护（取值范围 0.0-1.0），比较灵敏。</li>
+<li><strong>平均 RT</strong>：当单台机器上所有入口流量的平均 RT 达到阈值即触发系统保护，单位是毫秒。</li>
+<li><strong>并发线程数</strong>：当单台机器上所有入口流量的并发线程数达到阈值即触发系统保护。</li>
+<li><strong>入口 QPS</strong>：当单台机器上所有入口流量的 QPS 达到阈值即触发系统保护</li>
+</ul>
+<h2 id="SentinelResource"><a href="#SentinelResource" class="headerlink" title="@SentinelResource"></a>@SentinelResource</h2><h3 id="按资源名称限流"><a href="#按资源名称限流" class="headerlink" title="按资源名称限流"></a>按资源名称限流</h3><p><img src="https://csn.damyoung.cn/image-20210204203134381.png" alt="image-20210204203134381"></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.example&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;cloud-api-commons&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/byResource&quot;)</span></span><br><span class="line"><span class="meta">@SentinelResource(value = &quot;byResource&quot;,blockHandler = &quot;handleException&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CommonResult <span class="title">byResource</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CommonResult(<span class="number">200</span>,<span class="string">&quot;按资源名称限流测试OK&quot;</span>,<span class="keyword">new</span> Payment(<span class="number">2020L</span>,<span class="string">&quot;serial001&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> CommonResult <span class="title">handleException</span><span class="params">(BlockException exception)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CommonResult(<span class="number">444</span>,exception.getClass().getCanonicalName()+<span class="string">&quot;\t 服务不可用&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210204203901101.png" alt="image-20210204203901101"></p>
+<p><img src="https://csn.damyoung.cn/image-20210204203919956.png" alt="image-20210204203919956"></p>
+<p><img src="https://csn.damyoung.cn/image-20210204203928416.png" alt="image-20210204203928416"></p>
+<h3 id="按Url限流"><a href="#按Url限流" class="headerlink" title="按Url限流"></a>按Url限流</h3><blockquote>
+<p>加了斜杆/</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/rateLimit/byUrl&quot;)</span></span><br><span class="line"><span class="meta">@SentinelResource(value = &quot;byUrl&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CommonResult <span class="title">byUrl</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CommonResult(<span class="number">200</span>,<span class="string">&quot;按url限流测试OK&quot;</span>,<span class="keyword">new</span> Payment(<span class="number">2020L</span>,<span class="string">&quot;serial002&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210204204309347.png" alt="image-20210204204309347"></p>
+<p><img src="https://csn.damyoung.cn/image-20210204204341751.png" alt="image-20210204204341751"></p>
+<h3 id="自定义限流处理逻辑"><a href="#自定义限流处理逻辑" class="headerlink" title="自定义限流处理逻辑"></a>自定义限流处理逻辑</h3><p><img src="https://csn.damyoung.cn/image-20210204204459804.png" alt="image-20210204204459804"></p>
+<p><img src="https://csn.damyoung.cn/image-20210204204512422.png" alt="image-20210204204512422"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/rateLimit/customerBlockHandler&quot;)</span></span><br><span class="line"><span class="meta">@SentinelResource(value = &quot;customerBlockHandler&quot;,</span></span><br><span class="line"><span class="meta">        blockHandlerClass = CustomerBlockHandler.class,</span></span><br><span class="line"><span class="meta">        blockHandler = &quot;handlerException2&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CommonResult <span class="title">customerBlockHandler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CommonResult(<span class="number">200</span>,<span class="string">&quot;按客戶自定义&quot;</span>,<span class="keyword">new</span> Payment(<span class="number">2020L</span>,<span class="string">&quot;serial003&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerBlockHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> CommonResult <span class="title">handlerException</span><span class="params">(BlockException exception)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CommonResult(<span class="number">4444</span>,<span class="string">&quot;按客戶自定义,global handlerException----1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> CommonResult <span class="title">handlerException2</span><span class="params">(BlockException exception)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CommonResult(<span class="number">4444</span>,<span class="string">&quot;按客戶自定义,global handlerException----2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210204205109766.png" alt="image-20210204205109766"></p>
+<h3 id="更多注解属性"><a href="#更多注解属性" class="headerlink" title="更多注解属性"></a>更多注解属性</h3><p><a target="_blank" rel="noopener" href="https://github.com/alibaba/Sentinel/wiki/%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81">https://github.com/alibaba/Sentinel/wiki/%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81</a></p>
+<p><img src="https://csn.damyoung.cn/image-20210204205313122.png" alt="image-20210204205313122"></p>
+<p><img src="https://csn.damyoung.cn/image-20210204205331443.png" alt="image-20210204205331443"></p>
+<h2 id="服务熔断"><a href="#服务熔断" class="headerlink" title="服务熔断"></a>服务熔断</h2><blockquote>
+<p>sentinel整合ribbon+openFeign+fallback</p>
+</blockquote>
+<h3 id="Ribbon系列"><a href="#Ribbon系列" class="headerlink" title="Ribbon系列"></a>Ribbon系列</h3><p><img src="https://csn.damyoung.cn/image-20210204205513896.png" alt="image-20210204205513896"></p>
+<h4 id="9003"><a href="#9003" class="headerlink" title="9003"></a>9003</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--SpringCloud ailibaba nacos --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span><span class="comment">&lt;!-- 引入自己定义的api通用包，可以使用Payment支付Entity --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.atguigu.springcloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cloud-api-commons<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">9003</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">nacos-payment-provider</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="string">localhost:8848</span> <span class="comment">#配置Nacos地址</span></span><br><span class="line"></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">&#x27;*&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PaymentMain9003</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(PaymentMain9003.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PaymentController</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;server.port&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String serverPort;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HashMap&lt;Long, Payment&gt; hashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">static</span></span><br><span class="line">    &#123;</span><br><span class="line">        hashMap.put(<span class="number">1L</span>,<span class="keyword">new</span> Payment(<span class="number">1L</span>,<span class="string">&quot;28a8c1e3bc2742d8848569891fb42181&quot;</span>));</span><br><span class="line">        hashMap.put(<span class="number">2L</span>,<span class="keyword">new</span> Payment(<span class="number">2L</span>,<span class="string">&quot;bba8c1e3bc2742d8848569891ac32182&quot;</span>));</span><br><span class="line">        hashMap.put(<span class="number">3L</span>,<span class="keyword">new</span> Payment(<span class="number">3L</span>,<span class="string">&quot;6ua8c1e3bc2742d8848569891xt92183&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/paymentSQL/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CommonResult&lt;Payment&gt; <span class="title">paymentSQL</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long id)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Payment payment = hashMap.get(id);</span><br><span class="line">        CommonResult&lt;Payment&gt; result = <span class="keyword">new</span> CommonResult(<span class="number">200</span>,<span class="string">&quot;from mysql,serverPort:  &quot;</span>+serverPort,payment);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="84"><a href="#84" class="headerlink" title="84"></a>84</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--SpringCloud ailibaba nacos --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--SpringCloud ailibaba sentinel --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-sentinel<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">84</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">nacos-order-consumer</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">42.192</span><span class="number">.130</span><span class="number">.130</span><span class="string">:8848</span></span><br><span class="line">    <span class="attr">sentinel:</span></span><br><span class="line">      <span class="attr">transport:</span></span><br><span class="line">        <span class="comment">#配置Sentinel dashboard地址</span></span><br><span class="line">        <span class="attr">dashboard:</span> <span class="string">localhost:8080</span></span><br><span class="line">        <span class="comment">#默认8719端口，假如被占用会自动从8719开始依次+1扫描,直至找到未被占用的端口</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">8719</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderNacosMain84</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(OrderNacosMain84.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationContextConfig</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@LoadBalanced</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RestTemplate <span class="title">getRestTemplate</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RestTemplate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="CircleBreakerController84"><a href="#CircleBreakerController84" class="headerlink" title="CircleBreakerController84"></a>CircleBreakerController84</h4><h5 id="没有配置"><a href="#没有配置" class="headerlink" title="没有配置"></a>没有配置</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/consumer/fallback/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="meta">@SentinelResource(value = &quot;fallback&quot;)</span> <span class="comment">//没有配置</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CommonResult&lt;Payment&gt; <span class="title">fallback</span><span class="params">(<span class="meta">@PathVariable</span> Long id)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    CommonResult&lt;Payment&gt; result = restTemplate.getForObject(SERVICE_URL + <span class="string">&quot;/paymentSQL/&quot;</span>+id,CommonResult.class,id);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (id == <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException (<span class="string">&quot;IllegalArgumentException,非法参数异常....&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (result.getData() == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException (<span class="string">&quot;NullPointerException,该ID没有对应记录,空指针异常&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>fallback管运行异常，blockHandler管配置违规</p>
+<p><img src="https://csn.damyoung.cn/image-20210204211652125.png" alt="image-20210204211652125"></p>
+<p>没有配置，直接返回error页面</p>
+<p><img src="https://csn.damyoung.cn/image-20210204211918969.png" alt="image-20210204211918969"></p>
+<h5 id="配置fallback"><a href="#配置fallback" class="headerlink" title="配置fallback"></a>配置fallback</h5><blockquote>
+<p>只处理运行异常，不管配置违规</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SentinelResource(value = &quot;fallback&quot;,fallback = &quot;handlerFallback&quot;)</span> <span class="comment">//fallback只负责业务异常</span></span><br></pre></td></tr></table></figure>
+
+<p>兜底方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//本例是fallback</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CommonResult <span class="title">handlerFallback</span><span class="params">(<span class="meta">@PathVariable</span>  Long id,Throwable e)</span> </span>&#123;</span><br><span class="line">    Payment payment = <span class="keyword">new</span> Payment(id,<span class="string">&quot;null&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CommonResult&lt;&gt;(<span class="number">444</span>,<span class="string">&quot;兜底异常handlerFallback,exception内容  &quot;</span>+e.getMessage(),payment);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210204212201371.png" alt="image-20210204212201371"></p>
+<h5 id="只配置blockHandler"><a href="#只配置blockHandler" class="headerlink" title="只配置blockHandler"></a>只配置blockHandler</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SentinelResource(value = &quot;fallback&quot;,blockHandler = &quot;blockHandler&quot;)</span> <span class="comment">//blockHandler只负责sentinel控制台配置违规</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210204213012372.png" alt="image-20210204213012372"></p>
+<p>点俩次</p>
+<p><img src="https://csn.damyoung.cn/image-20210204213032795.png" alt="image-20210204213032795"></p>
+<h5 id="俩种都配置"><a href="#俩种都配置" class="headerlink" title="俩种都配置"></a>俩种都配置</h5><p><img src="https://csn.damyoung.cn/image-20210204213126954.png" alt="image-20210204213126954"></p>
+<h5 id="异常忽略"><a href="#异常忽略" class="headerlink" title="异常忽略"></a>异常忽略</h5><blockquote>
+<p>运行异常会被抛出(配置<code>IllegalArgumentException</code>出现会出现error页面而不进入兜底方法)</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20210204213259723.png" alt="image-20210204213259723"></p>
+<h3 id="Feign系列"><a href="#Feign系列" class="headerlink" title="Feign系列"></a>Feign系列</h3><p><img src="https://csn.damyoung.cn/image-20210204213718955.png" alt="image-20210204213718955"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--SpringCloud openfeign --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#消费者将要去访问的微服务名称(注册成功进nacos的微服务提供者)</span></span><br><span class="line"><span class="attr">service-url:</span></span><br><span class="line">  <span class="attr">nacos-user-service:</span> <span class="string">http://nacos-payment-provider</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 激活Sentinel对Feign的支持</span></span><br><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="attr">sentinel:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableFeignClients</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderNacosMain84</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(OrderNacosMain84.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(value = &quot;nacos-payment-provider&quot;,fallback = PaymentFallbackService.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PaymentService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/paymentSQL/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="function">CommonResult&lt;Payment&gt; <span class="title">paymentSQL</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PaymentFallbackService</span> <span class="keyword">implements</span> <span class="title">PaymentService</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CommonResult&lt;Payment&gt; <span class="title">paymentSQL</span><span class="params">(Long id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CommonResult&lt;&gt;(<span class="number">444</span>,<span class="string">&quot;服务降级返回&quot;</span>,<span class="keyword">new</span> Payment(id,<span class="string">&quot;errorSerial&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//==================OpenFeign</span></span><br><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="keyword">private</span> PaymentService paymentService;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping(value = &quot;/consumer/paymentSQL/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CommonResult&lt;Payment&gt; <span class="title">paymentSQL</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> paymentService.paymentSQL(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210204214622324.png" alt="image-20210204214622324"></p>
+<p>测试84调用9003，此时故意关闭9003微服务提供者</p>
+<p><img src="https://csn.damyoung.cn/image-20210204214742428.png" alt="image-20210204214742428"></p>
+<h2 id="规则持久化"><a href="#规则持久化" class="headerlink" title="规则持久化"></a>规则持久化</h2><p>一旦我们重启应用，sentinel规则将消失，生产环境需要将配置规则进行持久化</p>
+<p>将限流配置规则持久化进Nacos保存，只要刷新840某个rest地址，sentinel控制台的流控规则就能看到，只要Nacos里面的配置不删除，针对8401上sentinel的流控规则持续有效</p>
+<p>cloudalibaba-sentinel-service8401为例，重启配置会再刷新！！</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--        springcloud alibaba sentinel 后续持久化--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-datasource-nacos<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#        添加nacos数据源配置</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">	<span class="attr">cloud:</span></span><br><span class="line">		<span class="attr">sentinel:</span>	</span><br><span class="line">			<span class="attr">datasource:</span></span><br><span class="line">        		<span class="attr">ds1:</span></span><br><span class="line">          			<span class="attr">nacos:</span></span><br><span class="line">            			<span class="attr">serverAddr:</span> <span class="number">42.192</span><span class="number">.130</span><span class="number">.130</span><span class="string">:8848</span></span><br><span class="line">            			<span class="attr">dataId:</span> <span class="string">$&#123;spring.application.name&#125;</span></span><br><span class="line">            			<span class="attr">groupId:</span> <span class="string">DEFAULT_GROUP</span></span><br><span class="line">            			<span class="attr">dataType:</span> <span class="string">json</span></span><br><span class="line">            			<span class="attr">ruleType:</span> <span class="string">FLOW</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210204220703573.png" alt="image-20210204220703573"></p>
+<p><img src="https://csn.damyoung.cn/image-20210204220716944.png" alt="image-20210204220716944"></p>
+<p><img src="https://csn.damyoung.cn/image-20210204221035935.png" alt="image-20210204221035935"></p>
+<p>测试</p>
+<p><img src="https://csn.damyoung.cn/image-20210204221110662.png" alt="image-20210204221110662"></p>
+<p>停止8401</p>
+<p><img src="https://csn.damyoung.cn/image-20210204221136932.png" alt="image-20210204221136932"></p>
+<p>重启8401</p>
+<p><img src="https://csn.damyoung.cn/image-20210204221209168.png" alt="image-20210204221209168"></p>
+<h1 id="Seate处理分布式事务"><a href="#Seate处理分布式事务" class="headerlink" title="Seate处理分布式事务"></a>Seate处理分布式事务</h1><h2 id="分布式问题"><a href="#分布式问题" class="headerlink" title="分布式问题"></a>分布式问题</h2><blockquote>
+<p>一次业务操作需要跨多个数据源或需要跨多个系统进行远程调用，就会产生分布式事务问题</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20210204221711342.png" alt="image-20210204221711342"></p>
+<p><img src="https://csn.damyoung.cn/image-20210204221635201.png" alt="image-20210204221635201"></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>seata是一款开源的分布式事务解决方案，致力于在微服务架构下提供高性能和简单易用的分布式事务服务</p>
+<p>我们只需要使用一个注解<code>@GlobalTransactional</code>注解解决分布式事务问题！！！！</p>
+<p>官网<a target="_blank" rel="noopener" href="http://seata.io/zh-cn">http://seata.io/zh-cn</a></p>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/seata/seata/releases">https://github.com/seata/seata/releases</a></p>
+<h3 id="Transaction-ID"><a href="#Transaction-ID" class="headerlink" title="Transaction ID"></a>Transaction ID</h3><p>全局事务ID</p>
+<h3 id="三组件"><a href="#三组件" class="headerlink" title="三组件"></a>三组件</h3><p>TC (Transaction Coordinator) - 事务协调者：维护全局和分支事务的状态，驱动全局事务提交或回滚。</p>
+<p>TM (Transaction Manager) - 事务管理器：定义全局事务的范围：开始全局事务、提交或回滚全局事务。</p>
+<p>RM (Resource Manager) - 资源管理器：管理分支事务处理的资源，与TC交谈以注册分支事务和报告分支事务的状态，并驱动分支事务提交或回滚。</p>
+<h3 id="处理过程"><a href="#处理过程" class="headerlink" title="处理过程"></a>处理过程</h3><p><img src="https://csn.damyoung.cn/image-20210205103929876.png" alt="image-20210205103929876"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205104523353.png" alt="image-20210205104523353"></p>
+<h2 id="安装seata"><a href="#安装seata" class="headerlink" title="安装seata"></a>安装seata</h2><p><img src="https://csn.damyoung.cn/image-20210205104829079.png" alt="image-20210205104829079"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205105626507.png" alt="image-20210205105626507"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205104924446.png" alt="image-20210205104924446"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205115951285.png" alt="image-20210205115951285"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205105157797.png" alt="image-20210205105157797"></p>
+<p>建库seata，建表db_store.sql;</p>
+<p>指明注册中心为nacos，及修改nacos连接信息</p>
+<p>创建seata/logs/seata_gc.log，添加mysql8驱动jar包到bin目录下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">driverClassName &#x3D; &quot;com.mysql.cj.jdbc.Driver&quot;</span><br><span class="line"></span><br><span class="line">url &#x3D; &quot;jdbc:mysql:&#x2F;&#x2F;127.0.0.1:3306&#x2F;seata?characterEncoding&#x3D;utf8&amp;connectTimeout&#x3D;1000&amp;socketTimeout&#x3D;3000&amp;autoReconnect&#x3D;true&amp;serverTimezone&#x3D;UTC&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210205105740447.png" alt="image-20210205105740447"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205120152477.png" alt="image-20210205120152477"></p>
+<h2 id="账户-库存-账户业务数据库准备"><a href="#账户-库存-账户业务数据库准备" class="headerlink" title="账户/库存/账户业务数据库准备"></a>账户/库存/账户业务数据库准备</h2><blockquote>
+<p>先启动Nacos后启动Seata！！！</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20210205122006674.png" alt="image-20210205122006674"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205122151086.png" alt="image-20210205122151086"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE seata_order;</span><br><span class="line">USE seata_order;</span><br><span class="line">CREATE TABLE t_order(</span><br><span class="line">    id BIGINT(<span class="number">11</span>) NOT NULL AUTO_INCREMENT PRIMARY KEY ,</span><br><span class="line">    user_id BIGINT(<span class="number">11</span>) DEFAULT NULL COMMENT <span class="string">&#x27;用户id&#x27;</span>,</span><br><span class="line">    product_id BIGINT(<span class="number">11</span>) DEFAULT NULL COMMENT <span class="string">&#x27;产品id&#x27;</span>,</span><br><span class="line">    count INT(<span class="number">11</span>) DEFAULT NULL COMMENT <span class="string">&#x27;数量&#x27;</span>,</span><br><span class="line">    money DECIMAL(<span class="number">11</span>,<span class="number">0</span>) DEFAULT NULL COMMENT <span class="string">&#x27;金额&#x27;</span>,</span><br><span class="line">    status INT(<span class="number">1</span>) DEFAULT NULL COMMENT <span class="string">&#x27;订单状态：0创建中，1已完结&#x27;</span></span><br><span class="line">)ENGINE=InnoDB AUTO_INCREMENT=<span class="number">7</span> CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">CREATE DATABASE seata_storage;</span><br><span class="line">USE seata_storage;</span><br><span class="line">CREATE TABLE t_storage(</span><br><span class="line">    id BIGINT(<span class="number">11</span>) NOT NULL AUTO_INCREMENT PRIMARY KEY ,</span><br><span class="line">    product_id BIGINT(<span class="number">11</span>) DEFAULT NULL COMMENT <span class="string">&#x27;产品id&#x27;</span>,</span><br><span class="line">    total INT(<span class="number">11</span>) DEFAULT NULL COMMENT <span class="string">&#x27;总库存&#x27;</span>,</span><br><span class="line">    used INT(<span class="number">11</span>) DEFAULT NULL COMMENT <span class="string">&#x27;已用库存&#x27;</span>,</span><br><span class="line">    residue INT(<span class="number">11</span>) DEFAULT NULL COMMENT <span class="string">&#x27;剩余库存&#x27;</span></span><br><span class="line">)ENGINE=InnoDB AUTO_INCREMENT=<span class="number">7</span> CHARSET=utf8;</span><br><span class="line">INSERT INTO t_storage(id, product_id, total, used, residue) VALUES(<span class="number">1</span>,<span class="number">1</span>,<span class="number">100</span>,<span class="number">0</span>,<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">CREATE DATABASE seata_account;</span><br><span class="line">USE seata_account;</span><br><span class="line">CREATE TABLE t_account(</span><br><span class="line">    id BIGINT(<span class="number">11</span>) NOT NULL AUTO_INCREMENT PRIMARY KEY ,</span><br><span class="line">    user_id BIGINT(<span class="number">11</span>) DEFAULT NULL COMMENT <span class="string">&#x27;用户id&#x27;</span>,</span><br><span class="line">    total DECIMAL(<span class="number">10</span>,<span class="number">0</span>) DEFAULT NULL COMMENT <span class="string">&#x27;总额度&#x27;</span>,</span><br><span class="line">    used DECIMAL(<span class="number">10</span>,<span class="number">0</span>) DEFAULT NULL COMMENT <span class="string">&#x27;已用额度&#x27;</span>,</span><br><span class="line">    residue DECIMAL(<span class="number">10</span>,<span class="number">0</span>) DEFAULT <span class="number">0</span> COMMENT <span class="string">&#x27;剩余可用额度&#x27;</span></span><br><span class="line">)ENGINE=InnoDB AUTO_INCREMENT=<span class="number">7</span> CHARSET=utf8;</span><br><span class="line">INSERT INTO t_account(id, user_id, total, used, residue) VALUES(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1000</span>,<span class="number">0</span>,<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20210205122517376.png" alt="image-20210205122517376"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE <span class="string">`undo_log`</span> (</span><br><span class="line">  <span class="string">`id`</span> BIGINT(<span class="number">20</span>) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  <span class="string">`branch_id`</span> BIGINT(<span class="number">20</span>) NOT NULL,</span><br><span class="line">  <span class="string">`xid`</span> VARCHAR(<span class="number">100</span>) NOT NULL,</span><br><span class="line">  <span class="string">`context`</span> VARCHAR(<span class="number">128</span>) NOT NULL,</span><br><span class="line">  <span class="string">`rollback_info`</span> LONGBLOB NOT NULL,</span><br><span class="line">  <span class="string">`log_status`</span> INT(<span class="number">11</span>) NOT NULL,</span><br><span class="line">  <span class="string">`log_created`</span> DATETIME NOT NULL,</span><br><span class="line">  <span class="string">`log_modified`</span> DATETIME NOT NULL,</span><br><span class="line">  <span class="string">`ext`</span> VARCHAR(<span class="number">100</span>) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (<span class="string">`id`</span>),</span><br><span class="line">  UNIQUE KEY <span class="string">`ux_undo_log`</span> (<span class="string">`xid`</span>,<span class="string">`branch_id`</span>)</span><br><span class="line">) ENGINE=INNODB AUTO_INCREMENT=<span class="number">1</span> DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://csn.damyoung.cn/image-20210205122909980.png" alt="image-20210205122909980"></p>
+<h2 id="订单-库存-账户业务微服务准备"><a href="#订单-库存-账户业务微服务准备" class="headerlink" title="订单/库存/账户业务微服务准备"></a>订单/库存/账户业务微服务准备</h2><p>下订单-减库存-扣余额-改订单状态</p>
+<p><img src="https://csn.damyoung.cn/image-20210205151312123.png" alt="image-20210205151312123"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205152124208.png" alt="image-20210205152124208"></p>
+<h3 id="seate-order-service2001"><a href="#seate-order-service2001" class="headerlink" title="seate-order-service2001"></a>seate-order-service2001</h3><p><img src="https://csn.damyoung.cn/image-20210205161253666.png" alt="image-20210205161253666"></p>
+<h4 id="pom"><a href="#pom" class="headerlink" title="pom"></a>pom</h4><blockquote>
+<p>seata要改成使用的版本</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--nacos--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--seata--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-seata<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>seata-all<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.seata<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.seata<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>seata-all<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--feign--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">2001</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">seata-order-service</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">alibaba:</span></span><br><span class="line">      <span class="attr">seata:</span></span><br><span class="line">        <span class="comment">#自定义事务组名称需要与seata-server中的对应</span></span><br><span class="line">        <span class="attr">tx-service-group:</span> <span class="string">fsp_tx_group</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">42.192</span><span class="number">.130</span><span class="number">.130</span><span class="string">:8848</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/seata_order</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line"></span><br><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="attr">hystrix:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="attr">io:</span></span><br><span class="line">      <span class="attr">seata:</span> <span class="string">info</span></span><br><span class="line"></span><br><span class="line"><span class="attr">mybatis:</span></span><br><span class="line">  <span class="attr">mapperLocations:</span> <span class="string">classpath:mapper/*.xml</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="pojo"><a href="#pojo" class="headerlink" title="pojo"></a>pojo</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Order</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long userId;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long productId;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer count;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> BigDecimal money;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单状态：0创建中，1已完结</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Integer status;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonResult</span>&lt;<span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer code;</span><br><span class="line">    <span class="keyword">private</span> String  message;</span><br><span class="line">    <span class="keyword">private</span> T       data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CommonResult</span><span class="params">(Integer code, String message)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(code,message,<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Mapper"><a href="#Mapper" class="headerlink" title="Mapper"></a>Mapper</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderMapper</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1 新建订单</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">create</span><span class="params">(Order order)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2 修改订单状态，从零改为1</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="meta">@Param(&quot;userId&quot;)</span> Long userId, <span class="meta">@Param(&quot;status&quot;)</span> Integer status)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span> <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.example.mapper.OrderMapper&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;BaseResultMap&quot;</span> <span class="attr">type</span>=<span class="string">&quot;com.example.pojo.Order&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">&quot;id&quot;</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;BIGINT&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;user_id&quot;</span> <span class="attr">property</span>=<span class="string">&quot;userId&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;BIGINT&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;product_id&quot;</span> <span class="attr">property</span>=<span class="string">&quot;productId&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;BIGINT&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;count&quot;</span> <span class="attr">property</span>=<span class="string">&quot;count&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;INTEGER&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;money&quot;</span> <span class="attr">property</span>=<span class="string">&quot;money&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;DECIMAL&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;status&quot;</span> <span class="attr">property</span>=<span class="string">&quot;status&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;INTEGER&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;create&quot;</span>&gt;</span></span><br><span class="line">        insert into t_order (id,user_id,product_id,count,money,status)</span><br><span class="line">        values (null,#&#123;userId&#125;,#&#123;productId&#125;,#&#123;count&#125;,#&#123;money&#125;,0);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">&quot;update&quot;</span>&gt;</span></span><br><span class="line">        update t_order set status = 1</span><br><span class="line">        where user_id=#&#123;userId&#125; and status = #&#123;status&#125;;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><blockquote>
+<p>feign远程调用</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">create</span><span class="params">(Order order)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(value = &quot;seata-account-service&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AccountService</span></span>&#123;</span><br><span class="line">    <span class="meta">@PostMapping(value = &quot;/account/decrease&quot;)</span></span><br><span class="line">    <span class="function">CommonResult <span class="title">decrease</span><span class="params">(<span class="meta">@RequestParam(&quot;userId&quot;)</span> Long userId, <span class="meta">@RequestParam(&quot;money&quot;)</span> BigDecimal money)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(value = &quot;seata-storage-service&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StorageService</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@PostMapping(value = &quot;/storage/decrease&quot;)</span></span><br><span class="line">    <span class="function">CommonResult <span class="title">decrease</span><span class="params">(<span class="meta">@RequestParam(&quot;productId&quot;)</span> Long productId, <span class="meta">@RequestParam(&quot;count&quot;)</span> Integer count)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderServiceImpl</span> <span class="keyword">implements</span> <span class="title">OrderService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> OrderMapper orderMapper;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> StorageService storageService;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> AccountService accountService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建订单-&gt;调用库存服务扣减库存-&gt;调用账户服务扣减账户余额-&gt;修改订单状态</span></span><br><span class="line"><span class="comment">     * 简单说：下订单-&gt;扣库存-&gt;减余额-&gt;改状态</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@GlobalTransactional(name = &quot;fsp-create-order&quot;,rollbackFor = Exception.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">(Order order)</span></span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;-----&gt;开始新建订单&quot;</span>);</span><br><span class="line">        <span class="comment">//1 新建订单</span></span><br><span class="line">        orderMapper.create(order);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2 扣减库存</span></span><br><span class="line">        log.info(<span class="string">&quot;-----&gt;订单微服务开始调用库存，做扣减Count&quot;</span>);</span><br><span class="line">        storageService.decrease(order.getProductId(),order.getCount());</span><br><span class="line">        log.info(<span class="string">&quot;-----&gt;订单微服务开始调用库存，做扣减end&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3 扣减账户</span></span><br><span class="line">        log.info(<span class="string">&quot;-----&gt;订单微服务开始调用账户，做扣减Money&quot;</span>);</span><br><span class="line">        accountService.decrease(order.getUserId(),order.getMoney());</span><br><span class="line">        log.info(<span class="string">&quot;-----&gt;订单微服务开始调用账户，做扣减end&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4 修改订单状态，从零到1,1代表已经完成</span></span><br><span class="line">        log.info(<span class="string">&quot;-----&gt;修改订单状态开始&quot;</span>);</span><br><span class="line">        orderMapper.update(order.getUserId(),<span class="number">0</span>);</span><br><span class="line">        log.info(<span class="string">&quot;-----&gt;修改订单状态结束&quot;</span>);</span><br><span class="line"></span><br><span class="line">        log.info(<span class="string">&quot;-----&gt;下订单结束了，O(∩_∩)O哈哈~&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> OrderService orderService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/order/create&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CommonResult <span class="title">create</span><span class="params">(Order order)</span></span>&#123;</span><br><span class="line">        orderService.create(order);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CommonResult(<span class="number">200</span>,<span class="string">&quot;订单创建成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> dmYang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span> 2021/2/5 15:46</span></span><br><span class="line"><span class="comment"> *  使用Seata对数据源进行代理</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceProxyConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;mybatis.mapperLocations&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String mapperLocations;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConfigurationProperties(prefix = &quot;spring.datasource&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">druidDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSourceProxy <span class="title">dataSourceProxy</span><span class="params">(DataSource dataSource)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DataSourceProxy(dataSource);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">sqlSessionFactoryBean</span><span class="params">(DataSourceProxy dataSourceProxy)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SqlSessionFactoryBean sqlSessionFactoryBean = <span class="keyword">new</span> SqlSessionFactoryBean();</span><br><span class="line">        sqlSessionFactoryBean.setDataSource(dataSourceProxy);</span><br><span class="line">        sqlSessionFactoryBean.setMapperLocations(<span class="keyword">new</span> PathMatchingResourcePatternResolver().getResources(mapperLocations));</span><br><span class="line">        sqlSessionFactoryBean.setTransactionFactory(<span class="keyword">new</span> SpringManagedTransactionFactory());</span><br><span class="line">        <span class="keyword">return</span> sqlSessionFactoryBean.getObject();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@MapperScan(&#123;&quot;com.example.mapper&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBatisConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="meta">@EnableFeignClients</span></span><br><span class="line"><span class="meta">@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)</span><span class="comment">//取消数据源的自动创建</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeataOrderMainApp2001</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        SpringApplication.run(SeataOrderMainApp2001.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="resources"><a href="#resources" class="headerlink" title="resources"></a>resources</h4><p><img src="https://csn.damyoung.cn/image-20210205161815080.png" alt="image-20210205161815080"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205161830639.png" alt="image-20210205161830639"></p>
+<h3 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h3><p><img src="https://csn.damyoung.cn/image-20210205164318136.png" alt="image-20210205164318136"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205165853631.png" alt="image-20210205165853631"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205165937890.png" alt="image-20210205165937890"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205170002483.png" alt="image-20210205170002483"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205170029675.png" alt="image-20210205170029675"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205170051752.png" alt="image-20210205170051752"></p>
+<h2 id="Seata原理"><a href="#Seata原理" class="headerlink" title="Seata原理"></a>Seata原理</h2><p><img src="https://csn.damyoung.cn/image-20210205170428944.png" alt="image-20210205170428944"></p>
+<p><img src="https://csn.damyoung.cn/image-20210205170609746.png" alt="image-20210205170609746"></p>
+<h3 id="AT模式如何做到对业务的无侵入"><a href="#AT模式如何做到对业务的无侵入" class="headerlink" title="AT模式如何做到对业务的无侵入"></a>AT模式如何做到对业务的无侵入</h3><p><a target="_blank" rel="noopener" href="http://seata.io/zh-cn/docs/dev/mode/at-mode.html">http://seata.io/zh-cn/docs/dev/mode/at-mode.html</a></p>
+<p><img src="https://csn.damyoung.cn/image-20210205170700906.png" alt="image-20210205170700906"></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>dmYang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dmyang-only.github.io/2021/02/04/SpringCloud%20Alibaba/" title="springCloud Alibaba">https://dmyang-only.github.io/2021/02/04/SpringCloud Alibaba/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/spring/" rel="tag"># spring</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/28/SpringCloud/" rel="prev" title="springCloud">
+      <i class="fa fa-chevron-left"></i> springCloud
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringCloud-Alibaba"><span class="nav-number">1.</span> <span class="nav-text">SpringCloud Alibaba</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%92%8C%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83Nacos"><span class="nav-number">2.</span> <span class="nav-text">服务注册和配置中心Nacos</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="nav-number">2.1.</span> <span class="nav-text">注册中心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="nav-number">2.1.1.</span> <span class="nav-text">服务提供者</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E8%99%9A%E6%8B%9F%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">拷贝虚拟端口映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">集群</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-number">2.1.2.</span> <span class="nav-text">消费者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AF%B9%E6%AF%94"><span class="nav-number">2.1.3.</span> <span class="nav-text">服务注册中心对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83"><span class="nav-number">2.2.</span> <span class="nav-text">配置中心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-number">2.2.1.</span> <span class="nav-text">配置匹配规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%B8%A6%E5%8A%A8%E6%80%81%E5%88%B7%E6%96%B0"><span class="nav-number">2.2.2.</span> <span class="nav-text">自带动态刷新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">分类配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%8E%AF%E5%A2%83%E5%A4%9A%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86"><span class="nav-number">2.3.1.</span> <span class="nav-text">多环境多项目管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="nav-number">2.3.2.</span> <span class="nav-text">命名空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nacos%E9%9B%86%E7%BE%A4%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="nav-number">2.4.</span> <span class="nav-text">Nacos集群和持久化配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2"><span class="nav-number">2.4.1.</span> <span class="nav-text">集群部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E6%9C%BA"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">单机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4-1"><span class="nav-number">2.4.1.2.</span> <span class="nav-text">集群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE"><span class="nav-number">2.4.1.3.</span> <span class="nav-text">mysql数据库配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#sql%E8%84%9A%E6%9C%AC"><span class="nav-number">2.4.1.3.1.</span> <span class="nav-text">sql脚本</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#application-properties"><span class="nav-number">2.4.1.4.</span> <span class="nav-text">application.properties</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEcluster-conf"><span class="nav-number">2.4.1.5.</span> <span class="nav-text">配置cluster.conf</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%86%94%E6%96%AD%E5%92%8C%E9%99%90%E6%B5%81Sentinel"><span class="nav-number">3.</span> <span class="nav-text">熔断和限流Sentinel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B"><span class="nav-number">3.1.</span> <span class="nav-text">工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99"><span class="nav-number">3.2.</span> <span class="nav-text">流控规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%BF%AB%E9%80%9F%E5%A4%B1%E8%B4%A5"><span class="nav-number">3.2.1.</span> <span class="nav-text">直接快速失败</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#QPS"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">QPS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%95%B0"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">线程数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E8%81%94"><span class="nav-number">3.2.2.</span> <span class="nav-text">关联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E8%B7%AF"><span class="nav-number">3.2.3.</span> <span class="nav-text">链路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E6%8E%A7%E6%95%88%E6%9E%9C"><span class="nav-number">3.3.</span> <span class="nav-text">流控效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E7%83%AD"><span class="nav-number">3.3.1.</span> <span class="nav-text">预热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E9%98%9F%E7%AD%89%E5%BE%85"><span class="nav-number">3.3.2.</span> <span class="nav-text">排队等待</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%86%94%E6%96%AD%E9%99%8D%E7%BA%A7"><span class="nav-number">3.4.</span> <span class="nav-text">熔断降级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RT"><span class="nav-number">3.4.1.</span> <span class="nav-text">RT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%AF%94%E4%BE%8B"><span class="nav-number">3.4.2.</span> <span class="nav-text">异常比例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%95%B0"><span class="nav-number">3.4.3.</span> <span class="nav-text">异常数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%83%AD%E7%82%B9key%E9%99%90%E6%B5%81"><span class="nav-number">3.5.</span> <span class="nav-text">热点key限流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BE%8B%E5%A4%96%E9%A1%B9"><span class="nav-number">3.5.1.</span> <span class="nav-text">参数例外项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8"><span class="nav-number">3.5.2.</span> <span class="nav-text">异常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%A7%84%E5%88%99"><span class="nav-number">3.6.</span> <span class="nav-text">系统规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SentinelResource"><span class="nav-number">3.7.</span> <span class="nav-text">@SentinelResource</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%89%E8%B5%84%E6%BA%90%E5%90%8D%E7%A7%B0%E9%99%90%E6%B5%81"><span class="nav-number">3.7.1.</span> <span class="nav-text">按资源名称限流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%89Url%E9%99%90%E6%B5%81"><span class="nav-number">3.7.2.</span> <span class="nav-text">按Url限流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%99%90%E6%B5%81%E5%A4%84%E7%90%86%E9%80%BB%E8%BE%91"><span class="nav-number">3.7.3.</span> <span class="nav-text">自定义限流处理逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E6%B3%A8%E8%A7%A3%E5%B1%9E%E6%80%A7"><span class="nav-number">3.7.4.</span> <span class="nav-text">更多注解属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD"><span class="nav-number">3.8.</span> <span class="nav-text">服务熔断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ribbon%E7%B3%BB%E5%88%97"><span class="nav-number">3.8.1.</span> <span class="nav-text">Ribbon系列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9003"><span class="nav-number">3.8.1.1.</span> <span class="nav-text">9003</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#84"><span class="nav-number">3.8.1.2.</span> <span class="nav-text">84</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CircleBreakerController84"><span class="nav-number">3.8.1.3.</span> <span class="nav-text">CircleBreakerController84</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B2%A1%E6%9C%89%E9%85%8D%E7%BD%AE"><span class="nav-number">3.8.1.3.1.</span> <span class="nav-text">没有配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEfallback"><span class="nav-number">3.8.1.3.2.</span> <span class="nav-text">配置fallback</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%AA%E9%85%8D%E7%BD%AEblockHandler"><span class="nav-number">3.8.1.3.3.</span> <span class="nav-text">只配置blockHandler</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%A9%E7%A7%8D%E9%83%BD%E9%85%8D%E7%BD%AE"><span class="nav-number">3.8.1.3.4.</span> <span class="nav-text">俩种都配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%BF%BD%E7%95%A5"><span class="nav-number">3.8.1.3.5.</span> <span class="nav-text">异常忽略</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Feign%E7%B3%BB%E5%88%97"><span class="nav-number">3.8.2.</span> <span class="nav-text">Feign系列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">3.9.</span> <span class="nav-text">规则持久化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Seate%E5%A4%84%E7%90%86%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1"><span class="nav-number">4.</span> <span class="nav-text">Seate处理分布式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%97%AE%E9%A2%98"><span class="nav-number">4.1.</span> <span class="nav-text">分布式问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">4.2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Transaction-ID"><span class="nav-number">4.2.1.</span> <span class="nav-text">Transaction ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%BB%84%E4%BB%B6"><span class="nav-number">4.2.2.</span> <span class="nav-text">三组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="nav-number">4.2.3.</span> <span class="nav-text">处理过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85seata"><span class="nav-number">4.3.</span> <span class="nav-text">安装seata</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A6%E6%88%B7-%E5%BA%93%E5%AD%98-%E8%B4%A6%E6%88%B7%E4%B8%9A%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E5%87%86%E5%A4%87"><span class="nav-number">4.4.</span> <span class="nav-text">账户&#x2F;库存&#x2F;账户业务数据库准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A2%E5%8D%95-%E5%BA%93%E5%AD%98-%E8%B4%A6%E6%88%B7%E4%B8%9A%E5%8A%A1%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%87%86%E5%A4%87"><span class="nav-number">4.5.</span> <span class="nav-text">订单&#x2F;库存&#x2F;账户业务微服务准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#seate-order-service2001"><span class="nav-number">4.5.1.</span> <span class="nav-text">seate-order-service2001</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pom"><span class="nav-number">4.5.1.1.</span> <span class="nav-text">pom</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pojo"><span class="nav-number">4.5.1.2.</span> <span class="nav-text">pojo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mapper"><span class="nav-number">4.5.1.3.</span> <span class="nav-text">Mapper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Service"><span class="nav-number">4.5.1.4.</span> <span class="nav-text">Service</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Controller"><span class="nav-number">4.5.1.5.</span> <span class="nav-text">Controller</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Config"><span class="nav-number">4.5.1.6.</span> <span class="nav-text">Config</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Main"><span class="nav-number">4.5.1.7.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#resources"><span class="nav-number">4.5.1.8.</span> <span class="nav-text">resources</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Test"><span class="nav-number">4.5.2.</span> <span class="nav-text">Test</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Seata%E5%8E%9F%E7%90%86"><span class="nav-number">4.6.</span> <span class="nav-text">Seata原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AT%E6%A8%A1%E5%BC%8F%E5%A6%82%E4%BD%95%E5%81%9A%E5%88%B0%E5%AF%B9%E4%B8%9A%E5%8A%A1%E7%9A%84%E6%97%A0%E4%BE%B5%E5%85%A5"><span class="nav-number">4.6.1.</span> <span class="nav-text">AT模式如何做到对业务的无侵入</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">dmYang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dmYang</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">840k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">12:43</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+    <br/>
+	<a target="_blank" rel="noopener" href="http://www.miitbeian.gov.cn/">粤ICP备2020133211号-1</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xxb/anime.min.js"></script>
+  <script src="/xxb/velocity/velocity.min.js"></script>
+  <script src="/xxb/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>;
+    <script>
+      // 背景图片
+      $("body").backstretch("https://csn.damyoung.cn/image-20201218100852830.png");
+    </script>
+
+    <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/love.js"></script>
+</body>
+</html>

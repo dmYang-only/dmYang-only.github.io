@@ -185,6 +185,1066 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02SQL%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/02SQL%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">sql语句优化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 13:05:07" itemprop="dateModified" datetime="2020-12-17T13:05:07+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>15k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h3><blockquote>
+<p>数据量增加，性能问题成为整个系统性能的瓶颈。</p>
+</blockquote>
+<h3 id="一、定位"><a href="#一、定位" class="headerlink" title="一、定位"></a>一、定位</h3><h4 id="1、查看SQL执行频率"><a href="#1、查看SQL执行频率" class="headerlink" title="1、查看SQL执行频率"></a>1、查看SQL执行频率</h4><blockquote>
+<p>show [session|global] status 命令提供服务器状态信息。</p>
+<ul>
+<li><p>session级(当前连接)的统计结果，默认是session.</p>
+</li>
+<li><p>global级(数据库上次启动至今)的统计结果</p>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like &#39;Com____&#39;;  -- 针对所有的存储引擎</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like &#39;Innodb_rows_%&#39;; -- 针对innodb存储引擎</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Com_***      :  这些参数对于 <code>所有存储引擎</code>的表操作 都会进行累计。</p>
+<p>Innodb_*** :  这几个参数只是针对 <code>InnoDB 存储引擎</code> 的，累加的算法也略有不同。</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201019232242970.png" alt="image-20201019232242970" style="zoom:80%;" /><img src="https://csn.damyoung.cn/image-20201020082620092.png" alt="image-20201020082620092" style="zoom:80%;" /></p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Com_select</td>
+<td>执行 select 操作的次数，一次查询只累加 1。</td>
+</tr>
+<tr>
+<td align="left">Com_insert</td>
+<td>执行 INSERT 操作的次数，对于批量插入的 INSERT 操作，只累加一次。</td>
+</tr>
+<tr>
+<td align="left">Com_update</td>
+<td>执行 UPDATE 操作的次数。</td>
+</tr>
+<tr>
+<td align="left">Com_delete</td>
+<td>执行 DELETE 操作的次数。</td>
+</tr>
+<tr>
+<td align="left">Innodb_rows_read</td>
+<td>select 查询返回的行数。</td>
+</tr>
+<tr>
+<td align="left">Innodb_rows_inserted</td>
+<td>执行 INSERT 操作插入的行数。</td>
+</tr>
+<tr>
+<td align="left">Innodb_rows_updated</td>
+<td>执行 UPDATE 操作更新的行数。</td>
+</tr>
+<tr>
+<td align="left">Innodb_rows_deleted</td>
+<td>执行 DELETE 操作删除的行数。</td>
+</tr>
+<tr>
+<td align="left">Connections</td>
+<td>试图连接 MySQL 服务器的次数。</td>
+</tr>
+<tr>
+<td align="left">Uptime</td>
+<td>服务器工作时间。</td>
+</tr>
+<tr>
+<td align="left">Slow_queries</td>
+<td>慢查询的次数。</td>
+</tr>
+</tbody></table>
+<h4 id="2、定位低效率执行SQL"><a href="#2、定位低效率执行SQL" class="headerlink" title="2、定位低效率执行SQL"></a>2、定位低效率执行SQL</h4><blockquote>
+<ul>
+<li>慢查询日志：用–log-slow-queries[=file name]选项启动时，mysqld写一个包含所有执行时间超过long_query_time秒的SQL语句的日志文件。<strong>慢查询日志在查询结束后才记录</strong>，所以在应用反映执行效率出现问题的时候查询慢查询日志并不能定位问题</li>
+<li>show processlist：可以使用<code>show processlist</code>命令查看当前MySQL在进行的线程<ul>
+<li>包括线程的状态、是否锁表等</li>
+<li>可以<strong>实时</strong>地查看 SQL 的执行情况，同时对一些锁表操作进行优化。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201024163523305.png" alt="image-20201024163523305" style="zoom:80%;" />
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">1） id列，用户登录mysql时，系统分配的&quot;connection_id&quot;，可以使用函数connection_id()查看</span><br><span class="line"></span><br><span class="line">2） user列，显示当前用户。如果不是root，这个命令就只显示用户权限范围的sql语句</span><br><span class="line"></span><br><span class="line">3） host列，显示这个语句是从哪个ip的哪个端口上发的，可以用来跟踪出现问题语句的用户</span><br><span class="line"></span><br><span class="line">4） db列，显示这个进程目前连接的是哪个数据库</span><br><span class="line"></span><br><span class="line">5） command列，显示当前连接的执行的命令，一般取值为休眠（sleep），查询（query），连接（connect）等</span><br><span class="line"></span><br><span class="line">6） time列，显示这个状态持续的时间，单位是秒</span><br><span class="line"></span><br><span class="line">7） state列，显示使用当前连接的sql语句的状态，很重要的列。state描述的是语句执行中的某一个状态。一个sql语句，以查询为例，可能需要经过copying to tmp table、sorting result、sending data等状态才可以完成</span><br><span class="line"></span><br><span class="line">8） info列，显示这个sql语句，是判断问题语句的一个重要依据</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3、explain分析执行计划"><a href="#3、explain分析执行计划" class="headerlink" title="3、explain分析执行计划"></a>3、explain分析执行计划</h4><blockquote>
+<p>通过 <strong>explain</strong> 或者 <strong>desc</strong> 命令获取 MySQL如何执行 <strong>select</strong> 语句的信息，包括在 SELECT 语句执行过程中<strong>表如何连接和连接的顺序</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select*from order_all where order_id&#x3D;1;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201020104105013.png" alt="image-20201020104105013"></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>select查询的序列号，是一组数字，表示的是查询中执行select子句或者是操作表的顺序。</td>
+</tr>
+<tr>
+<td>select_type</td>
+<td>表示 SELECT 的类型，常见的取值有 SIMPLE（简单表，即不使用表连接或者子查询）、PRIMARY（主查询，即外层的查询）、UNION（UNION 中的第二个或者后面的查询语句）、SUBQUERY（子查询中的第一个 SELECT）等</td>
+</tr>
+<tr>
+<td>table</td>
+<td>输出结果集的表</td>
+</tr>
+<tr>
+<td>type</td>
+<td>表示表的连接类型，性能由好到差的连接类型为( system  —&gt;  const  —–&gt;  eq_ref  ——&gt;  ref  ——-&gt;  ref_or_null—-&gt;  index_merge  —&gt;  index_subquery  —–&gt;  range  —–&gt;  index  ——&gt; all )</td>
+</tr>
+<tr>
+<td>possible_keys</td>
+<td>表示查询时，可能使用的索引</td>
+</tr>
+<tr>
+<td>key</td>
+<td>表示实际使用的索引</td>
+</tr>
+<tr>
+<td>key_len</td>
+<td>索引字段的长度</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>扫描行的数量</td>
+</tr>
+<tr>
+<td>extra</td>
+<td>执行情况的说明和描述</td>
+</tr>
+</tbody></table>
+<h5 id="3-1-准备"><a href="#3-1-准备" class="headerlink" title="3.1 准备"></a>3.1 准备</h5><img src="https://csn.damyoung.cn/1556122799330.png" style="zoom:80%;" />
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;t_role&#96; (</span><br><span class="line">  &#96;id&#96; varchar(32) NOT NULL,</span><br><span class="line">  &#96;role_name&#96; varchar(255) DEFAULT NULL,</span><br><span class="line">  &#96;role_code&#96; varchar(255) DEFAULT NULL,</span><br><span class="line">  &#96;description&#96; varchar(255) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;),</span><br><span class="line">  UNIQUE KEY &#96;unique_role_name&#96; (&#96;role_name&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;t_user&#96; (</span><br><span class="line">  &#96;id&#96; varchar(32) NOT NULL,</span><br><span class="line">  &#96;username&#96; varchar(45) NOT NULL,</span><br><span class="line">  &#96;password&#96; varchar(96) NOT NULL,</span><br><span class="line">  &#96;name&#96; varchar(45) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;),</span><br><span class="line">  UNIQUE KEY &#96;unique_user_username&#96; (&#96;username&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;user_role&#96; (</span><br><span class="line">  &#96;id&#96; int(11) NOT NULL auto_increment ,</span><br><span class="line">  &#96;user_id&#96; varchar(32) DEFAULT NULL,</span><br><span class="line">  &#96;role_id&#96; varchar(32) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;),</span><br><span class="line">  KEY &#96;fk_ur_user_id&#96; (&#96;user_id&#96;),</span><br><span class="line">  KEY &#96;fk_ur_role_id&#96; (&#96;role_id&#96;),</span><br><span class="line">  CONSTRAINT &#96;fk_ur_role_id&#96; FOREIGN KEY (&#96;role_id&#96;) REFERENCES &#96;t_role&#96; (&#96;id&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION,</span><br><span class="line">  CONSTRAINT &#96;fk_ur_user_id&#96; FOREIGN KEY (&#96;user_id&#96;) REFERENCES &#96;t_user&#96; (&#96;id&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">insert into &#96;t_user&#96; (&#96;id&#96;, &#96;username&#96;, &#96;password&#96;, &#96;name&#96;) values(&#39;1&#39;,&#39;super&#39;,&#39;$2a$10$TJ4TmCdK.X4wv&#x2F;tCqHW14.w70U3CC33CeVncD3SLmyMXMknstqKRe&#39;,&#39;超级管理员&#39;);</span><br><span class="line">insert into &#96;t_user&#96; (&#96;id&#96;, &#96;username&#96;, &#96;password&#96;, &#96;name&#96;) values(&#39;2&#39;,&#39;admin&#39;,&#39;$2a$10$TJ4TmCdK.X4wv&#x2F;tCqHW14.w70U3CC33CeVncD3SLmyMXMknstqKRe&#39;,&#39;系统管理员&#39;);</span><br><span class="line">insert into &#96;t_user&#96; (&#96;id&#96;, &#96;username&#96;, &#96;password&#96;, &#96;name&#96;) values(&#39;3&#39;,&#39;itcast&#39;,&#39;$2a$10$8qmaHgUFUAmPR5pOuWhYWOr291WJYjHelUlYn07k5ELF8ZCrW0Cui&#39;,&#39;test02&#39;);</span><br><span class="line">insert into &#96;t_user&#96; (&#96;id&#96;, &#96;username&#96;, &#96;password&#96;, &#96;name&#96;) values(&#39;4&#39;,&#39;stu1&#39;,&#39;$2a$10$pLtt2KDAFpwTWLjNsmTEi.oU1yOZyIn9XkziK&#x2F;y&#x2F;spH5rftCpUMZa&#39;,&#39;学生1&#39;);</span><br><span class="line">insert into &#96;t_user&#96; (&#96;id&#96;, &#96;username&#96;, &#96;password&#96;, &#96;name&#96;) values(&#39;5&#39;,&#39;stu2&#39;,&#39;$2a$10$nxPKkYSez7uz2YQYUnwhR.z57km3yqKn3Hr&#x2F;p1FR6ZKgc18u.Tvqm&#39;,&#39;学生2&#39;);</span><br><span class="line">insert into &#96;t_user&#96; (&#96;id&#96;, &#96;username&#96;, &#96;password&#96;, &#96;name&#96;) values(&#39;6&#39;,&#39;t1&#39;,&#39;$2a$10$TJ4TmCdK.X4wv&#x2F;tCqHW14.w70U3CC33CeVncD3SLmyMXMknstqKRe&#39;,&#39;老师1&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">INSERT INTO &#96;t_role&#96; (&#96;id&#96;, &#96;role_name&#96;, &#96;role_code&#96;, &#96;description&#96;) VALUES(&#39;5&#39;,&#39;学生&#39;,&#39;student&#39;,&#39;学生&#39;);</span><br><span class="line">INSERT INTO &#96;t_role&#96; (&#96;id&#96;, &#96;role_name&#96;, &#96;role_code&#96;, &#96;description&#96;) VALUES(&#39;7&#39;,&#39;老师&#39;,&#39;teacher&#39;,&#39;老师&#39;);</span><br><span class="line">INSERT INTO &#96;t_role&#96; (&#96;id&#96;, &#96;role_name&#96;, &#96;role_code&#96;, &#96;description&#96;) VALUES(&#39;8&#39;,&#39;教学管理员&#39;,&#39;teachmanager&#39;,&#39;教学管理员&#39;);</span><br><span class="line">INSERT INTO &#96;t_role&#96; (&#96;id&#96;, &#96;role_name&#96;, &#96;role_code&#96;, &#96;description&#96;) VALUES(&#39;9&#39;,&#39;管理员&#39;,&#39;admin&#39;,&#39;管理员&#39;);</span><br><span class="line">INSERT INTO &#96;t_role&#96; (&#96;id&#96;, &#96;role_name&#96;, &#96;role_code&#96;, &#96;description&#96;) VALUES(&#39;10&#39;,&#39;超级管理员&#39;,&#39;super&#39;,&#39;超级管理员&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">INSERT INTO user_role(id,user_id,role_id) VALUES(NULL, &#39;1&#39;, &#39;5&#39;),(NULL, &#39;1&#39;, &#39;7&#39;),(NULL, &#39;2&#39;, &#39;8&#39;),(NULL, &#39;3&#39;, &#39;9&#39;),(NULL, &#39;4&#39;, &#39;8&#39;),(NULL, &#39;5&#39;, &#39;10&#39;) ;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="3-2-id"><a href="#3-2-id" class="headerlink" title="3.2 id"></a>3.2 id</h5><blockquote>
+<p>id 字段是 select查询的序列号，是一组数字，表示的是<strong>查询中执行select子句或者是操作表的顺序</strong></p>
+</blockquote>
+<ul>
+<li><strong>id 相同</strong>表示加载表的顺序是从上到下。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from t_role r, t_user u, user_role ur where r.id &#x3D; ur.role_id and u.id &#x3D; ur.user_id ;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201020105535724.png" alt="image-20201020105535724"></p>
+<ul>
+<li><strong>id 不同</strong>id值越大，优先级越高，越先被执行。 </li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t_role <span class="keyword">WHERE</span> <span class="keyword">id</span> = (<span class="keyword">SELECT</span> role_id <span class="keyword">FROM</span> user_role <span class="keyword">WHERE</span> user_id = (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> t_user <span class="keyword">WHERE</span> username = <span class="string">&#x27;stu1&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201020105627907.png" alt="image-20201020105627907"></p>
+<ul>
+<li><strong>id 有相同，也有不同，同时存在</strong>。id相同的可以认为是一组，从上往下顺序执行；在所有的组中，id的值越大，优先级越高，越先执行。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t_role r , (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> user_role ur <span class="keyword">WHERE</span> ur.<span class="string">`user_id`</span> = <span class="string">&#x27;2&#x27;</span>) a <span class="keyword">WHERE</span> r.id = a.role_id ; </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201020105753608.png" alt="image-20201020105753608"></p>
+<h5 id="3-3-select-type"><a href="#3-3-select-type" class="headerlink" title="3.3 select_type"></a>3.3 select_type</h5><blockquote>
+<p>从上到下执行效率越来越慢</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>select_type</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SIMPLE</td>
+<td>简单的select查询，查询中不包含子查询或者UNION</td>
+</tr>
+<tr>
+<td>PRIMARY</td>
+<td>查询中若包含任何复杂的子查询，<strong>最外层</strong>查询标记为该标识</td>
+</tr>
+<tr>
+<td>SUBQUERY</td>
+<td>在SELECT 或 WHERE 列表中<strong>包含了子查询</strong></td>
+</tr>
+<tr>
+<td>DERIVED</td>
+<td>在<strong>from</strong>列表中包含的<strong>子查询</strong>，被标记为 DERIVED（衍生） MYSQL会递归执行这些子查询，把结果放在临时表中</td>
+</tr>
+<tr>
+<td>UNION</td>
+<td>若第二个SELECT出现在UNION之后，则标记为UNION ； 若UNION包含在FROM子句的子查询中，外层SELECT将被标记为 ： DERIVED</td>
+</tr>
+<tr>
+<td>UNION RESULT</td>
+<td>从UNION表获取结果的SELECT</td>
+</tr>
+</tbody></table>
+<p><img src="https://csn.damyoung.cn/image-20201020110651314.png" alt="image-20201020110651314"></p>
+<blockquote>
+<p><derived2> 表示在衍生表id=2的表中查询</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020110922568.png" alt="image-20201020110922568"></p>
+<p><img src="https://csn.damyoung.cn/image-20201020111309059.png" alt="image-20201020111309059"></p>
+<h5 id="3-4-table"><a href="#3-4-table" class="headerlink" title="3.4 table"></a>3.4 table</h5><blockquote>
+<p>展示这一行的数据是关于哪一张表的 </p>
+</blockquote>
+<h5 id="3-5-type"><a href="#3-5-type" class="headerlink" title="3.5 type"></a>3.5 type</h5><blockquote>
+<p><strong>显示访问类型</strong></p>
+<p>从下到上降低，<strong>一般来说， 我们需要保证查询至少达到 range 级别， 最好达到ref</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NULL</td>
+<td>MySQL不访问任何表，索引，直接返回结果</td>
+</tr>
+<tr>
+<td>system</td>
+<td><strong>所查询的表只有一行记录</strong>(等于系统表)，这是const类型的特例，一般不会出现</td>
+</tr>
+<tr>
+<td>const</td>
+<td>表示通过<strong>索引一次</strong>就找到了，const 用于比较<strong>primary key</strong> 或者 <strong>unique</strong> 索引。因为只匹配一行数据，所以很快。如将主键置于where列表中，MySQL 就能将该查询转换为一个常量。const于将 “主键” 或 “唯一” 索引的所有部分与常量值进行比较</td>
+</tr>
+<tr>
+<td>eq_ref</td>
+<td>类似ref，区别在于使用的是唯一索引，使用主键的关联查询，<strong>关联查询出的记录只有一条</strong>。常见于主键或唯一索引扫描</td>
+</tr>
+<tr>
+<td>ref</td>
+<td>非唯一性索引扫描，返回匹配某个单独值的所有行。本质上也是一种索引访问，返回所有匹配某个单独值的所有行（多个）</td>
+</tr>
+<tr>
+<td>range</td>
+<td>只检索给定返回的行，使用一个索引来选择行。 where 之后出现 <strong>between ， &lt; , &gt; , in</strong> 等操作。</td>
+</tr>
+<tr>
+<td>index</td>
+<td>index 与 ALL的区别为  index 类型只是遍历了索引树， 通常比ALL 快， ALL 是遍历数据文件。</td>
+</tr>
+<tr>
+<td>all</td>
+<td>将遍历全表以找到匹配的行</td>
+</tr>
+</tbody></table>
+<p><img src="https://csn.damyoung.cn/image-20201020112143416.png" alt="image-20201020112143416"></p>
+<p><img src="https://csn.damyoung.cn/image-20201020112243331.png" alt="image-20201020112243331"></p>
+<p><img src="https://csn.damyoung.cn/image-20201020112422123.png" alt="image-20201020112422123"></p>
+<blockquote>
+<p>使用主键的关联查询出来的记录只有一条</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020112922768.png" alt="image-20201020112922768"></p>
+<p><img src="https://csn.damyoung.cn/image-20201020112948978.png" alt="image-20201020112948978"></p>
+<h5 id="3-6-key"><a href="#3-6-key" class="headerlink" title="3.6 key"></a>3.6 key</h5><blockquote>
+<ul>
+<li><p>possible_keys : 显示可能应用在这张表的索引， 一个或多个。 </p>
+</li>
+<li><p>key ： <strong>实际使用</strong>的索引， 如果为NULL， 则没有使用索引。</p>
+</li>
+<li><p>key_len : 表示索引中使用的字节数， 该值为索引字段最大可能长度，并非实际使用长度，在不损失精确性的前提下， 长度越短越好 。</p>
+</li>
+</ul>
+</blockquote>
+<h5 id="3-7-rows"><a href="#3-7-rows" class="headerlink" title="3.7 rows"></a>3.7 rows</h5><blockquote>
+<p>扫描行的数量。</p>
+</blockquote>
+<h5 id="3-8-extra"><a href="#3-8-extra" class="headerlink" title="3.8 extra"></a>3.8 extra</h5><blockquote>
+<p>其他的额外的执行计划信息，在该列展示 。</p>
+<p>优化前两个，保持第三个</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>extra</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>using  filesort</td>
+<td>说明mysql会对数据使用一个外部的索引排序，而不是按照表内的索引顺序进行读取， 称为 “<strong>文件排序</strong>”, 效率低。</td>
+</tr>
+<tr>
+<td>using  temporary</td>
+<td>使用了临时表保存中间结果，MySQL在对查询结果排序时使用<strong>临时表</strong>。常见于 order by 和 group by； 效率低</td>
+</tr>
+<tr>
+<td>using  index</td>
+<td>表示相应的select操作使用了<strong>覆盖索引</strong>， 避免访问表的数据行， 效率不错。</td>
+</tr>
+</tbody></table>
+<img src="https://csn.damyoung.cn/image-20201020120436509.png" alt="image-20201020120436509" style="zoom:80%;" />
+
+<img src="https://csn.damyoung.cn/image-20201020120644601.png" alt="image-20201020120644601" style="zoom:80%;" />
+
+<img src="https://csn.damyoung.cn/image-20201020120745269.png" alt="image-20201020120745269" style="zoom:80%;" />
+
+
+
+<h4 id="4、profile分析SQL时间耗费"><a href="#4、profile分析SQL时间耗费" class="headerlink" title="4、profile分析SQL时间耗费"></a>4、profile分析SQL时间耗费</h4><blockquote>
+<p>show profiles 能够在做SQL优化时帮助我们了解时间都耗费到哪里去了。</p>
+<ul>
+<li><p>have_profiling 参数，能够看到当前MySQL是否支持profile：</p>
+</li>
+<li><p>默认profiling是关闭的，可以通过set语句在Session级别开启profiling：</p>
+</li>
+</ul>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201020131743822.png" alt="image-20201020131743822" style="zoom:80%;" />
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set profiling&#x3D;1; -- 开启profiling开关</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show profiles;</span><br></pre></td></tr></table></figure>
+
+<img src="https://csn.damyoung.cn/image-20201020132119836.png" alt="image-20201020132119836" style="zoom:80%;" />
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show profile [cpu] for query 5;</span><br></pre></td></tr></table></figure>
+
+<img src="https://csn.damyoung.cn/image-20201020132205385.png" alt="image-20201020132205385" style="zoom:80%;" />
+
+<blockquote>
+<p><strong>Sending data</strong> 状态表示MySQL线程开始访问数据行并把结果返回给客户端，而不仅仅是返回个客户端。由于在Sending data状态下，MySQL线程往往需要做大量的磁盘读取操作，所以经常是整各查询中耗时最长的状态。</p>
+<ul>
+<li>MySQL支持进一步选择all、cpu、block io 、context switch、page faults等明细类型类查看MySQL在使用什么资源上耗费了过高的时间</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Status</td>
+<td>sql 语句执行的状态</td>
+</tr>
+<tr>
+<td>Duration</td>
+<td>sql 执行过程中每一个步骤的耗时</td>
+</tr>
+<tr>
+<td>CPU_user</td>
+<td>当前用户占有的cpu</td>
+</tr>
+<tr>
+<td>CPU_system</td>
+<td>系统占有的cpu</td>
+</tr>
+</tbody></table>
+<h4 id="5、trace分析优化器执行计划"><a href="#5、trace分析优化器执行计划" class="headerlink" title="5、trace分析优化器执行计划"></a>5、trace分析优化器执行计划</h4><blockquote>
+<p>通过trace文件能够进一步了解为什么优化器<code>optimiter</code>选择A计划, 而不是选择B计划。</p>
+<p>打开trace ， 设置格式为 JSON，并设置trace最大能够使用的内存大小，避免解析过程中因为默认内存过小而不能够完整展示</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET optimizer_trace&#x3D;&quot;enabled&#x3D;on&quot;,end_markers_in_json&#x3D;on;</span><br><span class="line">set optimizer_trace_max_mem_size&#x3D;1000000;</span><br></pre></td></tr></table></figure>
+
+<p>执行SQL语句 ：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tb_item <span class="keyword">where</span> <span class="keyword">id</span> &lt; <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+
+<p>最后， 检查information_schema.optimizer_trace就可以知道MySQL是如何执行SQL的 ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from information_schema.optimizer_trace\G;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="二、优化语句"><a href="#二、优化语句" class="headerlink" title="二、优化语句"></a>二、优化语句</h3><h4 id="1、大批量插入数据"><a href="#1、大批量插入数据" class="headerlink" title="1、大批量插入数据"></a>1、大批量插入数据</h4><p><strong>准备</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;tb_user_1&#96; (</span><br><span class="line">  &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;username&#96; varchar(45) NOT NULL,</span><br><span class="line">  &#96;password&#96; varchar(96) NOT NULL,</span><br><span class="line">  &#96;name&#96; varchar(45) NOT NULL,</span><br><span class="line">  &#96;birthday&#96; datetime DEFAULT NULL,</span><br><span class="line">  &#96;sex&#96; char(1) DEFAULT NULL,</span><br><span class="line">  &#96;email&#96; varchar(45) DEFAULT NULL,</span><br><span class="line">  &#96;phone&#96; varchar(45) DEFAULT NULL,</span><br><span class="line">  &#96;qq&#96; varchar(32) DEFAULT NULL,</span><br><span class="line">  &#96;status&#96; varchar(32) NOT NULL COMMENT &#39;用户状态&#39;,</span><br><span class="line">  &#96;create_time&#96; datetime NOT NULL,</span><br><span class="line">  &#96;update_time&#96; datetime DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;),</span><br><span class="line">  UNIQUE KEY &#96;unique_user_username&#96; (&#96;username&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8 ;</span><br></pre></td></tr></table></figure>
+
+<p><strong>load执行语句</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">load data local infile &#39;&#x2F;root&#x2F;sql1.log&#39; into </span><br><span class="line"></span><br><span class="line">table tb_user_1 </span><br><span class="line"></span><br><span class="line">fields terminated by &#39;,&#39; </span><br><span class="line"></span><br><span class="line">lines terminated by &#39;\n&#39;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>InnoDB 类型的表，有以下几种方式可以提高导入的效率</p>
+</blockquote>
+<h5 id="提高导入效率"><a href="#提高导入效率" class="headerlink" title="提高导入效率"></a>提高导入效率</h5><h5 id="1-1-主键顺序插入"><a href="#1-1-主键顺序插入" class="headerlink" title="1.1 主键顺序插入"></a>1.1 主键顺序插入</h5><blockquote>
+<p>InnoDB类型的表是按照主键的顺序保存的，所以将导入的数据按照主键的顺序排列，可以有效的提高导入数据的效率。如果InnoDB表没有主键，那么系统会自动默认创建一个内部列作为主键，所以如果可以给表创建一个主键，将可以利用这点，来提高导入数据的效率</p>
+</blockquote>
+<h6 id="导入有序表"><a href="#导入有序表" class="headerlink" title="导入有序表"></a>导入有序表</h6><p><img src="https://csn.damyoung.cn/image-20201021140542607.png" alt="image-20201021140542607"></p>
+<h6 id="导入无序表"><a href="#导入无序表" class="headerlink" title="导入无序表"></a>导入无序表</h6><p><img src="https://csn.damyoung.cn/image-20201021140743217.png" alt="image-20201021140743217"></p>
+<h5 id="1-2-关闭唯一性校验"><a href="#1-2-关闭唯一性校验" class="headerlink" title="1.2 关闭唯一性校验"></a>1.2 关闭唯一性校验</h5><blockquote>
+<p>在导入数据前执行 set unique_checks=0，关闭唯一性校验，在导入结束后执行SET UNIQUE_CHECKS=1，恢复唯一性校验，可以提高导入的效率</p>
+</blockquote>
+<h5 id="1-3-手动提交事务"><a href="#1-3-手动提交事务" class="headerlink" title="1.3 手动提交事务"></a>1.3 手动提交事务</h5><blockquote>
+<p>如果应用使用自动提交的方式，建议在导入前执行 SET AUTOCOMMIT=0，关闭自动提交，导入结束后再执行 SET AUTOCOMMIT=1，打开自动提交，也可以提高导入的效率</p>
+</blockquote>
+<h4 id="2、优化insert语句"><a href="#2、优化insert语句" class="headerlink" title="2、优化insert语句"></a>2、优化insert语句</h4><h5 id="2-1-减少连接次数"><a href="#2-1-减少连接次数" class="headerlink" title="2.1 减少连接次数"></a>2.1 减少连接次数</h5><ul>
+<li>如果需要同时对一张表插入很多行数据时，应该尽量使用多个值表的insert语句，这种方式将大大的<strong>缩减客户端与数据库之间的连接、关闭等消耗</strong>。使得效率比分开执行的单个insert语句快。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tb_test <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;Tom&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tb_test <span class="keyword">values</span>(<span class="number">2</span>,<span class="string">&#x27;Cat&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tb_test <span class="keyword">values</span>(<span class="number">3</span>,<span class="string">&#x27;Jerry&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>优化后的方案为 ： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;)，(3,&#39;Jerry&#39;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-2-在事务中进行数据插入"><a href="#2-2-在事务中进行数据插入" class="headerlink" title="2.2 在事务中进行数据插入"></a>2.2 在事务中进行数据插入</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">start transaction;</span><br><span class="line">insert into tb_test values(1,&#39;Tom&#39;);</span><br><span class="line">insert into tb_test values(2,&#39;Cat&#39;);</span><br><span class="line">insert into tb_test values(3,&#39;Jerry&#39;);</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-3-数据有序插入"><a href="#2-3-数据有序插入" class="headerlink" title="2.3 数据有序插入"></a>2.3 数据有序插入</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert into tb_test values(4,&#39;Tim&#39;);</span><br><span class="line">insert into tb_test values(1,&#39;Tom&#39;);</span><br><span class="line">insert into tb_test values(3,&#39;Jerry&#39;);</span><br><span class="line">insert into tb_test values(5,&#39;Rose&#39;);</span><br><span class="line">insert into tb_test values(2,&#39;Cat&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>优化后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert into tb_test values(1,&#39;Tom&#39;);</span><br><span class="line">insert into tb_test values(2,&#39;Cat&#39;);</span><br><span class="line">insert into tb_test values(3,&#39;Jerry&#39;);</span><br><span class="line">insert into tb_test values(4,&#39;Tim&#39;);</span><br><span class="line">insert into tb_test values(5,&#39;Rose&#39;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3、优化order-by语句"><a href="#3、优化order-by语句" class="headerlink" title="3、优化order by语句"></a>3、优化order by语句</h4><h5 id="3-1-环境准备"><a href="#3-1-环境准备" class="headerlink" title="3.1 环境准备"></a>3.1 环境准备</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;emp&#96; (</span><br><span class="line">  &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;name&#96; varchar(100) NOT NULL,</span><br><span class="line">  &#96;age&#96; int(3) NOT NULL,</span><br><span class="line">  &#96;salary&#96; int(11) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB  DEFAULT CHARSET&#x3D;utf8mb4;</span><br><span class="line"></span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;1&#39;,&#39;Tom&#39;,&#39;25&#39;,&#39;2300&#39;);</span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;2&#39;,&#39;Jerry&#39;,&#39;30&#39;,&#39;3500&#39;);</span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;3&#39;,&#39;Luci&#39;,&#39;25&#39;,&#39;2800&#39;);</span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;4&#39;,&#39;Jay&#39;,&#39;36&#39;,&#39;3500&#39;);</span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;5&#39;,&#39;Tom2&#39;,&#39;21&#39;,&#39;2200&#39;);</span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;6&#39;,&#39;Jerry2&#39;,&#39;31&#39;,&#39;3300&#39;);</span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;7&#39;,&#39;Luci2&#39;,&#39;26&#39;,&#39;2700&#39;);</span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;8&#39;,&#39;Jay2&#39;,&#39;33&#39;,&#39;3500&#39;);</span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;9&#39;,&#39;Tom3&#39;,&#39;23&#39;,&#39;2400&#39;);</span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;10&#39;,&#39;Jerry3&#39;,&#39;32&#39;,&#39;3100&#39;);</span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;11&#39;,&#39;Luci3&#39;,&#39;26&#39;,&#39;2900&#39;);</span><br><span class="line">insert into &#96;emp&#96; (&#96;id&#96;, &#96;name&#96;, &#96;age&#96;, &#96;salary&#96;) values(&#39;12&#39;,&#39;Jay3&#39;,&#39;37&#39;,&#39;4500&#39;);</span><br><span class="line"></span><br><span class="line">create index idx_emp_age_salary on emp(age,salary);</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="3-2-filesort排序"><a href="#3-2-filesort排序" class="headerlink" title="3.2 filesort排序"></a>3.2 filesort排序</h5><blockquote>
+<p>通过<strong>对返回数据进行排序</strong>，也就是通常说的 <code>filesort</code> 排序，所有不是通过索引直接返回排序结果的排序都叫 FileSort 排序。</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201020212512988.png" alt="image-20201020212512988" style="zoom:80%;" />
+
+
+
+<h5 id="3-3-using-index排序"><a href="#3-3-using-index排序" class="headerlink" title="3.3 using index排序"></a>3.3 using index排序</h5><blockquote>
+<p>通过有序索引顺序扫描<strong>直接返回有序数据</strong>，这种情况即为 using index，不需要额外排序，操作效率高。</p>
+<p>id,age,salary均有索引</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020212818703.png" alt="image-20201020212818703"></p>
+<p><img src="https://csn.damyoung.cn/image-20201020212944165.png" alt="image-20201020212944165"></p>
+<h5 id="3-4-多字段排序"><a href="#3-4-多字段排序" class="headerlink" title="3.4 多字段排序"></a>3.4 多字段排序</h5><blockquote>
+<ul>
+<li>尽量减少额外的排序，通过索引直接返回有序数据。</li>
+<li>where 条件和Order by 使用相同的索引，</li>
+<li>Order By 的顺序和索引顺序相同， </li>
+<li>Order  by 的字段都是升序，或者都是降序。否则肯定需要额外的操作，这样就会出现FileSort。</li>
+</ul>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020213149376.png" alt="image-20201020213149376"></p>
+<h5 id="3-5-filesort的优化"><a href="#3-5-filesort的优化" class="headerlink" title="3.5 filesort的优化"></a>3.5 filesort的优化</h5><blockquote>
+<p>通过创建合适的索引，能够减少 Filesort 的出现，在某些情况下，条件限制不能让Filesort消失，那就需要加快 Filesort的排序操作</p>
+</blockquote>
+<blockquote>
+<p>对于Filesort ， MySQL 有两种排序算法</p>
+<p>通过比较系统变量 <code>max_length_for_sort_data</code> 和<code>查询语句</code>取出的字段总大小， 来判定是否那种排序算法</p>
+<p>如果<code>max_length_for_sort_data</code> 更大，那么使用第二种优化之后的算法；否则使用第一种。</p>
+</blockquote>
+<ul>
+<li><p>两次扫描算法</p>
+<ul>
+<li>首先根据条件取出<strong>排序字段和行指针信息</strong>，在排序区 sort buffer 中排序。</li>
+<li>如果sort buffer不够，则在临时表 temporary table 中存储排序结果。</li>
+<li>完成排序之后，再根据行指针回表读取记录，该操作可能会导致大量随机I/O操作。</li>
+</ul>
+</li>
+<li><p>一次扫描算法：<strong>一次性</strong>取出满足条件的所有字段，然后在排序区 sort  buffer 中排序后直接输出结果集。</p>
+<p>​                           排序时<strong>内存开销较大</strong>，但是排序效率比两次扫描算法要高。</p>
+</li>
+<li><p>可以适当提高 <code>sort_buffer_size</code>  和 <code>max_length_for_sort_data</code>  系统变量，来增大排序区的大小，提高排序的效率。</p>
+</li>
+</ul>
+<img src="https://csn.damyoung.cn/image-20201020214259798.png" alt="image-20201020214259798" style="zoom:80%;" />
+
+
+
+<h4 id="4、优化group-by语句"><a href="#4、优化group-by语句" class="headerlink" title="4、优化group by语句"></a>4、优化group by语句</h4><blockquote>
+<ul>
+<li>GROUP BY 也会进行排序操作</li>
+<li> 与ORDER BY 相比,GROUP BY 主要只是多了排序之后的分组操作。</li>
+<li>如果在分组的时候还使用了其他的一些聚合函数，那么还需要一些聚合函数的计算</li>
+</ul>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201021133617215.png" alt="image-20201021133617215"></p>
+<h5 id="4-1-禁止排序"><a href="#4-1-禁止排序" class="headerlink" title="4.1 禁止排序"></a>4.1 禁止排序</h5><blockquote>
+<p>如果查询包含 group by 但是用户想要避免排序结果的消耗， 则可以执行<code>order by null</code> 禁止排序</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select age,count(*) from emp group by age order by null;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201021133640908.png" alt="image-20201021133640908"></p>
+<h5 id="4-2-使用索引"><a href="#4-2-使用索引" class="headerlink" title="4.2 使用索引"></a>4.2 使用索引</h5><blockquote>
+<p>在GROUP BY 的实现过程中，与 ORDER BY 一样也可以利用到索引。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index idx_emp_age_salary on emp(age,salary)；</span><br></pre></td></tr></table></figure>
+
+<img src="https://csn.damyoung.cn/image-20201021133738142.png" alt="image-20201021133738142" style="zoom:80%;" />
+
+
+
+<h4 id="5、优化子查询"><a href="#5、优化子查询" class="headerlink" title="5、优化子查询"></a>5、优化子查询</h4><blockquote>
+<p>使用子查询可以一次性的完成很多逻辑上需要多个步骤才能完成的SQL操作，同时也可以避免事务或者表锁死，并且写起来也很容易。</p>
+<p><strong>子查询是可以被更高效的多表连接查询<code>join</code>替代</strong>。</p>
+</blockquote>
+<h5 id="5-1-使用连接查询"><a href="#5-1-使用连接查询" class="headerlink" title="5.1 使用连接查询"></a>5.1 使用连接查询</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from t_user where id in (select user_id from user_role );</span><br></pre></td></tr></table></figure>
+
+<p>优化后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 多表查询</span><br><span class="line">explain select * from t_user u , user_role ur where u.id &#x3D; ur.user_id;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>连接(Join)查询之所以更有效率一些 ，是因为MySQL不需要在内存中<strong>创建临时表</strong>来完成这个逻辑上需要两个步骤的查询工作</p>
+</blockquote>
+<h4 id="6、优化or条件"><a href="#6、优化or条件" class="headerlink" title="6、优化or条件"></a>6、优化or条件</h4><h5 id="6-1-索引"><a href="#6-1-索引" class="headerlink" title="6.1 索引"></a>6.1 索引</h5><blockquote>
+<ul>
+<li>每个条件必须用到索引</li>
+<li>只能使用单值索引，不能使用复合索引</li>
+</ul>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201021141923214.png" alt="image-20201021141923214" style="zoom:80%;" />
+
+
+
+<h5 id="6-2-使用union替换"><a href="#6-2-使用union替换" class="headerlink" title="6.2 使用union替换"></a>6.2 使用union替换</h5><blockquote>
+<ul>
+<li><p>UNION 语句的 type 值为 <code>ref</code>，OR 语句的 type 值为 <code>range</code>，可以看到这是一个很明显的差距</p>
+</li>
+<li><p>UNION 语句的 ref 值为 <code>const</code>，OR 语句的 ref 值为 <code>null</code>，<strong>const 表示是常量值引用，非常快</strong></p>
+</li>
+</ul>
+<p>这两项的差距就说明了 UNION 要优于 OR 。</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201021142314495.png" alt="image-20201021142314495"></p>
+<h4 id="7、优化分页查询"><a href="#7、优化分页查询" class="headerlink" title="7、优化分页查询"></a>7、优化分页查询</h4><blockquote>
+<p>一般分页查询时，通过创建覆盖索引能够比较好地提高性能。</p>
+<p>一个常见又非常头疼的问题就是 limit 2000000,10  ，此时需要MySQL排序前2000010 记录，仅仅返回2000000 - 2000010 的记录，其他记录丢弃，查询排序的代价非常大</p>
+</blockquote>
+<h5 id="7-1-索引排序"><a href="#7-1-索引排序" class="headerlink" title="7.1 索引排序"></a>7.1 索引排序</h5><blockquote>
+<p>在<strong>索引上完成排序分页</strong>操作，最后根据主键关联回原表查询所需要的其他列内容。</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201021143105977.png" alt="image-20201021143105977"></p>
+<h5 id="7-2-条件查询替换"><a href="#7-2-条件查询替换" class="headerlink" title="7.2 条件查询替换"></a>7.2 条件查询替换</h5><blockquote>
+<p>该方案适用于主键自增的表，可以把Limit 查询转换成某个位置的查询 。</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201021143356602.png" alt="image-20201021143356602" style="zoom:80%;" />
+
+
+
+<h4 id="8、SQL提示"><a href="#8、SQL提示" class="headerlink" title="8、SQL提示"></a>8、SQL提示</h4><h5 id="8-1-use-index"><a href="#8-1-use-index" class="headerlink" title="8.1 use index"></a>8.1 use index</h5><blockquote>
+<p>在查询语句中表名的后面，添加 use index 来提供希望MySQL去参考的索引列表，就可以让MySQL不再考虑其他可用的索引</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create index idx_seller_name on tb_seller(name);</span><br><span class="line">explain select *from tb_seller use index(idx_seller_name) where name&#x3D;&#39;小米科技&#39;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201021143950081.png" alt="image-20201021143950081"></p>
+<h5 id="8-2-ignore-index"><a href="#8-2-ignore-index" class="headerlink" title="8.2 ignore index"></a>8.2 ignore index</h5><blockquote>
+<p>用户只是单纯的想让MySQL忽略一个或者多个索引，则可以使用 ignore index 作为 hint 。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from tb_seller ignore index(idx_seller_name) where name &#x3D; &#39;小米科技&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201021144137493.png" alt="image-20201021144137493"></p>
+<h5 id="8-3-force-index"><a href="#8-3-force-index" class="headerlink" title="8.3 force index"></a>8.3 force index</h5><blockquote>
+<p>为强制MySQL使用一个特定的索引，可在查询中使用 force index 作为hint 。 </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index idx_seller_address on tb_seller(address);</span><br></pre></td></tr></table></figure>
+
+<img src="https://csn.damyoung.cn/image-20201021144427022.png" alt="image-20201021144427022" style="zoom:80%;" />
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/03%E7%B4%A2%E5%BC%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/03%E7%B4%A2%E5%BC%95/" class="post-title-link" itemprop="url">索引</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-17 13:06:31" itemprop="dateModified" datetime="2020-12-17T13:06:31+08:00">2020-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、索引分析"><a href="#一、索引分析" class="headerlink" title="一、索引分析"></a>一、索引分析</h3><h4 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h4><h5 id="1-1-索引作用"><a href="#1-1-索引作用" class="headerlink" title="1.1 索引作用"></a>1.1 索引作用</h5><blockquote>
+<ul>
+<li><p><strong>索引是帮助MySql高效获取数据的数据结构B+树(有序)</strong></p>
+</li>
+<li><p>索引是数据库中用来<strong>提高性能</strong>的常用工具</p>
+</li>
+<li><p>索引往往以索引文件的形式存储在<strong>磁盘</strong>上。</p>
+</li>
+</ul>
+</blockquote>
+<img src="https://csn.damyoung.cn/ss.png" alt="ss" style="zoom:80%;" />
+
+
+
+<h5 id="1-2-优劣势"><a href="#1-2-优劣势" class="headerlink" title="1.2 优劣势"></a>1.2 优劣势</h5><p><strong>优势</strong></p>
+<blockquote>
+<ul>
+<li>提高数据检索的效率，降低数据库的IO成本</li>
+<li>通过索引对数据进行排序，降低数据排序的成本，降低CPU的消耗</li>
+</ul>
+</blockquote>
+<p><strong>劣势</strong></p>
+<blockquote>
+<ul>
+<li>索引也是一张表，保存了主键与索引字段，并指向实体类的记录，占用空间</li>
+<li>提高了查询效率，但也降低了更新表的速度。更新表时，还需要保存一下索引文件每次更新添加索引列的字段，都会调整因为更新带来的键值变化后的索引信息</li>
+</ul>
+</blockquote>
+<h5 id="1-3-索引分类"><a href="#1-3-索引分类" class="headerlink" title="1.3 索引分类"></a>1.3 索引分类</h5><blockquote>
+<ul>
+<li>BTREE 索引 ： 最常见的索引类型，大部分索引都支持 B 树索引。</li>
+<li>HASH 索引：只有Memory引擎支持 ， 使用场景简单 。</li>
+<li>R-tree 索引（空间索引）：空间索引是MyISAM引擎的一个特殊索引类型，主要用于地理空间数据类型，通常使用较少，不做特别介绍。</li>
+<li>Full-text （全文索引） ：全文索引也是MyISAM的一个特殊索引类型，主要用于全文索引，InnoDB从Mysql5.6版本开始支持全文索引。</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th>InnoDB引擎</th>
+<th>MyISAM引擎</th>
+<th>Memory引擎</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BTREE索引</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>HASH 索引</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>R-tree 索引</td>
+<td>不支持</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>Full-text</td>
+<td>5.6版本之后支持</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>索引，如果没有特别指明，都是指B+树（多路搜索树，并不一定是二叉的）结构组织的索引。其中聚集索引、复合索引、前缀索引、唯一索引默认都是使用 B+tree 索引，统称为 索引</p>
+</blockquote>
+<h4 id="2、索引数据结构"><a href="#2、索引数据结构" class="headerlink" title="2、索引数据结构"></a>2、索引数据结构</h4><blockquote>
+<p><strong>索引是在MySQL的存储引擎层实现</strong></p>
+</blockquote>
+<h5 id="2-1-BTree结构"><a href="#2-1-BTree结构" class="headerlink" title="2.1 BTree结构"></a>2.1 BTree结构</h5><p><strong>因为对于相同的数据量来说，BTREE的层级结构比二叉树小，因此搜索速度快。</strong></p>
+<blockquote>
+<p>B+树-多路平衡搜索树</p>
+</blockquote>
+<h6 id="m叉树特性"><a href="#m叉树特性" class="headerlink" title="m叉树特性"></a><strong>m叉树特性</strong></h6><blockquote>
+<ul>
+<li>树中每个节点最多包含m个孩子。</li>
+<li>除根节点与叶子节点外，每个节点至少有[ceil(m/2)]个孩子。</li>
+<li>若根节点不是叶子节点，则至少有两个孩子。</li>
+<li>所有的叶子节点都在同一层。</li>
+<li>每个非叶子节点由n个key与n+1个指针组成，其中[ceil(m/2)-1] &lt;= n &lt;= m-1 </li>
+</ul>
+</blockquote>
+<h6 id="构建m叉树"><a href="#构建m叉树" class="headerlink" title="构建m叉树"></a>构建m叉树</h6><blockquote>
+<p>以5叉BTree为例</p>
+<p><strong>key的数量</strong>：公式推导[ceil(m/2)-1] &lt;= n &lt;= m-1，2 &lt;= n &lt;=4 。</p>
+<p>当n&gt;4时，中间节点分裂到父节点，两边节点分裂。</p>
+</blockquote>
+<p>插入 C N G A H E K Q M F W L T Z D P R X Y S 数据为例。</p>
+<p>演变过程如下：</p>
+<p>1). 插入前4个字母 C N G A </p>
+<p><img src="https://csn.damyoung.cn/1555944126588.png" alt="1555944126588"> </p>
+<p>2). 插入H，n&gt;4，中间元素G字母向上分裂到新的节点</p>
+<p><img src="https://csn.damyoung.cn/1555944549825.png" alt="1555944549825"> </p>
+<p>3). 插入E，K，Q不需要分裂</p>
+<p><img src="https://csn.damyoung.cn/1555944596893.png" alt="1555944596893"> </p>
+<p>4). 插入M，中间元素M字母向上分裂到父节点G</p>
+<p><img src="https://csn.damyoung.cn/1555944652560.png" alt="1555944652560"> </p>
+<p>5). 插入F，W，L，T不需要分裂</p>
+<p><img src="https://csn.damyoung.cn/1555944686928.png" alt="1555944686928"> </p>
+<p>6). 插入Z，中间元素T向上分裂到父节点中 </p>
+<p><img src="https://csn.damyoung.cn/1555944713486.png" alt="1555944713486"> </p>
+<p>7). 插入D，中间元素D向上分裂到父节点中。然后插入P，R，X，Y不需要分裂</p>
+<p><img src="https://csn.damyoung.cn/1555944749984.png" alt="1555944749984"> </p>
+<p>8). 最后插入S，NPQR节点n&gt;5，中间节点Q向上分裂，但分裂后父节点DGMT的n&gt;5，中间节点M向上分裂</p>
+<p><img src="https://csn.damyoung.cn/1555944848294.png" alt="1555944848294"> </p>
+<h5 id="2-2-B-TREE-结构"><a href="#2-2-B-TREE-结构" class="headerlink" title="2.2  B+TREE 结构"></a>2.2  B+TREE 结构</h5><ul>
+<li>由于B+Tree只有叶子节点保存key信息，<strong>查询任何key都要从root走到叶子</strong>。所以B+Tree的<strong>查询效率更加稳定。</strong></li>
+</ul>
+<p>B+Tree为BTree的变种，B+Tree与BTree的区别为：</p>
+<blockquote>
+<ul>
+<li>m叉B+Tree最多含有m个key，而BTree最多含有m-1个key。</li>
+<li>B+Tree的叶子节点保存所有的key信息，依key大小顺序排列。</li>
+<li>所有的非叶子节点都可以看作是key的索引部分。</li>
+</ul>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/00001.jpg" alt="1555906287178"> </p>
+<h5 id="2-3-MySQL中的B-Tree"><a href="#2-3-MySQL中的B-Tree" class="headerlink" title="2.3 MySQL中的B+Tree"></a>2.3 MySQL中的B+Tree</h5><blockquote>
+<p>MySql索引数据结构对经典的B+Tree进行了优化。</p>
+<p>在原B+Tree的基础上，<strong>增加一个指向相邻叶子节点的链表指针，就形成了带有顺序指针的B+Tree，提高区间访问的性能。</strong></p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/1555906287178.png" alt="1555906287178">  </p>
+<h4 id="3、-索引分类"><a href="#3、-索引分类" class="headerlink" title="3、 索引分类"></a>3、 索引分类</h4><blockquote>
+<ul>
+<li>单值索引 ：即一个索引只包含单个列，一个表可以有多个单列索引</li>
+<li>唯一索引 ：索引列的值必须唯一，但允许有空值</li>
+<li>复合索引 ：即一个索引包含多个列</li>
+</ul>
+</blockquote>
+<h4 id="4、索引语法"><a href="#4、索引语法" class="headerlink" title="4、索引语法"></a>4、索引语法</h4><blockquote>
+<p>可以创建表同时创建，也可以随时创建新的索引</p>
+</blockquote>
+<h5 id="4-1-环境准备"><a href="#4-1-环境准备" class="headerlink" title="4.1 环境准备"></a>4.1 环境准备</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">create database demo_01 default charset&#x3D;utf8mb4;</span><br><span class="line"></span><br><span class="line">use demo_01;</span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;city&#96; (</span><br><span class="line">  &#96;city_id&#96; int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;city_name&#96; varchar(50) NOT NULL,</span><br><span class="line">  &#96;country_id&#96; int(11) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;city_id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;country&#96; (</span><br><span class="line">  &#96;country_id&#96; int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;country_name&#96; varchar(100) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;country_id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">insert into &#96;city&#96; (&#96;city_id&#96;, &#96;city_name&#96;, &#96;country_id&#96;) values(1,&#39;西安&#39;,1);</span><br><span class="line">insert into &#96;city&#96; (&#96;city_id&#96;, &#96;city_name&#96;, &#96;country_id&#96;) values(2,&#39;NewYork&#39;,2);</span><br><span class="line">insert into &#96;city&#96; (&#96;city_id&#96;, &#96;city_name&#96;, &#96;country_id&#96;) values(3,&#39;北京&#39;,1);</span><br><span class="line">insert into &#96;city&#96; (&#96;city_id&#96;, &#96;city_name&#96;, &#96;country_id&#96;) values(4,&#39;上海&#39;,1);</span><br><span class="line"></span><br><span class="line">insert into &#96;country&#96; ( country_id, country_name) values(1,&#39;China&#39;);</span><br><span class="line">insert into &#96;country&#96; (&#96;country_id&#96;, country_name) values(2,&#39;America&#39;);</span><br><span class="line">insert into &#96;country&#96; (&#96;country_id&#96;, &#96;country_name&#96;) values(3,&#39;Japan&#39;);</span><br><span class="line">insert into &#96;country&#96; (&#96;country_id&#96;, &#96;country_name&#96;) values(4,&#39;UK&#39;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-2-主键索引"><a href="#4-2-主键索引" class="headerlink" title="4.2 主键索引"></a>4.2 主键索引</h5><blockquote>
+<p>创建表时，主键自带主键索引 primary-key</p>
+</blockquote>
+<h5 id="4-3-创建索引"><a href="#4-3-创建索引" class="headerlink" title="4.3 创建索引"></a>4.3 创建索引</h5><blockquote>
+<p><strong>create index</strong> 索引名称 <strong>on</strong> 表名(字段名)</p>
+<p><strong>默认索引数据结构BTREE;</strong></p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201018195002240.png" alt="image-20201018195002240"></p>
+<h5 id="4-4-查看索引"><a href="#4-4-查看索引" class="headerlink" title="4.4 查看索引"></a>4.4 查看索引</h5><blockquote>
+<p>show index from 表名\G;</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201018195115914.png" alt="image-20201018195115914"></p>
+<h5 id="4-5-删除索引"><a href="#4-5-删除索引" class="headerlink" title="4.5 删除索引"></a>4.5 删除索引</h5><blockquote>
+<p>drop index 索引名 on 表名</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201018195404722.png" alt="image-20201018195404722" style="zoom:80%;" />
+
+
+
+<h5 id="4-6-创建唯一索引"><a href="#4-6-创建唯一索引" class="headerlink" title="4.6 创建唯一索引"></a>4.6 创建唯一索引</h5><blockquote>
+<p>alter table 表名 add unique 索引名(字段名)；</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>这条语句创建索引的值必须是唯一的（除了NULL外，NULL可能会出现多次）</li>
+</ul>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201018200026641.png" alt="image-20201018200026641" style="zoom:80%;" />
+
+<blockquote>
+<p>alter  table  tb_name  add  index 索引名(字段名);</p>
+<ul>
+<li>添加普通索引， 索引值重复可出现多次。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>alter  table  tb_name  add  fulltext  索引名(字段名);    </p>
+<ul>
+<li>该语句指定了索引为<strong>FULLTEXT</strong>， 用于<strong>全文索引</strong></li>
+</ul>
+</blockquote>
+<h5 id="4-7-创建复合索引"><a href="#4-7-创建复合索引" class="headerlink" title="4.7 创建复合索引"></a>4.7 创建复合索引</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">创建复合索引:</span><br><span class="line"></span><br><span class="line">CREATE INDEX idx_name_email_status ON tb_seller(NAME,email,STATUS);</span><br><span class="line"></span><br><span class="line">就相当于</span><br><span class="line">	对name 创建索引 ;</span><br><span class="line">	对name , email 创建了索引 ;</span><br><span class="line">	对name , email, status 创建了索引 ;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="5、索引设计原则"><a href="#5、索引设计原则" class="headerlink" title="5、索引设计原则"></a>5、索引设计原则</h4><blockquote>
+<ul>
+<li>查询频次较高且数据量较大的表建立索引</li>
+<li>索引字段：选择经常在<strong>where</strong>的条件中使用的字段提取</li>
+<li>尽量使用<strong>唯一索引</strong>，区分度较高，使用索引的效率较高</li>
+<li>可以有效提高查询数据的效率，索引越多，维护索引的<strong>代价</strong>就越高；对于insert、delete、update的DML操作较为频繁的表来说，索引过多，会引入相当高的维护代价，降低DML操作的效率。增加相应操作的时间消耗。</li>
+<li>索引创建后也是使用硬盘进行存储，使用<strong>短索引</strong>可以提升索引访问的I/O效率。</li>
+<li>利用<strong>最左前缀</strong>，N个列组合而成的组合索引，那么相当于是创建了N个索引，如果查询时<strong>where子句中使用了组成该索引的前几个字段</strong>，那么这条查询SQL可以利用<strong>复合索引</strong>来提升查询效率</li>
+</ul>
+</blockquote>
+<h3 id="二、索引的使用"><a href="#二、索引的使用" class="headerlink" title="二、索引的使用"></a>二、索引的使用</h3><blockquote>
+<p>索引是数据库优化最常用也是最重要的手段之一, 通过索引通常可以帮助用户解决大多数的MySQL的性能优化问题。</p>
+</blockquote>
+<h4 id="1、环境准备"><a href="#1、环境准备" class="headerlink" title="1、环境准备"></a>1、环境准备</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">create table &#96;tb_seller&#96; (</span><br><span class="line">	&#96;sellerid&#96; varchar (100),</span><br><span class="line">	&#96;name&#96; varchar (100),</span><br><span class="line">	&#96;nickname&#96; varchar (50),</span><br><span class="line">	&#96;password&#96; varchar (60),</span><br><span class="line">	&#96;status&#96; varchar (1),</span><br><span class="line">	&#96;address&#96; varchar (100),</span><br><span class="line">	&#96;createtime&#96; datetime,</span><br><span class="line">    primary key(&#96;sellerid&#96;)</span><br><span class="line">)engine&#x3D;innodb default charset&#x3D;utf8mb4; </span><br><span class="line"></span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;alibaba&#39;,&#39;阿里巴巴&#39;,&#39;阿里小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;baidu&#39;,&#39;百度科技有限公司&#39;,&#39;百度小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;huawei&#39;,&#39;华为科技有限公司&#39;,&#39;华为小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;0&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;itcast&#39;,&#39;传智播客教育科技有限公司&#39;,&#39;传智播客&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;itheima&#39;,&#39;黑马程序员&#39;,&#39;黑马程序员&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;0&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;luoji&#39;,&#39;罗技科技有限公司&#39;,&#39;罗技小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;oppo&#39;,&#39;OPPO科技有限公司&#39;,&#39;OPPO官方旗舰店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;0&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;ourpalm&#39;,&#39;掌趣科技股份有限公司&#39;,&#39;掌趣小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;qiandu&#39;,&#39;千度科技&#39;,&#39;千度小店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;2&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;sina&#39;,&#39;新浪科技有限公司&#39;,&#39;新浪官方旗舰店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;xiaomi&#39;,&#39;小米科技&#39;,&#39;小米官方旗舰店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;西安市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line">insert into &#96;tb_seller&#96; (&#96;sellerid&#96;, &#96;name&#96;, &#96;nickname&#96;, &#96;password&#96;, &#96;status&#96;, &#96;address&#96;, &#96;createtime&#96;) values(&#39;yijia&#39;,&#39;宜家家居&#39;,&#39;宜家家居旗舰店&#39;,&#39;e10adc3949ba59abbe56e057f20f883e&#39;,&#39;1&#39;,&#39;北京市&#39;,&#39;2088-01-01 12:00:00&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create index idx_seller_name_sta_addr on tb_seller(name,status,address);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2、避免索引失效"><a href="#2、避免索引失效" class="headerlink" title="2、避免索引失效"></a>2、避免索引失效</h4><h5 id="2-1-全值索引"><a href="#2-1-全值索引" class="headerlink" title="2.1 全值索引"></a>2.1 全值索引</h5><blockquote>
+<p>对索引中所有列都指定具体值，该情况下，索引生效，执行效率高。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from tb_seller where name&#x3D;&#39;小米科技&#39; and status&#x3D;&#39;1&#39; and address&#x3D;&#39;北京市&#39;\G;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201020161200971.png" alt="image-20201020161200971"></p>
+<h5 id="2-2-最左前缀法则"><a href="#2-2-最左前缀法则" class="headerlink" title="2.2 最左前缀法则"></a>2.2 最左前缀法则</h5><blockquote>
+<p>指的是查询从索引的<strong>最左前列开始，并且不跳过索引中的列。</strong>(爬楼梯)</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201020161615741.png" alt="image-20201020161615741" style="zoom:80%;" />
+
+<img src="https://csn.damyoung.cn/image-20201020161638749.png" alt="image-20201020161638749" style="zoom:80%;" />
+
+<blockquote>
+<p>与顺序无关，而与是否有字段有关</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020161907488.png" alt="image-20201020161907488"></p>
+<blockquote>
+<p>跳过status,只有name有索引，address无索引</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201020162055081.png" alt="image-20201020162055081" style="zoom:80%;" />
+
+
+
+<h5 id="2-3-范围查询"><a href="#2-3-范围查询" class="headerlink" title="2.3 范围查询"></a>2.3 范围查询</h5><ul>
+<li>范围查询右边的列，不能使用索引 。</li>
+</ul>
+<blockquote>
+<p>根据前面的两个字段name ， status 查询是走索引的， 但是最后一个条件<strong>address 没有用到索引。</strong></p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020163038952.png" alt="image-20201020163038952"></p>
+<h5 id="2-4-运算操作"><a href="#2-4-运算操作" class="headerlink" title="2.4 运算操作"></a>2.4 运算操作</h5><blockquote>
+<p>不要在索引列上进行运算操作， 索引将失效。</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201020163325815.png" alt="image-20201020163325815" style="zoom:80%;" />
+
+
+
+<h5 id="2-5-字符串"><a href="#2-5-字符串" class="headerlink" title="2.5 字符串"></a>2.5 字符串</h5><ul>
+<li>字符串不加单引号，造成索引失效。</li>
+</ul>
+<blockquote>
+<p>数字也要，否则不走索引(不加单引号，底层进行隐式运算操作)</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020163529790.png" alt="image-20201020163529790"></p>
+<h5 id="2-6-使用覆盖索引"><a href="#2-6-使用覆盖索引" class="headerlink" title="2.6 使用覆盖索引"></a>2.6 使用覆盖索引</h5><ul>
+<li>尽量使用覆盖索引，避免select*</li>
+</ul>
+<blockquote>
+<p>尽量使用<strong>覆盖索引</strong>（只访问索引的查询（索引列完全包含查询列）），减少select * 。</p>
+<ul>
+<li>但<strong>查询非索引字段还是需要回表查询</strong></li>
+</ul>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020163837667.png" alt="image-20201020163837667"></p>
+<p><strong>ps</strong></p>
+<blockquote>
+<ul>
+<li><p>using index ：使用覆盖索引的时候就会出现</p>
+</li>
+<li><p>using where：在查找使用索引的情况下，需要回表去查询所需的数据</p>
+</li>
+<li><p>using index condition：查找使用了索引，但是需要回表查询数据</p>
+</li>
+<li><p>using index ; using where：查找使用了索引，但是需要的数据都在索引列中能找到，所以不需要回表查询数据    </p>
+</li>
+</ul>
+</blockquote>
+<h5 id="2-7-or"><a href="#2-7-or" class="headerlink" title="2.7 or"></a>2.7 or</h5><ul>
+<li>用or分割开的条件， 如果or前的条件中的列有索引，而后面的列中没有索引，那么涉及的索引都不会被用到。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from tb_seller where name&#x3D;&#39;黑马程序员&#39; or createtime &#x3D; &#39;2088-01-01 12:00:00&#39;\G;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201020164303908.png" alt="image-20201020164303908"></p>
+<h5 id="2-8-模糊查询"><a href="#2-8-模糊查询" class="headerlink" title="2.8 %模糊查询"></a>2.8 %模糊查询</h5><ul>
+<li>以%开头的Like模糊查询，索引失效。</li>
+</ul>
+<blockquote>
+<p>如果仅仅是尾部模糊匹配，索引不会失效。如果是头部模糊匹配，索引失效。</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020164653957.png" alt="image-20201020164653957"></p>
+<p><strong>解决：用覆盖索引解决</strong></p>
+<p><img src="https://csn.damyoung.cn/image-20201020164819251.png" alt="image-20201020164819251"></p>
+<p><img src="https://csn.damyoung.cn/image-20201020165132336.png" alt="image-20201020165132336"></p>
+<h5 id="2-9-全表索引更快"><a href="#2-9-全表索引更快" class="headerlink" title="2.9 全表索引更快"></a>2.9 全表索引更快</h5><ul>
+<li>如果MySQL评估使用索引比全表更慢，则不使用索引</li>
+</ul>
+<p><img src="https://csn.damyoung.cn/image-20201020172558272.png" alt="image-20201020172558272"></p>
+<h5 id="2-10-is-not-null"><a href="#2-10-is-not-null" class="headerlink" title="2.10 is not null"></a>2.10 is not null</h5><ul>
+<li>is  NULL ， is NOT NULL  <font color='red'>有时</font>索引失效。</li>
+</ul>
+<blockquote>
+<p>因为当前字段null是少量的</p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20201020172804973.png" alt="image-20201020172804973"></p>
+<h5 id="2-11-not-in"><a href="#2-11-not-in" class="headerlink" title="2.11 not in"></a>2.11 not in</h5><ul>
+<li>in 走索引， not in 索引失效</li>
+</ul>
+<p><img src="https://csn.damyoung.cn/image-20201020173302116.png" alt="image-20201020173302116"></p>
+<h5 id="2-12-单列索引"><a href="#2-12-单列索引" class="headerlink" title="2.12 单列索引"></a>2.12 单列索引</h5><ul>
+<li>单列索引和复合索引。</li>
+</ul>
+<blockquote>
+<p>尽量使用复合索引，而少使用单列索引 。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create index idx_name_sta_address on tb_seller(name, status, address);</span><br><span class="line"></span><br><span class="line">就相当于创建了三个索引 ： </span><br><span class="line">	name</span><br><span class="line">	name + status</span><br><span class="line">	name + status + address</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create index idx_seller_name on tb_seller(name);</span><br><span class="line">create index idx_seller_status on tb_seller(status);</span><br><span class="line">create index idx_seller_address on tb_seller(address);</span><br><span class="line"></span><br><span class="line">数据库会选择一个最优的索引（辨识度最高索引）来使用，并不会使用全部索引 。</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3、查看索引使用情况"><a href="#3、查看索引使用情况" class="headerlink" title="3、查看索引使用情况"></a>3、查看索引使用情况</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- 当前会话使用情况</span><br><span class="line">show status like &#39;Handler_read%&#39;;	</span><br><span class="line"></span><br><span class="line">show global status like &#39;Handler_read%&#39;;	</span><br></pre></td></tr></table></figure>
+
+<img src="https://csn.damyoung.cn/image-20201020173925206.png" alt="image-20201020173925206" style="zoom:80%;" />
+
+<blockquote>
+<ul>
+<li><p>Handler_read_first：索引中第一条被读的次数。如果较高，表示服务器正执行大量全索引扫描（这个值越低越好）。</p>
+</li>
+<li><p>Handler_read_key：如果索引正在工作，这个值代表一个行被索引值读的次数，如果值越低，表示索引得到的性能改善不高，因为索引不经常使用（这个值越高越好）。</p>
+</li>
+<li><p>Handler_read_next ：按照键顺序读下一行的请求数。如果你用范围约束或如果执行索引扫描来查询索引列，该值增加。</p>
+</li>
+<li><p>Handler_read_prev：按照键顺序读前一行的请求数。该读方法主要用于优化ORDER BY … DESC。</p>
+</li>
+<li><p>Handler_read_rnd ：根据固定位置读一行的请求数。如果你正执行大量查询并需要对结果进行排序该值较高。你可能使用了大量需要MySQL扫描整个表的查询或你的连接没有正确使用键。这个值较高，意味着运行效率低，应该建立索引来补救。</p>
+</li>
+<li><p>Handler_read_rnd_next：在数据文件中读下一行的请求数。如果你正进行大量的表扫描，该值较高。通常说明你的表索引不正确或写入的查询没有利用索引。</p>
+</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/05%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4070,469 +5130,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/10/11/02%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/11/02%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">linux软件包管理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-11 14:14:03" itemprop="dateCreated datePublished" datetime="2020-10-11T14:14:03+08:00">2020-10-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-28 01:03:59" itemprop="dateModified" datetime="2020-12-28T01:03:59+08:00">2020-12-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="软件包管理"><a href="#软件包管理" class="headerlink" title="软件包管理"></a>软件包管理</h4><h4 id="1、软件包分类"><a href="#1、软件包分类" class="headerlink" title="1、软件包分类"></a>1、软件包分类</h4><ul>
-<li>源码包（脚本安装包）</li>
-<li>二进制包（RPM包、系统默认包）</li>
-</ul>
-<p><strong>RPM命名规则</strong></p>
-<blockquote>
-<p>httpd-2.2.15-15.e16.centos.1.i686.rpm</p>
-<p>包名-版本-版本发布次数-适合的Linux平台-适合的硬件平台-rpm扩展名</p>
-</blockquote>
-<h4 id="2、RPM命令管理"><a href="#2、RPM命令管理" class="headerlink" title="2、RPM命令管理"></a>2、RPM命令管理</h4><blockquote>
-<p>问题：依赖性</p>
-</blockquote>
-<h5 id="1-1-RPM包依赖性"><a href="#1-1-RPM包依赖性" class="headerlink" title="1.1 RPM包依赖性"></a>1.1 RPM包依赖性</h5><blockquote>
-<p>树形依赖：a-b-c</p>
-<p>环形依赖：a-b-c-a</p>
-<p>模块依赖：<a target="_blank" rel="noopener" href="http://www.rpmfind.net/">www.rpmfind.net</a></p>
-</blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201016180147333.png" alt="image-20201016180147333" style="zoom:80%;" />
-
-
-
-<h5 id="1-2-包全名和包名"><a href="#1-2-包全名和包名" class="headerlink" title="1.2 包全名和包名"></a>1.2 包全名和包名</h5><blockquote>
-<p>包全名：操作的包是没有安装的软件包时，使用包全包。而且要注意路径</p>
-<p>包名：操作已经安装的软件包，使用包名是，是搜索<code>/var/lib/rpm/</code>中的数据库</p>
-</blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201016181334820.png" alt="image-20201016181334820" style="zoom:80%;" />
-
-
-
-<ul>
-<li><strong>rpm安装升级卸载都要在packages下运行</strong></li>
-</ul>
-<h5 id="1-3-RPM安装"><a href="#1-3-RPM安装" class="headerlink" title="1.3 RPM安装"></a>1.3 RPM安装</h5><blockquote>
-<p>rpm -ivh 包全包</p>
-<p>选项：-i(install)  安装</p>
-<p>​            -v(verbose)  显示详细信息</p>
-<p>​            -h(hash)  显示进度</p>
-</blockquote>
-<h5 id="1-4-RPM包升级"><a href="#1-4-RPM包升级" class="headerlink" title="1.4 RPM包升级"></a>1.4 RPM包升级</h5><blockquote>
-<p>rpm -Uvh 包全名</p>
-<p>选型：-U(upgrage)  升级</p>
-</blockquote>
-<h5 id="1-5-卸载"><a href="#1-5-卸载" class="headerlink" title="1.5 卸载"></a>1.5 卸载</h5><blockquote>
-<p>rpm -e 包名 卸载</p>
-<p>选项： -e 卸载</p>
-</blockquote>
-<h5 id="1-6-查询"><a href="#1-6-查询" class="headerlink" title="1.6 查询"></a>1.6 查询</h5><blockquote>
-<ul>
-<li><p>rpm -q 包名 查询是否安装</p>
-</li>
-<li><p>rqm -qa 查询所有已经安装的rpm包</p>
-</li>
-<li><p>rqm -qi 包名 查询软件详细信息。</p>
-</li>
-</ul>
-<p>​                -pi 包全名 查看未安装包信息</p>
-<ul>
-<li><p>rqm -ql 包名 查看包中文件安装位置</p>
-</li>
-<li><p>rqm -qf 系统文件名  -f 查询系统文件属于哪一个软件包</p>
-</li>
-<li><p>rqm -qR 包名   -R 查询软件包的依赖性</p>
-<p>​                          -p 查询未安装包</p>
-</li>
-</ul>
-</blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201016184525261.png" alt="image-20201016184525261" style="zoom:80%;" />
-
-
-
-<h5 id="1-7-校验"><a href="#1-7-校验" class="headerlink" title="1.7 校验"></a>1.7 校验</h5><blockquote>
-<p>rpm -V 已安装包名  -V 校验指定RPM包中文件是否被修改</p>
-</blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201016184749532.png" alt="image-20201016184749532" style="zoom:80%;" />
-
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201016202738096.png" alt="image-20201016202738096" style="zoom:80%;" />
-
-<h5 id="1-9-文件提取"><a href="#1-9-文件提取" class="headerlink" title="1.9 文件提取"></a>1.9 文件提取</h5><blockquote>
-<p>rpm2cpio 包全名 | cpio -idv .文件绝对路径</p>
-<p>​        rpm2cpio：2(to)  #将rpm包转换未cpio格式的命令  </p>
-<p>​        cpio: 标准工具，用于创建软件档案文件和从档案文件中提取文件</p>
-<p>cpio 选项 &lt;[文件| 设备]</p>
-</blockquote>
-<h4 id="3、yum在线管理"><a href="#3、yum在线管理" class="headerlink" title="3、yum在线管理"></a>3、yum在线管理</h4><h5 id="1、常用yum命令"><a href="#1、常用yum命令" class="headerlink" title="1、常用yum命令"></a>1、常用yum命令</h5><h6 id="1-1-查询"><a href="#1-1-查询" class="headerlink" title="1.1 查询"></a>1.1 查询</h6><blockquote>
-<p>yum list 查询所有可用软件包列表</p>
-<p>yum search 关键字</p>
-</blockquote>
-<h6 id="1-2-安装"><a href="#1-2-安装" class="headerlink" title="1.2 安装"></a>1.2 安装</h6><blockquote>
-<p>yum -y install 包名</p>
-<p>​        -y 自动回答yes  install 安装</p>
-</blockquote>
-<blockquote>
-<p>yum -y install gcc 安装编译器</p>
-</blockquote>
-<h6 id="1-3-升级"><a href="#1-3-升级" class="headerlink" title="1.3 升级"></a>1.3 升级</h6><blockquote>
-<p>yum -y update 包名      </p>
-</blockquote>
-<h6 id="1-4-卸载"><a href="#1-4-卸载" class="headerlink" title="1.4 卸载"></a>1.4 卸载</h6><blockquote>
-<p>yum -y remove 包名   </p>
-<ul>
-<li>a-b-c 先卸载c</li>
-<li>不要轻易使用</li>
-</ul>
-</blockquote>
-<h5 id="2、yum软件组管理命令"><a href="#2、yum软件组管理命令" class="headerlink" title="2、yum软件组管理命令"></a>2、yum软件组管理命令</h5><blockquote>
-<p>yum grouplist </p>
-<p>yum groupinstall 安装软件包组</p>
-</blockquote>
-<h5 id="3、光盘yum源"><a href="#3、光盘yum源" class="headerlink" title="3、光盘yum源"></a>3、光盘yum源</h5><h6 id="3-1-挂载光盘"><a href="#3-1-挂载光盘" class="headerlink" title="3.1 挂载光盘"></a>3.1 挂载光盘</h6><blockquote>
-<p>mount /dev/cdroom /mnt/cdroom(光盘挂载点)</p>
-</blockquote>
-<h6 id="3-2-让网络yum源文件失效"><a href="#3-2-让网络yum源文件失效" class="headerlink" title="3.2 让网络yum源文件失效"></a>3.2 让网络yum源文件失效</h6><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017160533971.png" alt="image-20201017160533971" style="zoom:80%;" />
-
-<blockquote>
-<p>mv CentOS-Base.repo  CentOS-Base.repo.bak</p>
-<p>mv CentOS-Debuginfo.repo  CentOS-Debuginfo.repo.bak</p>
-<p>mv CentOS-Vault.repo  CentOS-Vault.repo.bak</p>
-</blockquote>
-<h6 id="3-3-修改光盘yum源文件"><a href="#3-3-修改光盘yum源文件" class="headerlink" title="3.3 修改光盘yum源文件"></a>3.3 修改光盘yum源文件</h6><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017160753271.png" alt="image-20201017160753271" style="zoom:80%;" />
-
-
-
-<h4 id="4、源码包"><a href="#4、源码包" class="headerlink" title="4、源码包"></a>4、源码包</h4><h5 id="4-1-区别"><a href="#4-1-区别" class="headerlink" title="4.1 区别"></a>4.1 区别</h5><blockquote>
-<p>安装之前：概念上的区别</p>
-<p>安装之后：安装位置不同</p>
-</blockquote>
-<h6 id="RPM包安装位置"><a href="#RPM包安装位置" class="headerlink" title="RPM包安装位置"></a>RPM包安装位置</h6><ul>
-<li>安装在默认位置</li>
-</ul>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017161811830.png" alt="image-20201017161811830" style="zoom:80%;" />
-
-<ul>
-<li>位置影响，可以使用系统服务管理命令(service)来管理<ul>
-<li>例：RPM安装apache启动<ul>
-<li>/etc/rc.d/init.d/httpd start</li>
-<li>systemctl start httpd  (在网页中输入ip地址)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017162729226.png" alt="image-20201017162729226" style="zoom:80%;" />
-
-<h6 id="源码包安装位置"><a href="#源码包安装位置" class="headerlink" title="源码包安装位置"></a>源码包安装位置</h6><ul>
-<li><p>安装在指定位置中，一般是/usr/local/软件名</p>
-</li>
-<li><p><strong>不能通过系统服务管理命令启动，而使用绝对路径进行服务的管理</strong></p>
-</li>
-</ul>
-<h5 id="4-2-源码包安装"><a href="#4-2-源码包安装" class="headerlink" title="4.2 源码包安装"></a>4.2 源码包安装</h5><blockquote>
-<ul>
-<li>安装C语言编译器  yum -y gcc</li>
-<li>下载源码包 <a target="_blank" rel="noopener" href="http://mirror.bit.edu.cn/apache/httpd/">http://mirror.bit.edu.cn/apache/httpd/</a></li>
-</ul>
-</blockquote>
-<blockquote>
-<p>源码包保存位置：/usr/local/src/</p>
-<p>软件安装位置 ： /usr/local</p>
-</blockquote>
-<blockquote>
-<ul>
-<li>下载源码包(使用winSCP上传源码包到Linux)</li>
-<li>解压缩 tar -xzvf …..</li>
-<li>进入解压缩目录：cd httpd-2.4.46</li>
-</ul>
-</blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017165711312.png" alt="image-20201017165711312" style="zoom:80%;" />
-
-<blockquote>
-<p>./configure 软件配置与检查</p>
-<ul>
-<li>定义需要的功能选项</li>
-<li>检测系统环境是否符合安装要求</li>
-<li>把定义好的功能选项和检测系统环境的信息都写入Makefile文件，用于后续的编辑</li>
-</ul>
-<p>make 编译</p>
-<ul>
-<li>make clean</li>
-</ul>
-<p>make install 编译安装</p>
-<p>/usr/loacl/apache2/bin/apachectl start 启动</p>
-<p>当端口被占用：service httpd stop</p>
-</blockquote>
-<blockquote>
-<p>无卸载命令，直接删除目录即可，不会产生垃圾</p>
-</blockquote>
-<h4 id="5、脚本安装包"><a href="#5、脚本安装包" class="headerlink" title="5、脚本安装包"></a>5、脚本安装包</h4><blockquote>
-<p>并不是独立的软件包类型，常见安装的是源码包</p>
-<p>认为把<strong>安装过程写成自动安装的脚本，只要执行脚本，定义简单的参数，就可以完成安装。</strong></p>
-</blockquote>
-<h5 id="5-1-Webmin"><a href="#5-1-Webmin" class="headerlink" title="5.1 Webmin"></a>5.1 Webmin</h5><blockquote>
-<p>基于Web的linux系统管理界面，通过图形化的方式设置用户账号、Apache、DNS、文件共享等服务</p>
-</blockquote>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://sourceforge.net/projects/webadmin/files/webmin/">http://sourceforge.net/projects/webadmin/files/webmin/</a></p>
-<ul>
-<li>解压缩</li>
-<li>进入目录</li>
-<li>安装./setup.sh</li>
-</ul>
-</blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017213845842.png" alt="image-20201017213845842" style="zoom:80%;" />
-
-<blockquote>
-<p><strong>[admin@localhost ~]$ su root</strong><br>Password:<br>[root@localhost admin]# ls<br>Desktop  Documents  Downloads  Firewall  Music  Pictures  Public  Templates  Videos<br><strong>[root@localhost admin]# ls /root</strong><br>anaconda-ks.cfg                         mysql-server<br>httpd-2.4.46                            MySQL-server-5.6.22-1.el6.i686.rpm<br>httpd-2.4.46.tar.gz                     MySQL-shared-5.6.22-1.el6.i686.rpm<br>initial-setup-ks.cfg                    MySQL-shared-compat-5.6.22-1.el6.i686.rpm<br>mysql                                   MySQL-test-5.6.22-1.el6.i686.rpm<br>MySQL-5.6.22-1.el6.i686.rpm-bundle.tar  original-ks.cfg<br>MySQL-client-5.6.22-1.el6.i686.rpm      usermin-webmail-1.510<br>MySQL-devel-5.6.22-1.el6.i686.rpm       usermin-webmail-1.510.tar.gz<br>MySQL-embedded-5.6.22-1.el6.i686.rpm<br><strong>[root@localhost admin]# cd /root</strong><br>[root@localhost ~]# cd usermin-webmail-1.510/</p>
-</blockquote>
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201017215430688.png" alt="image-20201017215430688" style="zoom:80%;" />
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/10/11/04Redis%E5%AE%89%E8%A3%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/11/04Redis%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">Linux安装redis</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-11 14:14:03" itemprop="dateCreated datePublished" datetime="2020-10-11T14:14:03+08:00">2020-10-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-28 01:10:22" itemprop="dateModified" datetime="2020-12-28T01:10:22+08:00">2020-12-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Linux安装redis"><a href="#Linux安装redis" class="headerlink" title="Linux安装redis"></a>Linux安装redis</h4><blockquote>
-<p>下载redis安装包</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>解压</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>安装</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd redis-4.0.8</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>还需要安装gcc编译     </p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gcc</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>出现fatal error</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make MALLOC&#x3D;libc</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>启动服务</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd src </span><br><span class="line">.&#x2F;redis-server&amp; &#x2F;&#x2F;启动服务</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>关闭服务</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis-cli shutdown</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>启动客户端</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis-cli</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>启动多台redis服务</strong></p>
-<p>1、改端口号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis-server --port 6380</span><br><span class="line"></span><br><span class="line"> .&#x2F;redis-cli -p 6380</span><br></pre></td></tr></table></figure>
-
-
-
-<p>2、配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat redis.conf |grep -v &quot;#&quot; |grep -v &quot;^$&quot;&gt;redis-6379.conf</span><br><span class="line">vim redis-6379.conf</span><br></pre></td></tr></table></figure>
-
-<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201101103021970.png" alt="image-20201101103021970"></p>
-<p><strong>ps -ef</strong> #用标准的格式显示进程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;查看是否存在redis服务</span><br><span class="line">ps -ef| grep redis-</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;配置文件启动服务端</span><br><span class="line">.&#x2F;redis-cli </span><br></pre></td></tr></table></figure>
-
-
-
-<p>修改redis.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_10_centos redis-5.0.5]# vim &#x2F;usr&#x2F;local&#x2F;redis&#x2F;redis.conf</span><br><span class="line"># 注释掉bind 127.0.0.1</span><br><span class="line"># bind 127.0.0.1</span><br><span class="line"></span><br><span class="line"># 取消ip绑定 更改 yes 为 no</span><br><span class="line">protected-mode no</span><br><span class="line"></span><br><span class="line"># 开启守护进程 更改 no 为 yes</span><br><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
-
-<p>检查redis服务是否启动</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep redis</span><br></pre></td></tr></table></figure>
-
-<p>启动，并指定配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;redis</span><br><span class="line"> .&#x2F;bin&#x2F;redis-server .&#x2F;redis.conf(第一个)</span><br></pre></td></tr></table></figure>
-
-<p>本地客户端连接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;redis-cli</span><br></pre></td></tr></table></figure>
-
-<p>redis服务关闭</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;redis-cli shutdown</span><br></pre></td></tr></table></figure>
-
-<p>开放云服务端口</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/redis-cli -h <span class="number">49.</span>ip.ip<span class="number">.2</span> -p <span class="number">6379</span> -a 密码</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -4598,7 +5199,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -4651,12 +5252,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">760k</span>
+    <span title="站点总字数">840k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">11:31</span>
+    <span title="站点阅读时长">12:43</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>
