@@ -185,6 +185,225 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/01MySql%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/01MySql%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-title-link" itemprop="url">存储引擎</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-22 15:37:44" itemprop="dateModified" datetime="2020-12-22T15:37:44+08:00">2020-12-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、MySql体系"><a href="#一、MySql体系" class="headerlink" title="一、MySql体系"></a>一、MySql体系</h3><img src="https://csn.damyoung.cn/000001.jpg" style="zoom:80%;" />
+
+<p>整个MySQL Server由以下组成</p>
+<ul>
+<li>Connection Pool : 连接池组件</li>
+<li>Management Services &amp; Utilities : 管理服务和工具组件</li>
+<li>SQL Interface : SQL接口组件</li>
+<li>Parser : 查询分析器组件</li>
+<li>Optimizer : 优化器组件</li>
+<li>Caches &amp; Buffers : 缓冲池组件</li>
+<li>Pluggable Storage Engines : 存储引擎</li>
+<li>File System : 文件系统</li>
+</ul>
+<p>1） 连接层</p>
+<p>最上层是一些客户端和链接服务，包含本地sock 通信和大多数基于客户端/服务端工具实现的类似于 TCP/IP的通信。主要完成一些类似于连接处理、授权认证、及相关的安全方案。在该层上引入了线程池的概念，为通过认证安全接入的客户端提供线程。同样在该层上可以实现基于SSL的安全链接。服务器也会为安全接入的每个客户端验证它所具有的操作权限。</p>
+<p>2） 服务层</p>
+<p>第二层架构主要完成大多数的核心服务功能，如SQL接口，并完成缓存的查询，SQL的分析和优化，部分内置函数的执行。所有跨存储引擎的功能也在这一层实现，如 过程、函数等。在该层，服务器会解析查询并创建相应的内部解析树，并对其完成相应的优化如确定表的查询的顺序，是否利用索引等， 最后生成相应的执行操作。如果是select语句，服务器还会查询内部的缓存，如果缓存空间足够大，这样在解决大量读操作的环境中能够很好的提升系统的性能。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/11/01MySql%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/01%E6%95%B0%E7%BB%84&%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/01%E6%95%B0%E7%BB%84&%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" class="post-title-link" itemprop="url">数组&流程控制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-02 20:05:26" itemprop="dateModified" datetime="2021-01-02T20:05:26+08:00">2021-01-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaSe/" itemprop="url" rel="index"><span itemprop="name">javaSe</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、一维数组"><a href="#一、一维数组" class="headerlink" title="一、一维数组"></a>一、一维数组</h3><blockquote>
+<p>一维数组：相同属性数据类型的集合</p>
+<p>基本数据类型的数组(  int [ ] a)、引用数据类型的数组（Student [] student）</p>
+</blockquote>
+<h4 id="1、声明"><a href="#1、声明" class="headerlink" title="1、声明"></a>1、声明</h4><p>（在栈空间创建对象，存放地址）int []a     （ int [40]a错误）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> []arr1;             <span class="comment">//声明</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2、初始化"><a href="#2、初始化" class="headerlink" title="2、初始化"></a>2、初始化</h4><blockquote>
+<p><strong>在堆空间开辟一块连续的空间</strong></p>
+</blockquote>
+<h5 id="2-1-静态初始化"><a href="#2-1-静态初始化" class="headerlink" title="2.1 静态初始化"></a>2.1 静态初始化</h5><p>长度系统指定   int []a=new int[]{1,2,3} //简化int []a={1,2,3},声明和初始化不能分开写</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//静态初始化声明和初始化不能分开</span></span><br><span class="line"><span class="keyword">int</span> []arr=<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">10</span>,<span class="number">30</span>,<span class="number">34</span>&#125;;      <span class="comment">//声明+初始化</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/11/01%E6%95%B0%E7%BB%84&%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/02TomCat/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1603,458 +1822,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/05ajax%E3%80%81json/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/05ajax%E3%80%81json/" class="post-title-link" itemprop="url">ajax&json</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:39:55" itemprop="dateModified" datetime="2020-12-06T22:39:55+08:00">2020-12-06</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><p>ASynchronous JavaScript And XML <strong>异步的JavaScript和XML</strong></p>
-<h4 id="基于JQuery的ajax"><a href="#基于JQuery的ajax" class="headerlink" title="基于JQuery的ajax"></a>基于JQuery的ajax</h4><p><strong>通过<code>out.print(result)</code> 得到结果</strong></p>
-<blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span> <span class="attr">onblur</span>=<span class="string">&quot;validate();&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter out=resp.getWriter();</span><br><span class="line">        String username=req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;admin&quot;</span>.equals(username))&#123;</span><br><span class="line">            <span class="comment">//输出字符串给请求者</span></span><br><span class="line"><span class="comment">//            out.print(&quot;true&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//            out.print(&quot;false&quot;);</span></span><br><span class="line">            out.print(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:<span class="string">&#x27;ajaxServlet&#x27;</span>,</span><br><span class="line">            type:<span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">     		data:<span class="string">&#x27;username=&#x27;</span>+username, <span class="comment">//相当于同步请求的URL&quot;ajaxServlet?username=admin&quot;</span></span><br><span class="line">            success:<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">                <span class="comment">// if (result===&#x27;true&#x27;)&#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;else &#123;</span></span><br><span class="line">                <span class="comment">//     $(&quot;#msg&quot;).html(&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;);</span></span><br><span class="line">                <span class="comment">// &#125;</span></span><br><span class="line">                $(<span class="string">&quot;#msg&quot;</span>).html(result);</span><br><span class="line">            &#125;,</span><br><span class="line">            error:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="string">&quot;执行失败&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="get-post-简化"><a href="#get-post-简化" class="headerlink" title="get()/post()简化"></a>get()/post()简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get()简化</span></span><br><span class="line">$.get(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//post()简化</span></span><br><span class="line">$.post(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&#x27;username=&#x27;</span>+username,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result===<span class="string">&#x27;true&#x27;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;&lt;font color=&#x27;green&#x27;&gt;用户名可以使用!&lt;font&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="load-方法简化"><a href="#load-方法简化" class="headerlink" title="load()方法简化"></a>load()方法简化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> username = $(<span class="string">&quot;#username&quot;</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (username==<span class="literal">null</span> || username===<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).html(<span class="string">&quot;用户名不能为空&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#msg&quot;</span>).load(<span class="string">&#x27;ajaxServlet&#x27;</span>,<span class="string">&quot;username=&quot;</span>+username)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>JavaScript Object Notation  <strong>JavaScript对象表示法</strong></p>
-<p><strong>类似于Map的表示方式</strong></p>
-<ul>
-<li>json多用于存储和交换文本信息的语法</li>
-<li>进行数据的传输</li>
-<li>json比XML更小、更快、更易解析</li>
-</ul>
-<h4 id="1、基本格式"><a href="#1、基本格式" class="headerlink" title="1、基本格式"></a>1、基本格式</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本格式</span></span><br><span class="line">const person = &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;;</span><br><span class="line"><span class="comment">// var name=person[&quot;name&quot;];</span></span><br><span class="line">alert(person.name);</span><br><span class="line"></span><br><span class="line">const ps = [</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">    &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">];</span><br><span class="line">alert(ps[2].name);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:&#123; &#125; &#125;</span></span><br><span class="line">const pears = &#123;</span><br><span class="line">    &quot;person&quot;: &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">&#125;;</span><br><span class="line">alert(pears.person.age);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;&#125;==&#123;&#x27;&#x27;:[ &#123;&#125;, &#123;&#125;, &#123;&#125; ] &#125;</span></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;: [</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">alert(peas2.person2[2].name);</span><br></pre></td></tr></table></figure>
-
-<h4 id="2、遍历"><a href="#2、遍历" class="headerlink" title="2、遍历"></a>2、遍历</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历</span></span><br><span class="line"><span class="comment">// for in</span></span><br><span class="line">for (const key in person)&#123;</span><br><span class="line">    alert(key+&quot;:&quot;+person[key])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const peas2 = &#123;</span><br><span class="line">    &quot;person2&quot;:[</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;李四&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;张三&quot;, age: 12, &quot;gender&quot;: true&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;: &quot;呜呜&quot;, age: 12, &quot;gender&quot;: true&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    const person=peas2.person2[i];</span><br><span class="line">    for (const key in person)&#123;</span><br><span class="line">        alert(key+&quot;:&quot;+person[key])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (var i=0;i&lt;peas2.person2.length;i++)&#123;</span><br><span class="line">    alert(peas2.person2[i].name+&quot;,&quot;+peas2.person2[i].age+&quot;,&quot;+peas2.person2[i].gender);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3、json字符串"><a href="#3、json字符串" class="headerlink" title="3、json字符串"></a>3、json字符串</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const person=&#x27;&#123;&quot;name&quot;: &quot;李四&quot;, &quot;age&quot;: 12, &quot;gender&quot;: true&#125;&#x27;;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将JSON对象转换为JSON字符串</span></span><br><span class="line">person3=JSON.stringify(person)</span><br><span class="line">alert(person3);</span><br><span class="line"></span><br><span class="line"><span class="comment">// //将json字符串转化为JSON对象</span></span><br><span class="line">const person2=JSON.parse(person);</span><br><span class="line">alert(person2.name);</span><br></pre></td></tr></table></figure>
-
-<h4 id="4、转化4种方法"><a href="#4、转化4种方法" class="headerlink" title="4、转化4种方法"></a>4、转化4种方法</h4><h5 id="（1）从Servlet获得Json字符串"><a href="#（1）从Servlet获得Json字符串" class="headerlink" title="（1）从Servlet获得Json字符串"></a>（1）从Servlet获得Json字符串</h5><blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jsonStr=<span class="string">&quot;&#123;\&quot;flag\&quot;:true,\&quot;msg\&quot;:\&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;\&quot;&#125;&quot;</span>;</span><br><span class="line">out.print(jsonStr);</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h5 id="（2）json字符串转化为json对象"><a href="#（2）json字符串转化为json对象" class="headerlink" title="（2）json字符串转化为json对象"></a>（2）json字符串转化为json对象</h5><ul>
-<li><pre><code class="java">resp.setContentType(&quot;application/json; charset=UTF-8&quot;);
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;java</span><br><span class="line">  result &#x3D; JSON.parse(result)</span><br><span class="line">  $(&quot;#msg&quot;).html(result.flag + &quot;---&quot; + result.msg);</span><br></pre></td></tr></table></figure></code></pre>
-</li>
-<li><pre><code class="json">$.getJSON(&#39;jsonServlet&#39;,&#123;username:username&#125;,function (data) &#123;
-    $(&quot;#msg&quot;).html(data.flag + &quot;---&quot; + data.msg);
-&#125;)
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;json</span><br><span class="line">  url: &#39;jsonServlet&#39;,</span><br><span class="line">  type: &#39;get&#39;,</span><br><span class="line">  data: &#123;&#39;username&#39;:username&#125;, &#x2F;&#x2F;相当于同步请求的URL&quot;ajaxServlet?username&#x3D;admin&quot;</span><br><span class="line">  dataType:&quot;json&quot;,</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ul>
-<h4 id="5、Gson"><a href="#5、Gson" class="headerlink" title="5、Gson"></a>5、Gson</h4><p><strong>可为多种形式的对象（List,对象，Map…）转化为json字符串</strong></p>
-<p>导入gson-2.2.4.jar</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">&quot;flag&quot;</span>,<span class="keyword">true</span>);</span><br><span class="line">map.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;&lt;font color=&#x27;red&#x27;&gt;用户名已被使用!&lt;/font&gt;&quot;</span>);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line">String data=gson.toJson(map);</span><br><span class="line">out.print(data);</span><br></pre></td></tr></table></figure>
-
-<p>通过前端传过来的name进行搜索，将集合转化为Json字符串，再传到前端</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String name = req.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">List&lt;Book&gt; bookList = <span class="keyword">new</span> BookService().findBookByName(name);</span><br><span class="line"></span><br><span class="line">Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line"><span class="comment">//创建Json字符串</span></span><br><span class="line">String json = gson.toJson(bookList);</span><br><span class="line"><span class="comment">//传回请求者</span></span><br><span class="line">resp.getWriter().write(json);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    type: <span class="string">&quot;get&quot;</span>,</span><br><span class="line">    <span class="comment">//新建一个名为SearchNameAjaxServlet的servlet,URL如下</span></span><br><span class="line">    url: <span class="string">&quot;searchNameAjax&quot;</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        <span class="comment">//传递的参数</span></span><br><span class="line">        <span class="string">&quot;name&quot;</span>: content,</span><br><span class="line">        <span class="string">&quot;time&quot;</span>: time</span><br><span class="line">    &#125;,<span class="comment">//&quot;info=&quot;+content+&quot;&amp;time=&quot;+time</span></span><br><span class="line">    dataType: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//拼接html</span></span><br><span class="line">        <span class="comment">//var res = data.split(&quot;,&quot;);</span></span><br><span class="line">        <span class="keyword">var</span> html = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">            <span class="comment">//每一个div还有鼠标移出、移入点击事件</span></span><br><span class="line">            html += <span class="string">&quot;&lt;div onmousedown=&#x27;setSearch_onclick(this)&#x27; onmouseout=&#x27;changeBackColor_out(this)&#x27; onmouseover=&#x27;changeBackColor_over(this)&#x27;&gt;&quot;</span></span><br><span class="line">                + data[i].name + <span class="string">&quot;&lt;/div&gt;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).html(html);</span><br><span class="line">        <span class="comment">//显示为块级元素</span></span><br><span class="line">        $(<span class="string">&quot;#context1&quot;</span>).css(<span class="string">&quot;display&quot;</span>, <span class="string">&quot;block&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/04%E5%BA%94%E7%94%A8&%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/11/04%E5%BA%94%E7%94%A8&%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">内存优化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:07:01" itemprop="dateModified" datetime="2020-12-17T13:07:01+08:00">2020-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、应用优化"><a href="#一、应用优化" class="headerlink" title="一、应用优化"></a>一、应用优化</h3><h4 id="1、使用连接池"><a href="#1、使用连接池" class="headerlink" title="1、使用连接池"></a>1、使用连接池</h4><blockquote>
-<p>建立连接的代价的比较昂贵的，因为我们频繁的创建关闭连接，是比较耗费资源</p>
-<p>我们有必要建立数据库连接池，以提高访问的性能。</p>
-</blockquote>
-<h4 id="2、减少对MySql的访问"><a href="#2、减少对MySql的访问" class="headerlink" title="2、减少对MySql的访问"></a>2、减少对MySql的访问</h4><h5 id="2-1-避免数据重复检索"><a href="#2-1-避免数据重复检索" class="headerlink" title="2.1 避免数据重复检索"></a>2.1 避免数据重复检索</h5><blockquote>
-<p>要向数据库提交两次请求，数据库就要做两次查询操作</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select id , name from tb_book;</span><br><span class="line">select id , status from tb_book;</span><br></pre></td></tr></table></figure>
-
-<p>优化后：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id, name , status from tb_book;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="2-2-增加cache层"><a href="#2-2-增加cache层" class="headerlink" title="2.2 增加cache层"></a>2.2 增加cache层</h5><blockquote>
-<p>在应用中，我们可以在应用中增加 <strong>缓存层</strong> 来达到<strong>减轻数据库负担</strong>的目的</p>
-<ul>
-<li>可以部分数据从数据库中抽取出来放到应用端以文本方式存储</li>
-<li>使用框架(Mybatis, Hibernate)提供的一级缓存/二级缓存</li>
-<li>使用redis数据库来缓存数据 </li>
-</ul>
-</blockquote>
-<h4 id="3、负载均衡"><a href="#3、负载均衡" class="headerlink" title="3、负载均衡"></a>3、负载均衡</h4><blockquote>
-<p>利用某种均衡算法，将固定的负载量分布到不同的服务器上， 以此来降低单台服务器的负载，达到优化的效果</p>
-</blockquote>
-<h5 id="3-1-利用MySql复制分流查询"><a href="#3-1-利用MySql复制分流查询" class="headerlink" title="3.1 利用MySql复制分流查询"></a>3.1 利用MySql复制分流查询</h5><blockquote>
-<p>通过MySql的主从复制，实现读写分离，使增删改操作走主节点，查询操作走从节点，从而降低单台服务器的压力</p>
-</blockquote>
-<img src="https://csn.damyoung.cn/1.jpg" style="zoom:80%;" />
-
-<h5 id="3-2-采用分布式数据库架构"><a href="#3-2-采用分布式数据库架构" class="headerlink" title="3.2 采用分布式数据库架构"></a>3.2 采用分布式数据库架构</h5><blockquote>
-<p>分布式数据库架构适合大数据量、负载高的情况，有良好的拓展性和高可用性，通过在多台服务器之间分布数据，可以实现多台服务器间的负载均衡，提高访问效率。</p>
-</blockquote>
-<h3 id="二、查询缓存"><a href="#二、查询缓存" class="headerlink" title="二、查询缓存"></a>二、查询缓存</h3><blockquote>
-<p>开启MySql的查询缓存时，当<strong>执行完全相同</strong>的Sql语句时，服务器就会直接从缓存中读取结果。</p>
-<p>当数据被修改，之前的缓存会失效，<strong>修改比较频繁的表不适合做查询缓存。</strong></p>
-</blockquote>
-<h4 id="1、操作流程"><a href="#1、操作流程" class="headerlink" title="1、操作流程"></a>1、操作流程</h4><img src="https://csn.damyoung.cn/20180919131632347.png" alt="20180919131632347" style="zoom:80%;" />
-
-<blockquote>
-<ul>
-<li>客户端发送一条查询给服务器server；</li>
-<li>服务器先会检查查询缓存，如果命中了缓存，则立即返回存储在缓存中的结果。否则进入下一阶段；</li>
-<li>服务器端进行SQL解析、预处理，再由优化器<code>optimiter</code>生成对应的执行计划；</li>
-<li>MySQL根据优化器生成的执行计划，调用存储引擎的API来执行查询；</li>
-<li>将结果返回给客户端，同时将结果缓存在缓存层中。</li>
-</ul>
-</blockquote>
-<h4 id="2、查询缓存配置"><a href="#2、查询缓存配置" class="headerlink" title="2、查询缓存配置"></a>2、查询缓存配置</h4><blockquote>
-<p>查看是否支持查询缓存</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;have_query_cache&#39;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>查看是否开启了查询缓存</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;query_cache_type&#39;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>查看查询缓存的占用大小</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;query_cache_size&#39;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>查看查询缓存的状态变量</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like &#39;Qcache%&#39;;</span><br></pre></td></tr></table></figure>
-
-<img src="https://csn.damyoung.cn/image-20201021231234834.png" alt="image-20201021231234834" style="zoom:80%;" />
-
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Qcache_free_blocks</td>
-<td>查询缓存中的可用内存块数</td>
-</tr>
-<tr>
-<td>Qcache_free_memory</td>
-<td>查询缓存的可用内存量</td>
-</tr>
-<tr>
-<td>Qcache_hits</td>
-<td>查询缓存命中数</td>
-</tr>
-<tr>
-<td>Qcache_inserts</td>
-<td>添加到查询缓存的查询数</td>
-</tr>
-<tr>
-<td>Qcache_lowmen_prunes</td>
-<td>由于内存不足而从查询缓存中删除的查询数</td>
-</tr>
-<tr>
-<td>Qcache_not_cached</td>
-<td>非缓存查询的数量（由于 query_cache_type 设置而无法缓存或未缓存）</td>
-</tr>
-<tr>
-<td>Qcache_queries_in_cache</td>
-<td>查询缓存中注册的查询数</td>
-</tr>
-<tr>
-<td>Qcache_total_blocks</td>
-<td>查询缓存中的块总数</td>
-</tr>
-</tbody></table>
-<h4 id="3、开启查询缓存"><a href="#3、开启查询缓存" class="headerlink" title="3、开启查询缓存"></a>3、开启查询缓存</h4><table>
-<thead>
-<tr>
-<th>值</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>OFF 或 0</td>
-<td>查询缓存功能关闭</td>
-</tr>
-<tr>
-<td>ON 或 1</td>
-<td>查询缓存功能打开，SELECT的结果符合缓存条件即会缓存，否则，不予缓存，显式指定 SQL_NO_CACHE，不予缓存</td>
-</tr>
-<tr>
-<td>DEMAND 或 2</td>
-<td>查询缓存功能按需进行，显式指定 <strong>sql_cache</strong> 的SELECT语句才会缓存；其它均不予缓存</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>在/etc/my.cnf配置中，增加配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query_cache_type&#x3D;1;</span><br></pre></td></tr></table></figure>
-
-<img src="https://csn.damyoung.cn/image-20201021234236344.png" alt="image-20201021234236344" style="zoom:80%;" />
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart mysql.service;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<img src="https://csn.damyoung.cn/image-20201021234210231.png" alt="image-20201021234210231" style="zoom:80%;" />
-
-
-
-<h4 id="4、查询缓存select选项"><a href="#4、查询缓存select选项" class="headerlink" title="4、查询缓存select选项"></a>4、查询缓存select选项</h4><blockquote>
-<ul>
-<li><p>sql_cache：如果查询结果是可缓存的，并且 query_cache_type 系统变量的值为ON或 DEMAND ，则缓存查询结果 。</p>
-</li>
-<li><p>sql_no_cache：服务器不使用查询缓存。它既不检查查询缓存，也不检查结果是否已缓存，也不缓存查询结果。</p>
-</li>
-</ul>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select sql_cache username from tb_user_1 where id&#x3D;1;</span><br><span class="line">SELECT SQL_NO_CACHE id, name FROM customer;</span><br></pre></td></tr></table></figure>
-
-<img src="https://csn.damyoung.cn/image-20201021235706488.png" alt="image-20201021235706488" style="zoom:80%;" />
-
-<img src="https://csn.damyoung.cn/image-20201021235401748.png" alt="image-20201021235401748" style="zoom:80%;" />
-
-
-
-<h4 id="5、缓存失效"><a href="#5、缓存失效" class="headerlink" title="5、缓存失效"></a>5、缓存失效</h4><blockquote>
-<p>要想命中缓存，<strong>sql语句必须完全相同</strong></p>
-</blockquote>
-<h5 id="5-1-存在不确定"><a href="#5-1-存在不确定" class="headerlink" title="5.1 存在不确定"></a>5.1 存在不确定</h5><blockquote>
-<p>查询语句中有一些不确定函数时，则不会缓存。</p>
-<p>如 now() , current_date() , curdate() , curtime() , rand() , uuid() , user() , database() 。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL1 : select * from tb_item where updatetime &lt; now() limit 1;</span><br><span class="line">SQL2 : select user();</span><br><span class="line">SQL3 : select database();</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://csn.damyoung.cn/image-20201022000250422.png" alt="image-20201022000250422"></p>
-<h5 id="5-2-不使用任何表查询"><a href="#5-2-不使用任何表查询" class="headerlink" title="5.2 不使用任何表查询"></a>5.2 不使用任何表查询</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &#39;a&#39;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="5-3-查询系统表"><a href="#5-3-查询系统表" class="headerlink" title="5.3 查询系统表"></a>5.3 查询系统表</h5><blockquote>
-<p>查询 mysql， information_schema或  performance_schema 数据库中的表时，不会走查询缓存。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from information_schema.engines;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>在<strong>存储函数，触发器或事件</strong>的主体内执行的查询。</p>
-</blockquote>
-<blockquote>
-<p>如果<strong>表更改</strong>，则使用该表的所有高速缓存查询都将变为无效并从高速缓存中删除。</p>
-<ul>
-<li>用<code>MERGE</code>映射到已更改表的表的查询。</li>
-<li>一个表可以被许多类型的语句，如被改变 insert， update， delete， truncate table，alter table，drop table 或 drop database; </li>
-</ul>
-</blockquote>
-<h3 id="三、MySql内存管理及优化"><a href="#三、MySql内存管理及优化" class="headerlink" title="三、MySql内存管理及优化"></a>三、MySql内存管理及优化</h3><h4 id="1、内存优化原则"><a href="#1、内存优化原则" class="headerlink" title="1、内存优化原则"></a>1、内存优化原则</h4><blockquote>
-<ul>
-<li> 将尽量多的内存分配给MySQL做缓存，但要给操作系统和其他程序预留足够内存</li>
-<li><code>MyISAM</code> 存储引擎的数据文件读取<strong>依赖于操作系统自身的IO缓存</strong>，因此，如果有<code>MyISAM</code>表，就要预留更多的内存给操作系统做IO缓存</li>
-<li> <strong>排序区、连接区</strong>等缓存是分配给每个数据库会话（session）专用的，<strong>其默认值的设置要根据最大连接数合理分配</strong>，如果设置太大，不但浪费资源，而且在并发连接较高时会导致物理内存耗尽</li>
-</ul>
-</blockquote>
-<h4 id="2、MyISAM内存优化"><a href="#2、MyISAM内存优化" class="headerlink" title="2、MyISAM内存优化"></a>2、MyISAM内存优化</h4><blockquote>
-<ul>
-<li><p>myisam存储引擎使用 key_buffer 缓存<strong>索引块</strong>，加速myisam索引的读写速度。</p>
-</li>
-<li><p>对于myisam表的<strong>数据块</strong>，mysql没有特别的缓存机制，完全依赖于操作系统的IO缓存。</p>
-</li>
-</ul>
-</blockquote>
-<p><strong>key_buffer_size</strong></p>
-<blockquote>
-<p>key_buffer_size决定MyISAM<strong>索引块缓存区</strong>的大小，直接影响到MyISAM表的存取效率。</p>
-<p>在MySQL参数文件(<code>/usr/my.cnf</code>)中设置key_buffer_size的值，对于一般MyISAM数据库，建议至少将1/4可用内存分配给key_buffer_size。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key_buffer_size&#x3D;512M</span><br></pre></td></tr></table></figure>
-
-<img src="https://csn.damyoung.cn/image-20201022001306901.png" alt="image-20201022001306901" style="zoom:80%;" />
-
-<p><strong>read_buffer_size</strong></p>
-<blockquote>
-<p>如果需要经常<strong>顺序扫描</strong>myisam表，可以通过增大read_buffer_size的值来改善性能。</p>
-<p>但需要注意的是read_buffer_size是<strong>每个session独占</strong>的，如果默认值设置太大，就会造成内存浪费</p>
-</blockquote>
-<p><strong>read_rnd_buffer_size</strong></p>
-<blockquote>
-<p>对于需要做排序的myisam表的查询，如带有<strong>order by</strong>子句的sql，适当增加 read_rnd_buffer_size 的值，可以改善此类的sql性能。</p>
-<p>但需要注意的是 read_rnd_buffer_size 是<strong>每个session独占</strong>的，如果默认值设置太大，就会造成内存浪费。</p>
-</blockquote>
-<h4 id="3、InnoDB内存优化"><a href="#3、InnoDB内存优化" class="headerlink" title="3、InnoDB内存优化"></a>3、InnoDB内存优化</h4><blockquote>
-<p>innodb用<strong>一块内存区做IO缓存池</strong></p>
-<p>该缓存池不仅用来缓存innodb的索引块，而且也用来缓存innodb的数据块。</p>
-</blockquote>
-<p><strong>innodb_buffer_pool_size</strong></p>
-<blockquote>
-<p>决定了 innodb 存储引擎<strong>表数据</strong>和<strong>索引数据</strong>的最大缓存区大小</p>
-<p>在保证操作系统及其他程序有足够内存可用的情况下，innodb_buffer_pool_size 的值越大，<strong>缓存命中率越高，访问InnoDB表需要的磁盘I/O 就越少，性能也就越高。</strong></p>
-</blockquote>
-<p><strong>innodb_log_buffer_size</strong></p>
-<blockquote>
-<p>决定了innodb重做<strong>日志缓存</strong>的大小，对于可能产生大量更新记录的大事务，增加innodb_log_buffer_size的大小，可以避免innodb在事务提交前就执行不必要的日志写入磁盘操作。</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2124,7 +1891,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2177,12 +1944,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">840k</span>
+    <span title="站点总字数">955k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">12:43</span>
+    <span title="站点阅读时长">14:28</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>
