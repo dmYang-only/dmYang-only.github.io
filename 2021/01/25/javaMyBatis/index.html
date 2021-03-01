@@ -55,7 +55,7 @@
 <meta property="og:image" content="http://qiniu.xiaoming.net.cn/myBatis%20setting%E8%8A%82%E7%82%B9%E5%86%85%E5%AE%B9.jpg">
 <meta property="og:image" content="http://qiniu.xiaoming.net.cn/MyBatis%E5%AE%9E%E7%8E%B0%E5%A5%BD%E7%9A%84%20TypeHandler.jpg">
 <meta property="article:published_time" content="2021-01-25T03:31:09.000Z">
-<meta property="article:modified_time" content="2021-01-25T03:37:07.096Z">
+<meta property="article:modified_time" content="2021-02-25T12:05:55.020Z">
 <meta property="article:author" content="dmYang">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -241,10 +241,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-01-25 11:31:09 / 修改时间：11:37:07" itemprop="dateCreated datePublished" datetime="2021-01-25T11:31:09+08:00">2021-01-25</time>
+              <time title="创建时间：2021-01-25 11:31:09" itemprop="dateCreated datePublished" datetime="2021-01-25T11:31:09+08:00">2021-01-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-25 20:05:55" itemprop="dateModified" datetime="2021-02-25T20:05:55+08:00">2021-02-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -342,7 +348,7 @@
 <h3 id="Binding-模块"><a href="#Binding-模块" class="headerlink" title="Binding 模块"></a>Binding 模块</h3><p>在调用 SqlSession 相应方法执行数据库操作时，需要制定映射文件中定义的 SQL 节点，如果 SQL 中出现了拼写错误，那就只能在运行时才能发现。为了能尽早发现这种错误，Mybatis 通过 Binding 模块将用户自定义的 Mapper 接口与映射文件关联起来，系统可以通过调用自定义 Mapper 接口中的方法执行相应的 SQL 语句完成数据库操作，从而避免上述问题。注意，在开发中，我们只是创建了 Mapper 接口，而并没有编写实现类，这是因为 Mybatis 自动为 Mapper 接口创建了动态代理对象。</p>
 <h1 id="3-Mybatis核心组件-Mybatis中SQL语句执行过程"><a href="#3-Mybatis核心组件-Mybatis中SQL语句执行过程" class="headerlink" title="3. Mybatis核心组件(Mybatis中SQL语句执行过程)"></a>3. Mybatis核心组件(Mybatis中SQL语句执行过程)</h1><p>这些组件实现了从 SQL 语句到映射到 JDBC 再到数据库字段之间的转换，执行 SQL 语句并输出结果集。</p>
 <h2 id="SqlSessionFactory"><a href="#SqlSessionFactory" class="headerlink" title="SqlSessionFactory"></a>SqlSessionFactory</h2><p>对于任何框架而言，在使用该框架之前都要经历过一系列的初始化流程，MyBatis 也不例外。MyBatis 的初始化流程如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String resource &#x3D; &quot;org&#x2F;mybatis&#x2F;example&#x2F;mybatis-config.xml&quot;;</span><br><span class="line">InputStream inputStream &#x3D; Resources.getResourceAsStream(resource);</span><br><span class="line">SqlSessionFactory sqlSessionFactory &#x3D; new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">sqlSessionFactory.openSession();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String resource = <span class="string">&quot;org/mybatis/example/mybatis-config.xml&quot;</span>;</span><br><span class="line">InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">SqlSessionFactory sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">sqlSessionFactory.openSession();</span><br></pre></td></tr></table></figure>
 
 <p>上述流程中比较重要的一个对象就是 <code>SqlSessionFactory</code>，<code>SqlSessionFactory</code> 是 MyBatis 框架中的一个接口，它主要负责的是</p>
 <ul>
@@ -429,11 +435,11 @@
 <blockquote>
 <p>这里注意一下，<code>SimpleStatementHandler</code> 和 <code>PreparedStatementHandler</code> 的区别是 SQL 语句是否包含变量，是否通过外部进行参数传入。<code>SimpleStatementHandler</code> 用于执行没有任何参数传入的 SQL,<code>PreparedStatementHandler</code> 需要对外部传入的变量和参数进行提前参数绑定和赋值。</p>
 </blockquote>
-<h3 id="StatementHandler-的创建和源码分析"><a href="#StatementHandler-的创建和源码分析" class="headerlink" title="StatementHandler 的创建和源码分析"></a>StatementHandler 的创建和源码分析</h3><p>继续来分析上面 query 的调用链路，StatementHandler 的创建过程如下:</p>
+<h3 id="StatementHandler-的创建和源码分析"><a href="#StatementHandler-的创建和源码分析" class="headerlink" title="StatementHandler 的创建和源码分析"></a>StatementHandler 的创建和源码分析</h3><p>继续来分析上面 query 的调用链路，<code>StatementHandler</code> 的创建过程如下:</p>
 <p><img src="http://qiniu.xiaoming.net.cn/StatementHandler%20%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90.jpg" alt="StatementHandler 的创建和源码分析"></p>
-<p>MyBatis 会根据 SQL 语句的类型进行对应 StatementHandler 的创建。以预处理 StatementHandler 为例，创建过程如下：</p>
+<p>MyBatis 会根据 SQL 语句的类型进行对应 <code>StatementHandler</code> 的创建。以预处理 StatementHandler 为例，创建过程如下：</p>
 <p><img src="http://qiniu.xiaoming.net.cn/PreparedStatementHandler%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B.jpg" alt="PrepareStatementHandler创建过程"></p>
-<p>执行器不仅掌管着 StatementHandler 的创建，还掌管着创建 Statement 对象，设置参数等，在创建完 PreparedStatement 之后，就需要对参数进行处理了。</p>
+<p>执行器不仅掌管着 <code>StatementHandler</code> 的创建，还掌管着创建 <code>Statement</code> 对象，设置参数等，在创建完 <code>PreparedStatement</code> 之后，就需要对参数进行处理了。</p>
 <p>综上，sql语句的执行流程如下：</p>
 <p><img src="http://qiniu.xiaoming.net.cn/%E4%BB%8Eexecutor%E5%88%B0handler%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg" alt="从executor到handler执行流程"></p>
 <h2 id="ParameterHandler"><a href="#ParameterHandler" class="headerlink" title="ParameterHandler"></a>ParameterHandler</h2><h3 id="ParameterHandler-介绍"><a href="#ParameterHandler-介绍" class="headerlink" title="ParameterHandler 介绍"></a>ParameterHandler 介绍</h3><p><code>ParameterHandler</code> 相比于其他的组件就简单很多了，<code>ParameterHandler</code> 译为参数处理器，负责为 <code>PreparedStatement</code> 的 sql 语句参数动态赋值，这个接口很简单只有两个方法:</p>
@@ -455,8 +461,7 @@
 <p>上面又引出来了一个重要的组件那就是 <code>ResultSetHandler</code>。</p>
 <h2 id="ResultSetHandler"><a href="#ResultSetHandler" class="headerlink" title="ResultSetHandler"></a>ResultSetHandler</h2><h3 id="ResultSetHandler-简介"><a href="#ResultSetHandler-简介" class="headerlink" title="ResultSetHandler 简介"></a>ResultSetHandler 简介</h3><p><code>ResultSetHandler</code> 也是一个非常简单的接口:</p>
 <p><img src="http://qiniu.xiaoming.net.cn/ResultHandler%E6%8E%A5%E5%8F%A3.jpg" alt="ResultHandler接口"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ResultSetHandler&#96; 是一个接口，它只有一个默认的实现类，像是 &#96;ParameterHandler&#96; 一样，它的默认实现类是 &#96;DefaultResultSetHandler</span><br></pre></td></tr></table></figure>
-
+<p><code>ResultSetHandler</code> 是一个接口，它只有一个默认的实现类，像是 <code>ParameterHandler</code> 一样，它的默认实现类是 <code>DefaultResultSetHandler</code></p>
 <h3 id="ResultSetHandler-解析过程"><a href="#ResultSetHandler-解析过程" class="headerlink" title="ResultSetHandler 解析过程"></a>ResultSetHandler 解析过程</h3><p>MyBatis 只有一个默认的实现类就是 <code>DefaultResultSetHandler</code>，<code>DefaultResultSetHandler</code> 主要负责处理两件事:</p>
 <ul>
 <li>处理 Statement 执行后产生的结果集，生成结果列表</li>
@@ -713,8 +718,7 @@
 </ol>
 <h2 id="第二种：Mapper动态代理开发（不用自己写Dao实现类）"><a href="#第二种：Mapper动态代理开发（不用自己写Dao实现类）" class="headerlink" title="第二种：Mapper动态代理开发（不用自己写Dao实现类）"></a>第二种：Mapper动态代理开发（不用自己写Dao实现类）</h2><ol>
 <li><p>使用 <code>org.mybatis.spring.mapper.MapperFactoryBean</code> ：在 <code>sqlMapConfig.xml</code> 中配置 <code>mapper.xml</code> 的位置，如果 <code>mapper.xml</code> 和 <code>mapper</code> 接口的名称相同且在同一个目录，这里可以不用配置</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;mapper.xml 文件的地址&quot;</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;mapper.xml 文件的地址&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;mapper.xml 文件的地址&quot;</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;mapper.xml 文件的地址&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 <li><p>定义 mapper 接口：</p>
 </li>
 </ol>
@@ -723,8 +727,8 @@
 </li>
 <li><p>mapper 接口中的方法名和 mapper.xml 中的定义的 statement 的 id 保持一致</p>
 </li>
-<li><p>Spring 中定义</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;sqlSessionFactory&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;sqlSessionFactoryBean&quot;</span>/&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 此处关联到dao层接口 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;mapperInterface&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.xm.dao.UserDao&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li><p>Spring 中定义xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;userDao&quot; class&#x3D;&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;sqlSessionFactory&quot; ref&#x3D;&quot;sqlSessionFactoryBean&quot;&#x2F;&gt;</span><br><span class="line">	&lt;!-- 此处关联到dao层接口 --&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;mapperInterface&quot; value&#x3D;&quot;com.xm.dao.UserDao&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -868,13 +872,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -914,12 +918,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">955k</span>
+    <span title="站点总字数">972k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14:28</span>
+    <span title="站点阅读时长">14:43</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>

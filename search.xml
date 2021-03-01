@@ -10245,57 +10245,36 @@
       </tags>
   </entry>
   <entry>
-    <title>redis</title>
-    <url>/2020/10/17/Redis/</url>
-    <content><![CDATA[<h1 id="1、非关系型数据库"><a href="#1、非关系型数据库" class="headerlink" title="1、非关系型数据库"></a>1、非关系型数据库</h1><p>NoSql：Not-only SQL(泛指非关系型数据库)，作为关系型数据库的补充</p>
-<ul>
-<li><p>redis</p>
-</li>
-<li><p>MongoDB: Bson格式</p>
-</li>
-</ul>
-<p>作用：应对基于海量用户和海量数据前提下的数据处理问题</p>
-<p>特征</p>
-<ul>
-<li>可扩容，可伸缩</li>
-<li>大数据量下高性能</li>
-<li>灵活的数据模型</li>
-<li>高可用</li>
-</ul>
-<img src="https://csn.damyoung.cn/image-20201027195426479.png" alt="image-20201027195426479" style="zoom:80%;" />
-
-<h1 id="2、Redis数据类型"><a href="#2、Redis数据类型" class="headerlink" title="2、Redis数据类型"></a>2、Redis数据类型</h1><p>Redis提供了<code>String</code>,<code>Hash</code>,<code>List</code>,<code>Set</code>,<code>Zset</code>五种数据类型</p>
+    <title>Redis</title>
+    <url>/2021/02/27/Redis/</url>
+    <content><![CDATA[<h1 id="数据库Redis"><a href="#数据库Redis" class="headerlink" title="数据库Redis"></a>数据库Redis</h1><p> 发表于 2019-10-11  更新于 2020-12-01  阅读次数： 146<br> 本文字数： 42k  阅读时长 ≈ 38 分钟</p>
+<h1 id="1-Redis数据类型"><a href="#1-Redis数据类型" class="headerlink" title="1. Redis数据类型"></a>1. Redis数据类型</h1><p>Redis提供了<code>String</code>,<code>Hash</code>,<code>List</code>,<code>Set</code>,<code>Zset</code>五种数据类型。</p>
 <h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p><code>String</code>数据结构是最简单的<code>key-value</code>类型，<code>value</code>不仅可以是<code>String</code>,也可以是数字，包括整数，浮点数和二进制数。</p>
+<p><code>string</code> 数据结构是简单的 <code>key-value</code> 类型。虽然 Redis 是用 C 语言写的，但是 Redis 并没有使用 C 的字符串表示，而是自己构建了一种 <strong>简单动态字符串</strong>（simple dynamic string，<strong>SDS</strong>）。相比于 C 的原生字符串，Redis 的 SDS 不光可以保存文本数据还可以保存二进制数据，并且获取字符串长度复杂度为 <code>O(1)</code>（C 字符串为 <code>O(N)</code>）,除此之外，Redis 的 SDS API 是安全的，不会造成缓冲区溢出。</p>
 <p>主要的应用有：缓存，计数（比如用户的访问次数、热点文章的点赞转发数量等等），共享<code>session</code>和限速。</p>
+<a id="more"></a>
+
 <p>内部编码主要有：</p>
 <ul>
 <li><code>int</code>:8个字节的长整型</li>
 <li><code>embstr</code>:小于等于39个字节的字符串</li>
-<li><code>raw</code>:大于39个字节的字符</li>
+<li><code>raw</code>:大于39个字节的字符串</li>
 </ul>
-<h3 id="各个指令的时间复杂度"><a href="#各个指令的时间复杂度" class="headerlink" title="各个指令的时间复杂度"></a>各个指令的时间复杂度</h3><h4 id="单数据操作O-1"><a href="#单数据操作O-1" class="headerlink" title="单数据操作O(1)"></a>单数据操作O(1)</h4><ul>
-<li><strong>set</strong>：为一个 key 设置 value，可以配合 EX/PX 参数指定 key 的有效期，通过 NX/XX 参数针对 key 是否存在的情况进行区别操作，时间复杂度 <code>O(1)</code></li>
-<li><strong>get</strong>：获取某个 key 对应的 value，时间复杂度 <code>O(1)</code></li>
-<li><strong>getset</strong>：为一个 key 设置 value，并返回该 key 的<strong>原 value</strong>，时间复杂度 <code>O(1)</code></li>
+<h3 id="各个指令的时间复杂度"><a href="#各个指令的时间复杂度" class="headerlink" title="各个指令的时间复杂度"></a>各个指令的时间复杂度</h3><ul>
+<li><strong>SET</strong>：为一个 key 设置 value，可以配合 EX/PX 参数指定 key 的有效期，通过 NX/XX 参数针对 key 是否存在的情况进行区别操作，时间复杂度 <code>O(1)</code></li>
+<li><strong>GET</strong>：获取某个 key 对应的 value，时间复杂度 <code>O(1)</code></li>
+<li><strong>GETSET</strong>：为一个 key 设置 value，并返回该 key 的原 value，时间复杂度 <code>O(1)</code></li>
+<li><strong>MSET</strong>：为多个 key 设置 value，时间复杂度 <code>O(N)</code></li>
+<li><strong>MSETNX</strong>：同 MSET，如果指定的 key 中有任意一个已存在，则不进行任何操作，时间复杂度 <code>O(N)</code></li>
+<li><strong>MGET</strong>：获取多个 key 对应的 value，时间复杂度 <code>O(N)</code></li>
+<li><strong>INCR</strong>：将 key 对应的 value 值自增1，并返回自增后的值。只对可以转换为整型的 String 数据起作用。时间复杂度 <code>O(1)</code></li>
+<li><strong>INCRBY</strong>：将 key 对应的 value 值自增指定的整型数值，并返回自增后的值。只对可以转换为整型的 String 数据起作用。时间复杂度 <code>O(1)</code></li>
+<li><strong>DECR/DECRBY</strong>：同 INCR/INCRBY，自增改为自减。</li>
 </ul>
-<h4 id="多数据操作O-N"><a href="#多数据操作O-N" class="headerlink" title="多数据操作O(N)"></a>多数据操作O(N)</h4><ul>
-<li><strong>mset</strong>：为多个 key 设置 value，时间复杂度 <code>O(N)</code></li>
-<li><strong>msetnx</strong>：同 MSET，如果指定的 key 中有任意一个已存在，则不进行任何操作，时间复杂度 <code>O(N)</code></li>
-<li><strong>mget</strong>：获取多个 key 对应的 value，时间复杂度 <code>O(N)</code></li>
-</ul>
-<h4 id="自增-减O-1"><a href="#自增-减O-1" class="headerlink" title="自增/减O(1)"></a>自增/减O(1)</h4><ul>
-<li><strong>incr</strong>：将 key 对应的 value 值自增1，并返回自增后的值。只对可以<strong>转换为整型</strong>的 String 数据起作用。时间复杂度 <code>O(1)</code></li>
-<li><strong>incrby</strong>：将 key 对应的 value 值自增指定的整型数值，并返回自增后的值。只对可以转换为整型的 String 数据起作用。时间复杂度 <code>O(1)</code></li>
-<li><strong>decr/decrby</strong>：同 INCR/INCRBY，自增改为自减。</li>
-</ul>
-<a id="more"></a>
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><p><code>Hash</code>是一个<code>string</code>类型的<code>field</code>和<code>value</code>的映射表，<code>hash</code>特别适合用于存储对象，后续操作的时候，可以直接仅仅修改这个对象某个字段的值。比如可以用<code>hash</code>数据结构来存储用户信息，商品信息等。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">key &#x3D; JavaUser</span><br><span class="line">value &#x3D; &#123;</span><br><span class="line">    &quot;id&quot;:1,</span><br><span class="line">    &quot;name&quot;:&quot;xiaoming&quot;,</span><br><span class="line">    &quot;age&quot;: 22,</span><br><span class="line">    &quot;location&quot;: &quot;GuangDong,Jieyang&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><p><code>Hash</code>是一个<code>string</code>类型的<code>field</code>和<code>value</code>的映射表，<code>hash</code>特别适合用于<strong>存储对象</strong>，后续操作的时候，可以直接仅仅修改这个对象某个字段的值。比如可以用<code>hash</code>数据结构来存储用户信息，商品信息等</p>
-<img src="https://csn.damyoung.cn/image-20201027234850342.png" alt="image-20201027234850342" style="zoom:80%;" />
-
-<p>应用：电商网站购物车</p>
-<img src="https://csn.damyoung.cn/image-20201030165358794.png" alt="image-20201030165358794" style="zoom:80%;" />
-
+<p>主要应用有：将关系型数据库每一行数据存储为一个哈希键</p>
 <p>内部编码主要：</p>
 <ul>
 <li><code>ziplist</code>(<strong>压缩列表</strong>)：当哈希类型元素个数小于<code>hash-max-ziplist-entries</code>配置（默认512个字节），同时所有值小于<code>hash-max-ziplist-value</code>配置（默认64个字节）时，使用<code>ziplist</code>作为内部实现，<code>ziplist</code>使用更加紧凑的结构实现多个元素的连续存储，在节省内存方面更加优秀</li>
@@ -10303,84 +10282,70 @@
 </ul>
 <h3 id="各个指令的时间复杂度-1"><a href="#各个指令的时间复杂度-1" class="headerlink" title="各个指令的时间复杂度"></a>各个指令的时间复杂度</h3><p>与 Hash 相关的常用命令：</p>
 <ul>
-<li><strong>hset</strong>：将 key 对应的 Hash 中的 field 设置为 value。如果该 Hash 不存在，会自动创建一个。时间复杂度 <code>O(1)</code></li>
-<li><strong>hget</strong>：返回指定 Hash 中 field 字段的值，时间复杂度 <code>O(1)</code></li>
-<li><strong>hsetnx</strong>：同 HSET，但如 field 已经存在，HSETNX 不会进行任何操作，时间复杂度 <code>O(1)</code></li>
-<li><strong>hexists</strong>：判断指定Hash中 field 是否存在，存在返回1，不存在返回0，时间复杂度 <code>O(1)</code></li>
+<li><strong>HSET</strong>：将 key 对应的 Hash 中的 field 设置为 value。如果该 Hash 不存在，会自动创建一个。时间复杂度 <code>O(1)</code></li>
+<li><strong>HGET</strong>：返回指定 Hash 中 field 字段的值，时间复杂度 <code>O(1)</code></li>
 <li><strong>HMSET/HMGET</strong>：同 HSET 和 HGET，可以批量操作同一个 key 下的多个 field，时间复杂度：<code>O(N)</code>，N为一次操作的 field 数量</li>
-<li><strong>hdel</strong>：删除指定 Hash 中的 field（1个或多个），时间复杂度：<code>O(N)</code>，N 为操作的 field 数量</li>
-<li><strong>hincrby</strong>：同 INCRBY 命令，对指定 Hash 中的一个 field 进行 INCRBY，时间复杂度 <code>O(1)</code></li>
+<li><strong>HSETNX</strong>：同 HSET，但如 field 已经存在，HSETNX 不会进行任何操作，时间复杂度 <code>O(1)</code></li>
+<li><strong>HEXISTS</strong>：判断指定Hash中 field 是否存在，存在返回1，不存在返回0，时间复杂度 <code>O(1)</code></li>
+<li><strong>HDEL</strong>：删除指定 Hash 中的 field（1个或多个），时间复杂度：<code>O(N)</code>，N 为操作的 field 数量</li>
+<li><strong>HINCRBY</strong>：同 INCRBY 命令，对指定 Hash 中的一个 field 进行 INCRBY，时间复杂度 <code>O(1)</code></li>
 </ul>
 <p>应谨慎使用的Hash相关命令：</p>
 <ul>
-<li><strong>hgetall</strong>：返回指定 Hash 中所有的 field-value 对。返回结果为数组，数组中 field 和 value 交替出现。时间复杂度 <code>O(N)</code></li>
-<li><strong>hkeys/hvals</strong>：返回指定 Hash 中所有的 field/value，时间复杂度 <code>O(N)</code></li>
+<li><strong>HGETALL</strong>：返回指定 Hash 中所有的 field-value 对。返回结果为数组，数组中 field 和 value 交替出现。时间复杂度 <code>O(N)</code></li>
+<li><strong>HKEYS/HVALS</strong>：返回指定 Hash 中所有的 field/value，时间复杂度 <code>O(N)</code></li>
 </ul>
 <p>上述三个命令都会对 Hash 进行完整遍历，Hash中的 field 数量与命令的耗时线性相关，对于尺寸不可预知的 Hash，应严格避免使用上面三个命令，而改为使用 HSCAN 命令进行游标式的遍历</p>
 <h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p><code>list</code>就是链表，Redis中<code>list</code>的应用场景非常多，也是Redis最重要的数据结构之一</p>
 <p><code>list</code>的实现是一个双向链表，既可以支持反向查找和遍历，更方便操作，不过带来了部分额外的内存开销。</p>
-<p>应用：应用于最新消息展示，消息队列</p>
-<ul>
-<li>依赖list数据具有顺序的特征对信息进行管理</li>
-<li>使用队列模型解决多路信息汇总合并的问题</li>
-<li>使用栈模型解决最新消息的问题</li>
-</ul>
+<p>另外可以通过<code>lrange</code>，就是从某个元素开始读取多少个元素，可以基于<code>list</code>实现分页查询，基于 redis实现简单的高性能分页，可以做类似微博那种下拉不断分页的东西（一页一页的往下走），性能高。</p>
+<p>主要的应用有：栈、队列，消息队列（抢购），文章列表等</p>
 <p>内部编码有：</p>
 <ul>
 <li><code>ziplist</code>(<strong>压缩列表</strong>)：当哈希类型元素个数小于<code>list-max-ziplist-entries</code>配置（默认512），同时所有值小于<code>list-max-ziplist-value</code>配置（默认64）时，使用<code>ziplist</code>作为内部实现，<code>ziplist</code>使用更加紧凑的结构实现多个元素的连续存储，在节省内存方面更加优秀</li>
 <li><code>linkedlist</code>(<strong>链表</strong>)：当列表类型无法满足<code>ziplist</code>条件时，使用链表作为内部实现</li>
 </ul>
 <h3 id="各个指令的时间复杂度-2"><a href="#各个指令的时间复杂度-2" class="headerlink" title="各个指令的时间复杂度"></a>各个指令的时间复杂度</h3><ul>
-<li><strong>lpush</strong>：向指定 List 的左侧（即头部）插入 1 个或多个元素，<strong>返回插入后的 List 长度</strong>。时间复杂度 <code>O(N)</code>，N 为插入元素的数量</li>
-<li><strong>rpush</strong>：同 LPUSH，向指定 List 的右侧（即尾部）插入 1 或多个元素</li>
-<li><strong>lpop</strong>：从指定 List 的左侧（即头部）移除一个元素并返回，时间复杂度 <code>O(1)</code></li>
-<li><strong>rpop</strong>：同 LPOP，从指定 List 的右侧（即尾部）移除 1 个元素并返回</li>
-<li><strong>lpushx/rpushx</strong>：与 LPUSH/RPUSH 类似，区别在于，LPUSHX/RPUSHX 操作的 key 如果不存在，则不会进行任何操作</li>
-<li><strong>llen</strong>：返回指定 List 的长度，时间复杂度 <code>O(1)</code></li>
-<li><strong>lrange</strong>：返回指定 List 中指定范围的元素（双端包含，即 <code>LRANGE key 0 10</code> 会返回 11 个元素），时间复杂度 <code>O(N)</code>。应尽可能控制一次获取的元素数量，一次获取过大范围的 List 元素会导致延迟，同时对长度不可预知的 List，避免使用 <code>LRANGE key 0 -1</code> 这样的完整遍历操作。</li>
+<li><strong>LPUSH</strong>：向指定 List 的左侧（即头部）插入 1 个或多个元素，返回插入后的 List 长度。时间复杂度 <code>O(N)</code>，N 为插入元素的数量</li>
+<li><strong>RPUSH</strong>：同 LPUSH，向指定 List 的右侧（即尾部）插入 1 或多个元素</li>
+<li><strong>LPOP</strong>：从指定 List 的左侧（即头部）移除一个元素并返回，时间复杂度 <code>O(1)</code></li>
+<li><strong>RPOP</strong>：同 LPOP，从指定 List 的右侧（即尾部）移除 1 个元素并返回</li>
+<li><strong>LPUSHX/RPUSHX</strong>：与 LPUSH/RPUSH 类似，区别在于，LPUSHX/RPUSHX 操作的 key 如果不存在，则不会进行任何操作</li>
+<li><strong>LLEN</strong>：返回指定 List 的长度，时间复杂度 <code>O(1)</code></li>
+<li><strong>LRANGE</strong>：返回指定 List 中指定范围的元素（双端包含，即 <code>LRANGE key 0 10</code> 会返回 11 个元素），时间复杂度 <code>O(N)</code>。应尽可能控制一次获取的元素数量，一次获取过大范围的 List 元素会导致延迟，同时对长度不可预知的 List，避免使用 <code>LRANGE key 0 -1</code> 这样的完整遍历操作。</li>
 </ul>
 <p>应谨慎使用的List相关命令：</p>
 <ul>
-<li><strong>lindex</strong>：返回指定 List <strong>指定 index</strong> 上的元素，如果 index 越界，返回nil。index 数值是回环的，即 -1 代表 List 最后一个位置，-2 代表 List 倒数第二个位置。时间复杂度 <code>O(N)</code></li>
-<li><strong>lset</strong>：将指定 List <strong>指定 index</strong> 上的元素设置为 value，如果 index 越界则返回错误，时间复杂度 <code>O(N)</code>，如果操作的是头/尾部的元素，则时间复杂度为 <code>O(1)</code></li>
-<li><strong>linsert</strong>：向指定 List 中指定元素之前/之后插入一个新元素，并返回操作后的 List 长度。如果指定的元素不存在，返回 -1。如果指定 key 不存在，不会进行任何操作，时间复杂度 <code>O(N)</code></li>
+<li><strong>LINDEX</strong>：返回指定 List 指定 index 上的元素，如果 index 越界，返回nil。index 数值是回环的，即 -1 代表 List 最后一个位置，-2 代表 List 倒数第二个位置。时间复杂度 <code>O(N)</code></li>
+<li><strong>LSET</strong>：将指定 List 指定 index 上的元素设置为 value，如果 index 越界则返回错误，时间复杂度 <code>O(N)</code>，如果操作的是头/尾部的元素，则时间复杂度为 <code>O(1)</code></li>
+<li><strong>LINSERT</strong>：向指定 List 中指定元素之前/之后插入一个新元素，并返回操作后的 List 长度。如果指定的元素不存在，返回 -1。如果指定 key 不存在，不会进行任何操作，时间复杂度 <code>O(N)</code></li>
 </ul>
-<p>由于 Redis 的 List 是链表结构的，上述的三个命令的算法效率较低，<strong>需要对 List 进行遍历</strong>，命令的耗时无法预估，在 List 长度大的情况下耗时会明显增加，应谨慎使用。</p>
-<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><blockquote>
-<p>存储大量数据，高效的查询效率，并且值不允许重复</p>
-</blockquote>
-<p>集合（<code>set</code>）可以保存多个字符串元素，但是不允许有重复元素，并且集合中的元素是无序的，一个集合最多可以存储<code>2^32-1</code>个元素，集合可以进行内部的增删改查和多个集合取交集，并集，差集。</p>
-<p>主要的应用有：标签，生成随机数（抽奖）, 应用于随机推荐类信息检索，如热点新闻推荐等</p>
-<p>​                            社交需求（共同好友，粉丝等等）</p>
-<p>​                  </p>
+<p>由于 Redis 的 List 是链表结构的，上述的三个命令的算法效率较低，需要对 List 进行遍历，命令的耗时无法预估，在 List 长度大的情况下耗时会明显增加，应谨慎使用。</p>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p>集合（<code>set</code>）可以保存多个字符串元素，但是不允许有重复元素，并且集合中的元素是无序的，一个集合最多可以存储<code>2^32-1</code>个元素，集合可以进行内部的增删改查和多个集合取交集，并集，差集。</p>
+<p>主要的应用有：标签，生成随机数（抽奖），社交需求（共同好友，粉丝等等）</p>
 <p>内部编码主要有：</p>
 <ul>
 <li><code>intset</code>(<strong>整数集合</strong>)：当集合中的元素都是整数而且元素个数小于<code>set-max-intset-entries</code>配置（默认512个）时，使用该编码减少内存的使用</li>
 <li><code>hashtable</code>(<strong>哈希表</strong>)：其它条件下使用哈希表作为内部实现</li>
 </ul>
 <h3 id="各个指令的时间复杂度-3"><a href="#各个指令的时间复杂度-3" class="headerlink" title="各个指令的时间复杂度"></a>各个指令的时间复杂度</h3><ul>
-<li><strong>sadd</strong>：向指定 Set 中添加 1 个或多个 member，如果指定 Set 不存在，会自动创建一个。时间复杂度 <code>O(N)</code>，N 为添加的 member 个数</li>
-<li><strong>srem</strong>：从指定 Set 中移除 1 个或多个 member，时间复杂度 <code>O(N)</code>，N 为移除的 member 个数</li>
-<li><strong>srandmember</strong>：从指定 Set 中<strong>随机返回</strong> 1 个或多个 member，时间复杂度 <code>O(N)</code>，N 为返回的 member 个数</li>
-<li><strong>spop</strong>：从指定 Set 中随机<strong>移除并返回</strong> count 个 member，时间复杂度 <code>O(N)</code>，N 为移除的 member 个数</li>
-<li><strong>scrad</strong>：返回指定 Set 中的 member 个数，时间复杂度 <code>O(1)</code></li>
-<li><strong>sismember</strong>：判断指定的 value 是否存在于指定 Set 中，时间复杂度 <code>O(1)</code></li>
-<li><strong>smove</strong>：将指定 member 从一个 Set 移至另一个 Set</li>
+<li><strong>SADD</strong>：向指定 Set 中添加 1 个或多个 member，如果指定 Set 不存在，会自动创建一个。时间复杂度 <code>O(N)</code>，N 为添加的 member 个数</li>
+<li><strong>SREM</strong>：从指定 Set 中移除 1 个或多个 member，时间复杂度 <code>O(N)</code>，N 为移除的 member 个数</li>
+<li><strong>SRANDMEMBER</strong>：从指定 Set 中随机返回 1 个或多个 member，时间复杂度 <code>O(N)</code>，N 为返回的 member 个数</li>
+<li><strong>SPOP</strong>：从指定 Set 中随机移除并返回 count 个 member，时间复杂度 <code>O(N)</code>，N 为移除的 member 个数</li>
+<li><strong>SCARD</strong>：返回指定 Set 中的 member 个数，时间复杂度 <code>O(1)</code></li>
+<li><strong>SISMEMBER</strong>：判断指定的 value 是否存在于指定 Set 中，时间复杂度 <code>O(1)</code></li>
+<li><strong>SMOVE</strong>：将指定 member 从一个 Set 移至另一个 Set</li>
 </ul>
 <p>慎用的Set相关命令：</p>
 <ul>
-<li><strong>smembers</strong>：返回指定 Hash 中所有的 member，时间复杂度 <code>O(N)</code></li>
-<li><strong>sunion/sunionstore</strong>：计算多个 Set 的并集并返回/存储至另一个 Set 中，时间复杂度 <code>O(N)</code>，N 为参与计算的所有集合的总 member 数</li>
-<li><strong>sinter/sinterstore</strong>：计算多个 Set 的交集并返回/存储至另一个 Set 中，时间复杂度 <code>O(N)</code>，N 为参与计算的所有集合的总 member 数</li>
-<li><strong>sdiff/sdiffstore</strong>：计算 1 个 Set 与 1 或多个 Set 的差集并返回/存储至另一个 Set 中，时间复杂度 <code>O(N)</code>，N 为参与计算的所有集合的总 member 数</li>
+<li><strong>SMEMBERS</strong>：返回指定 Hash 中所有的 member，时间复杂度 <code>O(N)</code></li>
+<li><strong>SUNION/SUNIONSTORE</strong>：计算多个 Set 的并集并返回/存储至另一个 Set 中，时间复杂度 <code>O(N)</code>，N 为参与计算的所有集合的总 member 数</li>
+<li><strong>SINTER/SINTERSTORE</strong>：计算多个 Set 的交集并返回/存储至另一个 Set 中，时间复杂度 <code>O(N)</code>，N 为参与计算的所有集合的总 member 数</li>
+<li><strong>SDIFF/SDIFFSTORE</strong>：计算 1 个 Set 与 1 或多个 Set 的差集并返回/存储至另一个 Set 中，时间复杂度 <code>O(N)</code>，N 为参与计算的所有集合的总 member 数</li>
 </ul>
 <p>上述几个命令涉及的计算量大，应谨慎使用，特别是在参与计算的 Set 尺寸不可知的情况下，应严格避免使用。可以考虑通过 SSCAN 命令遍历获取相关 Set 的全部 member，如果需要做并集/交集/差集计算，可以在客户端进行，或在不服务实时查询请求的 Slave 上进行</p>
-<h2 id="ZSet"><a href="#ZSet" class="headerlink" title="ZSet"></a>ZSet</h2><blockquote>
-<p>数据排序有利于数据的有效展示，需要提供一种根据自身特征进行排序的方式</p>
-<p>sorted_set类型：在set存储结构基础上添加可排序字段score</p>
-</blockquote>
-<img src="https://csn.damyoung.cn/image-20201031164401584.png" alt="image-20201031164401584" style="zoom:80%;" />
-
+<h2 id="ZSet"><a href="#ZSet" class="headerlink" title="ZSet"></a>ZSet</h2><p>有序集合（<code>zset</code>）保留集合元素不能重复的特性，但是有序集合中的元素可以排序，它为每一个元素设定一个score作为排序的依据</p>
 <p>应用：排行榜系统，用户点赞。需要对数据根据某个权重进行排序的场景。比如在直播系统中，实时排行信息包含直播间在线用户列表，各种礼物排行榜，弹幕消息（可以理解为按消息维度的消息排行榜）等信息。</p>
 <p>内部编码实现：</p>
 <ul>
@@ -10388,48 +10353,223 @@
 <li><code>skiplist</code>(<strong>跳表</strong>)：当<code>ziplist</code>条件不满足时，有序集合会使用<code>skiplist</code>作为内部实现，因为此时<code>ziplist</code>的读写效率会下降</li>
 </ul>
 <h3 id="各个指令的时间复杂度-4"><a href="#各个指令的时间复杂度-4" class="headerlink" title="各个指令的时间复杂度"></a>各个指令的时间复杂度</h3><ul>
-<li><strong>zadd</strong>：向指定 Sorted Set 中添加 1 个或多个 member，时间复杂度 <code>O(Mlog(N))</code>，M 为添加的 member 数量，N 为 Sorted Set 中的 member 数量</li>
-<li><strong>zrem</strong>：从指定 Sorted Set 中删除 1 个或多个 member，时间复杂度 <code>O(Mlog(N))</code>，M 为删除的 member 数量，N 为 Sorted Set 中的 member 数量</li>
-<li><strong>zcount</strong>：返回指定 Sorted Set 中指定 <strong>score 范围内</strong>的 member 数量，时间复杂度：<code>O(log(N))</code></li>
-<li><strong>zcrad</strong>：返回指定 Sorted Set 中的 member 数量，时间复杂度 <code>O(1)</code></li>
-<li><strong>zscore</strong>：返回指定 Sorted Set 中指定 member 的 score，时间复杂度 <code>O(1)</code></li>
-<li><strong>zrank/zrevrank</strong>：返回指定 member 在 Sorted Set 中的排名，ZRANK 返回按升序排序的排名，ZREVRANK 则返回按降序排序的排名。时间复杂度 <code>O(log(N))</code></li>
-<li><strong>zincrby</strong>：同 INCRBY，对指定 Sorted Set 中的指定 member 的 score 进行自增，时间复杂度 <code>O(log(N))</code></li>
+<li><strong>ZADD</strong>：向指定 Sorted Set 中添加 1 个或多个 member，时间复杂度 <code>O(Mlog(N))</code>，M 为添加的 member 数量，N 为 Sorted Set 中的 member 数量</li>
+<li><strong>ZREM</strong>：从指定 Sorted Set 中删除 1 个或多个 member，时间复杂度 <code>O(Mlog(N))</code>，M 为删除的 member 数量，N 为 Sorted Set 中的 member 数量</li>
+<li><strong>ZCOUNT</strong>：返回指定 Sorted Set 中指定 score 范围内的 member 数量，时间复杂度：<code>O(log(N))</code></li>
+<li><strong>ZCARD</strong>：返回指定 Sorted Set 中的 member 数量，时间复杂度 <code>O(1)</code></li>
+<li><strong>ZSCORE</strong>：返回指定 Sorted Set 中指定 member 的 score，时间复杂度 <code>O(1)</code></li>
+<li><strong>ZRANK/ZREVRANK</strong>：返回指定 member 在 Sorted Set 中的排名，ZRANK 返回按升序排序的排名，ZREVRANK 则返回按降序排序的排名。时间复杂度 <code>O(log(N))</code></li>
+<li><strong>ZINCRBY</strong>：同 INCRBY，对指定 Sorted Set 中的指定 member 的 score 进行自增，时间复杂度 <code>O(log(N))</code></li>
 </ul>
 <p>慎用的Sorted Set相关命令：</p>
 <ul>
-<li><strong>zrange/zrevrange</strong>：返回指定 Sorted Set 中指定排名范围内的所有 member，ZRANGE 为按 score 升序排序，ZREVRANGE 为按 score 降序排序，时间复杂度 <code>O(log(N)+M)</code>，M为本次返回的 member 数</li>
+<li><strong>ZRANGE/ZREVRANGE</strong>：返回指定 Sorted Set 中指定排名范围内的所有 member，ZRANGE 为按 score 升序排序，ZREVRANGE 为按 score 降序排序，时间复杂度 <code>O(log(N)+M)</code>，M为本次返回的 member 数</li>
 <li><strong>ZRANGEBYSCORE/ZREVRANGEBYSCORE</strong>：返回指定 Sorted Set 中指定 score 范围内的所有 member，返回结果以升序/降序排序，min 和 max 可以指定为 -inf和+ inf，代表返回所有的 member。时间复杂度 <code>O(log(N)+M)</code></li>
 <li><strong>ZREMRANGEBYRANK/ZREMRANGEBYSCORE</strong>：移除 Sorted Set 中指定排名范围/指定 score 范围内的所有 member。时间复杂度 <code>O(log(N)+M)</code></li>
 </ul>
 <p>上述几个命令，应尽量避免传递 <code>[0 -1]</code> 或 <code>[-inf +inf]</code> 这样的参数，来对 Sorted Set 做一次性的完整遍历，特别是在 Sorted Set 的尺寸不可预知的情况下。可以通过 ZSCAN 命令来进行游标式的遍历，或通过 LIMIT 参数来限制返回 member 的数量（适用于 ZRANGEBYSCORE 和 ZREVRANGEBYSCORE 命令），以实现游标式的遍历。</p>
-<h1 id="3、持久化"><a href="#3、持久化" class="headerlink" title="3、持久化"></a>3、持久化</h1><p>Redis支持两种持久化方案，分别是<strong>RDB（快照）</strong>和<strong>AOF（只追加文件）</strong></p>
-<blockquote>
-<p>将当前<strong>数据状态</strong>进行保存，<strong>快照</strong>形式，<strong>存储数据结果</strong>，存储格式简单， 关注点在于数据</p>
-<p>将数据操作过程进行保存，<strong>日志</strong>形式，<strong>存储操作过程</strong>，存储格式复杂，关注点在于数据的操作过程</p>
-</blockquote>
-<p><img src="https://csn.damyoung.cn/image-20201101105329319.png" alt="image-20201101105329319" style="zoom:80%;" /><img src="https://csn.damyoung.cn/image-20201101111813388.png" alt="image-20201101111813388" style="zoom: 80%;" /></p>
-<h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><p>Redis可以通过创建快照来获得存储在内存里面的数据<strong>在某个时间点上的副本</strong>。</p>
-<ul>
-<li><p>Redis创建快照之后，可以对快照进行备份</p>
-</li>
-<li><p>可以将快照复制到其他服务器从而创建具有相同数据的服务器副本（Redis主从结构，主要用来提高Redis性能）</p>
-</li>
-<li><p>还可以将快照留在原地以便重启服务器的时候使用。快照持久化是Redis默认采用的持久化方式。</p>
-</li>
+<h2 id="Bitmaps"><a href="#Bitmaps" class="headerlink" title="Bitmaps"></a>Bitmaps</h2><p>计算机使用二进制位（位）作为信息的基础单位，1个字节等于8位，Redis 提供 Bitmaps 可以实现对位的操作。Bitmaps 本身不是一种数据结构，实际上它是字符串，但可以对字符串的位进行操作</p>
+<p>可以把 Bitmaps 看成一个以位为单位的数组，数组的每个单元只能存储 0 和 1，数组的下标在 Bitmaps 中叫做偏移量</p>
+<h3 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h3><ul>
+<li><code>setbit key offset value</code>：设置键的第 offset 个位的值</li>
+<li><code>getbit key offset</code>：获取值</li>
+<li><code>bitcount [start][end]</code>：获取 Bitmaps 指定范围值为 1 的个数,其中 start 和 end 代表起始和结束字节数（一个字节占8位，例如start=2表示从下标16开始算）</li>
 </ul>
+<p>Bitmaps 间的运算：</p>
+<ul>
+<li><code>bitop op destkey key[key …]</code>：op可以是and（交集），or（并集），not（非），xor（异或）操作， 操作结果保存在 deskey 中</li>
+<li><code>bitpos key targetBit [start][end]</code>:计算 Bitmaps 中第一个值为targetBit的偏移量</li>
+</ul>
+<p>应用场景：<br>当用户量很大时，用来记录当天访问人数，可以大幅度减少内存</p>
+<h2 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h2><p>HyperLogLog 实际类型为字符串类型，它是一种基数算法，可以利用极小的内存空间独立完成总数的统计</p>
+<ul>
+<li><code>pfadd key element [element …]</code>：添加</li>
+<li><code>pfcount key [key …]</code>：计算独立用户数</li>
+<li><code>pfmerge destkey sourcekey [sourcekey …]</code>：合并:求出多个 HyperLogLog 的并集并赋值给 deskey</li>
+</ul>
+<p>HyperLogLog 内存占用量非常小，但是存在错误率</p>
+<h1 id="2-为什么要用redis-为什么要用缓存"><a href="#2-为什么要用redis-为什么要用缓存" class="headerlink" title="2. 为什么要用redis/为什么要用缓存"></a>2. 为什么要用redis/为什么要用缓存</h1><p>主要从“高性能”和“高并发”这两个点来看待这个问题</p>
+<p><strong>高性能</strong>：</p>
+<p>Redis中的数据是存储在内存中的，所以读写速度非常快。假如用户第一次访问数据库中的某些数据，这个过程会比较慢，因为是从硬盘上读取的。将该用户访问的数据存在缓存中，这样下一次再访问这些数据的时候就可以直接从缓存中获取了。操作缓存就是直接操作内存，所以速度相当快。如果数据库中的对应数据改变之后，同步改变缓存中相应的数据即可。</p>
+<p><strong>高并发</strong>：</p>
+<p>一般像 MySQL 这类的数据库的 QPS 大概都在 1w 左右（4 核 8g） ，但是使用 Redis 缓存之后很容易达到 10w+，甚至最高能达到 30w+（就单机 redis 的情况，redis 集群的话会更高）。</p>
+<blockquote>
+<p>QPS（Query Per Second）：服务器每秒可以执行的查询次数；</p>
+</blockquote>
+<p>直接操作缓存能够承受的请求是远远大于直接访问数据库的，所以可以考虑把数据库中的部分数据转移到缓存中去，这样用户的一部分请求会直接到缓存这里而不用经过数据库</p>
+<h1 id="3-为什么使用redis而不直接在程序中使用map-guava做缓存？"><a href="#3-为什么使用redis而不直接在程序中使用map-guava做缓存？" class="headerlink" title="3. 为什么使用redis而不直接在程序中使用map/guava做缓存？"></a>3. 为什么使用redis而不直接在程序中使用map/guava做缓存？</h1><p>缓存分为本地缓存和分布式缓存，以Java为例，使用自带得<code>map</code>或者<code>guava</code>实现的是本地缓存，最主要得特点是<strong>轻量以及快速</strong>，生命周期随着JVM的销毁而结束，并且在多实例的情况下，每个实例都需要各自保存一份缓存，<strong>缓存不具有一致性</strong>。</p>
+<p>使用<code>redis</code>或<code>memcached</code>之类的称为分布式缓存，在多实例的情况下，各实例共用一份缓存数据，缓存具有一致性。缺点是需要保持<code>redis</code>或<code>memcached</code>服务的高可用，整个程序架构上较为复杂。</p>
+<h1 id="4-redis的线程模型"><a href="#4-redis的线程模型" class="headerlink" title="4. redis的线程模型"></a>4. redis的线程模型</h1><p><strong>Redis 基于 Reactor 模式来设计开发了自己的一套高效的事件处理模型</strong> 。redis内部使用文件事件处理器<code>file event handler</code>,这个文件事件处理器是单线程的，所以redis才叫做单线程的模型。</p>
+<p>它采用IO多路复用机制同时监听多个socket，它会将感兴趣的事件及类型（读、写）注册到内核中并监听每个事件是否发生。根据socket上的事件来选择对应的事件处理器进行处理。</p>
+<p>这样的好处非常明显： <strong>I/O 多路复用技术的使用让 Redis 不需要额外创建多余的线程来监听客户端的大量连接，降低了资源的消耗</strong>（和 NIO 中的 <code>Selector</code> 组件很像）。</p>
+<p>另外， Redis 服务器是一个事件驱动程序，服务器需要处理两类事件：</p>
+<ol>
+<li>文件事件;</li>
+<li>时间事件。</li>
+</ol>
+<p>时间事件不需要多花时间了解，我们接触最多的还是 <strong>文件事件</strong>（客户端进行读取写入等操作，涉及一系列网络通信）。</p>
+<p>《Redis 设计与实现》有一段话是如是介绍文件事件的：</p>
+<blockquote>
+<p>Redis 基于 Reactor 模式开发了自己的网络事件处理器：这个处理器被称为文件事件处理器（file event handler）。文件事件处理器使用 I/O 多路复用（multiplexing）程序来同时监听多个套接字，并根据套接字目前执行的任务来为套接字关联不同的事件处理器。</p>
+<p>当被监听的套接字准备好执行连接应答（accept）、读取（read）、写入（write）、关 闭（close）等操作时，与操作相对应的文件事件就会产生，这时文件事件处理器就会调用套接字之前关联好的事件处理器来处理这些事件。</p>
+<p><strong>虽然文件事件处理器以单线程方式运行，但通过使用 I/O 多路复用程序来监听多个套接字</strong>，文件事件处理器既实现了高性能的网络通信模型，又可以很好地与 Redis 服务器中其他同样以单线程方式运行的模块进行对接，这保持了 Redis 内部单线程设计的简单性。</p>
+</blockquote>
+<p>文件事件处理器的结构包含4各部分：</p>
+<ul>
+<li>多个socket</li>
+<li>IO 多路复用程序</li>
+<li>文件事件分派器</li>
+<li>事件处理器（连接应答处理器，命令请求处理器、命令回复处理器）</li>
+</ul>
+<p>多个socket可能会并发产生不同的操作，每个操作对应不同的文件事件，但是IO多路服用程序会监听多个socket，会将socket产生的事件放入队列中排队，事件分派器每次从队列中取出一个事件，把该事件交给对应的事件处理器进行处理。</p>
+<p><img src="http://qiniu.xiaoming.net.cn/redis%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%99%A8.png" alt="Redis事件处理器"></p>
+<p>客户端与redis的一次通信过程如下：</p>
+<p><img src="http://qiniu.xiaoming.net.cn/Redis%E4%B8%80%E6%AC%A1%E9%80%9A%E8%A1%8C%E8%BF%87%E7%A8%8B.webp" alt="redis的一次通信过程"></p>
+<p>客户端<code>socket01</code>向redis的<code>server socket</code>请求建立连接，此时<code>server socket</code>会产生一个<code>AE_READBLE</code>事件，IO多路复用程序监听到<code>server socket</code>产生的事件后，将该事件压入队列中。文件事件分派器从队列中获取该事件，交给连接应答处理器。连接应答处理器会创建一个能与客户端通信的<code>socket01</code>,并将该<code>socket01</code>的<code>AE_READBLE</code>事件与命令请求处理器相关联。</p>
+<p>假设此时客户端发送了一个<code>set key value</code>请求，此时redis的<code>socket01</code>会产生<code>AE_READABLE</code>事件，IO多路复用程序将事件压入队列，此时事件分派器将事件交给命令请求处理器来处理。命令请求处理器读取<code>socket01</code>中的<code>key value</code>并在自己内存中完成<code>key value</code>的设置。操作完成后，它会将<code>socket01</code>的<code>AE_WRITABLE</code>事件与命令回复处理器相关联。</p>
+<p>如果此时客户端准备好接收返回结果了，那么redis中的<code>socket01</code>会产生一个<code>AE_WRITABLE</code>事件，同样压入队列中，事件分派器找到相关联的的命令回复处理器，由命令回复处理器对<code>socket01</code>输入本次操作的一个结果，比如<code>ok</code>，之后解除<code>socket01</code>的<code>AE_WRITABLE</code>事件与命令回复处理器的关联。</p>
+<p>这就完成了一次通信。</p>
+<h1 id="5-Redis-使用单线程的原因"><a href="#5-Redis-使用单线程的原因" class="headerlink" title="5. Redis 使用单线程的原因"></a>5. Redis 使用单线程的原因</h1><p>Redis 从一开始就选择使用单线程模型处理来自客户端的绝大多数网络请求，这种考虑其实是多方面的，其中最重要的几个原因如下：</p>
+<ol>
+<li>使用单线程模型能带来更好的可维护性，方便开发和调试；</li>
+<li>使用单线程模型也能并发的处理客户端的请求；</li>
+<li>Redis 服务中运行的绝大多数操作的性能瓶颈都不是 CPU；</li>
+</ol>
+<p>上述三个原因中的最后一个是最终使用单线程模型的决定性因素，其他的两个原因都是使用单线程模型额外带来的好处，在这里按顺序介绍上述的几个原因。</p>
+<h2 id="可维护性"><a href="#可维护性" class="headerlink" title="可维护性"></a>可维护性</h2><p>可维护性对于一个项目来说非常重要，如果代码难以调试和测试，问题也经常难以复现，这对于任何一个项目来说都会严重地影响项目的可维护性。多线程模型虽然在某些方面表现优异，但是它却引入了程序执行顺序的不确定性，代码的执行过程不再是串行的，多个线程同时访问的变量如果没有谨慎处理就会带来诡异的问题。</p>
+<p>如果计算机中的两个进程（线程同理）同时尝试修改一个共享内存的内容，在没有并发控制的情况下，最终的结果依赖于两个进程的执行顺序和时机，如果发生了并发访问冲突，最后的结果就会是不正确的。</p>
+<p>引入了多线程，就必须要同时引入并发控制来保证在多个线程同时访问数据时程序行为的正确性，这就需要工程师额外维护并发控制的相关代码，例如，会需要在可能被并发读写的变量上增加互斥锁。</p>
+<p>在访问这些变量或者内存之前也需要先对获取互斥锁，一旦忘记获取锁或者忘记释放锁就可能会导致各种诡异的问题，管理相关的并发控制机制也需要付出额外的研发成本和负担。</p>
+<h2 id="并发处理"><a href="#并发处理" class="headerlink" title="并发处理"></a>并发处理</h2><p>使用单线程模型也并不意味着程序不能并发的处理任务，Redis 虽然使用单线程模型处理用户的请求，但是它却使用 I/O 多路复用机制<strong>并发</strong>处理来自客户端的多个连接，同时等待多个连接发送的请求。</p>
+<p>在 I/O 多路复用模型中，最重要的函数调用就是 <code>select</code> 以及类似函数，该方法的能够同时监控多个文件描述符（也就是客户端的连接）的可读可写情况，当其中的某些文件描述符可读或者可写时，<code>select</code> 方法就会返回可读以及可写的文件描述符个数。</p>
+<p>使用 I/O 多路复用技术能够极大地减少系统的开销，系统不再需要额外创建和维护进程和线程来监听来自客户端的大量连接，减少了服务器的开发成本和维护成本。</p>
+<h2 id="性能瓶颈"><a href="#性能瓶颈" class="headerlink" title="性能瓶颈"></a>性能瓶颈</h2><p>这个就是 Redis 选择单线程模型的决定性原因 —— 多线程技术能够帮助我们充分利用 CPU 的计算资源来并发的执行不同的任务，但是 CPU 资源往往都不是 Redis 服务器的性能瓶颈。哪怕在一个普通的 Linux 服务器上启动 Redis 服务，它也能在 1s 的时间内处理 1,000,000 个用户请求。</p>
+<p>如果这种吞吐量不能满足我们的需求，更推荐的做法是使用分片的方式将不同的请求交给不同的 Redis 服务器来处理，而不是在同一个 Redis 服务中引入大量的多线程操作。</p>
+<p>简单总结一下，Redis 并不是 CPU 密集型的服务，如果不开启 AOF 备份，所有 Redis 的操作都会在内存中完成不会涉及任何的 I/O 操作，这些数据的读写由于只发生在内存中，所以处理速度是非常快的；整个服务的瓶颈在于网络传输带来的延迟和等待客户端的数据传输，也就是网络 I/O，所以使用多线程模型处理全部的外部请求可能不是一个好的方案。</p>
+<p>多线程虽然会更充分地利用 CPU 资源，但是操作系统上线程的切换也不是免费的，线程切换其实会带来额外的开销，其中包括：</p>
+<ol>
+<li>保存线程 1 的执行上下文；</li>
+<li>加载线程 2 的执行上下文；</li>
+</ol>
+<p>频繁的对线程的上下文进行切换可能还会导致性能地急剧下降，这可能会导致不仅没有提升请求处理的平均速度，反而进行了负优化，所以这也是为什么 Redis 对于使用多线程技术非常谨慎。</p>
+<h1 id="6-Redis-多线程"><a href="#6-Redis-多线程" class="headerlink" title="6. Redis 多线程"></a>6. Redis 多线程</h1><h2 id="Redis-4-0"><a href="#Redis-4-0" class="headerlink" title="Redis 4.0"></a>Redis 4.0</h2><p>虽然说 Redis 是单线程模型，但是， 实际上，<strong>Redis 在 4.0 之后的版本中就已经加入了对多线程的支持。</strong></p>
+<p>不过，Redis 4.0 增加的多线程主要是针对一些大键值对的删除操作的命令，使用这些命令就会使用主处理之外的其他线程来“异步处理”。</p>
+<p>Redis 在最新的几个版本中加入了一些可以被其他线程异步处理的删除操作，例如 <code>UNLINK</code>、<code>FLUSHALL ASYNC</code>、<code>FLUSHDB ASYNC</code> 等非阻塞的删除操作。为什么会需要这些删除操作，而它们为什么需要通过多线程的方式异步处理？</p>
+<h3 id="删除操作多线程的原因"><a href="#删除操作多线程的原因" class="headerlink" title="删除操作多线程的原因"></a>删除操作多线程的原因</h3><p>可以在 Redis 在中使用 <code>DEL</code> 命令来删除一个键对应的值，如果待删除的键值对占用了较小的内存空间，那么哪怕是<strong>同步地</strong>删除这些键值对也不会消耗太多的时间。</p>
+<p>但是对于 Redis 中的一些超大键值对，几十 MB 或者几百 MB 的数据并不能在几毫秒的时间内处理完，Redis 可能会需要在释放内存空间上消耗较多的时间，这些操作就会阻塞待处理的任务，影响 Redis 服务处理请求的 PCT99 和可用性。</p>
+<p>然而释放内存空间的工作其实可以由后台线程异步进行处理，这也就是 <code>UNLINK</code> 命令的实现原理，它只会将键从元数据中删除，真正的删除操作会在后台异步执行。</p>
+<blockquote>
+<p>大体上来说，<strong>Redis 6.0 之前主要还是单线程处理。</strong></p>
+</blockquote>
+<h2 id="Redis6-0-之后引入了多线程"><a href="#Redis6-0-之后引入了多线程" class="headerlink" title="Redis6.0 之后引入了多线程"></a>Redis6.0 之后引入了多线程</h2><p><strong>引入多线程的原因：</strong></p>
+<p>Redis将所有数据放在内存中，内存的响应时长大约为100纳秒，对于小数据包，Redis服务器可以处理80,000到100,000 QPS，这也是Redis处理的极限了，对于80%的公司来说，单线程的Redis已经足够使用了。</p>
+<p>但随着越来越复杂的业务场景，有些公司动不动就上亿的交易量，因此需要更大的QPS。常见的解决方案是在分布式架构中对数据进行分区并采用多个服务器，但该方案有非常大的缺点，例如要管理的Redis服务器太多，维护代价大；某些适用于单个Redis服务器的命令不适用于数据分区；数据分区无法解决热点读/写问题；数据偏斜，重新分配和放大/缩小变得更加复杂等等。</p>
+<p>从Redis自身角度来说，因为读写网络的read/write系统调用占用了Redis执行期间大部分CPU时间，瓶颈主要在于网络的 IO 消耗, 优化主要有两个方向:</p>
+<ul>
+<li>提高网络 IO 性能，典型的实现比如使用 DPDK 来替代内核网络栈的方式</li>
+<li>使用多线程充分利用多核，典型的实现比如 Memcached。</li>
+</ul>
+<p>协议栈优化的这种方式跟 Redis 关系不大，支持多线程是一种最有效最便捷的操作方式。所以总结起来，redis支持多线程主要就是两个原因：</p>
+<ul>
+<li>可以充分利用服务器 CPU 资源，目前主线程只能利用一个核</li>
+<li>多线程任务可以分摊 Redis 同步 IO 读写负荷</li>
+</ul>
+<p><strong>Redis6.0 引入多线程主要是为了提高网络 IO 读写性能</strong>，因为这个算是 Redis 中的一个性能瓶颈（Redis 的瓶颈主要受限于内存和网络）。</p>
+<p>虽然，Redis6.0 引入了多线程，但是 Redis 的多线程只是在网络数据的读写这类耗时操作上使用了， 执行命令仍然是单线程顺序执行。因此，也<strong>不需要担心线程安全问题</strong>。</p>
+<p>Redis6.0 的多线程默认是禁用的，只使用主线程。如需开启需要修改 redis 配置文件 <code>redis.conf</code> ：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">io-threads-do-reads yes</span><br></pre></td></tr></table></figure>
+
+<p>开启多线程后，还需要设置线程数，否则是不生效的。同样需要修改 redis 配置文件 <code>redis.conf</code> :</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">io-threads 4 #官网建议4核的机器建议设置为2或3个线程，8核的建议设置为6个线程</span><br></pre></td></tr></table></figure>
+
+<p>关于线程数的设置，官方有一个建议：4核的机器建议设置为2或3个线程，8核的建议设置为6个线程，线程数一定要小于机器核数。还需要注意的是，线程数并不是越大越好，官方认为超过了8个基本就没什么意义了。</p>
+<h2 id="Redis-多线程实现机制"><a href="#Redis-多线程实现机制" class="headerlink" title="Redis 多线程实现机制"></a>Redis 多线程实现机制</h2><p><img src="http://qiniu.xiaoming.net.cn/Redis%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6.webp" alt="Redis多线程实现机制"></p>
+<p><strong>流程简述如下：</strong></p>
+<ol>
+<li>主线程负责接收建立连接请求，获取 socket 放入全局等待读处理队列</li>
+<li>主线程处理完读事件之后，通过 RR(Round Robin) 将这些连接分配给这些 IO 线程</li>
+<li>主线程阻塞等待 IO 线程读取 socket 完毕</li>
+<li>主线程通过单线程的方式执行请求命令，请求数据读取并解析完成，但并不执行</li>
+<li>主线程阻塞等待 IO 线程将数据回写 socket 完毕</li>
+<li>解除绑定，清空等待队列</li>
+</ol>
+<p><img src="http://qiniu.xiaoming.net.cn/Redis%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B.webp" alt="Redis多线程实现流程"></p>
+<p><strong>该设计有如下特点：</strong></p>
+<ol>
+<li>IO 线程要么同时在读 socket，要么同时在写，不会同时读或写</li>
+<li>IO 线程只负责读写 socket 解析命令，不负责命令处理</li>
+</ol>
+<h1 id="7-redis和memcached的区别"><a href="#7-redis和memcached的区别" class="headerlink" title="7. redis和memcached的区别"></a>7. redis和memcached的区别</h1><h2 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h2><ol>
+<li>都是基于内存的数据库，一般都用来当做缓存使用。</li>
+<li>都有过期策略。</li>
+<li>两者的性能都非常高。</li>
+</ol>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><ul>
+<li><strong>Redis支持更丰富的数据类型（支持更复杂的应用场景）</strong>：Redis不仅仅支持简单的<code>k/v</code>类型的数据，同时还提供<code>list</code>,<code>hash</code>,<code>set</code>,<code>zset</code>等数据结构的存储。memcached支持简单数据类型<code>String</code>（<code>k/v</code>)。</li>
+<li><strong>Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用，而Memcached把数据全部存在内存之中</strong></li>
+<li><strong>Redis 有灾难恢复机制。</strong> 因为可以把缓存中的数据持久化到磁盘上。</li>
+<li><strong>Redis 在服务器内存使用完之后，可以将不用的数据放到磁盘上。但是，Memcached 在服务器内存使用完之后，就会直接报异常。</strong></li>
+<li><strong>集群模式</strong>：memcached没有原生的集群模式，需要依靠客户端来实现往集群中分片写入数据；但是redis目前是原生支持<code>cluster</code>模式的</li>
+<li><strong>Memcached是多线程的，非阻塞IO复用的网络模型；Redis使用单线程的多路复用IO模型</strong>（Redis 6.0 引入了多线程 IO ）</li>
+<li><strong>Redis 支持发布订阅模型、Lua 脚本、事务等功能，而 Memcached 不支持。并且，Redis 支持更多的编程语言。</strong></li>
+<li><strong>Memcached过期数据的删除策略只用了惰性删除，而 Redis 同时使用了惰性删除与定期删除。</strong></li>
+</ul>
+<h1 id="8-Redis-给缓存数据设置过期时间有啥用？"><a href="#8-Redis-给缓存数据设置过期时间有啥用？" class="headerlink" title="8. Redis 给缓存数据设置过期时间有啥用？"></a>8. Redis 给缓存数据设置过期时间有啥用？</h1><p>一般情况下，设置保存的缓存数据的时候都会设置一个过期时间。</p>
+<p>因为内存是有限的，如果缓存中的所有数据都是一直保存的话，分分钟直接Out of memory。</p>
+<p>Redis 自带了给缓存数据设置过期时间的功能，比如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; exp key  60 # 数据在 60s 后过期</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; setex key 60 value # 数据在 60s 后过期 (setex:[set] + [ex]pire)</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; ttl key # 查看数据还有多久过期</span><br><span class="line">(integer) 56</span><br></pre></td></tr></table></figure>
+
+<p>注意：<strong>Redis中除了字符串类型有自己独有设置过期时间的命令 <code>setex</code> 外，其他方法都需要依靠 <code>expire</code> 命令来设置过期时间 。另外， <code>persist</code> 命令可以移除一个键的过期时间</strong></p>
+<p><strong>过期时间除了有助于缓解内存的消耗，还有什么其他用么？</strong></p>
+<p>很多时候，我们的业务场景就是需要某个数据只在某一时间段内存在，比如我们的短信验证码可能只在1分钟内有效，用户登录的 token 可能只在 1 天内有效。</p>
+<p>如果使用传统的数据库来处理的话，一般都是自己判断过期，这样更麻烦并且性能要差很多。</p>
+<h1 id="9-Redis-判断数据过期的原理"><a href="#9-Redis-判断数据过期的原理" class="headerlink" title="9. Redis 判断数据过期的原理"></a>9. Redis 判断数据过期的原理</h1><p>Redis 通过一个叫做过期字典（可以看作是hash表）来保存数据过期的时间。过期字典的键指向Redis数据库中的某个key(键)，过期字典的值是一个long long类型的整数，这个整数保存了key所指向的数据库键的过期时间（毫秒精度的UNIX时间戳）。</p>
+<p><img src="http://qiniu.xiaoming.net.cn/redis%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.png" alt="Redis过期时间实现原理"></p>
+<p>过期字典是存储在redisDb这个结构里的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">typedef struct redisDb &#123;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    dict *dict;     &#x2F;&#x2F;数据库键空间,保存着数据库中所有键值对</span><br><span class="line">    dict *expires   &#x2F;&#x2F; 过期字典,保存着键的过期时间</span><br><span class="line">    ...</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
+
+<h1 id="10-redis过期键处理方式"><a href="#10-redis过期键处理方式" class="headerlink" title="10. redis过期键处理方式"></a>10. redis过期键处理方式</h1><p>Redis中有个设置时间过期的功能，即对存储在 redis 数据库中的值可以设置一个过期时间。作为一个缓存数据库，这是非常实用的。如一般项目中的<code>token</code> 或者一些登录信息，尤其是短信验证码都是有时间限制的，按照传统的数据库处理方式，一般都是自己判断过期，这样无疑会严重影响项目性能。</p>
+<p>在<code>set key</code>的时候，都可以给一个<code>expire time</code>，就是过期时间，通过过期时间可以指定这个<code>key</code>可以存活的时间。</p>
+<p>Redis对过期的键采用的删除方式是：<strong>定期删除+惰性删除</strong></p>
+<ul>
+<li><strong>定期删除</strong>：redis默认是每隔100ms就随机抽取一些设置了过期时间的<code>key</code>,检查其是否过期，如果过期就删除。注意这里是随机抽取的。采用随机抽取的方式是因为如果Redis存了很多<code>key</code>的话，每隔100ms就遍历所有的设置过期时间的<code>key</code>的话，就会给CPU带来很大的负载。</li>
+<li><strong>惰性删除</strong>：定期删除可能会导致很多过期<code>key</code>到了时间并没有被删除掉。所以就有了惰性删除。对于过期的<code>key</code>,如果过了时间还没有被定期删除，还停留在内存中，只有在系统中查询一下这个<code>key</code>，redis才会把它给删除掉，这就是所谓的惰性删除。</li>
+</ul>
+<p>但是仅仅通过设置过期时间还是有问题的。如果定期删除漏掉了很多过期<code>key</code>，然后也没及时去查，也就没走惰性删除，此时会有大量过期key堆积在内存里，导致redis内存块耗尽了。redis采用<strong>内存淘汰机制</strong>进行处理。</p>
+<h1 id="11-redis内存淘汰机制（MySQL中有2000w数据，Redis中只存了20w数据，如何保证Redis中的数据都是热点数据？）"><a href="#11-redis内存淘汰机制（MySQL中有2000w数据，Redis中只存了20w数据，如何保证Redis中的数据都是热点数据？）" class="headerlink" title="11. redis内存淘汰机制（MySQL中有2000w数据，Redis中只存了20w数据，如何保证Redis中的数据都是热点数据？）"></a>11. redis内存淘汰机制（MySQL中有2000w数据，Redis中只存了20w数据，如何保证Redis中的数据都是热点数据？）</h1><p>当Redis中内存使用量超出时，会施行数据淘汰策略</p>
+<p>Redis支持6种淘汰策略：</p>
+<ul>
+<li><strong>volatile-lru</strong>：从已设置过期时间的数据集(<code>server.db[i].expires</code>)中挑选最近最少使用的数据淘汰</li>
+<li><strong>volatile-ttl</strong>：从已设置过期时间的数据集(<code>server.db[i].expires</code>)中挑选将要过期的数据淘汰</li>
+<li><strong>volatile-random</strong>：从已设置过期时间的数据集(<code>server.db[i].expires</code>)中任意选择数据淘汰</li>
+<li><strong>allkeys-lru</strong>：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的<code>key</code>(这个是最常用的)</li>
+<li><strong>allkeys-random</strong>：从数据集(<code>server.db[i].dict</code>)中任意选择数据淘汰</li>
+<li><strong>no-eviction</strong>:禁止驱逐数据，也就是说当内存不足以容纳新写入的数据时，新写入操作会报错。</li>
+</ul>
+<p>4.0版本以后增加了以下两种：</p>
+<ul>
+<li><strong>volatile-lfu</strong>：从已设置过期时间的数据集(<code>server.db[i].expires</code>)中挑选最不经常使用的数据淘汰</li>
+<li><strong>allkeys-lfu</strong>：当内存不足以容纳新写入数据时，在键空间中，移除最不经常使用的<code>key</code></li>
+</ul>
+<h1 id="12-Redis数据持久化（怎么保证Redis挂掉之后再重启数据不会丢失）"><a href="#12-Redis数据持久化（怎么保证Redis挂掉之后再重启数据不会丢失）" class="headerlink" title="12. Redis数据持久化（怎么保证Redis挂掉之后再重启数据不会丢失）"></a>12. Redis数据持久化（怎么保证Redis挂掉之后再重启数据不会丢失）</h1><p>Redis支持两种持久化方案，分别是<strong>RDB（快照）</strong>和<strong>AOF（只追加文件）</strong></p>
+<h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><p>Redis可以通过创建快照来获得存储在内存里面的数据<strong>在某个时间点上的副本</strong>。Redis创建快照之后，可以对快照进行备份，可以将快照复制到其他服务器从而创建具有相同数据的服务器副本（Redis主从结构，主要用来提高Redis性能），还可以将快照留在原地以便重启服务器的时候使用。快照持久化是Redis默认采用的持久化方式。</p>
 <h3 id="触发机制"><a href="#触发机制" class="headerlink" title="触发机制"></a>触发机制</h3><h4 id="手动触发"><a href="#手动触发" class="headerlink" title="手动触发"></a>手动触发</h4><ul>
 <li><code>save</code>:阻塞当前Redis，直到RDB过程完成，对于内存比较大的实例会造成阻塞，已经被淘汰</li>
 <li><code>bgsave</code>:Redis进行执行<code>fork</code>操作创建子进程，RDB持久化过程由子进程完成，完成后自动结束，阻塞只发生在<code>fork</code>阶段，一般时间很短。</li>
 </ul>
 <h4 id="自动触发"><a href="#自动触发" class="headerlink" title="自动触发"></a>自动触发</h4><ol>
-<li><p>使用<code>save</code>相关配置，会自动出发<code>bgsave</code>,在<code>redis.conf</code>配置文件中默认有此下配置：</p>
+<li><p>使用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">save</span><br></pre></td></tr></table></figure>
+
+<p>相关配置，会自动出发</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bgsave</span><br></pre></td></tr></table></figure>
+
+<p>,在</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis.conf</span><br></pre></td></tr></table></figure>
+
+<p>配置文件中默认有此下配置：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">save 900 1           #在900秒(15分钟)之后，如果至少有1个key发生变化，Redis就会自动触发BGSAVE命令创建快照。</span><br><span class="line"></span><br><span class="line">save 300 10          #在300秒(5分钟)之后，如果至少有10个key发生变化，Redis就会自动触发BGSAVE命令创建快照。</span><br><span class="line"></span><br><span class="line">save 60 10000        #在60秒(1分钟)之后，如果至少有10000个key发生变化，Redis就会自动触发BGSAVE命令创建快照。</span><br></pre></td></tr></table></figure>
-
-
 </li>
-</ol>
-<ol start="2">
 <li><p>如果从节点执行全量复制操作，主节点自动执行<code>bgsave</code>生成RDB文件并发送给从节点</p>
 </li>
 <li><p>执行<code>debug reload</code>命令时重新加载Redis时，也会自动触发<code>save</code>操作</p>
@@ -10437,17 +10577,13 @@
 <li><p>默认情况下执行<code>shutdown</code>命令，如果没有开启AOF持久化功能则自动执行<code>bgsave</code></p>
 </li>
 </ol>
-<h3 id="bsave流程"><a href="#bsave流程" class="headerlink" title="bsave流程"></a>bsave流程</h3><ol>
-<li><p>执行bsave命令，Redis父线程判断当前是否存在正在执行的子进程，如果RDB/AOF子进程存在直接返回</p>
-</li>
-<li><p>父进程执行fork操作创建子进程，fork操作过程父进程会阻塞，通过<code>info status</code>命令中<code>latest_fork_usec</code>选项，获得最近一个fork操作的耗时</p>
-</li>
-<li><p>父进程fork完成后，<code>bsave</code>命令<code>background saving start</code>信息不再阻塞父进程，可以继续响应其他命令</p>
-</li>
-<li><p>子进程创建RDB文件，根据父进程内存生成的临时快照文件，完成后对原有文件进行原子替换，执行<code>lastsave</code>可以获取最后一次生成RDB的事件，对应info统计的<code>rdb_last_save_time</code></p>
-</li>
-<li><p>进程发送信号给父进程表示完成，父进程更新统计信息，存放在<code>info</code>的<code>Pesistence</code>下</p>
-</li>
+<h3 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h3><p><code>bgsave</code>执行的流程如下：</p>
+<ol>
+<li>执行<code>bgsave</code>命令，Redis父进程判断当前是否存在正在执行的子进程，如果<code>RDB/AOF</code>子进程存在则直接返回</li>
+<li>父进程执行<code>fork</code>操作创建子进程，<code>fork</code>操作过程父进程会阻塞，通过<code>info stats</code>查看<code>latest_fork_usec</code>选项，获得最近一个<code>fork</code>操作的耗时，单位为微秒</li>
+<li>父进程<code>fork</code>完成后，<code>bgsave</code>命令返回<code>Background saving started</code>信息并不再阻塞父进程，可以继续响应其他命令</li>
+<li>子进程创建RDB文件，根据父进程内存生成的临时快照文件，完成后对原有文件进行原子替换，执行<code>lastsave</code>可以获取最后一次生成RDB的事件，对应<code>info</code>统计的<code>rdb_last_save_time</code></li>
+<li>进程发送信号给父进程表示完成，父进程更新统计信息，存放在<code>info</code>的<code>Persistence</code>下。</li>
 </ol>
 <h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
 <li>RDB是一个紧凑压缩的二进制文件，代表Redis在某个时间点上的一个数据快照，非常适用于备份，全量复制等场景</li>
@@ -10458,10 +10594,10 @@
 <li>RDB使用特定的二进制格式保存，Redis演变过程中有很多RDB版本，存在老版本无法兼容新版本的问题</li>
 <li>如果数据量很大，保存快照的时间会很长。</li>
 </ul>
-<h2 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h2><p>以独立日志的方式记录每次写命令，将写命令添加到 AOF 文件（Append Only File）的末尾。重启时再重新执行AOF文件中的命令达到恢复数据的目的。</p>
-<p>AOF的主要作用是解决数据持久化的<strong>实时性</strong>，因此已成为主流的持久化方案。</p>
+<h2 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h2><p>以独立日志的方式记录每次写命令，将写命令添加到 AOF 文件（Append Only File）的末尾。重启时再重新执行AOF文件中的命令达到恢复数据的目的。AOF的主要作用是解决数据持久化的实时性，因此已成为主流的持久化方案。</p>
 <p>默认情况下Redis没有开启AOF方式的持久化，可以通过以下配置开启：</p>
-   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">appendonly yes</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">appendonly yes</span><br></pre></td></tr></table></figure>
+
 <p>开启AOF持久化后每执行一条会更改Redis中的数据的命令，Redis就会将该命令写入硬盘中的AOF文件。AOF文件的保存位置和RDB文件的位置相同，都是通过dir参数设置的，默认的文件名是<code>appendonly.aof</code>。</p>
 <h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><ol>
 <li>写入命令(<code>append</code>):所有的写入命令都会追加到<code>aof_buf</code>缓冲区</li>
@@ -10477,7 +10613,7 @@
 <li><strong>everysec</strong>：命令写入<code>aof_buf</code>后调用系统<code>write</code>操作，完成后线程返回。<code>fsync</code>同步文件操作由专门线程每秒调用一次；建议的策略，<strong>理论上在系统突然宕机的情况下会丢失1秒数据</strong>，<code>fsync</code>完成后会与上次<code>fsync</code>时间做对比，超过两秒后主线程阻塞，直到同步操作完成,<strong>因此最多可能丢失2秒数据，不是1秒</strong></li>
 <li><code>no</code>:命令写入<code>aof_buf</code>后调用系统<code>write</code>操作，不对AOF文件做<code>fsync</code>同步，同步硬盘操作由操作系统负责，通常同步周期最长30秒，周期不可控，加大每次同步的数据量，虽然提升了性能，安全性无法保证</li>
 </ul>
-<h3 id="Redis-4-0-对于持久化机制的优化"><a href="#Redis-4-0-对于持久化机制的优化" class="headerlink" title="Redis 4.0 对于持久化机制的优化"></a>Redis 4.0 对于持久化机制的优化</h3><p>Redis 4.0 开始支持 RDB 和 AOF 的<strong>混合持久化</strong>（默认关闭，可以通过配置项<code>aof-use-rdb-preamble</code>开启）。</p>
+<h3 id="Redis-4-0-对于持久化机制的优化"><a href="#Redis-4-0-对于持久化机制的优化" class="headerlink" title="Redis 4.0 对于持久化机制的优化"></a>Redis 4.0 对于持久化机制的优化</h3><p>Redis 4.0 开始支持 RDB 和 AOF 的混合持久化（默认关闭，可以通过配置项<code>aof-use-rdb-preamble</code>开启）。</p>
 <p>如果把混合持久化打开，AOF 重写的时候就直接把 RDB 的内容写到 AOF 文件开头。这样做的好处是可以结合 RDB 和 AOF 的优点, 快速加载同时避免丢失过多的数据。当然缺点也是有的， AOF 里面的 RDB 部分是压缩格式不再是 AOF 格式，可读性较差。</p>
 <h3 id="AOF重写机制"><a href="#AOF重写机制" class="headerlink" title="AOF重写机制"></a>AOF重写机制</h3><p>随着命令不断写入AOF，文件会越来越大，Redis引入重写机制压缩文件体积，AOF文件重写是把Redis进程内的数据转化为写命令同步到新AOF文件的过程<br>重写后AOF文件变小的原理：</p>
 <ul>
@@ -10486,9 +10622,8 @@
 <li>多条写的命令合并为一条，如<code>lpush list a</code>，<code>lpush list b</code>转化为<code>lpush list a b</code>，为了防止过多造成客户端缓冲区溢出，以64个元素为界拆分多条</li>
 </ul>
 <p><strong>重写的优点</strong>：降低文件占用空间，更快的被Redis加载</p>
-<h4 id="重写过程的触发"><a href="#重写过程的触发" class="headerlink" title="重写过程的触发"></a>重写过程的触发</h4><ul>
-<li><strong>手动触发</strong>：使用<code>bgrewriteaof</code>命令                                                                                 </li>
-<li></li>
+<h4 id="重写过程的触发："><a href="#重写过程的触发：" class="headerlink" title="重写过程的触发："></a>重写过程的触发：</h4><ul>
+<li><strong>手动触发</strong>：使用<code>bgrewriteaof</code>命令</li>
 <li><strong>自动触发</strong>：配置文件配置<code>auto-aof-rewrite-min-size</code>,<code>auto-aof-rewrite-percentage</code>,前者表示AOF重写时文件最小体积，默认64MB，后者代表AOF文件空间（<code>aof_current_size</code>）和上一次重写后AOF文件空间（<code>aof_base_size</code>）的比值</li>
 </ul>
 <h4 id="重写流程"><a href="#重写流程" class="headerlink" title="重写流程"></a>重写流程</h4><ol>
@@ -10498,7 +10633,7 @@
 <li>子进程根据内存快照，按照命令合并规则写入到新的AOF文件，每次批量写入硬盘数据量由配置<code>aof-rewrite-incremental-fsync</code>控制，默认32MB，防止单次刷盘数据过多造成硬盘阻塞</li>
 <li>(1). 新AOF文件写入完成后，子进程发送信号给父进程，父进程更新统计信息<br>(2). 父进程把AOF重写缓冲区的数据写入到新的AOF文件<br>(3). 使用新的AOF文件替换老文件，重写完成</li>
 </ol>
-<h1 id="4、事务"><a href="#4、事务" class="headerlink" title="4、事务"></a>4、事务</h1><p>Redis提供了简单的事务功能，将一组需要执行的命令放到<code>multi</code>和<code>exec</code>之间，<code>multi</code>代表事务开始，<code>exec</code>代表事务结束，只有执行了<code>exec</code>后中间的命令才会被执行</p>
+<h1 id="13-Redis事务"><a href="#13-Redis事务" class="headerlink" title="13. Redis事务"></a>13. Redis事务</h1><p>Redis提供了简单的事务功能，将一组需要执行的命令放到<code>multi</code>和<code>exec</code>之间，<code>multi</code>代表事务开始，<code>exec</code>代表事务结束，只有执行了<code>exec</code>后中间的命令才会被执行</p>
 <p>如果要停止事务的执行，可以使用<code>discard</code>命令代替<code>exec</code></p>
 <p>事务中出现错误的情况：</p>
 <ul>
@@ -10508,7 +10643,7 @@
 <p>在事务之前如果需要确保事务中的<code>key</code>没有被其他客户端修改才能执行，否则不执行（乐观锁），可以通过在<code>multi</code>之前先执行<code>watch</code>命令来实现</p>
 <p><strong>Redis事务提供了一种将多个命令请求打包的功能。然后，再按顺序执行打包的所有命令，并且不会被中途打断。</strong></p>
 <p>在传统的关系式数据库中，常常用 ACID 性质来检验事务功能的可靠性和安全性。在 Redis 中，事务总是具有原子性（Atomicity）、一致性（Consistency）和隔离性（Isolation），并且当 Redis 运行在某种特定的持久化模式下时，事务也具有持久性（Durability）。</p>
-<h1 id="5、缓存问题"><a href="#5、缓存问题" class="headerlink" title="5、缓存问题"></a>5、缓存问题</h1><h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><p>缓存雪崩指的是缓存同一时间大面积的失效，所以后面的请求都会落到数据库上，造成数据库短时间内承受大量的请求而崩掉。</p>
+<h1 id="14-缓存雪崩问题解决方案"><a href="#14-缓存雪崩问题解决方案" class="headerlink" title="14. 缓存雪崩问题解决方案"></a>14. 缓存雪崩问题解决方案</h1><p>缓存雪崩指的是缓存同一时间大面积的失效，所以后面的请求都会落到数据库上，造成数据库短时间内承受大量的请求而崩掉。</p>
 <p>解决方案：</p>
 <ul>
 <li>事前：尽量保证整个Redis集群的高可用性，发现机器宕机尽快补上，选择合适的内存淘汰策略</li>
@@ -10526,247 +10661,53 @@
 <li>设置不同的失效时间比如随机设置缓存的失效时间。</li>
 <li>缓存永不失效。</li>
 </ol>
-<h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>缓存穿透说简单点就是大量请求的 key 根本不存在于缓存中，导致请求直接到了数据库上，根本没有经过缓存这一层。举个例子：某个黑客故意制造我们缓存中不存在的 key 发起大量请求，导致大量请求落到数据库。</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><h4 id="参数校验"><a href="#参数校验" class="headerlink" title="参数校验"></a>参数校验</h4><p>最基本的就是首先做好<strong>参数校验</strong>，一些不合法的参数请求直接抛出异常信息返回给客户端。比如查询的数据库 id 不能小于 0、传入的邮箱格式不对的时候直接返回错误消息给客户端等等。</p>
-<h4 id="缓存无效-key"><a href="#缓存无效-key" class="headerlink" title="缓存无效 key"></a>缓存无效 key</h4><p>如果缓存和数据库都查不到某个 key 的数据就写一个到 Redis 中去并设置过期时间，具体命令如下： <code>SET key value EX 10086</code> 。这种方式可以解决请求的 key 变化不频繁的情况，如果黑客恶意攻击，每次构建不同的请求 key，会导致 Redis 中缓存大量无效的 key 。很明显，这种方案并不能从根本上解决此问题。如果非要用这种方式来解决穿透问题的话，尽量将无效的 key 的过期时间设置短一点比如 1 分钟。</p>
-<h4 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h4><p>将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。</p>
+<h1 id="15-缓存穿透问题解决方案"><a href="#15-缓存穿透问题解决方案" class="headerlink" title="15. 缓存穿透问题解决方案"></a>15. 缓存穿透问题解决方案</h1><p>缓存穿透说简单点就是大量请求的 key 根本不存在于缓存中，导致请求直接到了数据库上，根本没有经过缓存这一层。举个例子：某个黑客故意制造我们缓存中不存在的 key 发起大量请求，导致大量请求落到数据库。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>最基本的就是首先做好参数校验，一些不合法的参数请求直接抛出异常信息返回给客户端。比如查询的数据库 id 不能小于 0、传入的邮箱格式不对的时候直接返回错误消息给客户端等等。</p>
+<h3 id="缓存无效-key"><a href="#缓存无效-key" class="headerlink" title="缓存无效 key"></a>缓存无效 key</h3><p>如果缓存和数据库都查不到某个 key 的数据就写一个到 Redis 中去并设置过期时间，具体命令如下： <code>SET key value EX 10086</code> 。这种方式可以解决请求的 key 变化不频繁的情况，如果黑客恶意攻击，每次构建不同的请求 key，会导致 Redis 中缓存大量无效的 key 。很明显，这种方案并不能从根本上解决此问题。如果非要用这种方式来解决穿透问题的话，尽量将无效的 key 的过期时间设置短一点比如 1 分钟。</p>
+<h3 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h3><p>将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。</p>
 <p>具体是这样做的：把所有可能存在的请求的值都存放在布隆过滤器中，当用户请求过来，先判断用户发来的请求的值是否存在于布隆过滤器中。不存在的话，直接返回请求参数错误信息给客户端，存在的话才会走下面的流程。</p>
 <p>流程如下：</p>
 <p><img src="http://qiniu.xiaoming.net.cn/%E5%8A%A0%E5%85%A5%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%90%8E%E7%9A%84%E7%BC%93%E5%AD%98%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B.png" alt="加入布隆过滤器后的缓存处理流程"></p>
-<p>但是，需要注意的是布隆过滤器可能会存在误判的情况。总结来说就是： <strong>布隆过滤器说某个元素存在，小概率会误判。布隆过滤器说某个元素不在，那么这个元素一定不在。</strong></p>
-<h4 id="缓存空结果"><a href="#缓存空结果" class="headerlink" title="缓存空结果"></a>缓存空结果</h4><p>另外也有一个更为简单粗暴的方法，如果一个查询返回的数据为空（不管是数据不存在，还是系统故障），仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。</p>
-<h1 id="6、主从复制"><a href="#6、主从复制" class="headerlink" title="6、主从复制"></a>6、主从复制</h1><h2 id="建立复制"><a href="#建立复制" class="headerlink" title="建立复制"></a>建立复制</h2><p>方法有三种：</p>
-<ol>
-<li>在配置文件中加入<code>slaveof &#123;masterHost&#125; &#123;masterPort&#125;</code>,随Redis启动生效</li>
-<li>在<code>redis-server</code>启动命令后加入<code>--slaveof &#123;masterHost&#125; &#123;masterPort&#125;</code>生效</li>
-<li>直接使用命令：<code>slaveof &#123;masterHost&#125; &#123;masterPort&#125;</code>生效</li>
-</ol>
-<blockquote>
-<p><strong>slaveof</strong>命令指定主节点，并将当前节点设置为从节点，建立成功后，从节点会复制主节点的数据。</p>
-</blockquote>
-<h2 id="复制过程"><a href="#复制过程" class="headerlink" title="复制过程"></a>复制过程</h2><ol>
-<li><p><strong>保存主节点信息</strong>：执行<code>slaveof</code>后从节点只保存主节点的地址信息便直接返回，还未建立复制的完整流程</p>
-</li>
-<li><p><strong>主从建立socket连接</strong>:从节点内部通过每秒运行的定时任务维护复制的相关逻辑，当定时任务发现存在新的主节点后，会尝试与该节点建立网络连接（通过建立socket套接字，接受主节点发送的复制命令）。如果从节点无法建立连接，定时任务会无限重试直到连接成功或者执行<code>slaveof no one</code></p>
-</li>
-<li><p><strong>发送<code>ping</code>命令</strong>:连接建立成功后，从节点发送ping命令请求首次通信，检测主从之间网络套接字是否可用，同时检测主节点当前是否可接受处理命令。如果发送<code>ping</code>命令后，从节点没有收到主节点的pong回复或者超时，比如网络超时或者主节点正在阻塞无法响应命令，从节点会断开复制连接，下次定时任务会发起重连</p>
-</li>
-<li><p><strong>权限验证</strong>：如果主节点设置了<code>requirepass</code>参数，则需要密码验证，从节点必须配置<code>masterauth</code>参数保证与主节点相同的密码才能通过验证；如果验证失败复制将终止，从节点重新发起复制流程。</p>
-</li>
-<li><p><strong>同步数据集</strong>:主从复制连接正常通信后，对于首次建立复制的场景，主节点会把持有的数据全部发送给从节点，这部分操作是耗时最长的步骤。Redis在2.8版本以后采用新复制命令<code>psync</code>进行数据同步，原来的<code>sync</code>命令依然支持，保证新旧版本的兼容性。新版同步划分两种情况：全量同步和部分同步。</p>
-</li>
-<li><p>命令持续复制</p>
-<p>：当主节点把当前的数据同步给从节点后，便完成了复制的建立流程。接下来主节点会持续地把写命令发送给从节点，保证主从数据一致性。</p>
-<blockquote>
-<p>写命令的发送过程是异步完成，也就是说主节点自身处理完写命令后直接返回给客户端，并不等待从节点复制完成。这就会造成从节点的数据相对主节点存在延迟，具体延迟多少字节，可以通过在主节点执行<code>info replication</code>命令查看。</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="主从复制下数据同步方法"><a href="#主从复制下数据同步方法" class="headerlink" title="主从复制下数据同步方法"></a>主从复制下数据同步方法</h2><blockquote>
-<p>2.8以后Redis使用 psync 命令完成主从数据复制，数据同步过程分为全量复制和部分复制</p>
-</blockquote>
-<ul>
-<li>全量复制：一般用于初次复制场景，Redis早期支持的复制功能只有全量复制，它会把主节点全部数据一次性发送给从节点，当数据量较大时，会对主从节点和网络造成很大的开销。</li>
-<li>部分复制：用于处理在主从复制中因网络闪断等原因造成的数据丢失场景，当从节点再次连上主节点后，如果条件允许，主节点会补发丢失数据给从节点。因为补发的数据远远小于全量数据，可以有效避免全量复制的过高开销。<br>psync命令运行需要一下组件：</li>
-</ul>
-<ol>
-<li>主从节点各自复制偏移量</li>
-<li>主节点复制积压缓冲区</li>
-<li>主节点运行id</li>
-</ol>
-<p>部分复制流程如下：</p>
-<ol>
-<li>当主从节点之间网络出现中断时，如果超过 repl-timeout 时间，主节点会认为从节点故障并中断复制连接。<ol>
-<li>主从连接中断期间主节点依然响应命令，但因复制连接中断命令无法发送给从节点，不过主节点内部存在的复制积压缓冲区，依然可以保存最近一段时间的写命令数据，默认最大缓存1MB。</li>
-</ol>
-</li>
-<li>当主从节点网络恢复后，从节点会再次连上主节点.</li>
-<li>当主从连接恢复后，由于从节点之前保存了自身已复制的偏移量和主节点的运行ID。因此会把它们当作psync 参数发送给主节点，要求进行部分复制操作。</li>
-<li>主节点接到 psync 命令后首先核对参数 runId 是否与自身一致，如果一致，说明之前复制的是当前主节点；之后根据参数 offset 在自身复制积压缓冲区查找，如果偏移量之后的数据存在缓冲区中，则对从节点发送 +CONTINUE 响应，表示可以进行部分复制。</li>
-<li>主节点根据偏移量把复制积压缓冲区里的数据发送给从节点，保证主从复制进入正常状态。</li>
-</ol>
-<h1 id="7、哨兵模式"><a href="#7、哨兵模式" class="headerlink" title="7、哨兵模式"></a>7、哨兵模式</h1><p>Redis 哨兵（Sentinel）是Redis提供的一种高可用实现方案，Redis在主从复制下，一旦主节点出现问题，需要人工干预，手动将一个从节点更新为主节点（slaveof no one），同时还要通知应用方新的主节点，让其他从节点去复制新的从节点。这种方式存在弊端大，Redis Sentinel高可用方案就是为了解决这种问题。</p>
-<p>Redis Sentinel 是一个分布式架构，其中包含若干个Sentinel节点和Redis数据节点，每个Sentinel节点会对数据节点和其余Sentinel节点进行监控，当它发现节点不可达时，会对节点做下线标识。如果被标识的是主节点，它还会和其他Sentinel节点进行“协商”，当大多数Sentinel节点都认为主节点不可达时，它们会选举出一个Sentinel节点来完成自动故障转移的工作，同时会将这个变化实时通知给Redis应用方。</p>
-<h2 id="部署方式"><a href="#部署方式" class="headerlink" title="部署方式"></a>部署方式</h2><ul>
-<li><p>首先部署主节点和从节点</p>
-</li>
-<li><p>部署sentinel节点<br>在Redis安装目录下有一个 sentinel.conf 的文件，是默认的 sentinel 节点配置文件，对其进行复制和修改</p>
-</li>
-<li><p>启动Sentinel节点</p>
-<blockquote>
-<p>Sentinel节点默认的端口是26379</p>
-</blockquote>
-</li>
-</ul>
-<p>启动节点的方式有两种：</p>
-<ol>
-<li><p>使用redis-sentinel命令</p>
-<p>redis-sentinel sentinel配置文件.conf</p>
-</li>
-<li><p>使用redis-server命令加上–sentinel参数</p>
-<p>redis-server sentinel配置文件.conf —sentinel</p>
-<blockquote>
-<p>每个sentinel节点会对主节点和所有从节点进行监控，同时Sentinel节点之间也会相互监控</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><h3 id="三个定时任务"><a href="#三个定时任务" class="headerlink" title="三个定时任务"></a>三个定时任务</h3><p>Redis Sentinel通过三个定时监控任务完成对每个节点发现和监控：</p>
-<ol>
-<li><p>每隔10秒，每个Sentinel节点会向主节点和从节点发送info命令获取最新的拓扑结构，Sentinel节点可以通过info replication的结果进行解析找到相应的从节点。</p>
-<blockquote>
-<p><strong>作用</strong>：通过向主节点执行 info 命令，获取从节点的信息，这也是为什么 Sentinel 节点不需要显式配置监控从节点<br>当有新的从节点加入时都可以立刻感知出来。<br>节点不可达或者故障转移后，可以通过 info 命令实时更新节点拓扑信息。</p>
-</blockquote>
-</li>
-<li><p>每隔2秒，每个Sentinel会向Redis数据节点的</p>
-<p><strong>sentinel</strong>:hello频道发送该 Sentinel 节点的信息，同时每个 Sentinel 节点也会订阅该频道，来了解其他 Sentinel 节点以及他们对主节点的判断</p>
-<blockquote>
-<p><strong>作用</strong>：发现新的Sentinel节点：通过订阅主节点的 <code>__sentinel__：hello</code> 了解其他的Sentinel节点信息，如果是新加入的 Sentinel 节点，将该 Sentinel 节点信息保存起来，并与该 Sentinel 节点创建连接<br>Sentinel 节点之间交换主节点的状态，作为后面客观下线以及领导者选举的依据。</p>
-</blockquote>
-</li>
-<li><p>每隔1秒，每个Sentinel节点会向主节点、从节点、其余Sentinel节点发送一条ping命令做一次心跳检测，来确认这些节点当前是否可达。</p>
-<blockquote>
-<p><strong>作用</strong>：通过对上面的定时任务，Sentinel 节点对主节点、从节点，其余 Sentinel 节点都建立起连接，实现对每个节点的监控，这个定时任务是节点失败判定的重要依据。</p>
-</blockquote>
-</li>
-</ol>
-<h3 id="主观下线和客观下线"><a href="#主观下线和客观下线" class="headerlink" title="主观下线和客观下线"></a>主观下线和客观下线</h3><p>每个 Sentinel 节点每隔1秒对主节点、从节点、其他Sentinel节点发送ping命令做心脏检测，当这些节点超过 down-after-milliseconds 没有进行有效恢复时，Seintinel 节点会对该节点做失败判定，这个行为称为<strong>主观下线</strong>。</p>
-<p>当 Sentinel 主观下线的节点是主节点时，该 Sentinel 节点会通过 <code>sentinel is-master-down-by-addr</code> 命令向其他 Sentinel 节点询问对主节点的判断。当超过 quorum 个数 Sentinel 节点认为主节点确实有问题，这时就会做出<strong>客观下线</strong>的决定</p>
-<h3 id="领导者Sentinel节点的选取"><a href="#领导者Sentinel节点的选取" class="headerlink" title="领导者Sentinel节点的选取"></a>领导者Sentinel节点的选取</h3><ol>
-<li>每个在线的Sentinel节点都有资格成为领导者，当它确认主节点主观下线时候，会向其他Sentinel节点发送 <code>sentinel is-master-down-by-addr</code> 命令， 要求将自己设置为领导者。</li>
-<li>收到命令的Sentinel节点，如果没有同意过其他 Sentinel 节点的 <code>sentinel is-master-down-by-addr</code> 命令，将同意该请求，否则拒绝。</li>
-<li>如果该 Sentinel 节点发现自己的票数已经大于等于 <code>max（quorum， num（sentinels）/2+1）</code>，那么它将成为领导者。</li>
-<li>如果此过程没有选举出领导者，将进入下一次选举。</li>
-</ol>
-<blockquote>
-<p>事实上每个Sectinel只有一票，会最先给发起请求的节点。基本上谁先完成客观下线，就会成为领导者</p>
-</blockquote>
-<h3 id="故障转移"><a href="#故障转移" class="headerlink" title="故障转移"></a>故障转移</h3><ol>
-<li>在从节点列表中选出一个节点作为新的主节点，选择方法如下：</li>
-</ol>
-<ul>
-<li>过滤：“不健康”（主观下线、断线）、5秒内没有回复过Sentinel节点ping响应、与主节点失联超过 <code>down-after-milliseconds*10</code> 秒。</li>
-<li>选择slave-priority（从节点优先级）最高的从节点列表，如果存在则返回，不存在则继续。</li>
-<li>选择复制偏移量最大的从节点（复制的最完整），如果存在则返回，不存在则继续。</li>
-<li>选择runid最小的从节点。</li>
-</ul>
-<ol>
-<li>Sentinel领导者节点会对第一步选出来的从节点执行slaveof no one命令让其成为主节点。</li>
-<li>Sentinel领导者节点会向剩余的从节点发送命令，让它们成为新主节点的从节点，复制规则和parallel-syncs参数有关</li>
-<li>Sentinel节点集合会将原来的主节点更新为从节点，并保持着对其关注，当其恢复后命令它去复制新的主节点。</li>
-</ol>
-<h1 id="8、集群"><a href="#8、集群" class="headerlink" title="8、集群"></a>8、集群</h1><p>在哨兵模式中，仍然只有一个Master节点。当<strong>并发写请求</strong>较大时，哨兵模式并不能缓解写压力。</p>
-<p>只有主节点才具有写能力，那如果在一个集群中，能够配置多个主节点，就是redis-cluster集群模式</p>
-<h1 id="9、Redis的使用"><a href="#9、Redis的使用" class="headerlink" title="9、Redis的使用"></a>9、Redis的使用</h1><h2 id="为什么要用redis-为什么要用缓存"><a href="#为什么要用redis-为什么要用缓存" class="headerlink" title="为什么要用redis/为什么要用缓存"></a>为什么要用redis/为什么要用缓存</h2><p>主要从“高性能”和“高并发”这两个点来看待这个问题</p>
-<p><strong>高性能</strong>：</p>
-<p>Redis中的数据是存储在内存中的，所以读写速度非常快。假如用户第一次访问数据库中的某些数据，这个过程会比较慢，因为是从硬盘上读取的。将该用户访问的数据存在缓存中，这样下一次再访问这些数据的时候就可以直接从缓存中获取了。操作缓存就是直接操作内存，所以速度相当快。如果数据库中的对应数据改变之后，同步改变缓存中相应的数据即可。</p>
-<p><strong>高并发</strong>：</p>
-<p>一般像 MySQL 这类的数据库的 QPS 大概都在 1w 左右（4 核 8g） ，但是使用 Redis 缓存之后很容易达到 10w+，甚至最高能达到 30w+（就单机 redis 的情况，redis 集群的话会更高）。</p>
-<blockquote>
-<p>QPS（Query Per Second）：服务器每秒可以执行的查询次数；</p>
-</blockquote>
-<p>直接操作缓存能够承受的请求是远远大于直接访问数据库的，所以可以考虑把数据库中的部分数据转移到缓存中去，这样用户的一部分请求会直接到缓存这里而不用经过数据库</p>
-<h2 id="为什么使用redis而不直接在程序中使用map-guava做缓存？"><a href="#为什么使用redis而不直接在程序中使用map-guava做缓存？" class="headerlink" title="为什么使用redis而不直接在程序中使用map/guava做缓存？"></a>为什么使用redis而不直接在程序中使用map/guava做缓存？</h2><p>缓存分为本地缓存和分布式缓存，以Java为例，使用自带得<code>map</code>或者<code>guava</code>实现的是本地缓存，最主要得特点是<strong>轻量以及快速</strong>，生命周期随着JVM的销毁而结束，并且在多实例的情况下，每个实例都需要各自保存一份缓存，<strong>缓存不具有一致性</strong>。</p>
-<p>使用<code>redis</code>或<code>memcached</code>之类的称为分布式缓存，在多实例的情况下，各实例共用一份缓存数据，缓存具有一致性。缺点是需要保持<code>redis</code>或<code>memcached</code>服务的高可用，整个程序架构上较为复杂。</p>
-<h2 id="redis和memcached的区别"><a href="#redis和memcached的区别" class="headerlink" title="redis和memcached的区别"></a>redis和memcached的区别</h2><h3 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h3><ol>
-<li>都是基于内存的数据库，一般都用来当做缓存使用。</li>
-<li>都有过期策略。</li>
-<li>两者的性能都非常高。</li>
-</ol>
-<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul>
-<li><strong>Redis支持更丰富的数据类型（支持更复杂的应用场景）</strong>：Redis不仅仅支持简单的<code>k/v</code>类型的数据，同时还提供<code>list</code>,<code>hash</code>,<code>set</code>,<code>zset</code>等数据结构的存储。memcached支持简单数据类型<code>String</code>（<code>k/v</code>)。</li>
-<li><strong>Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用，而Memcached把数据全部存在内存之中</strong></li>
-<li><strong>Redis 有灾难恢复机制。</strong> 因为可以把缓存中的数据持久化到磁盘上。</li>
-<li><strong>Redis 在服务器内存使用完之后，可以将不用的数据放到磁盘上。但是，Memcached 在服务器内存使用完之后，就会直接报异常。</strong></li>
-<li><strong>集群模式</strong>：memcached没有原生的集群模式，需要依靠客户端来实现往集群中分片写入数据；但是redis目前是原生支持<code>cluster</code>模式的</li>
-<li><strong>Memcached是多线程的，非阻塞IO复用的网络模型；Redis使用单线程的多路复用IO模型</strong>（Redis 6.0 引入了多线程 IO ）</li>
-<li><strong>Redis 支持发布订阅模型、Lua 脚本、事务等功能，而 Memcached 不支持。并且，Redis 支持更多的编程语言。</strong></li>
-<li><strong>Memcached过期数据的删除策略只用了惰性删除，而 Redis 同时使用了惰性删除与定期删除。</strong></li>
-</ul>
-<h2 id="Redis-为什么那么快？"><a href="#Redis-为什么那么快？" class="headerlink" title="Redis 为什么那么快？"></a>Redis 为什么那么快？</h2><p>Redis 快的原因主要有：</p>
-<ul>
-<li>纯内存操作：是将数据储存在内存里，结构类似于 HashMap，HashMap 的优势就是查找和操作的时间复杂度都是O(1)。它的绝大部分请求是纯粹的内存操作，内存响应大约100纳秒，所以他读写数据的时候都不会受到硬盘 I/O 速度的限制，所以速度极快。</li>
-<li>单线程：采用单线程，保证了每个操作的原子性，也减少了线程的上下文切换和竞争，也不存在多进程或者多线程导致的切换而消耗 CPU，不用去考虑各种锁的问题，不存在加锁释放锁操作。</li>
-<li>使用多路I/O复用模型，非阻塞IO。（这里“多路”指的是多个网络连接，“复用”指的是复用同一个线程。采用多路 I/O 复用技术可以让单个线程高效的处理多个连接请求，减少网络 IO 的时间消耗）</li>
-<li>高效的数据结构：5种数据结构都有自己的应用场景</li>
-<li>合理的数据编码：根据具体使用情况使用不一样的编码（字典渐进式Rehash，跳跃表）</li>
-<li>其他方面的优化：定期删除+惰性删除等</li>
-</ul>
-<h2 id="Redis应用场景"><a href="#Redis应用场景" class="headerlink" title="Redis应用场景"></a>Redis应用场景</h2><h3 id="热点数据"><a href="#热点数据" class="headerlink" title="热点数据"></a>热点数据</h3><p>存取数据优先从 Redis 操作，如果不存在再从文件（例如 MySQL）中操作，从文件操作完后将数据存储到 Redis 中并返回。同时有个定时任务后台定时扫描 Redis 的 key，根据业务规则进行淘汰，防止某些只访问一两次的数据一直存在 Redis 中。</p>
-<p>例如使用 Zset 数据结构，存储 Key 的访问次数/最后访问时间作为 Score，最后做排序，来淘汰那些最少访问的 Key。</p>
-<h3 id="会话维持-Session"><a href="#会话维持-Session" class="headerlink" title="会话维持 Session"></a>会话维持 Session</h3><p>会话维持 Session 场景，即使用 Redis 作为分布式场景下的登录中心存储应用。每次不同的服务在登录的时候，都会去统一的 Redis 去验证 Session 是否正确。但是在微服务场景，一般会考虑 Redis + JWT 做 Oauth2 模块。</p>
-<p>其中 Redis 存储 JWT 的相关信息主要是留出口子，方便以后做统一的防刷接口，或者做登录设备限制等。</p>
-<h3 id="分布式锁-SETNX"><a href="#分布式锁-SETNX" class="headerlink" title="分布式锁 SETNX"></a>分布式锁 SETNX</h3><p>命令格式：<code>SETNX key value</code>：当且仅当 key 不存在，将 key 的值设为 value。若给定的 key 已经存在，则 SETNX 不做任何动作。</p>
-<p>超时时间设置：获取锁的同时，启动守护线程，使用 <code>expire</code> 进行定时更新超时时间。如果该业务机器宕机，守护线程也挂掉，这样也会自动过期。如果该业务不是宕机，而是真的需要这么久的操作时间，那么增加超时时间在业务上也是可以接受的，但是肯定有个最大的阈值。</p>
-<p>但是为了增加高可用，需要使用多台 Redis，就增加了复杂性，就可以参考 Redlock：Redlock分布式锁</p>
-<h3 id="表缓存"><a href="#表缓存" class="headerlink" title="表缓存"></a>表缓存</h3><p>Redis 缓存表的场景有黑名单、禁言表等。访问频率较高，即读高。根据业务需求，可以使用后台定时任务定时刷新 Redis 的缓存表数据。</p>
-<h3 id="消息队列-list"><a href="#消息队列-list" class="headerlink" title="消息队列 list"></a>消息队列 list</h3><p>主要使用了 List 数据结构。</p>
-<p>List 支持在头部和尾部操作，因此可以实现简单的消息队列。</p>
-<ul>
-<li>发消息：在 List 尾部塞入数据。</li>
-<li>消费消息：在 List 头部拿出数据。</li>
-</ul>
-<p>同时可以使用多个 List，来实现多个队列，根据不同的业务消息，塞入不同的 List，来增加吞吐量。</p>
-<h3 id="计数器-string"><a href="#计数器-string" class="headerlink" title="计数器 string"></a>计数器 string</h3><p>主要使用了 INCR、DECR、INCRBY、DECRBY 方法。</p>
-<p>INCR key：给 key 的 value 值增加一 DECR key：给 key 的 value 值减去一</p>
-<h1 id="10、Redis时效性"><a href="#10、Redis时效性" class="headerlink" title="10、Redis时效性"></a>10、Redis时效性</h1><h2 id="Redis-给缓存数据设置过期时间有啥用？"><a href="#Redis-给缓存数据设置过期时间有啥用？" class="headerlink" title="Redis 给缓存数据设置过期时间有啥用？"></a>Redis 给缓存数据设置过期时间有啥用？</h2><p>一般情况下，设置保存的缓存数据的时候都会设置一个过期时间。</p>
-<p>因为内存是有限的，如果缓存中的所有数据都是一直保存的话，分分钟直接Out of memory。</p>
-<p>Redis 自带了给缓存数据设置过期时间的功能，比如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; exp key  60 # 数据在 60s 后过期</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; setex key 60 value # 数据在 60s 后过期 (setex:[set] + [ex]pire)</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; ttl key # 查看数据还有多久过期</span><br><span class="line">(integer) 56</span><br></pre></td></tr></table></figure>
-
-<p>注意：<strong>Redis中除了字符串类型有自己独有设置过期时间的命令 <code>setex</code> 外，其他方法都需要依靠 <code>expire</code> 命令来设置过期时间 。另外， <code>persist</code> 命令可以移除一个键的过期时间</strong></p>
-<p><strong>过期时间除了有助于缓解内存的消耗，还有什么其他用么？</strong></p>
-<p>很多时候，我们的业务场景就是需要某个数据只在某一时间段内存在，比如我们的短信验证码可能只在1分钟内有效，用户登录的 token 可能只在 1 天内有效。</p>
-<p>如果使用传统的数据库来处理的话，一般都是自己判断过期，这样更麻烦并且性能要差很多。</p>
-<h2 id="Redis-判断数据过期的原理"><a href="#Redis-判断数据过期的原理" class="headerlink" title="Redis 判断数据过期的原理"></a>Redis 判断数据过期的原理</h2><p>Redis 通过一个叫做过期字典（可以看作是hash表）来保存数据过期的时间。过期字典的键指向Redis数据库中的某个key(键)，过期字典的值是一个long long类型的整数，这个整数保存了key所指向的数据库键的过期时间（毫秒精度的UNIX时间戳）。</p>
-<p><img src="http://qiniu.xiaoming.net.cn/redis%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.png" alt="Redis过期时间实现原理"></p>
-<p>过期字典是存储在redisDb这个结构里的：</p>
-<pre><code>typedef struct redisDb &#123;
-    ...
-    dict *dict;     //数据库键空间,保存着数据库中所有键值对
-    dict *expires   // 过期字典,保存着键的过期时间
-    ...
-&#125; redisDb;</code></pre>
-<h2 id="redis过期键处理方式"><a href="#redis过期键处理方式" class="headerlink" title="redis过期键处理方式"></a>redis过期键处理方式</h2><p>Redis中有个设置时间过期的功能，即对存储在 redis 数据库中的值可以设置一个过期时间。作为一个缓存数据库，这是非常实用的。如一般项目中的<code>token</code> 或者一些登录信息，尤其是短信验证码都是有时间限制的，按照传统的数据库处理方式，一般都是自己判断过期，这样无疑会严重影响项目性能。</p>
-<p>在<code>set key</code>的时候，都可以给一个<code>expire time</code>，就是过期时间，通过过期时间可以指定这个<code>key</code>可以存活的时间。</p>
-<p>Redis对过期的键采用的删除方式是：<strong>定期删除+惰性删除</strong></p>
-<ul>
-<li><strong>定期删除</strong>：redis默认是每隔100ms就随机抽取一些设置了过期时间的<code>key</code>,检查其是否过期，如果过期就删除。注意这里是随机抽取的。采用随机抽取的方式是因为如果Redis存了很多<code>key</code>的话，每隔100ms就遍历所有的设置过期时间的<code>key</code>的话，就会给CPU带来很大的负载。</li>
-<li><strong>惰性删除</strong>：定期删除可能会导致很多过期<code>key</code>到了时间并没有被删除掉。所以就有了惰性删除。对于过期的<code>key</code>,如果过了时间还没有被定期删除，还停留在内存中，只有在系统中查询一下这个<code>key</code>，redis才会把它给删除掉，这就是所谓的惰性删除。</li>
-</ul>
-<p>但是仅仅通过设置过期时间还是有问题的。如果定期删除漏掉了很多过期<code>key</code>，然后也没及时去查，也就没走惰性删除，此时会有大量过期key堆积在内存里，导致redis内存块耗尽了。redis采用<strong>内存淘汰机制</strong>进行处理。</p>
-<h2 id="redis内存淘汰机制（MySQL中有2000w数据，Redis中只存了20w数据，如何保证Redis中的数据都是热点数据？）"><a href="#redis内存淘汰机制（MySQL中有2000w数据，Redis中只存了20w数据，如何保证Redis中的数据都是热点数据？）" class="headerlink" title="redis内存淘汰机制（MySQL中有2000w数据，Redis中只存了20w数据，如何保证Redis中的数据都是热点数据？）"></a>redis内存淘汰机制（MySQL中有2000w数据，Redis中只存了20w数据，如何保证Redis中的数据都是热点数据？）</h2><p>当Redis中内存使用量超出时，会施行数据淘汰策略</p>
-<p>Redis支持6种淘汰策略：</p>
-<ul>
-<li><strong>volatile-lru</strong>：从已设置过期时间的数据集(<code>server.db[i].expires</code>)中挑选最近最少使用的数据淘汰</li>
-<li><strong>volatile-ttl</strong>：从已设置过期时间的数据集(<code>server.db[i].expires</code>)中挑选将要过期的数据淘汰</li>
-<li><strong>volatile-random</strong>：从已设置过期时间的数据集(<code>server.db[i].expires</code>)中任意选择数据淘汰</li>
-<li><strong>allkeys-lru</strong>：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的<code>key</code>(这个是最常用的)</li>
-<li><strong>allkeys-random</strong>：从数据集(<code>server.db[i].dict</code>)中任意选择数据淘汰</li>
-<li><strong>no-eviction</strong>:禁止驱逐数据，也就是说当内存不足以容纳新写入的数据时，新写入操作会报错。</li>
-</ul>
-<p>4.0版本以后增加了以下两种：</p>
-<ul>
-<li><strong>volatile-lfu</strong>：从已设置过期时间的数据集(<code>server.db[i].expires</code>)中挑选最不经常使用的数据淘汰</li>
-<li><strong>allkeys-lfu</strong>：当内存不足以容纳新写入数据时，在键空间中，移除最不经常使用的<code>key</code></li>
-</ul>
-<h1 id="11、分布式锁"><a href="#11、分布式锁" class="headerlink" title="11、分布式锁"></a>11、分布式锁</h1><h2 id="如何解决Redis的并发竞争key问题"><a href="#如何解决Redis的并发竞争key问题" class="headerlink" title="如何解决Redis的并发竞争key问题"></a>如何解决Redis的并发竞争key问题</h2><p>所谓Redis的并发竞争Key的问题也就是多个系统同时对一个Key进行操作，但是最后执行的顺序和期望的顺序不同，这样也就导致了结果的不同。</p>
+<p>但是，需要注意的是布隆过滤器可能会存在误判的情况。总结来说就是： <strong>布隆过滤器说某个元素存在，小概率会误判。布隆过滤器说某个元素不在，那么这个元素一定不在。</strong>(具体原因看<strong>面试复习——数据结构</strong>第13题)</p>
+<h3 id="缓存空结果"><a href="#缓存空结果" class="headerlink" title="缓存空结果"></a>缓存空结果</h3><p>另外也有一个更为简单粗暴的方法，如果一个查询返回的数据为空（不管是数据不存在，还是系统故障），仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。</p>
+<h1 id="16-如何解决Redis的并发竞争key问题"><a href="#16-如何解决Redis的并发竞争key问题" class="headerlink" title="16. 如何解决Redis的并发竞争key问题"></a>16. 如何解决Redis的并发竞争key问题</h1><p>所谓Redis的并发竞争Key的问题也就是多个系统同时对一个Key进行操作，但是最后执行的顺序和期望的顺序不同，这样也就导致了结果的不同。</p>
 <p>解决方案：可以使用分布式锁（<code>Zookeeper</code>和 redis 都可以实现分布式锁）。（如果不存在Redis的并发竞争Key问题，不要使用分布式锁，这样会影响性能）</p>
 <p>基于zookeeper临时有序节点可以实现的分布式锁。大致思想为：每个客户端对某个方法加锁时，在<code>zookeeper</code>上的与该方法对应的指定节点的目录下，生成一个唯一的瞬时有序节点。 判断是否获取锁的方式很简单，只需要判断有序节点中序号最小的一个。 当释放锁的时候，只需将这个瞬时节点删除即可。同时，其可以避免服务宕机导致的锁无法释放，而产生的死锁问题。完成业务流程后，删除对应的子节点释放锁。</p>
 <p>在实践中，当然是以可靠性为主,所以首推Zookeeper。</p>
-<h2 id="Redlock分布式锁"><a href="#Redlock分布式锁" class="headerlink" title="Redlock分布式锁"></a>Redlock分布式锁</h2><p>Redis官方提出一种基于Redis实现的分布式锁的方式叫<code>Redlock</code>,这种方法比原先单节点的方法更安全。它可以保证以下特性：</p>
+<h1 id="17-如何保证缓存与数据库双写时的数据一致性？"><a href="#17-如何保证缓存与数据库双写时的数据一致性？" class="headerlink" title="17. 如何保证缓存与数据库双写时的数据一致性？"></a>17. 如何保证缓存与数据库双写时的数据一致性？</h1><p>只要用缓存，就可能会涉及到缓存与数据库双存储，双写，只要是双写，就一定会有数据一致性问题，如何解决呢？</p>
+<p>一般来说，如果系统不是严格要求缓存+数据库必须一致性的话，缓存可以稍微跟数据库偶尔有不一致的情况。</p>
+<p>另外，可以将读请求和写请求串行化，串到一个内存队列里去，这样就可以保证一定不会出现不一致的情况，但是串行化之后，就会导致系统的吞吐量大幅度降低，需要用比正常情况下多几倍的机器去支撑线上的一个请求。</p>
+<p>解决这个问题的最经典的模式，就是 Cache Aside Pattern 数据库读写模式（<strong>旁路缓存模式</strong>）。</p>
+<ol>
+<li>读的时候先读缓存，如果缓存不存在的话就读数据库，取出数据库后更新缓存；如果存在的话直接读取缓存的信息。</li>
+<li>写的时候，先更新数据库，再删除缓存。</li>
+</ol>
+<h2 id="为什么是删除缓存而不是更新缓存？"><a href="#为什么是删除缓存而不是更新缓存？" class="headerlink" title="为什么是删除缓存而不是更新缓存？"></a>为什么是删除缓存而不是更新缓存？</h2><p>很多时候复杂的缓存场景，缓存不是仅仅从数据库中取出来的值。可能是关联多张表的数据并通过计算才是缓存需要的值。并且，更新缓存的代价有时候很高。<strong>对于需要频繁写操作，而读操作很少的时候，每次进行数据库的修改，缓存也要随之更新，会造成系统吞吐的下降，但此时缓存并不会被频繁访问到，用到的缓存才去算缓存</strong>。</p>
+<p>删除缓存而不是更新缓存，是一种懒加载的思想，不是每次都重复更新缓存，只有用到的时候才去更新缓存，同时即使有大量的读请求，实际也就更新了一次，后面的请求不会重复读。</p>
+<h2 id="Cache-Aside-Pattern存在的问题"><a href="#Cache-Aside-Pattern存在的问题" class="headerlink" title="Cache Aside Pattern存在的问题"></a>Cache Aside Pattern存在的问题</h2><p>问题：先更新数据库，再删除缓存，如果删除缓存失败了，导致数据库中是新数据，缓存中是旧数据，就出现数据不一致的问题。</p>
+<p><strong>解决思路</strong>：先删除缓存，再更新数据库。</p>
+<ul>
+<li>缓存删除失败：如果缓存删除失败，那么就不会继续执行，数据库信息没有被修改，保持了数据的一致性；</li>
+<li>缓存删除成功，数据库更新失败：此时数据库里的是旧数据，缓存是空的，查询时发现缓存不存在，就查询数据库并更新缓存，数据保持一致。</li>
+</ul>
+<p>问题：上面的方案存在不足，如果删除完缓存更新数据库时，如果一个请求过来查询数据，缓存不存在，就查询数据库的旧数据，更新旧数据到缓存中。随后数据更新完成，修改了数据库的数据，此时缓存和数据库的数据就会出现不一致了。高并发下会出现这种数据库 + 缓存不一致的情况。 如果不采用给缓存设置过期时间策略，该数据永远都是脏数据。</p>
+<p><strong>解决方案</strong>：采用双删除策略。写请求先删除缓存，再去更新数据库，等待一段时间后异步删除缓存。这样可以保证在读取错误数据时能及时被修正过来。</p>
+<p>还有一种策略，就是：写请求先修改缓存为指定值，然后再去更新数据库，再更新缓存。读请求过来后，会先读缓存，判断是指定值后就进入循环读取状态，等到写请求更新缓存。如果循环超时就去数据库读取数据，更新缓存。</p>
+<p>这种方案保证了读写的一致性，但由于读请求等待写请求的完成，会降低系统的吞吐量。</p>
+<h1 id="18-Redlock分布式锁"><a href="#18-Redlock分布式锁" class="headerlink" title="18. Redlock分布式锁"></a>18. Redlock分布式锁</h1><p>Redis官方提出一种基于Redis实现的分布式锁的方式叫<code>Redlock</code>,这种方法比原先单节点的方法更安全。它可以保证以下特性：</p>
 <ul>
 <li>安全特性：互斥访问，即永远只有一个<code>client</code>能拿到锁</li>
 <li>避免死锁：最终<code>client</code>都可能拿到锁，不会出现死锁的情况，即使原本锁住某资源的<code>client</code>crash了或者出现了网络分区</li>
 <li>容错性：只要大部分Redis节点存活就可以正常提供服务</li>
 </ul>
-<h3 id="怎么在单点上实现分布式锁"><a href="#怎么在单点上实现分布式锁" class="headerlink" title="怎么在单点上实现分布式锁"></a>怎么在单点上实现分布式锁</h3><p>主要通过以下命令:</p>
+<h2 id="怎么在单点上实现分布式锁"><a href="#怎么在单点上实现分布式锁" class="headerlink" title="怎么在单点上实现分布式锁"></a>怎么在单点上实现分布式锁</h2><p>主要通过以下命令:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SET resource_name my_random_value NX PX 30000</span><br></pre></td></tr></table></figure>
 
 <p>该命令仅当key不存在（NX保证）时，<code>set</code>值，并且设置过期时间为<code>3000ms</code>(PX保证)，值<code>my_random_value</code>必须是所有<code>client</code>和所有锁请求发生期间唯一的，释放锁的逻辑是：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if redis.call(&quot;get&quot;,KEYS[1]) &#x3D;&#x3D; ARGV[1] then</span><br><span class="line">    return redis.call(&quot;del&quot;,KEYS[1])</span><br><span class="line">else</span><br><span class="line">    return 0</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 
 <p>上述实现避免了释放另一个<code>client</code>创建的锁，如果只有<code>del</code>命令的话，如果<code>client1</code>拿到<code>lock1</code>之后因为某些操作阻塞了很长时间，此时Redis端<code>lock1</code>已经过期了并且已经被重新分配给了<code>client2</code>,那么<code>client1</code>此时再去释放这把锁就会造成<code>client2</code>原本获取到的锁被<code>client1</code>无故释放了，但现在为每个<code>client</code>分配一个<code>unique</code>的<code>string</code>值可以避免这个问题。至于如何去生成这个<code>unique string</code>，方法很多随意选择一种就行了。</p>
-<h3 id="Redlock算法"><a href="#Redlock算法" class="headerlink" title="Redlock算法"></a>Redlock算法</h3><p>假设有5个<code>master</code>节点，分布在不同的机房，为了获得锁，<code>client</code>会进行如下操作：</p>
+<h2 id="Redlock算法"><a href="#Redlock算法" class="headerlink" title="Redlock算法"></a>Redlock算法</h2><p>假设有5个<code>master</code>节点，分布在不同的机房，为了获得锁，<code>client</code>会进行如下操作：</p>
 <ol>
 <li>得到当前的事件，微秒单位</li>
 <li>尝试顺序的在5个实例上申请锁，当然需要使用相同的<code>key</code>和<code>random value</code>,这里一个<code>client</code>需要合理设置与<code>master</code>节点沟通的<code>timeout</code>大小，避免长时间和一个<code>fail</code>的节点浪费时间</li>
@@ -10777,29 +10718,17 @@
 <blockquote>
 <p>这个算法是基于一个假设：虽然不存在可以跨进程的同步时钟，但是不同进程时间都是以差不多相同的速度前进，这个假设不一定完全准确，但是和自动释放锁的时间长度相比不同进程时间前进速度差异基本是可以忽略不计的。</p>
 </blockquote>
-<h3 id="失败重试"><a href="#失败重试" class="headerlink" title="失败重试"></a>失败重试</h3><p>如果一个<code>client</code>申请锁失败了，那么它需要稍等一会再重试避免多个<code>client</code>同时申请锁的情况，最好的情况是一个<code>client</code>需要几乎同时向5个<code>master</code>发起申请锁申请。另外就是如果<code>client</code>申请锁失败了它需要尽快在它曾经申请到锁的<code>master</code>上执行<code>unlock</code>操作，便于其它<code>client</code>获取这把锁，避免这些锁过期造成的时间浪费，当然如果这时候网络分区使得<code>client</code>无法联系上这些<code>master</code>,那么这种浪费就是不得不付出的代价了。</p>
-<h3 id="放锁"><a href="#放锁" class="headerlink" title="放锁"></a>放锁</h3><p>放锁操作很简单，就是依次释放所有节点上的锁就行了</p>
-<h3 id="性能、崩溃恢复和fsync"><a href="#性能、崩溃恢复和fsync" class="headerlink" title="性能、崩溃恢复和fsync"></a>性能、崩溃恢复和fsync</h3><p>如果节点没有持久化机制，<code>client</code>从 5 个<code>master</code>中的 3 个处获得了锁，然后其中一个重启了，这时注意整个环境中又出现了 3 个<code>master</code>可供另一个<code>client</code>申请同一把锁！ 违反了互斥性。如果开启了 AOF 持久化那么情况会稍微好转一些，因为 Redis 的过期机制是语义层面实现的，所以在<code>server</code>挂了的时候时间依旧在流逝，重启之后锁状态不会受到污染。但是考虑断电之后呢，AOF部分命令没来得及刷回磁盘直接丢失了，除非配置刷回策略为<code>fsnyc = always</code>，但这会损伤性能。解决这个问题的方法是，当一个节点重启之后，规定在<code>max TTL</code>期间它是不可用的，这样它就不会干扰原本已经申请到的锁，等到它<code>crash</code>前的那部分锁都过期了，环境不存在历史锁了，那么再把这个节点加进来正常工作。</p>
-<h3 id="RedLock缺陷"><a href="#RedLock缺陷" class="headerlink" title="RedLock缺陷"></a>RedLock缺陷</h3><p>需要用到锁的主要有以下两种场景考虑：</p>
+<h2 id="失败重试"><a href="#失败重试" class="headerlink" title="失败重试"></a>失败重试</h2><p>如果一个<code>client</code>申请锁失败了，那么它需要稍等一会再重试避免多个<code>client</code>同时申请锁的情况，最好的情况是一个<code>client</code>需要几乎同时向5个<code>master</code>发起申请锁申请。另外就是如果<code>client</code>申请锁失败了它需要尽快在它曾经申请到锁的<code>master</code>上执行<code>unlock</code>操作，便于其它<code>client</code>获取这把锁，避免这些锁过期造成的时间浪费，当然如果这时候网络分区使得<code>client</code>无法联系上这些<code>master</code>,那么这种浪费就是不得不付出的代价了。</p>
+<h2 id="放锁"><a href="#放锁" class="headerlink" title="放锁"></a>放锁</h2><p>放锁操作很简单，就是依次释放所有节点上的锁就行了</p>
+<h2 id="性能、崩溃恢复和fsync"><a href="#性能、崩溃恢复和fsync" class="headerlink" title="性能、崩溃恢复和fsync"></a>性能、崩溃恢复和fsync</h2><p>如果节点没有持久化机制，<code>client</code>从 5 个<code>master</code>中的 3 个处获得了锁，然后其中一个重启了，这时注意整个环境中又出现了 3 个<code>master</code>可供另一个<code>client</code>申请同一把锁！ 违反了互斥性。如果开启了 AOF 持久化那么情况会稍微好转一些，因为 Redis 的过期机制是语义层面实现的，所以在<code>server</code>挂了的时候时间依旧在流逝，重启之后锁状态不会受到污染。但是考虑断电之后呢，AOF部分命令没来得及刷回磁盘直接丢失了，除非配置刷回策略为<code>fsnyc = always</code>，但这会损伤性能。解决这个问题的方法是，当一个节点重启之后，规定在<code>max TTL</code>期间它是不可用的，这样它就不会干扰原本已经申请到的锁，等到它<code>crash</code>前的那部分锁都过期了，环境不存在历史锁了，那么再把这个节点加进来正常工作。</p>
+<h2 id="RedLock缺陷"><a href="#RedLock缺陷" class="headerlink" title="RedLock缺陷"></a>RedLock缺陷</h2><p>需要用到锁的主要有以下两种场景考虑：</p>
 <ul>
 <li><strong>性能</strong>：拥有这把锁使得你不会重复劳动（例如一个job做了两次），如果这把锁fail了，两个节点同时做了这个job，那么这个job增加了你的成本</li>
 <li><strong>正确性</strong>：拥有锁可以防止并发操作污染了你的系统或者数据，如果这把锁fail了，两个节点同时操作了一份数据，结果可能是数据不一致、数据丢失、file冲突等，会导致严重的后果</li>
 </ul>
 <h3 id="RedLock算法不可靠的场景"><a href="#RedLock算法不可靠的场景" class="headerlink" title="RedLock算法不可靠的场景"></a>RedLock算法不可靠的场景</h3><p>在分布式环境下，锁比<code>mutex</code>这类复杂，因为涉及到不同节点、网络通信并且他们随时可能无征兆的fail。假设现在有一个场景：一个client要修改一个文件，它先申请得到锁，然后修改文件写回，放锁。另一个client再申请锁。代码流程如下：</p>
-<pre><code>function writeData(filename,data)&#123;
-    var lock = lockService.acquireLock(filename);
-    if(!lock) &#123;
-        throw &#39;Failed to acquire lock!&#39;;
-    &#125;
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function writeData(filename,data)&#123;</span><br><span class="line">    var lock &#x3D; lockService.acquireLock(filename);</span><br><span class="line">    if(!lock) &#123;</span><br><span class="line">        throw &#39;Failed to acquire lock!&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    try &#123;</span><br><span class="line">        var file &#x3D; storage.readFile(filename);</span><br><span class="line">        var updated &#x3D; updateContents(file,data);</span><br><span class="line">        sotrage.writeFile(filename,updated);</span><br><span class="line">    &#125;finally &#123;</span><br><span class="line">        lock.release();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    try &#123;
-        var file = storage.readFile(filename);
-        var updated = updateContents(file,data);
-        sotrage.writeFile(filename,updated);
-    &#125;finally &#123;
-        lock.release();
-    &#125;
-&#125;</code></pre>
 <p>上述代码在以下流程中还是有可能出现bug：</p>
 <p><img src="https://camo.githubusercontent.com/b1fd3e057266f0ca21f69e2a26f420f9564c5cdb/68747470733a2f2f6d617274696e2e6b6c6570706d616e6e2e636f6d2f323031362f30322f756e736166652d6c6f636b2e706e67" alt="RedLock锁流程"></p>
 <p>在上述图中，得到锁的client1在持有锁的期间pause（暂停）了一段时间，例如GC停顿。锁有过期时间（一般叫租约，为了防止某个 client 崩溃之后一直占有锁），但是如果 GC 停顿太长超过了锁租约时间，此时锁已经被另一个 client2 所得到，原先的 client1 还没有感知到锁过期，这时候client再进行写时就会发生错误。即使在client1写回之前检查一下锁是否过期也无法解决这个问题，因为GC可能在任何时候发生，即使在最后的检查和写操作期间。</p>
@@ -10833,27 +10762,7 @@
 <blockquote>
 <p>Redlock 不是一个好的选择，对于需求性能的分布式锁应用它太重了且成本高；对于需求正确性的应用来说它不够安全。因为它对高危的时钟或者说其他上述列举的情况进行了不可靠的假设，如果应用只需要高性能的分布式锁不要求多高的正确性，那么单节点 Redis 够了；如果应用想要保住正确性，那么不建议 Redlock，建议使用一个合适的一致性协调系统，例如<code>Zookeeper</code>，且保证存在<code>fencing token</code>。</p>
 </blockquote>
-<h1 id="12、如何保证缓存与数据库双写时的数据一致性？"><a href="#12、如何保证缓存与数据库双写时的数据一致性？" class="headerlink" title="12、如何保证缓存与数据库双写时的数据一致性？"></a>12、如何保证缓存与数据库双写时的数据一致性？</h1><p>只要用缓存，就可能会涉及到缓存与数据库双存储，双写，只要是双写，就一定会有数据一致性问题，如何解决呢？</p>
-<p>一般来说，如果系统不是严格要求缓存+数据库必须一致性的话，缓存可以稍微跟数据库偶尔有不一致的情况。</p>
-<p>另外，可以将读请求和写请求串行化，串到一个内存队列里去，这样就可以保证一定不会出现不一致的情况，但是串行化之后，就会导致系统的吞吐量大幅度降低，需要用比正常情况下多几倍的机器去支撑线上的一个请求。</p>
-<p>解决这个问题的最经典的模式，就是 Cache Aside Pattern 数据库读写模式（<strong>旁路缓存模式</strong>）。</p>
-<ol>
-<li>读的时候先读缓存，如果缓存不存在的话就读数据库，取出数据库后更新缓存；如果存在的话直接读取缓存的信息。</li>
-<li>写的时候，先更新数据库，再删除缓存。</li>
-</ol>
-<h2 id="为什么是删除缓存而不是更新缓存？"><a href="#为什么是删除缓存而不是更新缓存？" class="headerlink" title="为什么是删除缓存而不是更新缓存？"></a>为什么是删除缓存而不是更新缓存？</h2><p>很多时候复杂的缓存场景，缓存不是仅仅从数据库中取出来的值。可能是关联多张表的数据并通过计算才是缓存需要的值。并且，更新缓存的代价有时候很高。<strong>对于需要频繁写操作，而读操作很少的时候，每次进行数据库的修改，缓存也要随之更新，会造成系统吞吐的下降，但此时缓存并不会被频繁访问到，用到的缓存才去算缓存</strong>。</p>
-<p>删除缓存而不是更新缓存，是一种懒加载的思想，不是每次都重复更新缓存，只有用到的时候才去更新缓存，同时即使有大量的读请求，实际也就更新了一次，后面的请求不会重复读。</p>
-<h2 id="Cache-Aside-Pattern存在的问题"><a href="#Cache-Aside-Pattern存在的问题" class="headerlink" title="Cache Aside Pattern存在的问题"></a>Cache Aside Pattern存在的问题</h2><p>问题：先更新数据库，再删除缓存，如果删除缓存失败了，导致数据库中是新数据，缓存中是旧数据，就出现数据不一致的问题。</p>
-<p><strong>解决思路</strong>：先删除缓存，再更新数据库。</p>
-<ul>
-<li>缓存删除失败：如果缓存删除失败，那么就不会继续执行，数据库信息没有被修改，保持了数据的一致性；</li>
-<li>缓存删除成功，数据库更新失败：此时数据库里的是旧数据，缓存是空的，查询时发现缓存不存在，就查询数据库并更新缓存，数据保持一致。</li>
-</ul>
-<p>问题：上面的方案存在不足，如果删除完缓存更新数据库时，如果一个请求过来查询数据，缓存不存在，就查询数据库的旧数据，更新旧数据到缓存中。随后数据更新完成，修改了数据库的数据，此时缓存和数据库的数据就会出现不一致了。高并发下会出现这种数据库 + 缓存不一致的情况。 如果不采用给缓存设置过期时间策略，该数据永远都是脏数据。</p>
-<p><strong>解决方案</strong>：采用双删除策略。写请求先删除缓存，再去更新数据库，等待一段时间后异步删除缓存。这样可以保证在读取错误数据时能及时被修正过来。</p>
-<p>还有一种策略，就是：写请求先修改缓存为指定值，然后再去更新数据库，再更新缓存。读请求过来后，会先读缓存，判断是指定值后就进入循环读取状态，等到写请求更新缓存。如果循环超时就去数据库读取数据，更新缓存。</p>
-<p>这种方案保证了读写的一致性，但由于读请求等待写请求的完成，会降低系统的吞吐量。</p>
-<h1 id="13、Redis底层实现-用到了哪些数据结构"><a href="#13、Redis底层实现-用到了哪些数据结构" class="headerlink" title="13、Redis底层实现/用到了哪些数据结构"></a>13、Redis底层实现/用到了哪些数据结构</h1><h2 id="字典（也叫哈希）"><a href="#字典（也叫哈希）" class="headerlink" title="字典（也叫哈希）"></a>字典（也叫哈希）</h2><p>Redis 使用的是<code>key-value</code>的存储形式</p>
+<h1 id="19-Redis底层实现-用到了哪些数据结构"><a href="#19-Redis底层实现-用到了哪些数据结构" class="headerlink" title="19. Redis底层实现/用到了哪些数据结构"></a>19. Redis底层实现/用到了哪些数据结构</h1><h2 id="字典（也叫哈希）"><a href="#字典（也叫哈希）" class="headerlink" title="字典（也叫哈希）"></a>字典（也叫哈希）</h2><p>Redis 使用的是<code>key-value</code>的存储形式</p>
 <p><code>dictht</code>是一个散列表结构，使用拉链法解决哈希冲突</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">typedef struct dictht &#123;</span><br><span class="line">    dictEntry **table;</span><br><span class="line">    unsigned long size;</span><br><span class="line">    unsigned long sizemask;</span><br><span class="line">    unsigned long used;</span><br><span class="line">&#125; dictht;</span><br><span class="line">typedef struct dictEntry &#123;</span><br><span class="line">    void *key;</span><br><span class="line">    union &#123;</span><br><span class="line">        void *val;</span><br><span class="line">        uint64_t u64;</span><br><span class="line">        ini64_t s64;</span><br><span class="line">        double d;</span><br><span class="line">    &#125; v;</span><br><span class="line">    struct dictEntry *next;</span><br><span class="line">&#125; dictEntry;</span><br></pre></td></tr></table></figure>
 
@@ -10871,7 +10780,135 @@
 <li>更容易实现</li>
 <li>支持无锁操作</li>
 </ul>
-<h1 id="14、Sorted-Set（即-ZSet-实现原理）"><a href="#14、Sorted-Set（即-ZSet-实现原理）" class="headerlink" title="14、Sorted Set（即 ZSet 实现原理）"></a>14、Sorted Set（即 ZSet 实现原理）</h1><p>ZSet 内部编码实现：</p>
+<h1 id="20-主从复制"><a href="#20-主从复制" class="headerlink" title="20. 主从复制"></a>20. 主从复制</h1><p>建立复制的方法有三种：</p>
+<ol>
+<li>在配置文件中加入<code>slaveof &#123;masterHost&#125; &#123;masterPort&#125;</code>,随Redis启动生效</li>
+<li>在<code>redis-server</code>启动命令后加入<code>--slaveof &#123;masterHost&#125; &#123;masterPort&#125;</code>生效</li>
+<li>直接使用命令：<code>slaveof &#123;masterHost&#125; &#123;masterPort&#125;</code>生效</li>
+</ol>
+<blockquote>
+<p><strong>slaveof</strong>命令指定主节点，并将当前节点设置为从节点，建立成功后，从节点会复制主节点的数据。</p>
+</blockquote>
+<p>复制过程：</p>
+<ol>
+<li><p><strong>保存主节点信息</strong>：执行<code>slaveof</code>后从节点只保存主节点的地址信息便直接返回，还未建立复制的完整流程</p>
+</li>
+<li><p><strong>主从建立socket连接</strong>:从节点内部通过每秒运行的定时任务维护复制的相关逻辑，当定时任务发现存在新的主节点后，会尝试与该节点建立网络连接（通过建立socket套接字，接受主节点发送的复制命令）。如果从节点无法建立连接，定时任务会无限重试直到连接成功或者执行<code>slaveof no one</code></p>
+</li>
+<li><p><strong>发送<code>ping</code>命令</strong>:连接建立成功后，从节点发送ping命令请求首次通信，检测主从之间网络套接字是否可用，同时检测主节点当前是否可接受处理命令。如果发送<code>ping</code>命令后，从节点没有收到主节点的pong回复或者超时，比如网络超时或者主节点正在阻塞无法响应命令，从节点会断开复制连接，下次定时任务会发起重连</p>
+</li>
+<li><p><strong>权限验证</strong>：如果主节点设置了<code>requirepass</code>参数，则需要密码验证，从节点必须配置<code>masterauth</code>参数保证与主节点相同的密码才能通过验证；如果验证失败复制将终止，从节点重新发起复制流程。</p>
+</li>
+<li><p><strong>同步数据集</strong>:主从复制连接正常通信后，对于首次建立复制的场景，主节点会把持有的数据全部发送给从节点，这部分操作是耗时最长的步骤。Redis在2.8版本以后采用新复制命令<code>psync</code>进行数据同步，原来的<code>sync</code>命令依然支持，保证新旧版本的兼容性。新版同步划分两种情况：全量同步和部分同步。</p>
+</li>
+<li><p>命令持续复制</p>
+<p>：当主节点把当前的数据同步给从节点后，便完成了复制的建立流程。接下来主节点会持续地把写命令发送给从节点，保证主从数据一致性。</p>
+<blockquote>
+<p>写命令的发送过程是异步完成，也就是说主节点自身处理完写命令后直接返回给客户端，并不等待从节点复制完成。这就会造成从节点的数据相对主节点存在延迟，具体延迟多少字节，可以通过在主节点执行<code>info replication</code>命令查看。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="主从复制下数据同步方法"><a href="#主从复制下数据同步方法" class="headerlink" title="主从复制下数据同步方法"></a>主从复制下数据同步方法</h2><p>2.8以后Redis使用 psync 命令完成主从数据复制，数据同步过程分为全量复制和部分复制</p>
+<ul>
+<li>全量复制：一般用于初次复制场景，Redis早期支持的复制功能只有全量复制，它会把主节点全部数据一次性发送给从节点，当数据量较大时，会对主从节点和网络造成很大的开销。</li>
+<li>部分复制：用于处理在主从复制中因网络闪断等原因造成的数据丢失场景，当从节点再次连上主节点后，如果条件允许，主节点会补发丢失数据给从节点。因为补发的数据远远小于全量数据，可以有效避免全量复制的过高开销。<br>psync命令运行需要一下组件：</li>
+</ul>
+<ol>
+<li>主从节点各自复制偏移量</li>
+<li>主节点复制积压缓冲区</li>
+<li>主节点运行id</li>
+</ol>
+<p>部分复制流程如下：</p>
+<ol>
+<li>当主从节点之间网络出现中断时，如果超过 repl-timeout 时间，主节点会认为从节点故障并中断复制连接。</li>
+<li>主从连接中断期间主节点依然响应命令，但因复制连接中断命令无法发送给从节点，不过主节点内部存在的复制积压缓冲区，依然可以保存最近一段时间的写命令数据，默认最大缓存1MB。</li>
+<li>当主从节点网络恢复后，从节点会再次连上主节点.</li>
+<li>当主从连接恢复后，由于从节点之前保存了自身已复制的偏移量和主节点的运行ID。因此会把它们当作psync 参数发送给主节点，要求进行部分复制操作。</li>
+<li>主节点接到 psync 命令后首先核对参数 runId 是否与自身一致，如果一致，说明之前复制的是当前主节点；之后根据参数 offset 在自身复制积压缓冲区查找，如果偏移量之后的数据存在缓冲区中，则对从节点发送 +CONTINUE 响应，表示可以进行部分复制。</li>
+<li>主节点根据偏移量把复制积压缓冲区里的数据发送给从节点，保证主从复制进入正常状态。</li>
+</ol>
+<h1 id="21-Redis-哨兵模式"><a href="#21-Redis-哨兵模式" class="headerlink" title="21. Redis 哨兵模式"></a>21. Redis 哨兵模式</h1><p>Redis 哨兵（Sentinel）是Redis提供的一种高可用实现方案，Redis在主从复制下，一旦主节点出现问题，需要人工干预，手动将一个从节点更新为主节点（slaveof no one），同时还要通知应用方新的主节点，让其他从节点去复制新的从节点。这种方式存在弊端大，Redis Sentinel高可用方案就是为了解决这种问题。</p>
+<p>Redis Sentinel 是一个分布式架构，其中包含若干个Sentinel节点和Redis数据节点，每个Sentinel节点会对数据节点和其余Sentinel节点进行监控，当它发现节点不可达时，会对节点做下线标识。如果被标识的是主节点，它还会和其他Sentinel节点进行“协商”，当大多数Sentinel节点都认为主节点不可达时，它们会选举出一个Sentinel节点来完成自动故障转移的工作，同时会将这个变化实时通知给Redis应用方。</p>
+<h2 id="部署方式"><a href="#部署方式" class="headerlink" title="部署方式"></a>部署方式</h2><ul>
+<li><p>首先部署主节点和从节点</p>
+</li>
+<li><p>部署sentinel节点<br>在Redis安装目录下有一个 sentinel.conf 的文件，是默认的 sentinel 节点配置文件，对其进行复制和修改</p>
+</li>
+<li><p>启动Sentinel节点</p>
+<blockquote>
+<p>Sentinel节点默认的端口是26379</p>
+</blockquote>
+</li>
+</ul>
+<p>启动节点的方式有两种：</p>
+<ol>
+<li><p>使用redis-sentinel命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis-sentinel sentinel配置文件.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用redis-server命令加上</p>
+</li>
+</ol>
+   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--sentinel</span><br></pre></td></tr></table></figure>
+
+
+
+<p>   参数</p>
+   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis-server sentinel配置文件.conf —sentinel</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>每个sentinel节点会对主节点和所有从节点进行监控，同时Sentinel节点之间也会相互监控</p>
+</blockquote>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><h3 id="三个定时任务"><a href="#三个定时任务" class="headerlink" title="三个定时任务"></a>三个定时任务</h3><p>Redis Sentinel通过三个定时监控任务完成对每个节点发现和监控：</p>
+<ol>
+<li><p>每隔10秒，每个Sentinel节点会向主节点和从节点发送info命令获取最新的拓扑结构，Sentinel节点可以通过info replication的结果进行解析找到相应的从节点。</p>
+<blockquote>
+<p><strong>作用</strong>：通过向主节点执行 info 命令，获取从节点的信息，这也是为什么 Sentinel 节点不需要显式配置监控从节点<br>当有新的从节点加入时都可以立刻感知出来。<br>节点不可达或者故障转移后，可以通过 info 命令实时更新节点拓扑信息。</p>
+</blockquote>
+</li>
+<li><p>每隔2秒，每个Sentinel会向Redis数据节点的</p>
+</li>
+</ol>
+   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__sentinel__:hello</span><br></pre></td></tr></table></figure>
+
+
+
+<p>   频道发送该 Sentinel 节点的信息，同时每个 Sentinel 节点也会订阅该频道，来了解其他 Sentinel 节点以及他们对主节点的判断</p>
+<blockquote>
+<p><strong>作用</strong>：发现新的Sentinel节点：通过订阅主节点的 <code>__sentinel__：hello</code> 了解其他的Sentinel节点信息，如果是新加入的 Sentinel 节点，将该 Sentinel 节点信息保存起来，并与该 Sentinel 节点创建连接<br>Sentinel 节点之间交换主节点的状态，作为后面客观下线以及领导者选举的依据。</p>
+</blockquote>
+<ol start="3">
+<li><p>每隔1秒，每个Sentinel节点会向主节点、从节点、其余Sentinel节点发送一条ping命令做一次心跳检测，来确认这些节点当前是否可达。</p>
+<blockquote>
+<p><strong>作用</strong>：通过对上面的定时任务，Sentinel 节点对主节点、从节点，其余 Sentinel 节点都建立起连接，实现对每个节点的监控，这个定时任务是节点失败判定的重要依据。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="主观下线和客观下线"><a href="#主观下线和客观下线" class="headerlink" title="主观下线和客观下线"></a>主观下线和客观下线</h3><p>每个 Sentinel 节点每隔1秒对主节点、从节点、其他Sentinel节点发送ping命令做心脏检测，当这些节点超过 down-after-milliseconds 没有进行有效恢复时，Seintinel 节点会对该节点做失败判定，这个行为称为<strong>主观下线</strong>。</p>
+<p>当 Sentinel 主观下线的节点是主节点时，该 Sentinel 节点会通过 <code>sentinel is-master-down-by-addr</code> 命令向其他 Sentinel 节点询问对主节点的判断。当超过 quorum 个数 Sentinel 节点认为主节点确实有问题，这时就会做出<strong>客观下线</strong>的决定</p>
+<h3 id="领导者Sentinel节点的选取"><a href="#领导者Sentinel节点的选取" class="headerlink" title="领导者Sentinel节点的选取"></a>领导者Sentinel节点的选取</h3><ol>
+<li>每个在线的Sentinel节点都有资格成为领导者，当它确认主节点主观下线时候，会向其他Sentinel节点发送 <code>sentinel is-master-down-by-addr</code> 命令， 要求将自己设置为领导者。</li>
+<li>收到命令的Sentinel节点，如果没有同意过其他 Sentinel 节点的 <code>sentinel is-master-down-by-addr</code> 命令，将同意该请求，否则拒绝。</li>
+<li>如果该 Sentinel 节点发现自己的票数已经大于等于 <code>max（quorum， num（sentinels）/2+1）</code>，那么它将成为领导者。</li>
+<li>如果此过程没有选举出领导者，将进入下一次选举。</li>
+</ol>
+<blockquote>
+<p>事实上每个Sectinel只有一票，会最先给发起请求的节点。基本上谁先完成客观下线，就会成为领导者</p>
+</blockquote>
+<h3 id="故障转移"><a href="#故障转移" class="headerlink" title="故障转移"></a>故障转移</h3><ol>
+<li>在从节点列表中选出一个节点作为新的主节点，选择方法如下：</li>
+</ol>
+<ul>
+<li>过滤：“不健康”（主观下线、断线）、5秒内没有回复过Sentinel节点ping响应、与主节点失联超过 <code>down-after-milliseconds*10</code> 秒。</li>
+<li>选择slave-priority（从节点优先级）最高的从节点列表，如果存在则返回，不存在则继续。</li>
+<li>选择复制偏移量最大的从节点（复制的最完整），如果存在则返回，不存在则继续。</li>
+<li>选择runid最小的从节点。</li>
+</ul>
+<ol>
+<li>Sentinel领导者节点会对第一步选出来的从节点执行slaveof no one命令让其成为主节点。</li>
+<li>Sentinel领导者节点会向剩余的从节点发送命令，让它们成为新主节点的从节点，复制规则和parallel-syncs参数有关</li>
+<li>Sentinel节点集合会将原来的主节点更新为从节点，并保持着对其关注，当其恢复后命令它去复制新的主节点。</li>
+</ol>
+<h1 id="22-Sorted-Set（即-ZSet-实现原理）"><a href="#22-Sorted-Set（即-ZSet-实现原理）" class="headerlink" title="22. Sorted Set（即 ZSet 实现原理）"></a>22. Sorted Set（即 ZSet 实现原理）</h1><p>ZSet 内部编码实现：</p>
 <ul>
 <li><code>ziplist</code>(压缩列表)：当哈希类型元素个数小于zset-max-ziplist-entries配置（默认128个），同时所有值小于zset-max-ziplist-value配置（默认64）时，使用ziplist作为内部实现，ziplist使用更加紧凑的结构实现多个元素的连续存储，在节省内存方面更加优秀。</li>
 <li><code>skiplist</code>(跳表)：当ziplist条件不满足时，有序集合会使用skiplist作为内部实现，因为此时ziplist的读写效率会下降</li>
@@ -10920,13 +10957,270 @@
 <li>因为有序集合经常会进行 ZRANGE 或 ZREVRANGE 这样的范围查找操作，跳表里面的双向链表可以十分方便地进行这类操作。</li>
 <li>实现简单，ZRANK 操作还能达到 O(logN) 的时间复杂度。</li>
 </ol>
+<h1 id="23-Redis-为什么那么快？"><a href="#23-Redis-为什么那么快？" class="headerlink" title="23. Redis 为什么那么快？"></a>23. Redis 为什么那么快？</h1><p>Redis 快的原因主要有：</p>
+<ul>
+<li>纯内存操作：是将数据储存在内存里，结构类似于 HashMap，HashMap 的优势就是查找和操作的时间复杂度都是O(1)。它的绝大部分请求是纯粹的内存操作，内存响应大约100纳秒，所以他读写数据的时候都不会受到硬盘 I/O 速度的限制，所以速度极快。</li>
+<li>单线程：采用单线程，保证了每个操作的原子性，也减少了线程的上下文切换和竞争，也不存在多进程或者多线程导致的切换而消耗 CPU，不用去考虑各种锁的问题，不存在加锁释放锁操作。</li>
+<li>使用多路I/O复用模型，非阻塞IO。（这里“多路”指的是多个网络连接，“复用”指的是复用同一个线程。采用多路 I/O 复用技术可以让单个线程高效的处理多个连接请求，减少网络 IO 的时间消耗）</li>
+<li>高效的数据结构：5种数据结构都有自己的应用场景</li>
+<li>合理的数据编码：根据具体使用情况使用不一样的编码（字典渐进式Rehash，跳跃表）</li>
+<li>其他方面的优化：定期删除+惰性删除等</li>
+</ul>
+<h1 id="24-Redis-集群原理"><a href="#24-Redis-集群原理" class="headerlink" title="24. Redis 集群原理"></a>24. Redis 集群原理</h1><h2 id="集群数据分区"><a href="#集群数据分区" class="headerlink" title="集群数据分区"></a>集群数据分区</h2><p>Redis Cluster 采用虚拟槽分区，所有的键根据哈希函数映射到 <code>0~16383</code> 整数槽内，计算公式：<code>slot=CRC16（key）&amp; 16383</code>。每一个节点负责维护一部分槽以及槽所映射的键值数据。</p>
+<p><img src="https://qiniu.xiaoming.net.cn/redis%E9%9B%86%E7%BE%A4%E5%86%85%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1.png" alt="Redis数据分区"></p>
+<p>Redis虚拟槽分区的特点：</p>
+<ul>
+<li>解耦数据和节点之间的关系，简化了节点扩容和收缩难度。</li>
+<li>节点自身维护槽的映射关系，不需要客户端或者代理服务维护槽分区元数据。</li>
+<li>支持节点、槽、键之间的映射查询，用于数据路由、在线伸缩等场景。</li>
+</ul>
+<p>可以使用 <code>redis-cli --cluster</code> 搭建集群</p>
+<h2 id="节点通信"><a href="#节点通信" class="headerlink" title="节点通信"></a>节点通信</h2><p>通信流程：在分布式存储中需要提供维护节点元数据信息的机制，所谓元数据是指：节点负责哪些数据，是否出现故障等状态信息。常见的元数据维护方式分为：集中式和 P2P 方式。Redis集群采用 P2P 的 Gossip（流言）协议，Gossip 协议工作原理就是节点彼此不断通信交换信息，一段时间后所有的节点都会知道集群完整的信息。</p>
+<p>通信过程：</p>
+<ul>
+<li>集群中的每个节点都会单独开辟一个 TCP 通道，用于节点之间彼此通信，通信端口号在基础端口上加10000。</li>
+<li>每个节点在固定周期内通过特定规则选择几个节点发送 ping 消息。</li>
+<li>接收到 ping 消息的节点用 pong 消息作为响应。</li>
+</ul>
+<h3 id="Gossip消息"><a href="#Gossip消息" class="headerlink" title="Gossip消息"></a>Gossip消息</h3><p>Gossip protocol 也叫 Epidemic Protocol （流行病协议），实际上它还有很多别名，比如：“流言算法”、“疫情传播算法”等。</p>
+<p>Gossip 过程是由种子节点发起，当一个种子节点有状态需要更新到网络中的其他节点时，它会随机的选择周围几个节点散播消息，收到消息的节点也会重复该过程，直至最终网络中所有的节点都收到了消息。这个过程可能需要一定的时间，由于不能保证某个时刻所有节点都收到消息，但是理论上最终所有节点都会收到消息，因此它是一个最终一致性协议。</p>
+<p>Gossip 协议的主要职责就是信息交换。信息交换的载体就是节点彼此发送的 Gossip 消息。常用的 Gossip消息可分为：ping 消息、pong 消息、meet 消息、fail 消息。</p>
+<ul>
+<li>meet 消息：用于通知新节点加入。消息发送者通知接收者加入到当前集群，meet 消息通信正常完成后，接收节点会加入到集群中并进行周期性的 ping、pong 消息交换。</li>
+<li>ping 消息：集群内交换最频繁的消息，集群内每个节点每秒向多个其他节点发送 ping 消息，用于检测节点是否在线和交换彼此状态信息。ping 消息发送封装了自身节点和部分其他节点的状态数据。</li>
+<li>pong 消息：当接收到 ping、meet 消息时，作为响应消息回复给发送方确认消息正常通信。pong 消息内部封装了自身状态数据。节点也可以向集群内广播自身的 pong 消息来通知整个集群对自身状态进行更新。</li>
+<li>fail 消息：当节点判定集群内另一个节点下线时，会向集群内广播一个 fail 消息，其他节点接收到 fail 消息之后把对应节点更新为下线状态。</li>
+</ul>
+<p>所有的消息格式划分为：消息头和消息体。</p>
+<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><ul>
+<li>扩展性：网络可以允许节点的任意增加和减少，新增加的节点的状态最终会与其他节点一致。</li>
+<li>容错：网络中任何节点的宕机和重启都不会影响 Gossip 消息的传播，Gossip 协议具有天然的分布式系统容错特性。</li>
+<li>去中心化：Gossip 协议不要求任何中心节点，所有节点都可以是对等的，任何一个节点无需知道整个网络状况，只要网络是连通的，任意一个节点就可以把消息散播到全网。</li>
+<li>一致性收敛：Gossip 协议中的消息会以一传十、十传百一样的指数级速度在网络中快速传播，因此系统状态的不一致可以在很快的时间内收敛到一致。消息传播速度达到了 logN。</li>
+<li>简单：Gossip 协议的过程极其简单，实现起来几乎没有太多复杂性。</li>
+</ul>
+<h4 id="Gossip-的缺陷"><a href="#Gossip-的缺陷" class="headerlink" title="Gossip 的缺陷"></a>Gossip 的缺陷</h4><p>分布式网络中，没有一种完美的解决方案，Gossip 协议跟其他协议一样，也有一些不可避免的缺陷，主要是两个：</p>
+<ul>
+<li>消息的延迟：</li>
+</ul>
+<p>由于 Gossip 协议中，节点只会随机向少数几个节点发送消息，消息最终是通过多个轮次的散播而到达全网的，因此使用 Gossip 协议会造成不可避免的消息延迟。不适合用在对实时性要求较高的场景下。</p>
+<ul>
+<li>消息冗余：</li>
+</ul>
+<p>Gossip 协议规定，节点会定期随机选择周围节点发送消息，而收到消息的节点也会重复该步骤，因此就不可避免的存在消息重复发送给同一节点的情况，造成了消息的冗余，同时也增加了收到消息的节点的处理压力。而且，由于是定期发送而且不反馈，因此，即使节点收到了消息，还是会反复收到重复消息，加重了消息的冗余。</p>
+<h2 id="节点选择"><a href="#节点选择" class="headerlink" title="节点选择"></a>节点选择</h2><p>Redis集群内节点通信采用固定频率（定时任务每秒执行10次）。</p>
+<p><img src="https://github.com/xiao-ming9/xiao-ming9.github.io/blob/master/images/redis%E9%9B%86%E7%BE%A4%E5%86%85%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1.png?raw=true" alt="Redis 集群节点选择"></p>
+<p>由上图可以看出：消息交换的成本主要体现在单位时间选择发送消息的节点数量和每个消息携带的数据量</p>
+<h3 id="选择发送消息的节点数量"><a href="#选择发送消息的节点数量" class="headerlink" title="选择发送消息的节点数量"></a>选择发送消息的节点数量</h3><p>集群内每个节点维护定时任务默认每秒执行10次，每秒会随机选取5个节点找出最久没有通信的节点发送ping消息，用于保证 Gossip 信息交换的随机性。每 100 毫秒都会扫描本地节点列表，如果发现节点最近一次接受 pong 消息的时间大于 <code>cluster_node_timeout/2</code>，则立刻发送 ping 消息，防止该节点信息太长时间未更新。根据以上规则得出每个节点每秒需要发送 ping 消息的数量 = <code>1+10*num（node.pong_received&gt;cluster_node_timeout/2)</code>。</p>
+<h3 id="消息数据量"><a href="#消息数据量" class="headerlink" title="消息数据量"></a>消息数据量</h3><p>每个 ping 消息的数据量体现在消息头和消息体中，其中消息头主要占用空间的字段是 <code>myslots[CLUSTER_SLOTS/8]</code>，占用 2KB，这块空间占用相对固定。消息体会携带一定数量的其他节点信息用于信息交换。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def get_wanted():</span><br><span class="line">	int total_size &#x3D; size(cluster.nodes) </span><br><span class="line">	# 默认包含节点总量的1&#x2F;10 594 </span><br><span class="line">	int wanted &#x3D; floor(total_size&#x2F;10); </span><br><span class="line">	if wanted &lt; 3: </span><br><span class="line">		# 至少携带3个其他节点信息 </span><br><span class="line">		wanted &#x3D; 3; </span><br><span class="line">	if wanted &gt; total_size -2 : </span><br><span class="line">		# 最多包含total_size - 2个 </span><br><span class="line">		wanted &#x3D; total_size - 2; </span><br><span class="line">	return wanted;</span><br></pre></td></tr></table></figure>
+
+<h1 id="25-Redis-集群如何进行故障迁移"><a href="#25-Redis-集群如何进行故障迁移" class="headerlink" title="25. Redis 集群如何进行故障迁移"></a>25. Redis 集群如何进行故障迁移</h1><p>当集群内少量节点出现故障时通过自动故障转移保证集群可以正常对外提供服务</p>
+<h2 id="故障发现"><a href="#故障发现" class="headerlink" title="故障发现"></a>故障发现</h2><p>Redis 集群内节点通过 ping/pong 消息实现节点通信，消息不但可以传播节点槽信息，还可以传播其他状态如：主从状态、节点故障等。因此故障发现也是通过消息传播机制实现的，主要环节包括：主观下线（pfail）和客观下线（fail）</p>
+<ul>
+<li>主观下线：指某个节点认为另一个节点不可用，即下线状态，这个状态并不是最终的故障判定，只能代表一个节点的意见，可能存在误判情况。</li>
+<li>客观下线：指标记一个节点真正的下线，集群内多个节点都认为该节点不可用，从而达成共识的结果。如果是持有槽的主节点故障，需要为该节点进行故障转移。</li>
+</ul>
+<h3 id="主观下线"><a href="#主观下线" class="headerlink" title="主观下线"></a>主观下线</h3><p>集群中每个节点都会定期向其他节点发送 ping 消息，接收节点回复 pong 消息作为响应。如果在 <code>cluster-node-timeout</code> 时间内通信一直失败，则发送节点会认为接收节点存在故障，把接收节点标记为主观下线（pfail）状态。</p>
+<p>具体流程：</p>
+<ol>
+<li>节点 a 发送 ping 消息给节点 b，如果通信正常将接收到 pong 消息，节点 a 更新最近一次与节点 b 的通信时间。</li>
+<li>如果节点 a 与节点 b 通信出现问题则断开连接，下次会进行重连。如果一直通信失败，则节点 a 记录的与节点 b 最后通信时间将无法更新。</li>
+<li>节点 a 内的定时任务检测到与节点 b 最后通信时间超过 <code>cluster-node-timeout</code> 时，更新本地对节点 b 的状态为主观下线（pfail）。</li>
+</ol>
+<h3 id="客观下线"><a href="#客观下线" class="headerlink" title="客观下线"></a>客观下线</h3><p>当某个节点判断另一个节点主观下线后，相应的节点状态会跟随消息在集群内传播。ping/pong 消息的消息体会携带集群 1/10 的其他节点状态数据，当接受节点发现消息体中含有主观下线的节点状态时，会在本地找到故障节点的 <code>ClusterNode</code> 结构，保存到下线报告链表中。结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct clusterNode &#123; &#x2F;* 认为是主观下线的clusterNode结构 *&#x2F; </span><br><span class="line">	list *fail_reports; &#x2F;* 记录了所有其他节点对该节点的下线报告 *&#x2F; </span><br><span class="line">	... </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>通过 Gossip 消息传播，集群内节点不断收集到故障节点的下线报告。当半数以上持有槽的主节点都标记某个节点是主观下线时，触发客观下线流程。</p>
+<p>集群模式下只有处理槽的主节点才负责读写请求和集群槽等关键信息维护，而从节点只进行主节点数据和状态信息的复制。所以必须是负责槽的主节点参与故障发现决策</p>
+<p>客观下线流程：</p>
+<ol>
+<li>当消息体内含有其他节点的 pfail 状态会判断发送节点的状态，如果发送节点是主节点则对报告的 pfail 状态处理，从节点则忽略。</li>
+<li>找到 pfail 对应的节点结构，更新 clusterNode 内部下线报告链表。</li>
+<li>根据更新后的下线报告链表告尝试进行客观下线。</li>
+</ol>
+<h4 id="下线报告链表"><a href="#下线报告链表" class="headerlink" title="下线报告链表"></a>下线报告链表</h4><p>每个 ClusterNode 结构中都会存在一个下线链表结构，保存了其他主节点针对当前节点的下线报告：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">typedef struct clusterNodeFailReport &#123; </span><br><span class="line">	struct clusterNode *node; &#x2F;* 报告该节点为主观下线的节点 *&#x2F; </span><br><span class="line">	mstime_t time; &#x2F;* 最近收到下线报告的时间 *&#x2F; </span><br><span class="line">&#125; clusterNodeFailReport;</span><br></pre></td></tr></table></figure>
+
+<p>下线报告中保存了报告故障的节点结构和最近收到下线报告的时间，当接收到 fail 状态时，会维护对应节点的下线上报链表。每个下线报告都存在有效期，每次在尝试触发客观下线时，都会检测下线报告是否过期，对于过期的下线报告将被删除。如果在 <code>cluster-node-time*2</code> 的时间内该下线报告没有得到更新则过期并删除.</p>
+<h4 id="尝试客观下线"><a href="#尝试客观下线" class="headerlink" title="尝试客观下线"></a>尝试客观下线</h4><p>集群中的节点每次接收到其他节点的 pfail 状态，都会尝试触发客观下线：</p>
+<ol>
+<li>首先统计有效的下线报告数量，如果小于集群内持有槽的主节点总数的一半则退出。</li>
+<li>当下线报告大于槽主节点数量一半时，标记对应故障节点为客观下线状态。</li>
+<li>向集群广播一条 fail 消息，通知所有的节点将故障节点标记为客观下线，fail 消息的消息体只包含故障节点的ID。</li>
+</ol>
+<p>广播 fail 消息有一下两个作用：</p>
+<ul>
+<li>通知集群内所有的节点标记故障节点为客观下线状态并立即生效</li>
+<li>通知故障节点的从节点触发故障转移流程</li>
+</ul>
+<h2 id="故障恢复"><a href="#故障恢复" class="headerlink" title="故障恢复"></a>故障恢复</h2><p>故障节点变为客观下线后，如果下线节点是持有槽的主节点，则需要在它的从节点中选出一个替换它，从而保证集群的高可用。下线主节点的所有从节点承担故障恢复的义务，当从节点通过内部定时任务发现自身复制的主节点进入客观下线时，将会触发故障恢复流程：</p>
+<ul>
+<li>资格检查</li>
+<li>准备选举时间</li>
+<li>发起选举</li>
+<li>选举投票</li>
+<li>替换主节点</li>
+<li>资格检查</li>
+</ul>
+<h3 id="资格检查"><a href="#资格检查" class="headerlink" title="资格检查"></a>资格检查</h3><p>每个从节点都要检查最后与主节点断线时间，判断是否有资格替换故障的主节点。如果从节点与主节点断线时间超过 <code>cluster-node-time*cluster-slave-validity-factor</code>，则当前从节点不具备故障转移资格。参数<code>cluster-slavevalidity-factor</code>用于从节点的有效因子，默认为10。</p>
+<h3 id="准备选举时间"><a href="#准备选举时间" class="headerlink" title="准备选举时间"></a>准备选举时间</h3><p>当从节点符合故障转移资格后，更新触发故障选举的时间，只有到达该时间后才能执行后续流程。故障选举时间相关字段如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct clusterState &#123; </span><br><span class="line">	... </span><br><span class="line">	mstime_t failover_auth_time; &#x2F;* 记录之前或者下次将要执行故障选举时间 *&#x2F; </span><br><span class="line">	int failover_auth_rank; &#x2F;* 记录当前从节点排名 *&#x2F; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>采用延迟触发机制，主要是通过对多个从节点使用不同的延迟选举时间来支持优先级问题。复制偏移量越大说明从节点延迟越低，那么它应该具有更高的优先级来替换故障主节点。</p>
+<p><img src="https://github.com/xiao-ming9/xiao-ming9.github.io/blob/master/images/redis%E9%80%89%E4%B8%BE%E5%BB%B6%E8%BF%9F%E5%87%BA%E5%8F%91%E6%9C%BA%E5%88%B6.png?raw=true" alt="准备选举时间"></p>
+<h3 id="发起选举"><a href="#发起选举" class="headerlink" title="发起选举"></a>发起选举</h3><p>当从节点定时任务检测到达故障选举时间（failover_auth_time）到达后，发起选举流程如下：</p>
+<h3 id="更新配置纪元："><a href="#更新配置纪元：" class="headerlink" title="更新配置纪元："></a>更新配置纪元：</h3><p>配置纪元是一个只增不减的整数，每个主节点自身维护一个配置纪元（clusterNode.configEpoch）标示当前主节点的版本，所有主节点的配置纪元都不相等，从节点会复制主节点的配置纪元。整个集群又维护一个全局的配置纪元（clusterState.current Epoch），用于记录集群内所有主节点配置纪元的最大版本。执行 cluster info 命令可以查看配置纪元信息。配置纪元会跟随 ping/pong 消息在集群内传播，当发送方与接收方都是主节点且配置纪元相等时代表出现了冲突，nodeId 更大的一方会递增全局配置纪元并赋值给当前节点来区分冲突。</p>
+<p>配置纪元的主要作用：</p>
+<ul>
+<li>标示集群内每个主节点的不同版本和当前集群最大的版本。</li>
+<li>每次集群发生重要事件时，这里的重要事件指出现新的主节点（新加入的或者由从节点转换而来），从节点竞争选举。都会递增集群全局的配置纪元并赋值给相关主节点，用于记录这一关键事件。</li>
+<li>主节点具有更大的配置纪元代表了更新的集群状态，因此当节点间进行ping/pong消息交换时，如出现slots 等关键信息不一致时，以配置纪元更大的一方为准，防止过时的消息状态污染集群。</li>
+<li>从节点每次发起投票时都会自增集群的全局配置纪元，并单独保存在 <code>clusterState.failover_auth_epoch</code> 变量中用于标识本次从节点发起选举的版本。</li>
+</ul>
+<h3 id="广播选举消息"><a href="#广播选举消息" class="headerlink" title="广播选举消息"></a>广播选举消息</h3><p>在集群内广播选举消息（FAILOVER_AUTH_REQUEST），并记录已发送过消息的状态，保证该从节点在一个配置纪元内只能发起一次选举。消息内容如同 ping 消息只是将 type 类型变为 FAILOVER_AUTH_REQUEST。</p>
+<h3 id="选举投票"><a href="#选举投票" class="headerlink" title="选举投票"></a>选举投票</h3><p>只有持有槽的主节点才会处理故障选举消息（FAILOVER_AUTH_REQUEST），因为每个持有槽的节点在一个配置纪元内都有唯一的一张选票，当接到第一个请求投票的从节点消息时回复 FAILOVER_AUTH_ACK 消息作为投票，之后相同配置纪元内其他从节点的选举消息将忽略。</p>
+<p>当从节点收集到 <code>N/2 + 1</code> 个持有槽的主节点投票时，从节点可以执行替换主节点操作。</p>
+<ul>
+<li>投票作废：每个配置纪元代表了一次选举周期，如果在开始投票之后的 <code>cluster-node-timeout * 2</code> 时间内从节点没有获取足够数量的投票，则本次选举作废。从节点对配置纪元自增并发起下一轮投票，直到选举成功为止。</li>
+</ul>
+<h3 id="替换主节点"><a href="#替换主节点" class="headerlink" title="替换主节点"></a>替换主节点</h3><p>当前从节点取消复制变为主节点。</p>
+<p>执行 clusterDelSlot 操作撤销故障主节点负责的槽，并执行 clusterAddSlot 把这些槽委派给自己。<br>向集群广播自己的 pong 消息，通知集群内所有的节点当前从节点变为主节点并接管了故障主节点的槽信息。</p>
+<h1 id="26-Redis-集群伸缩（增加节点、删除节点）"><a href="#26-Redis-集群伸缩（增加节点、删除节点）" class="headerlink" title="26. Redis 集群伸缩（增加节点、删除节点）"></a>26. Redis 集群伸缩（增加节点、删除节点）</h1><p>集群的伸缩包括新节点的加入和旧节点退出。</p>
+<p>新节点时加入时，我们需要把一部分数据迁移到新节点来达到集群的负载均衡，旧节点退出时，我们需要把其上的数据迁移到其他节点上，确保该节点上的数据能够被正常访问。</p>
+<p>我们发现集群伸缩的核心其实是数据的迁移，而在 Redis 集群中，数据是以 slot 为单位的，那么也就是说，Redis 集群的伸缩本质上是 slot 在不同机器节点间的迁移。同时，要实现扩缩容，我们不仅需要解决数据迁移，我们还需要解决数据路由问题。比如 A 节点正在向 B 节点迁移 slot1 的数据，在未完成迁移时，slot1 中的一部分数据存在节点A上，一部分数据存在节点B上。那么以下三种情况下我们该如何路由 slot1 的客户端请求？</p>
+<ol>
+<li>当除了 A、B 之外的其他节点接收到 slot1 的数据请求时，其他节点该路由给哪个节点？</li>
+<li>当节点 A 接收到 slot1 的数据请求时，A 该自己处理还是路由给 B 节点？</li>
+<li>当节点 B 接收到 slot1 的数据请求时，B 该自己处理还是路由给A节点？</li>
+</ol>
+<h2 id="集群扩容"><a href="#集群扩容" class="headerlink" title="集群扩容"></a>集群扩容</h2><p>Redis集群加入新节点主要分为如下几步：</p>
+<ol>
+<li>准备新节点</li>
+<li>加入集群</li>
+<li>迁移slot到新节点。</li>
+</ol>
+<p>即首先启动一个集群模式下的 Redis 节点，然后通过与任意一个集群中的节点握手使得新的节点加入集群，最后再向新的节点分配它负责的 slot 以及向其迁移 slot 对应的数据。由于 Redis 采用 Gossip 协议，所以可以让新节点与任意一个现有集群节点握手，一段时间后整个集群都会知道新节点的加入。</p>
+<p>例如我们向该集群中新加入一个节点 6385。由于我们要追求负载均衡，所以加入后四个节点每个节点负责 4096 个slots，但是集群中原来的每个节点都负责 5462 个slots，所以 6379、6380、6381 节点都需要向新的节点 6385 迁移 1366 个slots。需要说明的是，Redis 集群并没有一个自动实现负载均衡的工具，把多少 slots 从哪个节点迁移到哪个节点完全是由用户自己来指定的。</p>
+<p><img src="http://qiniu.xiaoming.net.cn/Redis%E9%9B%86%E7%BE%A4%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB.jpg" alt="Redis集群数据迁移"></p>
+<h3 id="设置节点迁入迁出状态——解决路由困境"><a href="#设置节点迁入迁出状态——解决路由困境" class="headerlink" title="设置节点迁入迁出状态——解决路由困境"></a>设置节点迁入迁出状态——解决路由困境</h3><p>每个 Redis 集群节点的 clusterState 都会存储整个集群中 slot 和 Redis 节点的对应关系用于路由。当 6379 迁移 slot1 时，会首先标级该槽属于正在迁移的状态 IMGRATING，而同样 6385 也需要标记 slot1 属于正在导入的状态 IMPORTING。从实现上看，就是分别设置 <code>migrating_slots_to</code> 和 <code>importing_slots_from</code> 两个数组的对应 <code>index</code> 的值。迁入迁出的状态设置主要是为了方便数据路由的实现。在未完成迁移之前，集群中的所有节点都会将 slot1 的请求重定向到6379节点。</p>
+<p>而当 6379 把 <code>slot1</code> 标记为MIGRATING时，该节点会接收所有关于 <code>slot1</code> 的请求，但只有当请求中的 <code>key</code> 存在于 6379 中时该节点才会处理该请求。否则 6379 会把该请求通过 ASK 重定向到 slot1 的迁移目标节点，即 6385 节点。</p>
+<p>而当 6385 把 slot1 标记为 <code>IMPORTING</code> 时，该节点也可以接受关于 slot1 的请求，但前提是该请求中必须包含 <code>ASKING</code> 命令。如果关于 slot1 的请求中没有 <code>ASKING</code> 命令，那么 6385 节点会把该请求通过 <code>MOVED</code> 重定向到 6379 节点。</p>
+<p>这样我们就解决了上述的三个问题，即：</p>
+<ol>
+<li>当除了 A、B 之外的其他节点接收到 slot1 的数据请求时，其他节点该路由给 A 节点</li>
+<li>当节点A接收到 slot1 的数据请求时，如果请求的key存在，那么就会处理，不存在就会ASK重定向到B</li>
+<li>当节点B接收到 slot1 的数据请求时，如果请求中有 ASKING 命令，那么就会自己处理。如果没有，那么重定向到 A。</li>
+</ol>
+<p>当迁移 slot1 结束后，slot1 就不再由 6379 负责而是交给 6385 节点负责。但是从其他节点的视角看，slot1 仍然由 6379 节点负责，他们接收到关于 slot1 的键的请求还是会路由到 6379 节点。所以迁移结束之后我们要向集群广播 slot1 由 6385 节点负责的消息，这样每个节点都会更新内部的路由数据，之后就可以正确的把 slot1 的键的请求路由到 6385 节点。需要说明的是，我们可以把上述的更新信息只告诉一个节点，那么随着各个节点信息的交换，一段时间后整个集群的所有节点都会更新路由。但是这样显然更新的延迟会很高，那些还没来得及更新的节点仍然会错误的把 slot1 的请求路由给 6379 节点。所以我们需要向每个节点进行广播消息。</p>
+<h2 id="集群收缩"><a href="#集群收缩" class="headerlink" title="集群收缩"></a>集群收缩</h2><p>集群收缩即让其中一些节点安全下线。所谓的安全下线指的是让一个节点下线之前我们需要把其负责的所有 slots 迁移到别的节点，否则该节点下线后其负责的 slots 就没法继续被服务了。节点下线的流程如下图所示：</p>
+<p><img src="http://qiniu.xiaoming.net.cn/Redis%E9%9B%86%E7%BE%A4%E8%8A%82%E7%82%B9%E5%AE%89%E5%85%A8%E4%B8%8B%E7%BA%BF.jpg" alt="Redis集群节点安全下线"></p>
+<p>在上面的扩容完成后，集群中共有四个节点：6379、6380、6381、6385，我们以下线 6381 为例介绍下线的流程。下线 6381 节点首先需要把其上负责 slots 的数据分别迁移到三个节点上，然后通知所有集群中的节点忘记 6381 节点，最后 6381 节点关闭下线。</p>
+<p>Redis 的元数据在每个节点中都有一份，即每个 Redis 节点维护者从它的视角看过去集群中所有其他节点的状态。那么当集群中的所有其他节点接收到 <code>CLUSTER FORGET &lt;NODE ID&gt;</code> 命令时会删除自己保存的 <code>NODE_ID</code> 对应的节点的状态，同时把 <code>NODE_ID</code> 对应的节点加入到黑名单中 60s。把一个节点放入黑名单意味着其他节点不会再去更新自己维护的该节点的信息，也就意味着当我们向集群中的所有节点发送<code>CLUSTER FORGET 6381</code> 后，6381节点 60s 内不能再次加入集群中。至此就完成了集群的缩容。</p>
+<h1 id="27-Redis应用场景"><a href="#27-Redis应用场景" class="headerlink" title="27. Redis应用场景"></a>27. Redis应用场景</h1><h2 id="热点数据"><a href="#热点数据" class="headerlink" title="热点数据"></a>热点数据</h2><p>存取数据优先从 Redis 操作，如果不存在再从文件（例如 MySQL）中操作，从文件操作完后将数据存储到 Redis 中并返回。同时有个定时任务后台定时扫描 Redis 的 key，根据业务规则进行淘汰，防止某些只访问一两次的数据一直存在 Redis 中。</p>
+<p>例如使用 Zset 数据结构，存储 Key 的访问次数/最后访问时间作为 Score，最后做排序，来淘汰那些最少访问的 Key。</p>
+<h2 id="会话维持-Session"><a href="#会话维持-Session" class="headerlink" title="会话维持 Session"></a>会话维持 Session</h2><p>会话维持 Session 场景，即使用 Redis 作为分布式场景下的登录中心存储应用。每次不同的服务在登录的时候，都会去统一的 Redis 去验证 Session 是否正确。但是在微服务场景，一般会考虑 Redis + JWT 做 Oauth2 模块。</p>
+<p>其中 Redis 存储 JWT 的相关信息主要是留出口子，方便以后做统一的防刷接口，或者做登录设备限制等。</p>
+<h2 id="分布式锁-SETNX"><a href="#分布式锁-SETNX" class="headerlink" title="分布式锁 SETNX"></a>分布式锁 SETNX</h2><p>命令格式：<code>SETNX key value</code>：当且仅当 key 不存在，将 key 的值设为 value。若给定的 key 已经存在，则 SETNX 不做任何动作。</p>
+<p>超时时间设置：获取锁的同时，启动守护线程，使用 <code>expire</code> 进行定时更新超时时间。如果该业务机器宕机，守护线程也挂掉，这样也会自动过期。如果该业务不是宕机，而是真的需要这么久的操作时间，那么增加超时时间在业务上也是可以接受的，但是肯定有个最大的阈值。</p>
+<p>但是为了增加高可用，需要使用多台 Redis，就增加了复杂性，就可以参考 Redlock：Redlock分布式锁</p>
+<h2 id="表缓存"><a href="#表缓存" class="headerlink" title="表缓存"></a>表缓存</h2><p>Redis 缓存表的场景有黑名单、禁言表等。访问频率较高，即读高。根据业务需求，可以使用后台定时任务定时刷新 Redis 的缓存表数据。</p>
+<h2 id="消息队列-list"><a href="#消息队列-list" class="headerlink" title="消息队列 list"></a>消息队列 list</h2><p>主要使用了 List 数据结构。</p>
+<p>List 支持在头部和尾部操作，因此可以实现简单的消息队列。</p>
+<ul>
+<li>发消息：在 List 尾部塞入数据。</li>
+<li>消费消息：在 List 头部拿出数据。</li>
+</ul>
+<p>同时可以使用多个 List，来实现多个队列，根据不同的业务消息，塞入不同的 List，来增加吞吐量。</p>
+<h2 id="计数器-string"><a href="#计数器-string" class="headerlink" title="计数器 string"></a>计数器 string</h2><p>主要使用了 INCR、DECR、INCRBY、DECRBY 方法。</p>
+<p>INCR key：给 key 的 value 值增加一 DECR key：给 key 的 value 值减去一</p>
+<h1 id="28-Redis-压力测试"><a href="#28-Redis-压力测试" class="headerlink" title="28. Redis 压力测试"></a>28. Redis 压力测试</h1><p>Redis 自带了一个叫 <code>redis-benchmark</code> 的工具来模拟 N 个客户端同时发出 M 个请求。 （类似于 Apache ab 程序）。你可以使用 <code>redis-benchmark -h</code> 来查看基准参数。</p>
+<p>参数:</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">描述</th>
+<th align="left">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-h</td>
+<td align="left">指定redis server 主机名</td>
+<td align="left">localhost</td>
+</tr>
+<tr>
+<td align="left">-p</td>
+<td align="left">指定redis 服务端口</td>
+<td align="left">6379</td>
+</tr>
+<tr>
+<td align="left">-s</td>
+<td align="left">指定服务器socket</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">-c</td>
+<td align="left">clients,代表客户端并发连接数</td>
+<td align="left">50</td>
+</tr>
+<tr>
+<td align="left">-n</td>
+<td align="left">指定请求数</td>
+<td align="left">10000</td>
+</tr>
+<tr>
+<td align="left">-d</td>
+<td align="left">以字节形式指定SET/GET值的数值大小</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">-k</td>
+<td align="left">1 = keepalive 0 = reconnect</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">-r</td>
+<td align="left">向 redis 中插入更多的键。-r 选项会在键名上加一个12位的后缀，<code>-r 10000</code> 表示只对后四位做随机处理，SET/GET/INCR 使用随机 key, SADD 使用随机值</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">-P</td>
+<td align="left">通过管道传输 <code>&lt;numreq&gt;</code> 请求</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">-q</td>
+<td align="left">强制退出 redis.仅显示 query per sec 信息</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">-csv</td>
+<td align="left">以 csv 格式输出</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">-l</td>
+<td align="left">生成循环 永久执行测试</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">-t</td>
+<td align="left">对指定命令做基准测试，仅运行以逗号分隔的测试命令列表</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">-I</td>
+<td align="left">Idle模式,仅打开 N 个 idle 连接并等待</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
 ]]></content>
       <categories>
-        <category>redis</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>redis</tag>
-        <tag>数据库</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -11156,8 +11450,6 @@
 <p>以栈的形式</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">list.push(<span class="string">&quot;前面添加&quot;</span>);</span><br><span class="line">list.pop();</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
 
-
-
 <h2 id="ArrayList-amp-LinkedList的区别"><a href="#ArrayList-amp-LinkedList的区别" class="headerlink" title="ArrayList&amp;LinkedList的区别"></a>ArrayList&amp;LinkedList的区别</h2><ol>
 <li><p>ArrayList&amp;LinkedList都是不同步的，都是线程不安全的集合类</p>
 </li>
@@ -11176,12 +11468,12 @@
 
 <h3 id="list的遍历选择"><a href="#list的遍历选择" class="headerlink" title="list的遍历选择"></a>list的遍历选择</h3><ul>
 <li>实现了<code>RandomAccess</code>接口的list（表明支持快速随机访问），优先使用普通for循环，其次使用foreach</li>
-<li>未实现<code>RandomAccess</code>接口的list，优先选择iterator遍历（foreach遍历底层也是通过iterator实现的），大size的数据，千万不要使用普通for循环。</li>
+<li>未实现<code>RandomAccess</code>接口的list，优先选择<code>iterator</code>遍历（foreach遍历底层也是通过iterator实现的），大size的数据，千万不要使用普通for循环。</li>
 </ul>
 <h3 id="排序方法"><a href="#排序方法" class="headerlink" title="排序方法"></a>排序方法</h3><ul>
 <li>将list放在<code>TreeSet</code>当中进行排序，根据排序顺序放置在list集合当中</li>
-<li>list转化为数组，利用数组排序规则进行排序 Arrays.sort</li>
-<li>使用集合工具类Collections的sort进行排序 Collections.sort    </li>
+<li>list转化为数组，利用数组排序规则进行排序 <code>Arrays.sort</code></li>
+<li>使用集合工具类<code>Collections()</code>的<code>sort()</code>进行排序 <code>Collections.sort</code>    </li>
 </ul>
 <h2 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h2><p><img src="https://csn.damyoung.cn/image-20201231172154394.png" alt="image-20201231172154394"></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> Object[] elementData;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> elementCount;</span><br><span class="line"><span class="comment">//扩容容量</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> capacityIncrement;</span><br></pre></td></tr></table></figure>
@@ -11477,18 +11769,45 @@
 <td align="center">Node节点</td>
 </tr>
 </tbody></table>
-<h2 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h2><p>TreeMap是按照Key的自然顺序或者Comprator的顺序进行排序，内部是通过红黑树来实现。所以要么key所属的类实现Comparable接口，或者自定义一个实现了Comparator接口的比较器，传给TreeMap用于key的比较</p>
-<h2 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h2><p><code>LinkedHashMap</code>继承自<code>HashMap</code>，与HashMap一样具有快速查找的能力</p>
-<p>LinkedHashMap内部维护一个双向链表，<code>accessOrder</code>用来维护插入顺序或LRU顺序(最少使用淘汰算法)</p>
-<p><img src="https://csn.damyoung.cn/image-20210102103630859.png" alt="HashMap有关LinkedHashMap空方法"></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//双向链表的头节点</span></span><br><span class="line"><span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; head;</span><br><span class="line"><span class="comment">//双向链表的尾节点</span></span><br><span class="line"><span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; tail;</span><br><span class="line"><span class="comment">//决定了顺序</span></span><br><span class="line"><span class="comment">//true--LRU顺序(最少使用淘汰算法)</span></span><br><span class="line"><span class="comment">//false-- 插入顺序</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">boolean</span> accessOrder;</span><br></pre></td></tr></table></figure>
+<h2 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h2><p>TreeMap是按照Key的自然顺序或者Comprator的顺序进行排序，内部是通过红黑树来实现。</p>
+<p>所以要么key所属的类实现Comparable接口，或者自定义一个实现了Comparator接口的比较器，传给TreeMap用于key的比较</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Comparator&lt;? <span class="keyword">super</span> K&gt; comparator;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造方法传入自定义的比较器</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TreeMap</span><span class="params">(Comparator&lt;? <span class="keyword">super</span> K&gt; comparator)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.comparator = comparator;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    Entry&lt;K,V&gt; t = root;</span><br><span class="line">    <span class="keyword">if</span> (t == <span class="keyword">null</span>) &#123;</span><br><span class="line">        compare(key, key); <span class="comment">// type (and possibly null) check</span></span><br><span class="line"></span><br><span class="line">        root = <span class="keyword">new</span> Entry&lt;&gt;(key, value, <span class="keyword">null</span>);</span><br><span class="line">        size = <span class="number">1</span>;</span><br><span class="line">        modCount++;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> cmp;</span><br><span class="line">    Entry&lt;K,V&gt; parent;</span><br><span class="line">    <span class="comment">// split comparator and comparable paths</span></span><br><span class="line">    <span class="comment">//用于判断comparator==null?</span></span><br><span class="line">    <span class="comment">//1.不为空则，使用自定义的比较器进行排序(compare())</span></span><br><span class="line">    <span class="comment">//2.为空则，使用key自身是否实现的comparable接口定义的排序方法来排序(compareTo)</span></span><br><span class="line">    Comparator&lt;? <span class="keyword">super</span> K&gt; cpr = comparator;</span><br><span class="line">    <span class="keyword">if</span> (cpr != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            parent = t;</span><br><span class="line">            cmp = cpr.compare(key, t.key);</span><br><span class="line">            <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</span><br><span class="line">                t = t.left;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)</span><br><span class="line">                t = t.right;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> t.setValue(value);</span><br><span class="line">        &#125; <span class="keyword">while</span> (t != <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (key == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">        <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">            Comparable&lt;? <span class="keyword">super</span> K&gt; k = (Comparable&lt;? <span class="keyword">super</span> K&gt;) key;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            parent = t;</span><br><span class="line">            cmp = k.compareTo(t.key);</span><br><span class="line">            <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</span><br><span class="line">                t = t.left;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)</span><br><span class="line">                t = t.right;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> t.setValue(value);</span><br><span class="line">        &#125; <span class="keyword">while</span> (t != <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Entry&lt;K,V&gt; e = <span class="keyword">new</span> Entry&lt;&gt;(key, value, parent);</span><br><span class="line">    <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</span><br><span class="line">        parent.left = e;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        parent.right = e;</span><br><span class="line">    fixAfterInsertion(e);</span><br><span class="line">    size++;</span><br><span class="line">    modCount++;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//双向链表的头节点</span></span><br><span class="line">    <span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; head;</span><br><span class="line">    <span class="comment">//双向链表的尾节点</span></span><br><span class="line">    <span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; tail;</span><br><span class="line">    <span class="comment">//决定了顺序</span></span><br><span class="line">    <span class="comment">//true--LRU顺序(最少使用淘汰算法)</span></span><br><span class="line">    <span class="comment">//false-- 插入顺序</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">boolean</span> accessOrder;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//accessOrder默认为false</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        accessOrder = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity,</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="keyword">float</span> loadFactor,</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="keyword">boolean</span> accessOrder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(initialCapacity, loadFactor);</span><br><span class="line">        <span class="keyword">this</span>.accessOrder = accessOrder;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>LinkedHashMap</code>继承自<code>HashMap</code>，与<code>HashMap</code>一样具有快速查找的能力</p>
+<p>LinkedHashMap内部较之<code>HashMap</code>额外维护一个<strong>双向链表</strong>，<code>accessOrder</code>用来维护<strong>插入顺序或LRU顺序(最少使用淘汰算法)</strong></p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><ul>
+<li><code>LinkedHashMap</code> 存储结构和 <code>HashMap</code> 相同，依然是数组+链表+红黑树</li>
+<li><code>LinkedHashMap</code> 额外持有一个双向链表，维护插入节点的顺序</li>
+<li>最终的数据结构如下图<ul>
+<li>实际的元素存储与HashMap一致，依然是数组+链表+红黑树的形式</li>
+<li>区别在于：<ul>
+<li>除了维护数组+链表的结构之外，还根据插入Map先后顺序维护了一个双向链表的头尾head,tail</li>
+<li>Node基本结构，相比较HashMap而言，还增加了 before,after 两个分别指向双向链表中前后节点的属性</li>
+<li>即下图中的双向链表中的节点，其实值依然是下面的数组+链表结构中的元素</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://csn.damyoung.cn/13225554_pJyp.jpg" alt="img"></p>
 <h3 id="Entry"><a href="#Entry" class="headerlink" title="Entry"></a>Entry</h3><blockquote>
-<p>该entry除了保存当前对象的引用，还保存对上一个对象before和下一个对象after的引用</p>
+<p>该entry除了保存当前对象的引用，<strong>还保存对上一个对象before和下一个对象after的引用</strong>，是对<code>HashMap.Entry</code>的扩展</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">HashMap</span>.<span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    Entry&lt;K,V&gt; before, after;</span><br><span class="line">    Entry(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">        <span class="keyword">super</span>(hash, key, value, next);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="维护顺序"><a href="#维护顺序" class="headerlink" title="维护顺序"></a>维护顺序</h3><h4 id="afterNodeAccess"><a href="#afterNodeAccess" class="headerlink" title="afterNodeAccess"></a>afterNodeAccess</h4><blockquote>
+<h3 id="维护顺序"><a href="#维护顺序" class="headerlink" title="维护顺序"></a>维护顺序</h3><blockquote>
+<p>插入顺序：accessOrder=false，按照节点插入的顺序</p>
+<p>LRU顺序：accessOrder=true，按照最少使用淘汰算法</p>
+</blockquote>
+<h4 id="HashMap回调"><a href="#HashMap回调" class="headerlink" title="HashMap回调"></a>HashMap回调</h4><p>linkedHashMap继承于HashMap，并没有重写hashMap 的<code>putVal()</code>方法，linkedHashMap在进行元素插入时，会直接调用hashMap的<code>putVal()</code>方法，而在进行维护LRU顺序时，会再次回调<code>linkedHashMap</code>的<code>afterNodeAccess()</code>或 <code>afterNodeInsertion()</code>方法。</p>
+<p><img src="https://csn.damyoung.cn/image-20210102103630859.png" alt="HashMap有关LinkedHashMap空方法"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//来自与hashMap的PutVal()</span></span><br><span class="line"><span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123; <span class="comment">// existing mapping for key</span></span><br><span class="line">    V oldValue = e.value;</span><br><span class="line">    <span class="keyword">if</span> (!onlyIfAbsent || oldValue == <span class="keyword">null</span>)</span><br><span class="line">        e.value = value;</span><br><span class="line">    <span class="comment">//linkedHashMap</span></span><br><span class="line">    afterNodeAccess(e);</span><br><span class="line">    <span class="keyword">return</span> oldValue;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">++modCount;</span><br><span class="line"><span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">    resize();</span><br><span class="line"><span class="comment">//linkedHashMap</span></span><br><span class="line">afterNodeInsertion(evict);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="afterNodeAccess"><a href="#afterNodeAccess" class="headerlink" title="afterNodeAccess"></a>afterNodeAccess</h4><blockquote>
 <p>当一个节点被<strong>访问</strong>时，如果<code>accessOrder</code> 为true,会将该节点移到链表尾部。也就是说指定为LRU顺序(least Recently Used)之后，在每次访问一个节点时，会将这个节点移动链表尾部，保证链表尾部是最近访问的节点，链表首部就是最近最久未使用的节点</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt; e;</span><br><span class="line">    <span class="keyword">if</span> ((e = getNode(hash(key), key)) == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (accessOrder)</span><br><span class="line">        <span class="comment">//accessOrder==true</span></span><br><span class="line">        afterNodeAccess(e);</span><br><span class="line">    <span class="keyword">return</span> e.value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -11496,7 +11815,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">afterNodeAccess</span><span class="params">(Node&lt;K,V&gt; e)</span> </span>&#123; <span class="comment">// move node to last</span></span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; last;</span><br><span class="line">    <span class="keyword">if</span> (accessOrder &amp;&amp; (last = tail) != e) &#123;</span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">            (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">        p.after = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//由于是双向链表</span></span><br><span class="line">        <span class="comment">//前缀，访问节点为头节点，该节点后一个节点代替为head</span></span><br><span class="line">        <span class="keyword">if</span> (b == <span class="keyword">null</span>)</span><br><span class="line">            head = a;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            b.after = a;</span><br><span class="line">        <span class="comment">//后缀，</span></span><br><span class="line">        <span class="keyword">if</span> (a != <span class="keyword">null</span>)</span><br><span class="line">            a.before = b;</span><br><span class="line">        <span class="comment">//访问节点是尾节点</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            last = b;</span><br><span class="line">        <span class="comment">//将访问节点插入尾部</span></span><br><span class="line">        <span class="keyword">if</span> (last == <span class="keyword">null</span>)</span><br><span class="line">            head = p;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            p.before = last;</span><br><span class="line">            last.after = p;</span><br><span class="line">        &#125;</span><br><span class="line">        tail = p;</span><br><span class="line">        ++modCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="afterNodeRemoval"><a href="#afterNodeRemoval" class="headerlink" title="afterNodeRemoval"></a>afterNodeRemoval</h4><blockquote>
-<p>直接移除该节点（unlink）</p>
+<p>直接<strong>移除</strong>该节点（unlink）</p>
 <ul>
 <li>移除<code>linkedHashMap</code>元素调用了<code>HashMap</code>的<code>removeNode()</code>方法(<code>LinkedHashMap</code>并没有重写该方法)</li>
 <li><code>removeNode()</code>回调了<code>LinkedHashMap</code>的<code>afterNodeRemoval</code>方法</li>
@@ -11507,8 +11826,6 @@
 <h4 id="afterNodeInsertion"><a href="#afterNodeInsertion" class="headerlink" title="afterNodeInsertion"></a>afterNodeInsertion</h4><blockquote>
 <p>在<code>put</code>等操作之后执行，当<code>removeEldestEntry()==true</code>时会移除最晚节点，也就是链表首部节点first</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//HashMap中putVal()最后的部分代码</span></span><br><span class="line">++modCount;</span><br><span class="line"><span class="comment">//大小大于阈值就扩容</span></span><br><span class="line"><span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">    resize();</span><br><span class="line"><span class="comment">//回调(主要在子类LinkedHashMap中使用)</span></span><br><span class="line">afterNodeInsertion(evict);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">afterNodeInsertion</span><span class="params">(<span class="keyword">boolean</span> evict)</span> </span>&#123; <span class="comment">// possibly remove eldest</span></span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; first;</span><br><span class="line">    <span class="keyword">if</span> (evict &amp;&amp; (first = head) != <span class="keyword">null</span> &amp;&amp; removeEldestEntry(first)) &#123;</span><br><span class="line">        K key = first.key;</span><br><span class="line">        removeNode(hash(key), key, <span class="keyword">null</span>, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -11522,8 +11839,8 @@
 
 <h3 id="使用LinkedHashMap实现LRU缓存"><a href="#使用LinkedHashMap实现LRU缓存" class="headerlink" title="使用LinkedHashMap实现LRU缓存"></a>使用LinkedHashMap实现LRU缓存</h3><ul>
 <li>设置最大缓存空间<code>MAX_ENTRIES</code></li>
-<li>使用LinkedHashMap的构造函数将<code>accessOrder</code>设置为true,开启<code>LRU</code>顺序</li>
-<li>覆写<code>removeEldestEntry</code>方法，在节点数大于缓存空间时将最久未使用数据移除</li>
+<li>使用<code>LinkedHashMap</code>的<strong>构造函数</strong>将<code>accessOrder</code>设置为<strong>true</strong>,开启<code>LRU</code>顺序</li>
+<li><strong>覆写</strong><code>removeEldestEntry</code>方法，在节点数大于缓存+空间时将最久未使用数据移除</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_ENTRIES = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//覆写removeEldestEntry() == true</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry eldest)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> size() &gt; MAX_ENTRIES;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    LRUCache() &#123;</span><br><span class="line">        <span class="keyword">super</span>(MAX_ENTRIES, <span class="number">0.75f</span>, <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -11564,8 +11881,11 @@
 <li><strong>实现线程安全的方式</strong></li>
 </ul>
 <ol>
-<li><code>hashTable</code>采用同一把锁的形式，使用<code>synchronized</code>来保证线程安全，效率非常低。当一个线程访问同步方法时，其他线程也访问同步方法，可能会进入阻塞或轮询状态，如使用<code>put</code>方法添加元素时，不能同时写入，也不能<code>get</code>，竞争越来越激烈</li>
-<li>jdk7,<code>concurrentHashMap</code>采用的是<strong>分段锁</strong>的形式对整个桶数组进行了分割分段(segment),每一把锁只锁住容器其中的一部分数据，多线程访问容器中的不同数据段的数据，就不存在锁竞争，提高并发效率。 jd8之后，摒弃了Segment的概念，而是直接用<strong>Node数组+链表+红黑树</strong>的数据结构来实现，<strong>并发控制使用<code>synchronized</code>和<code>CAS</code>(乐观锁)来操作</strong>，在put()的时候如果CAS失败就说明存在竞争，会进行自旋</li>
+<li><p><code>hashTable</code>采用同一把锁的形式，使用<code>synchronized</code>来保证线程安全，效率非常低。当一个线程访问同步方法时，其他线程也访问同步方法，可能会进入阻塞或轮询状态，如使用<code>put</code>方法添加元素时，不能同时写入，也不能<code>get</code>，竞争越来越激烈</p>
+</li>
+<li><p>jdk7,<code>concurrentHashMap</code>采用的是<strong>分段锁</strong>的形式对整个桶数组进行了分割分段(segment),每一把锁只锁住容器其中的一部分数据，多线程访问容器中的不同数据段的数据，就不存在锁竞争，提高并发效率。 </p>
+<p>jd8之后，摒弃了Segment的概念，而是直接用<strong>Node数组+链表+红黑树</strong>的数据结构来实现，<strong>并发控制使用<code>synchronized</code>和<code>CAS</code>(乐观锁)来操作</strong>，在put()的时候如果CAS失败就说明存在竞争，会进行自旋</p>
+</li>
 </ol>
 <p><strong>两者对比图</strong></p>
 <p><code>hashTable</code></p>
@@ -11579,12 +11899,12 @@
 
 <p><strong>区别</strong></p>
 <ul>
-<li><code>Collections.synchronizd</code>和<code>hashTable</code>一样，在调用map所有方法时，会对整个map进行同步，会抛出<code>ConcurrentModificationException</code>异常；而<code>ConcurrentHashMap</code>实现更加精确，每个桶都有自己对应的锁。</li>
-</ul>
-<p>所以，只要有一个线程访问 <code>synchronizedMap</code>，其他线程就无法进入 map，而如果一个线程在访问 <code>ConcurrentHashMap</code> 某个桶时，其他线程，仍然可以对 map 执行某些操作。这样，<code>ConcurrentHashMap</code> 在性能以及安全性方面，明显比 <code>Collections.synchronizedMap()</code> 更加有优势。同时，同步操作精确控制到桶，所以，即使在遍历 map 时，其他线程试图对 map 进行数据修改，也不会抛出 <code>ConcurrentModificationException</code></p>
+<li><p><code>Collections.synchronizd</code>和<code>hashTable</code>一样，在调用map所有方法时，会对整个map进行同步，会抛出<code>ConcurrentModificationException</code><strong>异常</strong>；而<code>ConcurrentHashMap</code>实现更加精确，<strong>每个桶都有自己对应的锁</strong>。</p>
+<p>所以，只要有一个线程访问 <code>synchronizedMap</code>，其他线程就无法进入 map，而如果一个线程在访问 <code>ConcurrentHashMap</code> 某个桶时，其他线程，仍然可以对 map 执行某些操作。这样，<code>ConcurrentHashMap</code> 在性能以及安全性方面，明显比 <code>Collections.synchronizedMap()</code> 更加有优势。同时，同步操作精确控制到桶，所以，即使在<strong>遍历</strong> <code>ConcurrentHashMap</code> 时，其他线程试图对 <code>ConcurrentHashMap</code> 进行数据修改，也不会抛出 <code>ConcurrentModificationException</code></p>
 <p>不论 <code>Collections.synchronizedMap()</code> 还是 <code>ConcurrentHashMap</code> 对 map 同步的原子操作都是作用的 map 的方法上，map 在读取与清空之间，线程间是不同步的。</p>
-<ul>
-<li><code>ConcurrentHashMap</code>从类的命名来看，它必然是个 <code>HashMap</code>; 而<code>Collections.synchronizedMap()</code>可以接收任意Map实例，实现Map的同步。</li>
+</li>
+<li><p><code>ConcurrentHashMap</code>从类的命名来看，它必然是个 <code>HashMap</code>; 而<code>Collections.synchronizedMap()</code>可以接收<strong>任意Map实例</strong>，实现Map的同步。</p>
+</li>
 </ul>
 <h1 id="set"><a href="#set" class="headerlink" title="set"></a>set</h1><h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><ul>
 <li><p>无序不可重复，利用hash算法的hash(key)不可重复的特点</p>
@@ -11609,7 +11929,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">TreeSet(NavigableMap&lt;E,Object&gt; m) &#123;</span><br><span class="line">    <span class="keyword">this</span>.m = m;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TreeSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(<span class="keyword">new</span> TreeMap&lt;E,Object&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="元素搜索"><a href="#元素搜索" class="headerlink" title="元素搜索"></a>元素搜索</h3><blockquote>
-<p>实现了NavigableSet,Cloneable接口</p>
+<p>实现了NavigableSet,Cloneable接口，继承了 AbstractSet抽象类</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeSet</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractSet</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">NavigableSet</span>&lt;<span class="title">E</span>&gt;, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br></pre></td></tr></table></figure>
 
@@ -16334,7 +16654,7 @@
 <h3 id="Binding-模块"><a href="#Binding-模块" class="headerlink" title="Binding 模块"></a>Binding 模块</h3><p>在调用 SqlSession 相应方法执行数据库操作时，需要制定映射文件中定义的 SQL 节点，如果 SQL 中出现了拼写错误，那就只能在运行时才能发现。为了能尽早发现这种错误，Mybatis 通过 Binding 模块将用户自定义的 Mapper 接口与映射文件关联起来，系统可以通过调用自定义 Mapper 接口中的方法执行相应的 SQL 语句完成数据库操作，从而避免上述问题。注意，在开发中，我们只是创建了 Mapper 接口，而并没有编写实现类，这是因为 Mybatis 自动为 Mapper 接口创建了动态代理对象。</p>
 <h1 id="3-Mybatis核心组件-Mybatis中SQL语句执行过程"><a href="#3-Mybatis核心组件-Mybatis中SQL语句执行过程" class="headerlink" title="3. Mybatis核心组件(Mybatis中SQL语句执行过程)"></a>3. Mybatis核心组件(Mybatis中SQL语句执行过程)</h1><p>这些组件实现了从 SQL 语句到映射到 JDBC 再到数据库字段之间的转换，执行 SQL 语句并输出结果集。</p>
 <h2 id="SqlSessionFactory"><a href="#SqlSessionFactory" class="headerlink" title="SqlSessionFactory"></a>SqlSessionFactory</h2><p>对于任何框架而言，在使用该框架之前都要经历过一系列的初始化流程，MyBatis 也不例外。MyBatis 的初始化流程如下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String resource &#x3D; &quot;org&#x2F;mybatis&#x2F;example&#x2F;mybatis-config.xml&quot;;</span><br><span class="line">InputStream inputStream &#x3D; Resources.getResourceAsStream(resource);</span><br><span class="line">SqlSessionFactory sqlSessionFactory &#x3D; new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">sqlSessionFactory.openSession();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String resource = <span class="string">&quot;org/mybatis/example/mybatis-config.xml&quot;</span>;</span><br><span class="line">InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">SqlSessionFactory sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">sqlSessionFactory.openSession();</span><br></pre></td></tr></table></figure>
 
 <p>上述流程中比较重要的一个对象就是 <code>SqlSessionFactory</code>，<code>SqlSessionFactory</code> 是 MyBatis 框架中的一个接口，它主要负责的是</p>
 <ul>
@@ -16421,11 +16741,11 @@
 <blockquote>
 <p>这里注意一下，<code>SimpleStatementHandler</code> 和 <code>PreparedStatementHandler</code> 的区别是 SQL 语句是否包含变量，是否通过外部进行参数传入。<code>SimpleStatementHandler</code> 用于执行没有任何参数传入的 SQL,<code>PreparedStatementHandler</code> 需要对外部传入的变量和参数进行提前参数绑定和赋值。</p>
 </blockquote>
-<h3 id="StatementHandler-的创建和源码分析"><a href="#StatementHandler-的创建和源码分析" class="headerlink" title="StatementHandler 的创建和源码分析"></a>StatementHandler 的创建和源码分析</h3><p>继续来分析上面 query 的调用链路，StatementHandler 的创建过程如下:</p>
+<h3 id="StatementHandler-的创建和源码分析"><a href="#StatementHandler-的创建和源码分析" class="headerlink" title="StatementHandler 的创建和源码分析"></a>StatementHandler 的创建和源码分析</h3><p>继续来分析上面 query 的调用链路，<code>StatementHandler</code> 的创建过程如下:</p>
 <p><img src="http://qiniu.xiaoming.net.cn/StatementHandler%20%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90.jpg" alt="StatementHandler 的创建和源码分析"></p>
-<p>MyBatis 会根据 SQL 语句的类型进行对应 StatementHandler 的创建。以预处理 StatementHandler 为例，创建过程如下：</p>
+<p>MyBatis 会根据 SQL 语句的类型进行对应 <code>StatementHandler</code> 的创建。以预处理 StatementHandler 为例，创建过程如下：</p>
 <p><img src="http://qiniu.xiaoming.net.cn/PreparedStatementHandler%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B.jpg" alt="PrepareStatementHandler创建过程"></p>
-<p>执行器不仅掌管着 StatementHandler 的创建，还掌管着创建 Statement 对象，设置参数等，在创建完 PreparedStatement 之后，就需要对参数进行处理了。</p>
+<p>执行器不仅掌管着 <code>StatementHandler</code> 的创建，还掌管着创建 <code>Statement</code> 对象，设置参数等，在创建完 <code>PreparedStatement</code> 之后，就需要对参数进行处理了。</p>
 <p>综上，sql语句的执行流程如下：</p>
 <p><img src="http://qiniu.xiaoming.net.cn/%E4%BB%8Eexecutor%E5%88%B0handler%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg" alt="从executor到handler执行流程"></p>
 <h2 id="ParameterHandler"><a href="#ParameterHandler" class="headerlink" title="ParameterHandler"></a>ParameterHandler</h2><h3 id="ParameterHandler-介绍"><a href="#ParameterHandler-介绍" class="headerlink" title="ParameterHandler 介绍"></a>ParameterHandler 介绍</h3><p><code>ParameterHandler</code> 相比于其他的组件就简单很多了，<code>ParameterHandler</code> 译为参数处理器，负责为 <code>PreparedStatement</code> 的 sql 语句参数动态赋值，这个接口很简单只有两个方法:</p>
@@ -16447,8 +16767,7 @@
 <p>上面又引出来了一个重要的组件那就是 <code>ResultSetHandler</code>。</p>
 <h2 id="ResultSetHandler"><a href="#ResultSetHandler" class="headerlink" title="ResultSetHandler"></a>ResultSetHandler</h2><h3 id="ResultSetHandler-简介"><a href="#ResultSetHandler-简介" class="headerlink" title="ResultSetHandler 简介"></a>ResultSetHandler 简介</h3><p><code>ResultSetHandler</code> 也是一个非常简单的接口:</p>
 <p><img src="http://qiniu.xiaoming.net.cn/ResultHandler%E6%8E%A5%E5%8F%A3.jpg" alt="ResultHandler接口"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ResultSetHandler&#96; 是一个接口，它只有一个默认的实现类，像是 &#96;ParameterHandler&#96; 一样，它的默认实现类是 &#96;DefaultResultSetHandler</span><br></pre></td></tr></table></figure>
-
+<p><code>ResultSetHandler</code> 是一个接口，它只有一个默认的实现类，像是 <code>ParameterHandler</code> 一样，它的默认实现类是 <code>DefaultResultSetHandler</code></p>
 <h3 id="ResultSetHandler-解析过程"><a href="#ResultSetHandler-解析过程" class="headerlink" title="ResultSetHandler 解析过程"></a>ResultSetHandler 解析过程</h3><p>MyBatis 只有一个默认的实现类就是 <code>DefaultResultSetHandler</code>，<code>DefaultResultSetHandler</code> 主要负责处理两件事:</p>
 <ul>
 <li>处理 Statement 执行后产生的结果集，生成结果列表</li>
@@ -16705,8 +17024,7 @@
 </ol>
 <h2 id="第二种：Mapper动态代理开发（不用自己写Dao实现类）"><a href="#第二种：Mapper动态代理开发（不用自己写Dao实现类）" class="headerlink" title="第二种：Mapper动态代理开发（不用自己写Dao实现类）"></a>第二种：Mapper动态代理开发（不用自己写Dao实现类）</h2><ol>
 <li><p>使用 <code>org.mybatis.spring.mapper.MapperFactoryBean</code> ：在 <code>sqlMapConfig.xml</code> 中配置 <code>mapper.xml</code> 的位置，如果 <code>mapper.xml</code> 和 <code>mapper</code> 接口的名称相同且在同一个目录，这里可以不用配置</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;mapper.xml 文件的地址&quot;</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;mapper.xml 文件的地址&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;mapper.xml 文件的地址&quot;</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;mapper.xml 文件的地址&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 <li><p>定义 mapper 接口：</p>
 </li>
 </ol>
@@ -16715,8 +17033,8 @@
 </li>
 <li><p>mapper 接口中的方法名和 mapper.xml 中的定义的 statement 的 id 保持一致</p>
 </li>
-<li><p>Spring 中定义</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;sqlSessionFactory&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;sqlSessionFactoryBean&quot;</span>/&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 此处关联到dao层接口 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;mapperInterface&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.xm.dao.UserDao&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li><p>Spring 中定义xml</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;userDao&quot; class&#x3D;&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;sqlSessionFactory&quot; ref&#x3D;&quot;sqlSessionFactoryBean&quot;&#x2F;&gt;</span><br><span class="line">	&lt;!-- 此处关联到dao层接口 --&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;mapperInterface&quot; value&#x3D;&quot;com.xm.dao.UserDao&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
