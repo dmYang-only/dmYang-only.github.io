@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://qiniu.xiaoming.net.cn/Method%E5%AF%B9%E8%B1%A1%E7%94%9F%E6%88%90%E8%BF%87%E7%A8%8B.png">
 <meta property="og:image" content="http://qiniu.xiaoming.net.cn/%E5%8F%8D%E5%B0%84%E8%B0%83%E7%94%A8invoke%E6%96%B9%E6%B3%95%E6%B5%81%E7%A8%8B.png">
 <meta property="article:published_time" content="2021-01-18T12:59:09.000Z">
-<meta property="article:modified_time" content="2021-01-19T01:58:11.409Z">
+<meta property="article:modified_time" content="2021-03-21T07:45:28.241Z">
 <meta property="article:author" content="dmYang">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -224,7 +224,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-19 09:58:11" itemprop="dateModified" datetime="2021-01-19T09:58:11+08:00">2021-01-19</time>
+                <time title="修改时间：2021-03-21 15:45:28" itemprop="dateModified" datetime="2021-03-21T15:45:28+08:00">2021-03-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -285,7 +285,7 @@
 <li><strong>name指向堆内存对象，而堆内存中存储着指向常量池的地址</strong></li>
 </ul>
 <h2 id="3-String创建对象五种情况分析"><a href="#3-String创建对象五种情况分析" class="headerlink" title="3.String创建对象五种情况分析"></a>3.String创建对象五种情况分析</h2><ul>
-<li>变量只有在运行期才会被确定，静态变量在编译器时确定</li>
+<li>实例变量只有在运行期才会被确定，静态变量在编译器时确定</li>
 <li>如果在编译器可以确定，那么使用已有对象，否则创建新的对象</li>
 </ul>
 <h3 id="情况一"><a href="#情况一" class="headerlink" title="情况一"></a>情况一</h3><blockquote>
@@ -294,7 +294,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">&quot;a&quot;</span>;<span class="comment">//常量池编译器确定</span></span><br><span class="line">Strnig a1 = a+<span class="string">&quot;1&quot;</span>;<span class="comment">//运行期确定（a1）</span></span><br><span class="line">String a2 = <span class="string">&quot;a1&quot;</span>;<span class="comment">//常量池编译器确定</span></span><br><span class="line"></span><br><span class="line">a1 == a2;<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="情况二"><a href="#情况二" class="headerlink" title="情况二"></a>情况二</h3><blockquote>
-<p>final修饰的变量为静态，编译器确定</p>
+<p>final修饰的是静态变量，编译器确定</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> String b = <span class="string">&quot;b&quot;</span>;<span class="comment">//final修饰的变量为静态，编译器确定</span></span><br><span class="line">String b1 = b+<span class="string">&quot;1&quot;</span>;<span class="comment">//编译器可以读取静态变量，编译器确定，放入常量池</span></span><br><span class="line">String b2 = <span class="string">&quot;b1&quot;</span>;<span class="comment">//获取常量池的值，编译器确定</span></span><br><span class="line"></span><br><span class="line">b1 == b2;<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
 
@@ -316,14 +316,10 @@
 <h2 id="4-String为什么是不可变的"><a href="#4-String为什么是不可变的" class="headerlink" title="4.String为什么是不可变的"></a>4.String为什么是不可变的</h2><h3 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h3><p>不可变对象是指一个对象的状态在对象被创建之后就不再变化。</p>
 <p><strong>不可改变</strong>：不能改变对象内的成员变量，包括基本数据类型的值不能改变，引用类型的变量不能指向其他的对象，引用类型指向的对象的状态也不能改变。</p>
 <h3 id="String不可变"><a href="#String不可变" class="headerlink" title="String不可变"></a>String不可变</h3><ul>
-<li><p>String 不可变是因为在 JDK 中 String 类被声明为一个 final 类，且类内部的 <code>value</code> 字符数组也是 final 的，</p>
-</li>
-<li><p>只有当字符串是不可变时<strong>字符串池</strong>才有可能实现<strong>，</strong>字符串池的实现可以在运行时节约很多 heap 空间，因为可能存在多个不同的字符串变量都指向池中的同一个字符串；如果字符串是可变的则会引起很严重的安全问题，因为字符串是不可变的，所以它的<strong>值</strong>是不可改变的，否则黑客们可以钻到空子改变字符串指向的对象的值造成安全漏洞</p>
-</li>
-<li><p>因为字符串是不可变的，所以是<strong>多线程安全</strong>的，同一个字符串实例可以被多个线程共享，这样便不用因为线程安全问题而使用同步，字符串自己便是线程安全的；</p>
-</li>
-<li><p>字符串是不可变的所以在它创建的时候 <strong>hashcode</strong> 就被缓存了，不变性也保证了 hash 码的唯一性，不需要重新计算，这就使得字符串很适合作为 Map 的键，字符串的<strong>处理速度</strong>要快过其它的键对象，这就是 HashMap 中的键往往都使用字符串的原因。</p>
-</li>
+<li>String 不可变是因为在 JDK 中 String 类被声明为一个 final 类，且类内部的 <code>value</code> 字符数组也是 final 的，</li>
+<li>只有当字符串是不可变时<strong>字符串池</strong>才有可能实现<strong>，</strong>字符串池的实现可以在运行时节约很多 heap 空间，因为可能存在多个不同的字符串变量都指向字符串池中的同一个字符串；如果字符串是可变的则会引起很严重的安全问题，因为字符串是不可变的，所以它的<strong>值</strong>是不可改变的，否则黑客们可以钻到空子改变字符串指向的对象的值造成安全漏洞</li>
+<li>因为字符串是不可变的，所以是<strong>多线程安全</strong>的，同一个字符串实例可以被多个线程共享，这样便不用因为线程安全问题而使用同步，字符串自己便是线程安全的；</li>
+<li>字符串是不可变的所以在它创建的时候 <strong>hashcode</strong> 就被缓存了，不变性也保证了 hash 码的唯一性，不需要重新计算，这就使得字符串很适合作为 Map 的键，字符串的<strong>处理速度</strong>要快过其它的键对象，这就是 HashMap 中的键往往都使用字符串的原因。</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">   	<span class="comment">//字符数组</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</span><br><span class="line">    <span class="comment">//Cache the hash code for the string </span></span><br><span class="line">	<span class="comment">//缓存字符串的hashcode</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> hash;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value = <span class="string">&quot;&quot;</span>.value;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(String original)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value = original.value;</span><br><span class="line">        <span class="keyword">this</span>.hash = original.hash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -352,8 +348,7 @@
 <p>这个 Cloneable 接口中没有定义任何方法，所以实现 <code>Cloneable</code> 接口没有别的作用，就代表具备了使用 clone 方法的权利。</p>
 <h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString"></a>toString</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getClass().getName() + <span class="string">&quot;@&quot;</span> + Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>toString 方法就是把对象用字符串的形式表示</p>
-<p>默认的实现其实没有什么用，”类名@hashCode”，直接打印对象输出就是这样的格式</p>
+<p>toString 方法就是把对象用字符串的形式表示，<code>类名@hashCode</code>，直接打印对象输出就是这样的格式</p>
 <h3 id="wait-notify"><a href="#wait-notify" class="headerlink" title="wait/notify"></a>wait/notify</h3><p>wait() 方法会将当前线程挂起，等待某个条件满足。当其他线程运行使得这个条件满足了，其他线程会调用 <code>notify()</code> 或者 <code>notifyAll()</code> 方法。</p>
 <p>只能用在同步方法或者同步代码块中使用，获得当前对象的锁资源，否则会在运行时抛出 <code>IllegalMonitorStateException</code>。</p>
 <h3 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
@@ -361,10 +356,8 @@
 <p><code>finalize()</code> 是 GC 准备回收对象的时候调用来执行清理工作的。</p>
 <h2 id="6-深克隆和浅克隆"><a href="#6-深克隆和浅克隆" class="headerlink" title="6.深克隆和浅克隆"></a>6.深克隆和浅克隆</h2><p><code>clone()</code>是<code>Object</code>的<code>protected</code>方法，因此其他类不能直接去调用该类实例的<code>clone</code>方法,需要对clone进行重写，重写时需要继承<code>Cloneable</code>标记接口，否则会报<code>CloneNotSupportedException</code>。</p>
 <h3 id="浅克隆"><a href="#浅克隆" class="headerlink" title="浅克隆"></a>浅克隆</h3><p>当对象的属性中有引用变量时，实际上<strong>克隆后的对象跟原有对象的引用变量所指向的是同一地址</strong>，如果此时修改引用变量的值，会使两个对象的引用变量都发生改变</p>
-<h3 id="深克隆"><a href="#深克隆" class="headerlink" title="深克隆"></a>深克隆</h3><blockquote>
-<p><strong>将引用对象也做一份拷贝</strong></p>
+<h3 id="深克隆"><a href="#深克隆" class="headerlink" title="深克隆"></a>深克隆</h3><p><strong>将引用对象也做一份拷贝</strong></p>
 <p>使用<code>clone()</code>方法来拷贝一个对象即复杂又有风险，它会抛出异常，并且还需要类型转换</p>
-</blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sheep</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        Object obj = <span class="keyword">super</span>.clone();</span><br><span class="line">        <span class="comment">//深克隆添加如下代码：</span></span><br><span class="line">        Sheep sheep = (Sheep)obj;</span><br><span class="line">        sheep.birthday = (Date) <span class="keyword">this</span>.birthday.clone();<span class="comment">//把属性也进行克隆</span></span><br><span class="line">        <span class="keyword">return</span> sheep;</span><br><span class="line">    &#125;  </span><br><span class="line">	  <span class="comment">//省略getter，setter和toString方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h1><h2 id="1-什么是泛型-泛型上下边界"><a href="#1-什么是泛型-泛型上下边界" class="headerlink" title="1.什么是泛型,泛型上下边界"></a>1.什么是泛型,泛型上下边界</h2><ol>
@@ -412,7 +405,7 @@
 <li>使用实例</li>
 </ul>
 <blockquote>
-<p>当在hashset加入新对象，会先计算hashcode来判断对象加入的位置。</p>
+<p>当在hashSet加入新对象，会先计算hashcode来判断对象加入的位置。</p>
 <p>同时也会将该hashcode也已有对象的hashcode进行比较。</p>
 <p>如果不同，则认为对象不同，直接加入</p>
 <p>如果相同，会同时调用equals方法检查对象是否真的相同，如果相同，不会让其加入成功</p>
@@ -448,17 +441,16 @@
 <p>《阿里巴巴Java开发手册》提到：<strong>为了防止精度损失，禁止使用构造方法<code>BigDecimal(double)</code>的方式把double值转化为BigDecimal对象</strong>。该方法存在精度损失风险，在精确计算或值比较的场景中可能会导致业务逻辑异常。优先推荐使用参数为<code>String</code>的构造方法，或者 BigDecimal 的<code>valueOf</code>方法，此方法内存其实执行了 Double 的 toString，而 Double 的 toString 按 double 的实际能表达的精度对尾数进行了截断。</p>
 </blockquote>
 <h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><h2 id="1-接口与抽象类"><a href="#1-接口与抽象类" class="headerlink" title="1.接口与抽象类"></a>1.接口与抽象类</h2><h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><ul>
-<li>抽象类和抽象方法使用<code>abstract</code>修饰</li>
+<li>抽象类和抽象方法使用<code>abstract</code>修饰，抽象方法不能有方法体；</li>
 <li>一个类如果包含抽象方法，那么这个类必须声明为抽象类</li>
-<li>抽象类不能被实例化，继承抽象类的子类必须实现其抽象方法</li>
+<li>抽象类不能被实例化；但是可以有构造方法，用来初始化抽象类内部的实例变量，由于子类构造第一句默认调用<code>super()</code>，没有的话子类将无法编译；继承抽象类的子类必须实现其抽象方法</li>
 <li>抽象类不能被<code>final</code>修饰</li>
 </ul>
 <h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><ul>
-<li>使用<code>interface</code>关键字</li>
+<li>使用<code>interface</code>关键字，可以继承多个接口</li>
+<li>不能有构造方法</li>
 <li>接口字段默认为final和static，默认是public修饰，不能定义为protected和private</li>
 <li>接口中可以定义常量，抽象方法，jdk8中可以默认方法，私有方法和静态方法</li>
-<li>可以继承多个接口</li>
-<li>不能有构造方法</li>
 </ul>
 <h2 id="2-重写和重载"><a href="#2-重写和重载" class="headerlink" title="2.重写和重载"></a>2.重写和重载</h2><h3 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h3><blockquote>
 <p>重写存在于继承体系之中，指子类实现了一个与父类在方法声明上完全相同的方法。</p>
@@ -498,9 +490,9 @@
 <ul>
 <li>父类（静态变量，静态代码块）</li>
 <li>子类（静态变量，静态代码块）</li>
-<li>父类（实例变量，普通语句块）</li>
+<li>父类（实例变量，构造代码块）</li>
 <li>父类（构造函数）</li>
-<li>子类（实例变量，普通语句块）</li>
+<li>子类（实例变量，构造代码块）</li>
 <li>子类（构造函数）</li>
 </ul>
 <h2 id="4-构造器是否可以重写"><a href="#4-构造器是否可以重写" class="headerlink" title="4.构造器是否可以重写"></a>4.构造器是否可以重写</h2><p><strong>父类的私有属性和构造方法不能被继承</strong>，所以<code>constructor</code>不能被重写，但是可以重载。</p>
@@ -517,9 +509,9 @@
 <h2 id="7-JVM、JRE、JDK的区别"><a href="#7-JVM、JRE、JDK的区别" class="headerlink" title="7.JVM、JRE、JDK的区别"></a>7.JVM、JRE、JDK的区别</h2><p><strong>JVM</strong></p>
 <p>JVM是运行Java字节码的虚拟机，JVM有针对不同系统的特定实现，目的是使用相同的字节码，它们都会给出相同的结果，显示出java语言的跨平台性，实现”<strong>一次编译，随时可以运行</strong>“。</p>
 <p><strong>JDK</strong></p>
-<p>是功能健全的JavaSDK，拥有JRE拥有的一切，编译器Javac和工具Javadoc。能够创建和编译程序</p>
+<p>是功能健全的JavaSDK，拥有JRE拥有的一切，编译器Javac和工具Javadoc，能够创建和编译程序</p>
 <p><strong>JRE</strong></p>
-<p>java运行时环境，运行已编译java程序所需内容的集合，包括jvm,java类库，java命令和其他一些基础构件，但是，它不能用来创建程序</p>
+<p>java运行时环境，运行已编译java程序所需内容的集合，包括jvm，java类库，java命令和其他一些基础构件。但是，它不能用来创建程序</p>
 <p>只是为了运行一下 Java 程序的话，那么你只需要安装 JRE 就可以了。</p>
 <p>如果你需要进行一些 Java 编程方面的工作，那么你就需要安装 JDK 了。</p>
 <p>如果要使用 JSP 部署 Web 应用程序，那么从技术上讲，您只是在应用程序服务器中运行 Java 程序。那你为什么需要 JDK 呢？因为应用程序服务器会将 JSP 转换为 Java servlet，并且需要使用 JDK 来编译 servlet</p>
@@ -570,21 +562,15 @@
 <p>索引类型分成三种，它们是：类（class）、接口（interface）和数组（array）。</p>
 <p>索引类型可以引用动态创建的类实例、普通实例和数组。</p>
 <p>索引还可以包含特殊的值，这就是 null 索引。null 索引在运行时上并没有对应的类型，但它可以被转换为任何类型。索引类型的默认值就是 null。</p>
-<h1 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h1><blockquote>
-<p>所有的异常都有一个共同的祖先<code>java.lang</code>包中的的<code>Throwable类</code>。</p>
-<p>它有两个重要的子类：<code>Exception(异常)</code>和<code>Error(错误)</code>,二者都是java处理异常的重要子类</p>
+<h1 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h1><p>所有的异常都有一个共同的祖先<code>java.lang</code>包中的的<code>Throwable类</code>。它有两个重要的子类：<code>Exception(异常)</code>和<code>Error(错误)</code>,二者都是java处理异常的重要子类</p>
+<h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2><p><strong>程序无法处理的错误</strong>，表示运行应用程序中较严重问题，表示代码执行时JVM出现的问题。</p>
+<blockquote>
+<p>java虚拟机运行错误(<code>VirtualMachineError</code>)、内存溢出(<code>OutofMemoryError</code>)，这些异常发生时，java虚拟机一般会选择线程终止</p>
 </blockquote>
-<h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2><blockquote>
-<p><strong>程序无法处理的错误</strong>，表示运行应用程序中较严重问题，表示代码执行时JVM出现的问题。</p>
-<p>如java虚拟机运行错误(<code>VirtualMachineError</code>)、内存溢出(<code>OutofMemoryError</code>)</p>
-<p>这些异常发生时，java虚拟机一般会选择线程终止</p>
-</blockquote>
-<p>这些错误是不可查的，因为它们在应用程序的控制和处理能力之外，而且绝大多数是程序运行时不允许出现的状况。</p>
-<p>对于设计合理的应用程序来说，即使确实发生了错误，本质上也不应该试图去处理它所引起的异常状况。</p>
-<h2 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h2><blockquote>
-<p><strong>是程序本身可以处理的异常</strong></p>
-<p><code>Exception</code>类有一个重要的子类<code>RuntimeException</code>。</p>
-<p>该异常由Java虚拟机抛出。</p>
+<p>这些错误是不可查的，因为它们在应用程序的控制和处理能力之外，而且绝大多数是程序运行时不允许出现的状况。对于设计合理的应用程序来说，即使确实发生了错误，本质上也不应该试图去处理它所引起的异常状况。</p>
+<h2 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h2><p><strong>是程序本身可以处理的异常</strong></p>
+<blockquote>
+<p><code>Exception</code>类有一个重要的子类<code>RuntimeException</code>。该异常由Java虚拟机抛出。</p>
 </blockquote>
 <ul>
 <li><code>ArrithmeticException</code>：算术运算异常，一个整数除以0时，会抛出该异常。</li>
@@ -632,18 +618,11 @@
 <li>按照操作单元划分，分为<strong>字节流</strong>和<strong>字符流</strong></li>
 <li>按照流的角色划分为<strong>节点流</strong>和<strong>处理流</strong></li>
 </ul>
-<h2 id="BIO，NIO，AIO的区别"><a href="#BIO，NIO，AIO的区别" class="headerlink" title="BIO，NIO，AIO的区别"></a>BIO，NIO，AIO的区别</h2><h3 id="BIO-Blocking-I-O"><a href="#BIO-Blocking-I-O" class="headerlink" title="BIO(Blocking I/O)"></a>BIO(Blocking I/O)</h3><blockquote>
-<p>同步阻塞I/O，数据的读取和写入都必须阻塞在一个进程内等待完成。</p>
-</blockquote>
+<h2 id="BIO，NIO，AIO的区别"><a href="#BIO，NIO，AIO的区别" class="headerlink" title="BIO，NIO，AIO的区别"></a>BIO，NIO，AIO的区别</h2><h3 id="BIO-Blocking-I-O"><a href="#BIO-Blocking-I-O" class="headerlink" title="BIO(Blocking I/O)"></a>BIO(Blocking I/O)</h3><p>同步阻塞I/O，数据的读取和写入都必须阻塞在一个进程内等待完成。</p>
 <p>这种方式在连接数不是特别高的情况下，可以让每一个连接都专注于自己的I/O，并且编程模型简单，也不用过多的考虑系统的过载、限流等问题。但是，当面对十万甚至百万级连接的时候，传统的BIO模型是无能为力的。因此，需要一种更高效的I/O处理模型来应对更高的并发量。</p>
-<h3 id="NIO-New-I-O"><a href="#NIO-New-I-O" class="headerlink" title="NIO(New I/O)"></a>NIO(New I/O)</h3><blockquote>
-<p>NIO是一种同步非阻塞的I/O模型，它是支持面向缓冲的，基于通道的I/O操作方法</p>
-</blockquote>
+<h3 id="NIO-New-I-O"><a href="#NIO-New-I-O" class="headerlink" title="NIO(New I/O)"></a>NIO(New I/O)</h3><p>NIO是一种同步非阻塞的I/O模型，它是支持面向缓冲的，基于通道的I/O操作方法</p>
 <p>但是其I/O行为还是同步的，对于NIO来说，业务线程是在IO操作准备好时，才得到通知，接着就由这个线程自行完成IO操作，IO操作本身是同步的。</p>
-<h3 id="AIO（Asynchronous-I-O）"><a href="#AIO（Asynchronous-I-O）" class="headerlink" title="AIO（Asynchronous I/O）"></a>AIO（Asynchronous I/O）</h3><blockquote>
-<p>AIO也就是NIO2，是异步非阻塞模式。</p>
-<p>异步IO是基于事件和回调机制实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。</p>
-</blockquote>
+<h3 id="AIO（Asynchronous-I-O）"><a href="#AIO（Asynchronous-I-O）" class="headerlink" title="AIO（Asynchronous I/O）"></a>AIO（Asynchronous I/O）</h3><p>AIO也就是NIO2，是异步非阻塞模式。异步IO是基于事件和回调机制实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。</p>
 <h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><h2 id="1-如何通过反射创建对象以及获取和设置对象私有属性字段的值？"><a href="#1-如何通过反射创建对象以及获取和设置对象私有属性字段的值？" class="headerlink" title="1. 如何通过反射创建对象以及获取和设置对象私有属性字段的值？"></a>1. 如何通过反射创建对象以及获取和设置对象私有属性字段的值？</h2><p>对象通过 <code>getClass()</code> 方法可以获得其 <code>Class</code> 对象，</p>
 <ul>
 <li><p>通过该 <code>Class</code> 对象的 <code>getDeclaredFields()</code> 方法获取包括 <code>private</code> 在内所有的属性；</p>
@@ -660,16 +639,7 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CallerSensitive</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Class&lt;?&gt; forName(String className)</span><br><span class="line">        <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">    <span class="comment">// 先通过反射，获取调用者进来的类信息，从而获取当前的 classLoader            </span></span><br><span class="line">    Class&lt;?&gt; caller = Reflection.getCallerClass();</span><br><span class="line">    <span class="comment">// 调用native方法进行获取class信息</span></span><br><span class="line">    <span class="keyword">return</span> forName0(className, <span class="keyword">true</span>, ClassLoader.getClassLoader(caller), caller);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><p><code>forName</code> 方法默认使用调用者的类加载器。</p>
-</li>
-<li><p><code>forName()</code>反射获取类信息，并没有将实现留给了 java,而是交给了 jvm 去加载，主要是先获取 <code>ClassLoader</code></p>
-</li>
-<li><p> 然后调用 <code>native</code> 方法，根据传入的类全名和类加载器获取信息加载类则是回调 <code>java.lang.ClassLoader</code>。</p>
-</li>
-<li><p>最后，jvm 又会回调 <code>ClassLoader</code> 进行类加载过程。</p>
-</li>
-</ul>
+<p><code>forName</code> 方法默认使用调用者的类加载器。<code>forName()</code>反射获取类信息，并没有将实现留给了 java,而是交给了 jvm 去加载，主要是先获取 <code>ClassLoader</code>然后调用 <code>native</code> 方法，根据传入的类全名和类加载器获取信息加载类则是回调 <code>java.lang.ClassLoader</code>最后，jvm 又会回调 <code>ClassLoader</code> 进行类加载过程。</p>
 <h3 id="newInstance"><a href="#newInstance" class="headerlink" title="newInstance"></a>newInstance</h3><p><code>newInstance()</code> 主要做了三件事：</p>
 <ol>
 <li>权限检测，如果不通过直接抛出异常 private(没有暴力反射)</li>
@@ -699,8 +669,7 @@
 </li>
 </ul>
 <p><img src="http://qiniu.xiaoming.net.cn/Method%E5%AF%B9%E8%B1%A1%E7%94%9F%E6%88%90%E8%BF%87%E7%A8%8B.png" alt="Method 对象生成过程"></p>
-<p>每个类都会有一个与之对应的 Class 实例，JVM 管理着这个 Class 实例</p>
-<p>这个实例里维护着该类的所有 Method，Field，Constructor 的 cache，这份 cache 也可以被称作根对象。</p>
+<p>每个类都会有一个与之对应的 Class 实例，JVM 管理着这个 Class 实例，这个实例里维护着该类的所有 Method，Field，Constructor 的 cache，这份 cache 也可以被称作根对象。</p>
 <p>每次 getMethod 获取到的 Method 对象都持有对根对象的引用，因为一些重量级的 Method 的成员变量（主要是 MethodAccessor），我们不希望每次创建 Method 对象都要重新初始化，于是所有代表同一个方法的 Method 对象都共享着根对象的 MethodAccessor，每一次创建都会调用根对象的 copy 方法复制一份</p>
 <h3 id="Method-invoke-反射调用方法"><a href="#Method-invoke-反射调用方法" class="headerlink" title="Method.invoke() 反射调用方法"></a>Method.invoke() 反射调用方法</h3><img src="http://qiniu.xiaoming.net.cn/%E5%8F%8D%E5%B0%84%E8%B0%83%E7%94%A8invoke%E6%96%B9%E6%B3%95%E6%B5%81%E7%A8%8B.png" alt="反射调用 invoke 方法流程" style="zoom:67%;" />
 
@@ -894,7 +863,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">972k</span>
+    <span title="站点总字数">973k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
