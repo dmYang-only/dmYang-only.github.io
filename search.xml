@@ -18104,7 +18104,7 @@
       </tags>
   </entry>
   <entry>
-    <title>数据库查询</title>
+    <title>MySQL基础</title>
     <url>/2020/11/11/MySQL%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="常见数据库"><a href="#常见数据库" class="headerlink" title="常见数据库"></a>常见数据库</h1><blockquote>
 <p>一个数据库服务器包含多个库，一个数据库包含多个表，一个表包含多条记录，一条记录包含多个字段</p>
@@ -19220,7 +19220,7 @@
       </tags>
   </entry>
   <entry>
-    <title>存储引擎</title>
+    <title>MySQL高级</title>
     <url>/2020/11/11/MySQL%E9%AB%98%E7%BA%A7/</url>
     <content><![CDATA[<h1 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h1><p>整个MySQL Server由以下组成</p>
 <ul>
