@@ -185,6 +185,200 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/09/11/05uni-app/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/11/05uni-app/" class="post-title-link" itemprop="url">uni-app</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-09-11T12:33:33+08:00">2020-09-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-06 22:44:29" itemprop="dateModified" datetime="2020-12-06T22:44:29+08:00">2020-12-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><blockquote>
+<p>结合jsp和ajax的优点，可以进行局部刷新</p>
+<p>colorui,graceui</p>
+</blockquote>
+<h4 id="1、uni-app项目框架"><a href="#1、uni-app项目框架" class="headerlink" title="1、uni-app项目框架"></a>1、uni-app项目框架</h4><h5 id="1-1-pages-json"><a href="#1-1-pages-json" class="headerlink" title="1.1 pages.json"></a>1.1 pages.json</h5><blockquote>
+<p>文件对uni-app进行全局配置</p>
+<ul>
+<li>gobalStyle-设置默认页面的窗口表现</li>
+<li>pages-path(设置页面路径,每个新增页面需要增加path),style(设置页面窗口属性)</li>
+</ul>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&quot;pages&quot;: [ </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="attr">&quot;path&quot;</span>: <span class="string">&quot;pages/index/index&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;style&quot;</span>: &#123;</span><br><span class="line">			<span class="attr">&quot;enablePullDownRefresh&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">			 <span class="attr">&quot;onReachBottomDistance&quot;</span>: <span class="number">300</span></span><br><span class="line">			&#125;</span><br><span class="line">	 &#125;</span><br><span class="line">	 ,&#123;</span><br><span class="line">          &quot;path&quot; : &quot;pages/user/user&quot;</span><br><span class="line">       &#125;</span><br><span class="line">      ,&#123;</span><br><span class="line">           &quot;path&quot; : &quot;pages/index/news-detail/news-detail&quot;,</span><br><span class="line">           &quot;style&quot; : &#123;&#125;</span><br><span class="line">       &#125;</span><br><span class="line"> ],</span><br><span class="line">&quot;globalStyle&quot;: &#123;</span><br><span class="line">		&quot;navigationStyle&quot;:&quot;custom&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1-2-App-vue"><a href="#1-2-App-vue" class="headerlink" title="1.2 App.vue"></a>1.2 App.vue</h5><blockquote>
+<p>调用<strong>应用app生命周期</strong>，配置全局样式</p>
+<ul>
+<li>onLauch- app加载之后，一般只调用一次<ul>
+<li>访问本地缓存是否有用户登录，发送到服务器进行验证，验证通过静默登录</li>
+<li>发送请求到服务器检测当前登录版本</li>
+</ul>
+</li>
+<li>onShow- 启动或从后台进入</li>
+<li>onHide- 前台进入后台</li>
+</ul>
+</blockquote>
+<h5 id="1-3-main-js"><a href="#1-3-main-js" class="headerlink" title="1.3 main.js"></a>1.3 main.js</h5><blockquote>
+<p>是uni-app的入口文件</p>
+<ul>
+<li>初始化vue实例</li>
+<li>定义全局组件，使用需要的插件vuex</li>
+</ul>
+</blockquote>
+<h5 id="1-4-uni-scss"><a href="#1-4-uni-scss" class="headerlink" title="1.4 uni.scss"></a>1.4 uni.scss</h5><blockquote>
+<p>整体控制应用的风格</p>
+</blockquote>
+<h4 id="2、简单使用"><a href="#2、简单使用" class="headerlink" title="2、简单使用"></a>2、简单使用</h4><h5 id="2-1-显示返回数据"><a href="#2-1-显示返回数据" class="headerlink" title="2.1 显示返回数据"></a>2.1 显示返回数据</h5><blockquote>
+<p>在模板template-view(div)中显示返回的后端数据 </p>
+<p><strong>格式</strong>：{ {data} } 别名mustache   </p>
+<p><strong>调用方法</strong>：@tap=”方法名”</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">		&#123;&#123;(x&gt;y)?true:false&#125;&#125;</span><br><span class="line">		&lt;br&#x2F;&gt;</span><br><span class="line">		x:&#123;&#123;x&#125;&#125; y:&#123;&#123;y&#125;&#125;</span><br><span class="line">	&lt;button @tap&#x3D;&quot;add&quot; type&#x3D;&quot;default&quot;&gt;hello&lt;&#x2F;button&gt;</span><br><span class="line">	&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">	export default &#123;</span><br><span class="line">		data() &#123;</span><br><span class="line">			return &#123;</span><br><span class="line">				x:3,</span><br><span class="line">				y:6</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		onLoad() &#123;</span><br><span class="line"></span><br><span class="line">		&#125;, </span><br><span class="line">		methods: &#123;</span><br><span class="line">			hello:function()&#123;</span><br><span class="line">				console.log(&#39;hello&#39;)</span><br><span class="line">			&#125;,</span><br><span class="line">			add:function()&#123;</span><br><span class="line">				this.x+&#x3D;1;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-v-for-in循环"><a href="#2-2-v-for-in循环" class="headerlink" title="2.2 v-for-in循环"></a>2.2 v-for-in循环</h5><blockquote>
+<p>格式 v-for=”(item,index)   in 遍历的对象集合” </p>
+<ul>
+<li>index 即遍历的下标，item 即遍历的对象</li>
+<li>对于标签内属性可用  <code>：tap=&quot; &quot;代替 tap=&quot;&#123;&#123;&#125;&#125;&quot;</code></li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;view v-for&#x3D;&quot;(item,index) in articleList&quot; :key&#x3D;&quot;index&quot;&gt;</span><br><span class="line">		 	&#123;&#123;index&#125;&#125; &#123;&#123;item&#125;&#125;</span><br><span class="line">&lt;&#x2F;view&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="二、页面"><a href="#二、页面" class="headerlink" title="二、页面"></a>二、页面</h3><h4 id="1、页面生命周期"><a href="#1、页面生命周期" class="headerlink" title="1、页面生命周期"></a>1、页面生命周期</h4><h5 id="1-1-onload"><a href="#1-1-onload" class="headerlink" title="1.1 onload"></a>1.1 onload</h5><blockquote>
+<p>页面加载事件</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>可处理请求 <code>uni.request(&#123; url:&#39;&#39;, success(result)&#123; &#125;,fail(error)&#123; &#125;,complete()&#123; &#125; &#125;)</code></li>
+<li>加载loading <code>uni.showloading(&#123;  &#125;)</code></li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">	return &#123;</span><br><span class="line">		&#x2F;&#x2F;返回的[&#123;&#125;,&#123;&#125;..]形式数据</span><br><span class="line">		articleList: []</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;,</span><br><span class="line">onLoad() &#123;</span><br><span class="line">	var _vue &#x3D; this;</span><br><span class="line">	uni.showLoading(&#123;</span><br><span class="line">		title: &#39;loading...&#39;</span><br><span class="line">	&#125;);</span><br><span class="line">	</span><br><span class="line">	uni.request(&#123;</span><br><span class="line">		url: &#39;https:&#x2F;&#x2F;unidemo.dcloud.net.cn&#x2F;api&#x2F;news&#39;,</span><br><span class="line">		success(result) &#123;</span><br><span class="line">			console.log(result.data);</span><br><span class="line">			_vue.articleList &#x3D; result.data;</span><br><span class="line">		&#125;,</span><br><span class="line">		fail(error) &#123;</span><br><span class="line">			console.log(error);</span><br><span class="line">		&#125;,</span><br><span class="line">		complete() &#123;</span><br><span class="line">			uni.hideLoading();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1-2-onReachBottom"><a href="#1-2-onReachBottom" class="headerlink" title="1.2 onReachBottom"></a>1.2 onReachBottom</h5><blockquote>
+<p>页面上拉触底事件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;注意一下request是一个异步请求，不会阻塞后面浏览器操作的运行，有时候会产生时序问题</span><br><span class="line">	onReachBottom() &#123;</span><br><span class="line">		var temArticleList &#x3D; this.articleList;</span><br><span class="line">		var length &#x3D; temArticleList.length;</span><br><span class="line">		for (var i &#x3D; 0; i &lt; length; i++) &#123;</span><br><span class="line">			this.articleList.push(temArticleList[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1-3-onPullDownRefresh"><a href="#1-3-onPullDownRefresh" class="headerlink" title="1.3 onPullDownRefresh"></a>1.3 onPullDownRefresh</h5><blockquote>
+<p>下拉刷新事件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">onPullDownRefresh() &#123;</span><br><span class="line">		var _vue &#x3D; this;</span><br><span class="line">		uni.showLoading(&#123;</span><br><span class="line">			title: &#39;loading...&#39;</span><br><span class="line">		&#125;);</span><br><span class="line">		uni.request(&#123;</span><br><span class="line">			url: &#39;https:&#x2F;&#x2F;unidemo.dcloud.net.cn&#x2F;api&#x2F;news&#39;,</span><br><span class="line">			success(result) &#123;</span><br><span class="line">				console.log(result.data);</span><br><span class="line">				_vue.articleList &#x3D; result.data;</span><br><span class="line">			&#125;,</span><br><span class="line">			fail(error) &#123;</span><br><span class="line">				console.log(error);</span><br><span class="line">			&#125;,</span><br><span class="line">			complete() &#123;</span><br><span class="line">				uni.hideLoading();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2、页面栈"><a href="#2、页面栈" class="headerlink" title="2、页面栈"></a>2、页面栈</h4><h5 id="2-1-navigateTo"><a href="#2-1-navigateTo" class="headerlink" title="2.1 navigateTo"></a>2.1 navigateTo</h5><blockquote>
+<p><strong>新页面入栈</strong></p>
+</blockquote>
+<blockquote>
+<p>根据postid进行页面跳转</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;view @tap&#x3D;&quot;navTo&quot; :data-postid&#x3D;&quot;item.post_id&quot; v-for&#x3D;&quot;(item, index) in articleList&quot; :key&#x3D;&quot;index&quot; class&#x3D;&quot;cu-card case&quot; :class&#x3D;&quot;isCard ? &#39;no-card&#39; : &#39;&#39;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">	navTo: function(event) &#123;</span><br><span class="line">		var postid &#x3D; event.currentTarget.dataset.postid;</span><br><span class="line">		&#x2F;&#x2F;压栈页面跳转</span><br><span class="line">		uni.navigateTo(&#123;</span><br><span class="line">			url: &#39;news-detail&#x2F;news-detail?postid&#x3D;&#39; + postid</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">	data() &#123;</span><br><span class="line">		return &#123;</span><br><span class="line">			&#x2F;&#x2F;返回的是&#123;&#125;类型数据</span><br><span class="line">			article: &#123;&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;,</span><br><span class="line">	onLoad(data) &#123;</span><br><span class="line">		var _vue &#x3D; this;</span><br><span class="line">		uni.showLoading(&#123;</span><br><span class="line">			title: &#39;loading...&#39;</span><br><span class="line">		&#125;);</span><br><span class="line">		uni.request(&#123;</span><br><span class="line">			url: &#39;https:&#x2F;&#x2F;unidemo.dcloud.net.cn&#x2F;api&#x2F;news&#x2F;36kr&#x2F;&#39; + data.postid,</span><br><span class="line">			&#x2F;&#x2F;获得请求结果</span><br><span class="line">			success(result) &#123;</span><br><span class="line">				console.log(result.data);</span><br><span class="line">				_vue.article &#x3D; result.data;</span><br><span class="line">			&#125;,</span><br><span class="line">			fail(error) &#123;</span><br><span class="line">				console.log(error);</span><br><span class="line">			&#125;,</span><br><span class="line">			complete() &#123;</span><br><span class="line">				uni.hideLoading();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;,</span><br><span class="line">	methods: &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-2-redirectTo"><a href="#2-2-redirectTo" class="headerlink" title="2.2 redirectTo"></a>2.2 redirectTo</h5><blockquote>
+<p><strong>页面重定向：当前页面出栈，新页面入栈</strong></p>
+</blockquote>
+<h5 id="2-3-switchTap"><a href="#2-3-switchTap" class="headerlink" title="2.3 switchTap"></a>2.3 switchTap</h5><blockquote>
+<p><strong>Tab切换：页面全部出栈，只留下新的 Tab 页面</strong></p>
+</blockquote>
+<h4 id="3、页面Tap"><a href="#3、页面Tap" class="headerlink" title="3、页面Tap"></a>3、页面Tap</h4><blockquote>
+<p>pages.json中的添加tabBar属性</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&quot;tabBar&quot;: &#123;</span><br><span class="line">		&quot;list&quot;: [</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;pagePath&quot;: &quot;pages&#x2F;index&#x2F;index&quot;,</span><br><span class="line">				&quot;iconPath&quot;: &quot;static&#x2F;tabbar&#x2F;basics.png&quot;,</span><br><span class="line">				&quot;selectedIconPath&quot;: &quot;static&#x2F;tabbar&#x2F;basics_cur.png&quot;,</span><br><span class="line">				&quot;text&quot;: &quot;首页&quot;</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;pagePath&quot;: &quot;pages&#x2F;user&#x2F;user&quot;,</span><br><span class="line">				&quot;iconPath&quot;: &quot;static&#x2F;tabbar&#x2F;about.png&quot;,</span><br><span class="line">				&quot;selectedIconPath&quot;: &quot;static&#x2F;tabbar&#x2F;about_cur.png&quot;,</span><br><span class="line">				&quot;text&quot;: &quot;个人中心&quot;</span><br><span class="line">			&#125;</span><br><span class="line">		]</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/09/11/03JavaScript/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1439,7 +1633,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1497,7 +1691,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:09</span>
+    <span title="站点阅读时长">16:31</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>
