@@ -185,267 +185,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2021/09/06/%E6%B3%A8%E6%84%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/06/%E6%B3%A8%E6%84%8F/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-09-06 20:56:48" itemprop="dateCreated datePublished" datetime="2021-09-06T20:56:48+08:00">2021-09-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-02 20:06:22" itemprop="dateModified" datetime="2021-01-02T20:06:22+08:00">2021-01-02</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1、do-while:用于先执行再判断，使用与需求是要循环体重复输出同一条语句</p>
-<p>while：用于先判断再执行，区别于for在于循环次数是否可知</p>
-<p>2、boolean flag=true;可作为标记来判断</p>
-<p>3、count++;当需要计算循环次数可使用</p>
-<p>4、流程控制的判断语句为true才会进入作用域、false结束该流程。</p>
-<p>5、boolean和String不参与任何类型的转换</p>
-<p>6、switch的穿透</p>
-<p>7、标识符不能使用关键字本身，但可拼接关键字</p>
-<p>8、char=’a’; char1=65;</p>
-<p>9、运算对象必须为整型的有 %=，&lt;&lt;</p>
-<p>10、赋值变量，变量不可以为表达式，如：a=a+5=c+1，浮点数不可以求余运算</p>
-<p>11、常量不可再被赋值，不能自增自减，常量用final修饰，final int a=1；</p>
-<p>12、System.<strong>out</strong>.println(x++);//先输出后再自加。</p>
-<p>13、多个if语句并列，会从上往下继续执行</p>
-<p>14、if（a&gt;b&gt;c）{}  //编译错误</p>
-<p>15、for（int i=1;i++&lt;5）;  输出i为6  ！！！！！！！！！！</p>
-<p>1、多态的好处：编译时模糊，运行确定对象</p>
-<p>2、  Iterator迭代器（接口）:容器,所有集合都实现了iterator接口</p>
-<p>​            例如：（1）Array List实现了iterator接口，调用iterator()返回值实现了多态</p>
-<p>​                        （2）调用Array List内部类（该内部类实现了iterator接口，防止内存泄露使用内部类）</p>
-<p>​    remove() 无法删除指定元素</p>
-<p>3、任何内部类都可以独立编译成一个class文件</p>
-<p>​        匿名类是对原类的一个继承，同时创建了实例</p>
-<p>4、for-each实际是iterator实现，用于遍历，但无增改方法</p>
-<p>​    iterator通过cur进行遍历，可在遍历时移除元素remove()，但不可指定元素移除</p>
-<p>5、set中的add()通过Map的put()实现</p>
-<p>6、集合的遍历：</p>
-<p>（1）for循环,转化为数组的遍历</p>
-<p>（2）for-each（jdk5.0，不用已知长度，不用转化为数组）</p>
-<p>（3）迭代器iterator</p>
-<p>7、</p>
-<p>数组：查询快，增删慢</p>
-<p>增：（1）建立一个新数组，获取原数组的长度来决定新数组的长度</p>
-<p>​        （2）对原数组进行遍历，获取元素的位置</p>
-<p>​        （3）对插入位置后的元素进行后移</p>
-<p>链表：每一个变量都有一个地址值</p>
-<p>（1）利用临时空间保存插入元素</p>
-<p>（2）将临时空间地址与链表进行关联</p>
-<p>栈：先进后出</p>
-<p>​        （1）出栈：压栈push</p>
-<p>​        （2）入栈：pop</p>
-<p>队列：先进先出offer poll</p>
-<p>1、数组：存储同一数据类型的多个元素的容器，</p>
-<p>​                    静态初始化和动态初始化不能同时使用</p>
-<p>​    二维数组：(1)二维数组中一维数组长度a[i].length</p>
-<p>​                        (2)初始化注意点：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][];</span><br><span class="line"> <span class="comment">// a[0]= &#123;2, 3, 5&#125;;错误，需要a[0]=new int[]&#123;2,3,5&#125;</span></span><br><span class="line">a[<span class="number">0</span>]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">a[<span class="number">1</span>]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">a[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">60</span>;a[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">60</span>;</span><br><span class="line">a[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">60</span>;a[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">80</span>;</span><br><span class="line">System.out.println( a[<span class="number">1</span>][<span class="number">1</span>]);</span><br></pre></td></tr></table></figure>
-
-<p>2、递归：不断调用自身方法。</p>
-<p>3、成员方法不能嵌套，但可以互相调用</p>
-<p>4、方法构成及其作用限制，方法的重载递归</p>
-<p>4、Arrays类常见方法：</p>
-<p>5、排序算法：</p>
-<p>​    (1)冒泡排序（相邻元素进行比较并交换位置）</p>
-<p>   (2)直接排序（以第i个数为基准与其他元素进行比较，找出最小值的位序并交换） </p>
-<p>   (3)插入排序 (将插入元素与数组元素进行比较，插入位置后的元素后移)</p>
-<p>   (4)数组的逆序:以中间元素为基准，前后互换</p>
-<p>6、成员变量进行初始化：</p>
-<p>​    (1)直接初始化 s1.name=”小小”;</p>
-<p>​    (2)构造方法初始化， Student s=new Student(15);</p>
-<p>​    (3)对于私有属性，用setter方法进行初始化</p>
-<p>7、this关键字不能使用于静态方法中，使用this()方法调用无参构造方法</p>
-<p>8、构造方法常用来初始化成员属性</p>
-<p>9、super关键字</p>
-<p>（1）实例化子类对象，默认调用父类的无参构造方法</p>
-<p>（2）调用父类带带参构造方法时就不默认执行无参构造方法</p>
-<p>10、成员变量和局部变量</p>
-<p>​        成员变量随着对象的消失而消失，堆空间，在创建对象时有初始值<br>​        局部变量随着方法的调用，栈空间，无初始值必须被赋值</p>
-<p>调用重名时，采用就近原则</p>
-<p>11、在创建对象时，默认成员变量为默认值，实际上是无参构造方法起作用</p>
-<p>12、对父类所有属性的继承，不包括父类的构造方法和私有属性(但可通过super关键字）</p>
-<p>13、this和super不能同时存在，避免同一个被子类和父类反复初始化</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2021/09/06/%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BDjava/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="dmYang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DmYoung">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/06/%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BDjava/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-09-06 20:56:48" itemprop="dateCreated datePublished" datetime="2021-09-06T20:56:48+08:00">2021-09-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-05 19:02:59" itemprop="dateModified" datetime="2021-09-05T19:02:59+08:00">2021-09-05</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>956</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="卸载Jdk"><a href="#卸载Jdk" class="headerlink" title="卸载Jdk"></a>卸载Jdk</h1><p>1.正常卸载jdk，把这两个卸载掉</p>
-<p><a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20200926153203287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center"><img src="https://img-blog.csdnimg.cn/20200926153203287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></a><br>接下来的操作如果找不到所对应的文件夹则说明在第一步的时候已经自动卸载了，不用再进行操作</p>
-<p>1.输入这个路径 <strong>C:\WINDOWS\System32</strong>，删除该路径下的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.exe </span><br><span class="line">javaw.exe  </span><br><span class="line">javawa.exe</span><br></pre></td></tr></table></figure>
-
-<p>2.输入这个路径 <strong>C:\ProgramData\Oracle**</strong>删除Oracle文件夹**</p>
-<p><a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/2020092615295283.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center"><img src="https://img-blog.csdnimg.cn/2020092615295283.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></a><br>3.输入该路径 <strong>C:\Program Files\Java</strong><br><strong>删除java文件夹</strong><br><a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20200926153100105.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center"><img src="https://img-blog.csdnimg.cn/20200926153100105.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></a><br>4.找到原来的安装jdk的目录，删除安装的文件夹</p>
-<p>我是安装在这个文件夹下：F:\java1.8，把该文件夹删除，注意每个人的安装路径不同</p>
-<p><a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20200926153429245.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center"><img src="https://img-blog.csdnimg.cn/20200926153429245.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></a><br>5.打开注册表：win+R键打开，并输入regedit</p>
-<p><a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20200926153537393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center"><img src="https://img-blog.csdnimg.cn/20200926153537393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></a><br><a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20200926153625134.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center"><img src="https://img-blog.csdnimg.cn/20200926153625134.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></a><br>找到这个文件夹 <strong>计算机\HKEY_LOCAL_MACHINE\SOFTWARE\JavaSoft</strong>，将这个文件夹删除</p>
-<p><a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20200926153725643.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center"><img src="https://img-blog.csdnimg.cn/20200926153725643.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BqaDg4,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></a><br>通过以上操作就可以将jdk完全卸载了，</p>
-<h1 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h1><p>1、到Oracle官网下载jdk11，并安装。搜索“jdk”，选择”请到java官网下载jdk安装”进入。</p>
-<p>点击”Accept License Agreement”，然后在右下角选择合适自己的系统的JDK版本。大部分人选右下角的windows64位安装。</p>
-<p>2、安装jdk11。 （安装过程相对于以前版本更简单，具体步骤见截图。）</p>
-<p>点击jdk11安装包进行安装。</p>
-<p><img src="https://csn.damyoung.cn/2018103120354697.png" alt="img"></p>
-<p><img src="https://csn.damyoung.cn/20181031203616472.png" alt="img"></p>
-<p>至此，安装完毕。</p>
-<p>3、配置环境变量。（由于jdk11比以前版本更强大，更好用，因此配置过程也更精简。比之前配置少了class path变量 ）</p>
-<p><img src="https://csn.damyoung.cn/20181031204153310.jpg" alt="img"></p>
-<p> 新建JAVA_HOME变量，并且输入JDK11的安装目录。</p>
-<p><img src="https://img-blog.csdnimg.cn/20181031204310281.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDkyODI1Mw==,size_16,color_FFFFFF,t_70" alt="img"></p>
-<p>编辑Path变量把%JAVA_HOME%\bin;这个变量插入。（注意win7和win10系统编辑插入新变量不太一样。但是一定注意查看最终输入是否符合。）</p>
-<p><img src="https://csn.damyoung.cn/20181031204336695.jpg" alt="img"></p>
-<p>4、通过cmd窗口验证jdk11是否安装成功。</p>
-<p><img src="https://csn.damyoung.cn/20181031204356780.jpg" alt="img"></p>
-<p>至此 安装完成。</p>
-<h1 id="二、环境变量配置"><a href="#二、环境变量配置" class="headerlink" title="二、环境变量配置"></a>二、环境变量配置</h1><p>在系统环境变量中新建下面的几个选项。</p>
-<p>根据自己的安装目录，我的环境变量配置如下：</p>
-<p>path      E:\java\jdk;%JAVA_HOME%\bin</p>
-<p>JAVA_HOME      E:\java\jdk</p>
-<p>CLASSPATH       .;%JAVA_HOME%\lib;</p>
-<p>注意：如果不能切换Java版本，请将设置path的时候，将C:\Java JDK;%JAVA_HOME%\bin放在最前面，使得系统最先识别。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2021/04/03/Thymeleaf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1347,6 +1086,230 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/15/06SSM%E6%95%B4%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/15/06SSM%E6%95%B4%E5%90%88/" class="post-title-link" itemprop="url">ssm整合</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-15 23:33:33" itemprop="dateCreated datePublished" datetime="2020-11-15T23:33:33+08:00">2020-11-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-24 17:03:38" itemprop="dateModified" datetime="2020-12-24T17:03:38+08:00">2020-12-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>16k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>15 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="搭建整合的环境"><a href="#搭建整合的环境" class="headerlink" title="搭建整合的环境"></a>搭建整合的环境</h2><h3 id="创建Spring项目"><a href="#创建Spring项目" class="headerlink" title="创建Spring项目"></a>创建Spring项目</h3><p>创建pojo,mapper,service,controller模块</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/15/06SSM%E6%95%B4%E5%90%88/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/00java%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/11/00java%E6%A6%82%E8%BF%B0/" class="post-title-link" itemprop="url">java概述</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-02 20:05:20" itemprop="dateModified" datetime="2021-01-02T20:05:20+08:00">2021-01-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaSe/" itemprop="url" rel="index"><span itemprop="name">javaSe</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>831</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、java编译解析"><a href="#1、java编译解析" class="headerlink" title="1、java编译解析"></a>1、java编译解析</h3><p>源代码.java——字节码.class———机器码0101010</p>
+<p>​                (通过编译器)        （通过jvm虚拟机解析）</p>
+<p>常见java程序：Application(应用程序)，Servlet(服务器端小程序)</p>
+<h3 id="2、java特性"><a href="#2、java特性" class="headerlink" title="2、java特性"></a>2、java特性</h3><blockquote>
+<p>面向对象、跨平台、健壮性</p>
+</blockquote>
+<ul>
+<li>跨平台性：在不同的操作系统只要安装一个java虚拟机，</li>
+</ul>
+<p>​                          即面向UNIX的jvm、面向Windows的jvm、、、、</p>
+<ul>
+<li>健壮性：java是一种强类型语言，在编译和运行时进行大量的类型检查</li>
+</ul>
+<p>​                       java有自动垃圾回收功能GC，防止内存分配的错误</p>
+<p>​                       java有异常处理机制exception</p>
+<ul>
+<li>JAVA SE:标准版 standard edition</li>
+<li>JAVE EE:企业版 Enterprise Edition</li>
+<li>JAVA ME:用于移动设备和嵌入式设备</li>
+</ul>
+<h3 id="3、JDK开发环境"><a href="#3、JDK开发环境" class="headerlink" title="3、JDK开发环境"></a>3、JDK开发环境</h3><p>（java开发工具）java的核心类库（JAVA API）、JRE 运行环境（jvm虚拟机+一些核心类库API）</p>
+<h3 id="4、dos命令环境"><a href="#4、dos命令环境" class="headerlink" title="4、dos命令环境"></a>4、dos命令环境</h3><p>cd..返回上一级目录，dir当前目录，del删除文件</p>
+<p>F:改变路径，cd/返回根目录，cd进入目录</p>
+<p>md创建目录  ，rd删除目录 ，</p>
+<p>ipconfig ip地址 ，systeminfo查看系统信息，</p>
+<p>java -version java版本号</p>
+<h3 id="5、配置环境变量"><a href="#5、配置环境变量" class="headerlink" title="5、配置环境变量"></a>5、配置环境变量</h3><ul>
+<li><p>在path中编辑，%JAVA_HOME%\bin</p>
+</li>
+<li><p>添加  变量名    JAVA_HOME,</p>
+<p>​          变量值：C:\Program Files (x86)\Java\jdk1.8.0_45</p>
+</li>
+</ul>
+<h3 id="6、DOS命令"><a href="#6、DOS命令" class="headerlink" title="6、DOS命令"></a>6、DOS命令</h3><ul>
+<li><p>通过javac hello.java命令调用javac.exe程序，生成字节码文件.class</p>
+</li>
+<li><p>通过java hello命令，调用java.exe程序，使JVM解析字节码文件</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">hello</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;<span class="comment">//主方法，程序的入口</span></span><br><span class="line">		System.out.println(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1416,7 +1379,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1469,12 +1432,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">556k</span>
+    <span title="站点总字数">553k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:26</span>
+    <span title="站点阅读时长">8:23</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>
