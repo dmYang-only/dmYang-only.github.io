@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/xxb/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dmyang-only.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1、do-while:用于先执行再判断，使用与需求是要循环体重复输出同一条语句 while：用于先判断再执行，区别于for在于循环次数是否可知 2、boolean flag&#x3D;true;可作为标记来判断 3、count++;当需要计算循环次数可使用 4、流程控制的判断语句为true才会进入作用域、false结束该流程。 5、boolean和String不参与任何类型的转换 6、switch的穿透 7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DmYoung">
+<meta property="og:url" content="https://dmyang-only.github.io/2021/09/06/%E6%B3%A8%E6%84%8F/index.html">
+<meta property="og:site_name" content="DmYoung">
+<meta property="og:description" content="1、do-while:用于先执行再判断，使用与需求是要循环体重复输出同一条语句 while：用于先判断再执行，区别于for在于循环次数是否可知 2、boolean flag&#x3D;true;可作为标记来判断 3、count++;当需要计算循环次数可使用 4、流程控制的判断语句为true才会进入作用域、false结束该流程。 5、boolean和String不参与任何类型的转换 6、switch的穿透 7">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-06T12:56:48.969Z">
+<meta property="article:modified_time" content="2021-01-02T12:06:22.965Z">
+<meta property="article:author" content="dmYang">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://dmyang-only.github.io/2021/09/06/%E6%B3%A8%E6%84%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | DmYoung</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">DmYoung</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录美好日常</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2021/09/06/%E6%B3%A8%E6%84%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-06 20:56:48" itemprop="dateCreated datePublished" datetime="2021-09-06T20:56:48+08:00">2021-09-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-02 20:06:22" itemprop="dateModified" datetime="2021-01-02T20:06:22+08:00">2021-01-02</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>1、do-while:用于先执行再判断，使用与需求是要循环体重复输出同一条语句</p>
+<p>while：用于先判断再执行，区别于for在于循环次数是否可知</p>
+<p>2、boolean flag=true;可作为标记来判断</p>
+<p>3、count++;当需要计算循环次数可使用</p>
+<p>4、流程控制的判断语句为true才会进入作用域、false结束该流程。</p>
+<p>5、boolean和String不参与任何类型的转换</p>
+<p>6、switch的穿透</p>
+<p>7、标识符不能使用关键字本身，但可拼接关键字</p>
+<p>8、char=’a’; char1=65;</p>
+<p>9、运算对象必须为整型的有 %=，&lt;&lt;</p>
+<p>10、赋值变量，变量不可以为表达式，如：a=a+5=c+1，浮点数不可以求余运算</p>
+<p>11、常量不可再被赋值，不能自增自减，常量用final修饰，final int a=1；</p>
+<p>12、System.<strong>out</strong>.println(x++);//先输出后再自加。</p>
+<p>13、多个if语句并列，会从上往下继续执行</p>
+<p>14、if（a&gt;b&gt;c）{}  //编译错误</p>
+<p>15、for（int i=1;i++&lt;5）;  输出i为6  ！！！！！！！！！！</p>
+<p>1、多态的好处：编译时模糊，运行确定对象</p>
+<p>2、  Iterator迭代器（接口）:容器,所有集合都实现了iterator接口</p>
+<p>​            例如：（1）Array List实现了iterator接口，调用iterator()返回值实现了多态</p>
+<p>​                        （2）调用Array List内部类（该内部类实现了iterator接口，防止内存泄露使用内部类）</p>
+<p>​    remove() 无法删除指定元素</p>
+<p>3、任何内部类都可以独立编译成一个class文件</p>
+<p>​        匿名类是对原类的一个继承，同时创建了实例</p>
+<p>4、for-each实际是iterator实现，用于遍历，但无增改方法</p>
+<p>​    iterator通过cur进行遍历，可在遍历时移除元素remove()，但不可指定元素移除</p>
+<p>5、set中的add()通过Map的put()实现</p>
+<p>6、集合的遍历：</p>
+<p>（1）for循环,转化为数组的遍历</p>
+<p>（2）for-each（jdk5.0，不用已知长度，不用转化为数组）</p>
+<p>（3）迭代器iterator</p>
+<p>7、</p>
+<p>数组：查询快，增删慢</p>
+<p>增：（1）建立一个新数组，获取原数组的长度来决定新数组的长度</p>
+<p>​        （2）对原数组进行遍历，获取元素的位置</p>
+<p>​        （3）对插入位置后的元素进行后移</p>
+<p>链表：每一个变量都有一个地址值</p>
+<p>（1）利用临时空间保存插入元素</p>
+<p>（2）将临时空间地址与链表进行关联</p>
+<p>栈：先进后出</p>
+<p>​        （1）出栈：压栈push</p>
+<p>​        （2）入栈：pop</p>
+<p>队列：先进先出offer poll</p>
+<p>1、数组：存储同一数据类型的多个元素的容器，</p>
+<p>​                    静态初始化和动态初始化不能同时使用</p>
+<p>​    二维数组：(1)二维数组中一维数组长度a[i].length</p>
+<p>​                        (2)初始化注意点：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][];</span><br><span class="line"> <span class="comment">// a[0]= &#123;2, 3, 5&#125;;错误，需要a[0]=new int[]&#123;2,3,5&#125;</span></span><br><span class="line">a[<span class="number">0</span>]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">a[<span class="number">1</span>]=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">a[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">60</span>;a[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">60</span>;</span><br><span class="line">a[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">60</span>;a[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">80</span>;</span><br><span class="line">System.out.println( a[<span class="number">1</span>][<span class="number">1</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>2、递归：不断调用自身方法。</p>
+<p>3、成员方法不能嵌套，但可以互相调用</p>
+<p>4、方法构成及其作用限制，方法的重载递归</p>
+<p>4、Arrays类常见方法：</p>
+<p>5、排序算法：</p>
+<p>​    (1)冒泡排序（相邻元素进行比较并交换位置）</p>
+<p>   (2)直接排序（以第i个数为基准与其他元素进行比较，找出最小值的位序并交换） </p>
+<p>   (3)插入排序 (将插入元素与数组元素进行比较，插入位置后的元素后移)</p>
+<p>   (4)数组的逆序:以中间元素为基准，前后互换</p>
+<p>6、成员变量进行初始化：</p>
+<p>​    (1)直接初始化 s1.name=”小小”;</p>
+<p>​    (2)构造方法初始化， Student s=new Student(15);</p>
+<p>​    (3)对于私有属性，用setter方法进行初始化</p>
+<p>7、this关键字不能使用于静态方法中，使用this()方法调用无参构造方法</p>
+<p>8、构造方法常用来初始化成员属性</p>
+<p>9、super关键字</p>
+<p>（1）实例化子类对象，默认调用父类的无参构造方法</p>
+<p>（2）调用父类带带参构造方法时就不默认执行无参构造方法</p>
+<p>10、成员变量和局部变量</p>
+<p>​        成员变量随着对象的消失而消失，堆空间，在创建对象时有初始值<br>​        局部变量随着方法的调用，栈空间，无初始值必须被赋值</p>
+<p>调用重名时，采用就近原则</p>
+<p>11、在创建对象时，默认成员变量为默认值，实际上是无参构造方法起作用</p>
+<p>12、对父类所有属性的继承，不包括父类的构造方法和私有属性(但可通过super关键字）</p>
+<p>13、this和super不能同时存在，避免同一个被子类和父类反复初始化</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>dmYang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dmyang-only.github.io/2021/09/06/%E6%B3%A8%E6%84%8F/" title="">https://dmyang-only.github.io/2021/09/06/注意/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/06/%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BDjava/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">dmYang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dmYang</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">556k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8:26</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+    <br/>
+	<a target="_blank" rel="noopener" href="http://www.miitbeian.gov.cn/">粤ICP备2020133211号-1</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xxb/anime.min.js"></script>
+  <script src="/xxb/velocity/velocity.min.js"></script>
+  <script src="/xxb/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>;
+    <script>
+      // 背景图片
+      $("body").backstretch("https://csn.damyoung.cn/image-20201218100852830.png");
+    </script>
+
+    <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/love.js"></script>
+</body>
+</html>

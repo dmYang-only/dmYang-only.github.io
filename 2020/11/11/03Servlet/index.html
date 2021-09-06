@@ -53,7 +53,7 @@
 <meta property="og:image" content="https://csn.damyoung.cn/image-20200915144801366.png">
 <meta property="og:image" content="https://csn.damyoung.cn/image-20200915144814022.png">
 <meta property="article:published_time" content="2020-11-11T04:33:33.000Z">
-<meta property="article:modified_time" content="2020-12-17T05:20:05.487Z">
+<meta property="article:modified_time" content="2021-05-06T04:33:32.333Z">
 <meta property="article:author" content="dmYang">
 <meta property="article:tag" content="Servlet">
 <meta name="twitter:card" content="summary">
@@ -247,7 +247,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 13:20:05" itemprop="dateModified" datetime="2020-12-17T13:20:05+08:00">2020-12-17</time>
+                <time title="修改时间：2021-05-06 12:33:32" itemprop="dateModified" datetime="2021-05-06T12:33:32+08:00">2021-05-06</time>
               </span>
 
           
@@ -514,7 +514,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获得字段名username</span></span><br><span class="line">String filedName=fileItem.getFieldName();</span><br><span class="line"><span class="comment">//获得字段值:张三</span></span><br><span class="line">String fieldValue=fileItem.getString(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="string">&quot;username&quot;</span>.equals(filedName))&#123;</span><br><span class="line">    req.setAttribute(<span class="string">&quot;username&quot;</span>,fieldValue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>文件表单</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//处理文件表单项</span></span><br><span class="line"><span class="comment">//获取存储上传文件目录的绝对路径(服务器中的绝对路径)</span></span><br><span class="line">String uploadPath=getServletContext().getRealPath(<span class="string">&quot;/upload&quot;</span>);</span><br><span class="line"><span class="comment">//获取上传文件的名称</span></span><br><span class="line"><span class="comment">//文件名称可能带有客户端的路径 如:f:/pictures/xx.jpg</span></span><br><span class="line">String fileName=fileItem.getName();</span><br><span class="line"><span class="comment">//文件名称不带路径xx.jpg</span></span><br><span class="line">fileName= FilenameUtils.getName(fileName);</span><br><span class="line"></span><br><span class="line"><span class="comment">//上传文件</span></span><br><span class="line">File uploadFile=<span class="keyword">new</span> File(uploadPath,fileName);</span><br><span class="line">fileItem.write(uploadFile);</span><br><span class="line">req.setAttribute(<span class="string">&quot;filename&quot;</span>,fileName);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//处理文件表单项</span></span><br><span class="line"><span class="comment">//获取存储上传文件目录的绝对路径(服务器中的绝对路径)</span></span><br><span class="line">String uploadPath=getServletContext().getRealPath(<span class="string">&quot;/upload&quot;</span>);</span><br><span class="line"><span class="comment">//获取上传文件的名称</span></span><br><span class="line"><span class="comment">//文件名称可能带有客户端的路径 如:f:/pictures/xx.jpg</span></span><br><span class="line">String fileName=fileItem.getName();</span><br><span class="line"><span class="comment">//文件名称不带路径xx.jpg</span></span><br><span class="line">fileName= FilenameUtils.getName(fileName);</span><br><span class="line">      </span><br><span class="line"><span class="comment">//上传文件</span></span><br><span class="line">File uploadFile=<span class="keyword">new</span> File(uploadPath,fileName);</span><br><span class="line">fileItem.write(uploadFile);</span><br><span class="line">req.setAttribute(<span class="string">&quot;filename&quot;</span>,fileName);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -748,20 +748,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -801,12 +801,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.1m</span>
+    <span title="站点总字数">556k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:31</span>
+    <span title="站点阅读时长">8:26</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>

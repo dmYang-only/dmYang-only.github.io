@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/xxb/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dmyang-only.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一、MySql体系  整个MySQL Server由以下组成  Connection Pool : 连接池组件 Management Services &amp; Utilities : 管理服务和工具组件 SQL Interface : SQL接口组件 Parser : 查询分析器组件 Optimizer : 优化器组件 Caches &amp; Buffers : 缓冲池组件 Pluggabl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="存储引擎">
+<meta property="og:url" content="https://dmyang-only.github.io/2020/11/11/01MySql%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/index.html">
+<meta property="og:site_name" content="DmYoung">
+<meta property="og:description" content="一、MySql体系  整个MySQL Server由以下组成  Connection Pool : 连接池组件 Management Services &amp; Utilities : 管理服务和工具组件 SQL Interface : SQL接口组件 Parser : 查询分析器组件 Optimizer : 优化器组件 Caches &amp; Buffers : 缓冲池组件 Pluggabl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://csn.damyoung.cn/000001.jpg">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019220436964.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019144848845.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019162402194.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019224019740.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019224042393.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019174007327.png">
+<meta property="og:image" content="https://csn.damyoung.cn/1556076359503.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019225024416.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20201019225435071.png">
+<meta property="article:published_time" content="2020-11-11T04:33:33.000Z">
+<meta property="article:modified_time" content="2020-12-22T07:37:44.770Z">
+<meta property="article:author" content="dmYang">
+<meta property="article:tag" content="MySql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://csn.damyoung.cn/000001.jpg">
+
+<link rel="canonical" href="https://dmyang-only.github.io/2020/11/11/01MySql%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>存储引擎 | DmYoung</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">DmYoung</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录美好日常</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dmyang-only.github.io/2020/11/11/01MySql%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="dmYang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DmYoung">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          存储引擎
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-11 12:33:33" itemprop="dateCreated datePublished" datetime="2020-11-11T12:33:33+08:00">2020-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-22 15:37:44" itemprop="dateModified" datetime="2020-12-22T15:37:44+08:00">2020-12-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、MySql体系"><a href="#一、MySql体系" class="headerlink" title="一、MySql体系"></a>一、MySql体系</h3><img src="https://csn.damyoung.cn/000001.jpg" style="zoom:80%;" />
+
+<p>整个MySQL Server由以下组成</p>
+<ul>
+<li>Connection Pool : 连接池组件</li>
+<li>Management Services &amp; Utilities : 管理服务和工具组件</li>
+<li>SQL Interface : SQL接口组件</li>
+<li>Parser : 查询分析器组件</li>
+<li>Optimizer : 优化器组件</li>
+<li>Caches &amp; Buffers : 缓冲池组件</li>
+<li>Pluggable Storage Engines : 存储引擎</li>
+<li>File System : 文件系统</li>
+</ul>
+<p>1） 连接层</p>
+<p>最上层是一些客户端和链接服务，包含本地sock 通信和大多数基于客户端/服务端工具实现的类似于 TCP/IP的通信。主要完成一些类似于连接处理、授权认证、及相关的安全方案。在该层上引入了线程池的概念，为通过认证安全接入的客户端提供线程。同样在该层上可以实现基于SSL的安全链接。服务器也会为安全接入的每个客户端验证它所具有的操作权限。</p>
+<p>2） 服务层</p>
+<p>第二层架构主要完成大多数的核心服务功能，如SQL接口，并完成缓存的查询，SQL的分析和优化，部分内置函数的执行。所有跨存储引擎的功能也在这一层实现，如 过程、函数等。在该层，服务器会解析查询并创建相应的内部解析树，并对其完成相应的优化如确定表的查询的顺序，是否利用索引等， 最后生成相应的执行操作。如果是select语句，服务器还会查询内部的缓存，如果缓存空间足够大，这样在解决大量读操作的环境中能够很好的提升系统的性能。</p>
+<a id="more"></a>
+
+<p>3） 引擎层</p>
+<p>存储引擎层， 存储引擎真正的负责了MySQL中数据的存储和提取，服务器通过API和存储引擎进行通信。不同的存储引擎具有不同的功能，这样我们可以根据自己的需要，来选取合适的存储引擎。</p>
+<p>4）存储层</p>
+<p>数据存储层， 主要是将数据存储在文件系统之上，并完成与存储引擎的交互。</p>
+<p>和其他数据库相比，MySQL有点与众不同，它的架构可以在多种不同场景中应用并发挥良好作用。主要体现在存储引擎上，插件式的存储引擎架构，将查询处理和其他的系统任务以及数据的存储提取分离。这种架构可以根据业务的需求和实际需要选择合适的存储引擎。</p>
+<h3 id="二、存储引擎"><a href="#二、存储引擎" class="headerlink" title="二、存储引擎"></a>二、存储引擎</h3><blockquote>
+<p>存储引擎就是<strong>存储数据，建立索引，更新查询数据</strong>等等技术的实现方式</p>
+<ul>
+<li>针对不同的存储需求可以选择最优的存储引擎。</li>
+<li>存储引擎是基于表的，每张表可以使用不同存储引擎</li>
+</ul>
+</blockquote>
+<h4 id="1、MySql存储引擎"><a href="#1、MySql存储引擎" class="headerlink" title="1、MySql存储引擎"></a>1、MySql存储引擎</h4><blockquote>
+<p>MySQL提供了<strong>插件式</strong>的存储引擎架构。所以MySQL存在多种存储引擎，可以根据需要使用相应引擎，或者编写存储引擎</p>
+<p>MySQL5.0支持的存储引擎包含 ： InnoDB 、MyISAM 、BDB、MEMORY、MERGE、EXAMPLE、NDB Cluster、ARCHIVE、CSV、BLACKHOLE、FEDERATED等</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show engines;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://csn.damyoung.cn/image-20201019220436964.png"></p>
+<h4 id="2、存储引擎特性"><a href="#2、存储引擎特性" class="headerlink" title="2、存储引擎特性"></a>2、存储引擎特性</h4><table>
+<thead>
+<tr>
+<th>特点</th>
+<th>InnoDB</th>
+<th>MyISAM</th>
+<th>MEMORY</th>
+<th>MERGE</th>
+<th>NDB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储限制</td>
+<td>64TB</td>
+<td>有</td>
+<td>有</td>
+<td>没有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>事务安全</td>
+<td>==支持==</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>锁机制</td>
+<td>==行锁(适合高并发)==</td>
+<td>==表锁==</td>
+<td>表锁</td>
+<td>表锁</td>
+<td>行锁</td>
+</tr>
+<tr>
+<td>B树索引</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>哈希索引</td>
+<td></td>
+<td></td>
+<td>支持</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td>支持(5.6版本之后)</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>集群索引</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>数据索引</td>
+<td>支持</td>
+<td></td>
+<td>支持</td>
+<td></td>
+<td>支持</td>
+</tr>
+<tr>
+<td>索引缓存</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>数据可压缩</td>
+<td></td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>空间使用</td>
+<td>高</td>
+<td>低</td>
+<td>N/A</td>
+<td>低</td>
+<td>低</td>
+</tr>
+<tr>
+<td>内存使用</td>
+<td>高</td>
+<td>低</td>
+<td>中等</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>批量插入速度</td>
+<td>低</td>
+<td>高</td>
+<td>高</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>支持外键</td>
+<td>==支持==</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="2-1-InnoDB"><a href="#2-1-InnoDB" class="headerlink" title="2.1 InnoDB"></a>2.1 InnoDB</h5><blockquote>
+<p>InnoDB存储引擎是Mysql的默认存储引擎</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>InnoDB存储引擎提供了具有提交、回滚、崩溃恢复能力的<strong>事务</strong>安全</li>
+<li>支持外键约束</li>
+<li>行锁</li>
+</ul>
+</blockquote>
+<h6 id="事务控制"><a href="#事务控制" class="headerlink" title="事务控制"></a>事务控制</h6><blockquote>
+<p>在提交事务前，所有都会保存在事务日志中，事务日志得到commit命令才会同步到数据库中。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create table goods_innodb(</span><br><span class="line">	id int NOT NULL AUTO_INCREMENT,</span><br><span class="line">	name varchar(20) NOT NULL,</span><br><span class="line">    primary key(id)</span><br><span class="line">)ENGINE&#x3D;innodb DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">start transaction;</span><br><span class="line">insert into goods_innodb(id,name)values(null,&#39;Meta20&#39;);</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h6><blockquote>
+<p>MySQL支持外键的存储引擎只有InnoDB </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">create table country_innodb(</span><br><span class="line">	country_id int NOT NULL AUTO_INCREMENT,</span><br><span class="line">    country_name varchar(100) NOT NULL,</span><br><span class="line">    primary key(country_id)</span><br><span class="line">)ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create table city_innodb(</span><br><span class="line">	city_id int NOT NULL AUTO_INCREMENT,</span><br><span class="line">    city_name varchar(50) NOT NULL,</span><br><span class="line">    country_id int NOT NULL,</span><br><span class="line">    primary key(city_id),</span><br><span class="line">    key idx_fk_country_id(country_id),</span><br><span class="line">    CONSTRAINT &#96;fk_city_country&#96; FOREIGN KEY(country_id) REFERENCES country_innodb(country_id) ON DELETE RESTRICT ON UPDATE CASCADE</span><br><span class="line">)ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">--  子表的外键指定是ON DELETE RESTRICT ON UPDATE CASCADE 方式的， 那么在主表删除记录的时候， 如果子表有对应记录， 则不允许删除， 主表在更新记录的时候， 如果子表有对应记录， 则子表对应更新 。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>删除主表外键：delete from country_innodb where country_id = 1;(失败)</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201019144848845.png" alt="image-20201019144848845" style="zoom:80%;" />
+
+<blockquote>
+<p>更新主表外键：update country_innodb set country_id = 100 where country_id = 1;(子表对应记录也会更新)</p>
+</blockquote>
+<h6 id="存储方式"><a href="#存储方式" class="headerlink" title="存储方式"></a>存储方式</h6><blockquote>
+<ul>
+<li>使用<strong>共享表空间</strong>存储<ul>
+<li>表结构保存在**.frm**文件中</li>
+<li>数据和索引保存在 innodb_data_home_dir 和 innodb_data_file_path定义的表空间中，可以是多个文件。</li>
+</ul>
+</li>
+<li>使用<strong>多表空间</strong>存储<ul>
+<li>表结构存放 <strong>.frm</strong> 文件</li>
+<li>每个表的数据和索引单独保存在 <strong>.ibd</strong> 中。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>cd /var/lib/mysql/</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201019162402194.png" alt="image-20201019162402194" style="zoom:80%;" />
+
+
+
+
+
+<h5 id="2-2-MyISAM"><a href="#2-2-MyISAM" class="headerlink" title="2.2 MyISAM"></a>2.2 MyISAM</h5><blockquote>
+<p>不支持事务、也不支持外键，其优势是<strong>访问速度快</strong></p>
+<p>对事务的完整性没有要求或者以select、insert为主的应用基本上都可以使用这个引擎来创建表 </p>
+</blockquote>
+<h6 id="不支持事务"><a href="#不支持事务" class="headerlink" title="不支持事务"></a>不支持事务</h6><img src="https://csn.damyoung.cn/image-20201019224019740.png" alt="image-20201019224019740" style="zoom:80%;" />
+
+<img src="https://csn.damyoung.cn/image-20201019224042393.png" alt="image-20201019224042393" style="zoom:80%;" />
+
+<h6 id="文件存储方式"><a href="#文件存储方式" class="headerlink" title="文件存储方式"></a>文件存储方式</h6><blockquote>
+<p>.frm (存储表定义)；</p>
+<p>.MYD(MYData , 存储数据)；</p>
+<p>.MYI(MYIndex , 存储索引)；</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201019174007327.png" alt="image-20201019174007327" style="zoom:80%;" />
+
+
+
+<h5 id="2-3-Memory"><a href="#2-3-Memory" class="headerlink" title="2.3 Memory"></a>2.3 Memory</h5><blockquote>
+<p>每个MEMORY表实际对应一个<strong>磁盘文件</strong>，格式是.frm ，该文件中只存储表的结构</p>
+<p><strong>数据文件</strong>，都是存储在内存中，这样有利于数据的快速处理，提高整个表的效率。</p>
+<p>默认使用<strong>hash索引</strong> ， 但是服务一旦关闭，表中的数据就会丢失。</p>
+</blockquote>
+<h5 id="2-4-Merge"><a href="#2-4-Merge" class="headerlink" title="2.4 Merge"></a>2.4 Merge</h5><blockquote>
+<p><strong>MERGE存储引擎是一组MyISAM表的组合，这些MyISAM表结构必须完全相同</strong></p>
+<p>MERGE表本身并没有存储数据，对MERGE类型的表可以进行select、update、delete操作，这些操作实际上是对内部的MyISAM表进行的。</p>
+</blockquote>
+<h6 id="2-4-1-插入"><a href="#2-4-1-插入" class="headerlink" title="2.4.1 插入"></a>2.4.1 插入</h6><blockquote>
+<p>通过<strong>insert method</strong>子句定义插入的表</p>
+<ul>
+<li>使用<strong>first或 last</strong>值使得插入操作被相应地作用在第一或者最后一个表上</li>
+<li>不定义这个子句或者定义为<strong>no</strong>，表示不能对这个MERGE表执行插入操作</li>
+</ul>
+</blockquote>
+<img src="https://csn.damyoung.cn/1556076359503.png" style="zoom:80%;" />
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">create table order_1990(</span><br><span class="line">	order_id int ,</span><br><span class="line">	order_money double(10,2),</span><br><span class="line">	order_address varchar(50),</span><br><span class="line">	primary key (order_id)</span><br><span class="line">)engine &#x3D; myisam default charset&#x3D;utf8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create table order_1991(</span><br><span class="line">	order_id int ,</span><br><span class="line">	order_money double(10,2),</span><br><span class="line">	order_address varchar(50),</span><br><span class="line">	primary key (order_id)</span><br><span class="line">)engine &#x3D; myisam default charset&#x3D;utf8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create table order_all(</span><br><span class="line">	order_id int ,</span><br><span class="line">	order_money double(10,2),</span><br><span class="line">	order_address varchar(50),</span><br><span class="line">	primary key (order_id)</span><br><span class="line">    -- 插入选择最后一张表</span><br><span class="line">)engine &#x3D; merge union &#x3D; (order_1990,order_1991) insert method&#x3D;last --default charset&#x3D;utf8;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert into order_1990 values(1,100.0,&#39;北京&#39;);</span><br><span class="line">insert into order_1990 values(2,100.0,&#39;上海&#39;);</span><br><span class="line"></span><br><span class="line">insert into order_1991 values(10,200.0,&#39;北京&#39;);</span><br><span class="line">insert into order_1991 values(11,200.0,&#39;上海&#39;);</span><br></pre></td></tr></table></figure>
+
+<img src="https://csn.damyoung.cn/image-20201019225024416.png" alt="image-20201019225024416" style="zoom:80%;" />
+
+<blockquote>
+<p>往order_all中插入一条记录 ，由于在MERGE表定义时，INSERT_METHOD 选择的是<strong>last</strong>，那么插入的数据会向最后一张表中插入。</p>
+<p>insert into order_all values(100,10000.0,’西安’)；</p>
+</blockquote>
+<img src="https://csn.damyoung.cn/image-20201019225435071.png" alt="image-20201019225435071" style="zoom:80%;" />
+
+<h6 id="2-4-2-删除"><a href="#2-4-2-删除" class="headerlink" title="2.4.2 删除"></a>2.4.2 删除</h6><blockquote>
+<p>这个操作只是<strong>删除MERGE表的定义，对内部的表是没有任何影响的</strong>。</p>
+</blockquote>
+<h4 id="3、存储引擎的选择"><a href="#3、存储引擎的选择" class="headerlink" title="3、存储引擎的选择"></a>3、存储引擎的选择</h4><ul>
+<li>InnoDB <ul>
+<li>是Mysql的默认存储引擎，用于事务处理应用程序，支持外键。</li>
+<li>如果应用对事务的完整性有比较高的要求，在<strong>并发条件下要求数据的一致性</strong>，数据操作除了插入和查询以外，还包含很多的更新、删除操作，那么InnoDB存储引擎是比较合适的选择。</li>
+<li>InnoDB存储引擎除了<strong>有效的降低由于删除和更新导致的锁定</strong>， 还可以<strong>确保事务的完整提交和回滚</strong>，对于类似于计费系统或者财务系统等对<strong>数据准确性</strong>要求比较高的系统，InnoDB是最合适的选择。</li>
+</ul>
+</li>
+<li>MyISAM ： 如果应用是以读操作和插入操作为主，只有很少的更新和删除操作，并且对事务的完整性、并发性要求不是很高，那么选择这个存储引擎是非常合适的。</li>
+<li>MEMORY：将所有数据保存在RAM中，在需要快速定位记录和其他类似数据环境下，可以提供几块的访问。<ul>
+<li>MEMORY的缺陷就是对表的大小有限制，太大的表无法缓存在内存中</li>
+<li>其次是要确保表的数据可以恢复，<strong>数据库异常终止后</strong>表中的数据是可以恢复的。</li>
+<li>MEMORY表通常用于<strong>更新不太频繁的小表，用以快速得到访问结果。</strong></li>
+</ul>
+</li>
+<li>MERGE：用于将一系列等同的MyISAM表以逻辑方式组合在一起，并作为一个对象引用他们。<ul>
+<li>MERGE表的优点在于可以突破对单个MyISAM表的大小限制，并且通过<strong>将不同的表分布在多个磁盘上</strong>，可以<strong>有效的改善MERGE表的访问效率</strong>。这对于存储诸如<strong>数据仓储</strong>等VLDB环境十分合适</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>dmYang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dmyang-only.github.io/2020/11/11/01MySql%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" title="存储引擎">https://dmyang-only.github.io/2020/11/11/01MySql体系与存储引擎/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySql/" rel="tag"># MySql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/11/01%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2/" rel="prev" title="数据库查询">
+      <i class="fa fa-chevron-left"></i> 数据库查询
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/11/MySQL%E9%AB%98%E7%BA%A7/" rel="next" title="MySQL高级">
+      MySQL高级 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81MySql%E4%BD%93%E7%B3%BB"><span class="nav-number">1.</span> <span class="nav-text">一、MySql体系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">2.</span> <span class="nav-text">二、存储引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81MySql%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">2.1.</span> <span class="nav-text">1、MySql存储引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%89%B9%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">2、存储引擎特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-InnoDB"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 InnoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E6%8E%A7%E5%88%B6"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">事务控制</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">外键约束</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">存储方式</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-MyISAM"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 MyISAM</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">不支持事务</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">文件存储方式</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-Memory"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.3 Memory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-Merge"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.4 Merge</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-4-1-%E6%8F%92%E5%85%A5"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">2.4.1 插入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-4-2-%E5%88%A0%E9%99%A4"><span class="nav-number">2.2.4.2.</span> <span class="nav-text">2.4.2 删除</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">2.3.</span> <span class="nav-text">3、存储引擎的选择</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">dmYang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dmYang</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">556k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8:26</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+    <br/>
+	<a target="_blank" rel="noopener" href="http://www.miitbeian.gov.cn/">粤ICP备2020133211号-1</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xxb/anime.min.js"></script>
+  <script src="/xxb/velocity/velocity.min.js"></script>
+  <script src="/xxb/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>;
+    <script>
+      // 背景图片
+      $("body").backstretch("https://csn.damyoung.cn/image-20201218100852830.png");
+    </script>
+
+    <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/love.js"></script>
+</body>
+</html>

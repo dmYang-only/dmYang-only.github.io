@@ -28,7 +28,7 @@
 <meta property="og:description" content="反射 反射就是把java类中的各种成分映射成一个个的java对象模板  基本应用getClassObject类方法，根据一个字符串得到类 1234String s&#x3D;&quot;jjj&quot;;&#x2F;&#x2F;根据字符串得到一个类Class c&#x3D;s.getClass();System.out.println(c.getName());  Class.forName根据类的全限名得到运行时类信息 123456">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-11T04:33:33.000Z">
-<meta property="article:modified_time" content="2021-01-19T02:13:02.555Z">
+<meta property="article:modified_time" content="2021-03-01T14:27:05.815Z">
 <meta property="article:author" content="dmYang">
 <meta property="article:tag" content="javaSe">
 <meta name="twitter:card" content="summary">
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-19 10:13:02" itemprop="dateModified" datetime="2021-01-19T10:13:02+08:00">2021-01-19</time>
+                <time title="修改时间：2021-03-01 22:27:05" itemprop="dateModified" datetime="2021-03-01T22:27:05+08:00">2021-03-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,7 +289,7 @@
 <p><strong>第二种需要导入类的包，依赖太强，不导包就抛编译错误。</strong></p>
 <p><strong>一般都第三种，一个字符串可以传入也可写在配置文件中等多种方法。</strong></p>
 </blockquote>
-<h1 id="获取构造方法"><a href="#获取构造方法" class="headerlink" title="获取构造方法"></a>获取构造方法</h1><blockquote>
+<h1 id="Constructor"><a href="#Constructor" class="headerlink" title="Constructor"></a>Constructor</h1><blockquote>
 <p>通过反射调用私有属性</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class class1=Class.forName(<span class="string">&quot;反射.Test&quot;</span>);</span><br></pre></td></tr></table></figure>
@@ -308,7 +308,7 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用私有构造方法</span></span><br><span class="line">Constructor constructor=class1.getDeclaredConstructor(String.class);</span><br><span class="line">constructor.setAccessible(<span class="keyword">true</span>); <span class="comment">//暴力访问，忽略访问修饰符</span></span><br><span class="line">obj=constructor.newInstance(<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line">System.out.println(constructor);</span><br></pre></td></tr></table></figure>
 
-<h1 id="newInstance"><a href="#newInstance" class="headerlink" title="newInstance"></a>newInstance</h1><blockquote>
+<h2 id="newInstance"><a href="#newInstance" class="headerlink" title="newInstance"></a>newInstance</h2><blockquote>
 <p>默认调用无参构造器 </p>
 <p>newInstance是 Constructor类的方法（管理构造函数的类）</p>
 <p>newInstance是创建了一个构造方法的声明类的新实例对象。并为之调用</p>
@@ -325,7 +325,7 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Constructor&lt;?&gt; declaredConstructor = aClass1.getDeclaredConstructor(String.class);</span><br><span class="line">Student o1 = (Student) declaredConstructor.newInstance(<span class="string">&quot;hhh&quot;</span>);</span><br><span class="line">System.out.println(o1.getB());</span><br></pre></td></tr></table></figure>
 
-<h1 id="获取成员属性"><a href="#获取成员属性" class="headerlink" title="获取成员属性"></a>获取成员属性</h1><h2 id="批量-1"><a href="#批量-1" class="headerlink" title="批量"></a>批量</h2><blockquote>
+<h1 id="Field"><a href="#Field" class="headerlink" title="Field"></a>Field</h1><h2 id="批量-1"><a href="#批量-1" class="headerlink" title="批量"></a>批量</h2><blockquote>
 <p>获取成员字段值：field.<strong>get</strong>(<strong>实例对象</strong>)</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object o = aClass1.newInstance();  <span class="comment">//反射实例对象</span></span><br><span class="line"></span><br><span class="line">Field[] declaredFields = aClass1.getDeclaredFields();</span><br><span class="line"><span class="keyword">for</span> (Field field:declaredFields)&#123;</span><br><span class="line">    field.setAccessible(<span class="keyword">true</span>); <span class="comment">//暴力访问私有字段</span></span><br><span class="line">    System.out.println(field.getName()+<span class="string">&quot;:&quot;</span>+field.get(o));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -351,7 +351,7 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//私有属性</span></span><br><span class="line">Field field1=aClass1.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">field1.setAccessible(<span class="keyword">true</span>); <span class="comment">//暴力反射，解除私有限定</span></span><br><span class="line">field1.set(obj,<span class="string">&quot;ss&quot;</span>);</span><br><span class="line">System.out.println(teacher1.getName());</span><br></pre></td></tr></table></figure>
 
-<h1 id="获取成员方法"><a href="#获取成员方法" class="headerlink" title="获取成员方法"></a>获取成员方法</h1><h2 id="批量-2"><a href="#批量-2" class="headerlink" title="批量"></a>批量</h2><blockquote>
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><h2 id="批量-2"><a href="#批量-2" class="headerlink" title="批量"></a>批量</h2><blockquote>
 <p>getMethods()</p>
 <p>getDeclaredMethods()</p>
 </blockquote>
@@ -377,7 +377,7 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实例一个Student对象</span></span><br><span class="line">Object obj=c.getConstrustor().newInstance()</span><br><span class="line">m.invoke(obj,<span class="string">&quot;hhh&quot;</span>)</span><br></pre></td></tr></table></figure>
 
-<h1 id="反射main方法"><a href="#反射main方法" class="headerlink" title="反射main方法"></a>反射main方法</h1><blockquote>
+<h1 id="反射的应用"><a href="#反射的应用" class="headerlink" title="反射的应用"></a>反射的应用</h1><h2 id="反射main方法"><a href="#反射main方法" class="headerlink" title="反射main方法"></a>反射main方法</h2><blockquote>
 <p><strong>invoke</strong></p>
 <p>第一个参数，对象类型，因为方法是static静态的，所以为null可以</p>
 <p>第二个参数是String数组，这里要注意在jdk1.4时是数组，jdk1.5之后是可变参数</p>
@@ -385,7 +385,7 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> fanshe.main;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取Student类的main方法、不要与当前的main方法搞混了</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">//1、获取Student对象的字节码</span></span><br><span class="line">			Class clazz = Class.forName(<span class="string">&quot;fanshe.main.Student&quot;</span>);</span><br><span class="line">			<span class="comment">//2、获取main方法</span></span><br><span class="line">			 Method methodMain = clazz.getMethod(<span class="string">&quot;main&quot;</span>, String[].class);</span><br><span class="line">			<span class="comment">//3、调用main方法</span></span><br><span class="line"><span class="comment">//第一个参数，对象类型，因为方法是static静态的，所以为null可以，第二个参数是String数组，这里要注意在jdk1.4时是数组，jdk1.5之后是可变参数</span></span><br><span class="line">			 <span class="comment">//这里拆的时候将  new String[]&#123;&quot;a&quot;,&quot;b&quot;,&quot;c&quot;&#125; 拆成3个对象。。。所以需要将它强转。</span></span><br><span class="line">			 methodMain.invoke(<span class="keyword">null</span>, (Object)<span class="keyword">new</span> String[]&#123;<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>&#125;);<span class="comment">//方式一</span></span><br><span class="line">			<span class="comment">// methodMain.invoke(null, new Object[]&#123;new String[]&#123;&quot;a&quot;,&quot;b&quot;,&quot;c&quot;&#125;&#125;);//方式二</span></span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="反射的应用"><a href="#反射的应用" class="headerlink" title="反射的应用"></a>反射的应用</h1><h2 id="越过泛型检查"><a href="#越过泛型检查" class="headerlink" title="越过泛型检查"></a>越过泛型检查</h2><p><strong>泛型是在编译期间起作用的。在编译后的.class文件中是没有泛型的</strong></p>
+<h2 id="越过泛型检查"><a href="#越过泛型检查" class="headerlink" title="越过泛型检查"></a>越过泛型检查</h2><p><strong>泛型是在编译期间起作用的。在编译后的.class文件中是没有泛型的</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">list.add(<span class="string">&quot;ss&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;11&quot;</span>);</span><br><span class="line"><span class="comment">//        list.add(11); //类型不一致，报错</span></span><br><span class="line"><span class="comment">//获取Arraylist的class对象，反向调用add()方法</span></span><br><span class="line">Class listClass=list.getClass();</span><br><span class="line">Method m=listClass.getMethod(<span class="string">&quot;add&quot;</span>, Object.class);</span><br><span class="line">m.invoke(list,<span class="number">11</span>);</span><br><span class="line"><span class="keyword">for</span> (Object o:list)&#123;</span><br><span class="line">    System.out.println(list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="运行配置文件内容"><a href="#运行配置文件内容" class="headerlink" title="运行配置文件内容"></a>运行配置文件内容</h2><p>我们利用反射和配置文件，可以使：应用程序更新时，对源码无需进行任何修改</p>
@@ -497,7 +497,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84"><span class="nav-number">1.</span> <span class="nav-text">反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">基本应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#getClass"><span class="nav-number">2.1.</span> <span class="nav-text">getClass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class-forName"><span class="nav-number">2.2.</span> <span class="nav-text">Class.forName</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96class%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.</span> <span class="nav-text">获取class对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E5%AF%B9%E8%B1%A1%E8%8E%B7%E5%8F%96"><span class="nav-number">3.1.</span> <span class="nav-text">根据对象获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#class"><span class="nav-number">3.2.</span> <span class="nav-text">.class</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forName"><span class="nav-number">3.3.</span> <span class="nav-text">forName</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">获取构造方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F"><span class="nav-number">4.1.</span> <span class="nav-text">批量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA"><span class="nav-number">4.2.</span> <span class="nav-text">单个</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#newInstance"><span class="nav-number">5.</span> <span class="nav-text">newInstance</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%88%90%E5%91%98%E5%B1%9E%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">获取成员属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F-1"><span class="nav-number">6.1.</span> <span class="nav-text">批量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA-1"><span class="nav-number">6.2.</span> <span class="nav-text">单个</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%AD%97%E6%AE%B5%E5%80%BC"><span class="nav-number">6.3.</span> <span class="nav-text">设置字段值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">获取成员方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F-2"><span class="nav-number">7.1.</span> <span class="nav-text">批量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA-2"><span class="nav-number">7.2.</span> <span class="nav-text">单个</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">7.3.</span> <span class="nav-text">调用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84main%E6%96%B9%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">反射main方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">9.</span> <span class="nav-text">反射的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%8A%E8%BF%87%E6%B3%9B%E5%9E%8B%E6%A3%80%E6%9F%A5"><span class="nav-number">9.1.</span> <span class="nav-text">越过泛型检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">9.2.</span> <span class="nav-text">运行配置文件内容</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84"><span class="nav-number">1.</span> <span class="nav-text">反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">基本应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#getClass"><span class="nav-number">2.1.</span> <span class="nav-text">getClass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class-forName"><span class="nav-number">2.2.</span> <span class="nav-text">Class.forName</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96class%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.</span> <span class="nav-text">获取class对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E5%AF%B9%E8%B1%A1%E8%8E%B7%E5%8F%96"><span class="nav-number">3.1.</span> <span class="nav-text">根据对象获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#class"><span class="nav-number">3.2.</span> <span class="nav-text">.class</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forName"><span class="nav-number">3.3.</span> <span class="nav-text">forName</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Constructor"><span class="nav-number">4.</span> <span class="nav-text">Constructor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F"><span class="nav-number">4.1.</span> <span class="nav-text">批量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA"><span class="nav-number">4.2.</span> <span class="nav-text">单个</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#newInstance"><span class="nav-number">4.3.</span> <span class="nav-text">newInstance</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Field"><span class="nav-number">5.</span> <span class="nav-text">Field</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F-1"><span class="nav-number">5.1.</span> <span class="nav-text">批量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA-1"><span class="nav-number">5.2.</span> <span class="nav-text">单个</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%AD%97%E6%AE%B5%E5%80%BC"><span class="nav-number">5.3.</span> <span class="nav-text">设置字段值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Method"><span class="nav-number">6.</span> <span class="nav-text">Method</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F-2"><span class="nav-number">6.1.</span> <span class="nav-text">批量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA-2"><span class="nav-number">6.2.</span> <span class="nav-text">单个</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">6.3.</span> <span class="nav-text">调用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">反射的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84main%E6%96%B9%E6%B3%95"><span class="nav-number">7.1.</span> <span class="nav-text">反射main方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%8A%E8%BF%87%E6%B3%9B%E5%9E%8B%E6%A3%80%E6%9F%A5"><span class="nav-number">7.2.</span> <span class="nav-text">越过泛型检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">7.3.</span> <span class="nav-text">运行配置文件内容</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -511,20 +511,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -564,12 +564,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.1m</span>
+    <span title="站点总字数">556k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:31</span>
+    <span title="站点阅读时长">8:26</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>

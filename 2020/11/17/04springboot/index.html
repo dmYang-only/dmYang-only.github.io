@@ -40,8 +40,9 @@
 <meta property="og:image" content="https://csn.damyoung.cn/image-20201111172619028.png">
 <meta property="og:image" content="https://csn.damyoung.cn/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20180306105412.png">
 <meta property="og:image" content="https://csn.damyoung.cn/image-20201221172120335.png">
+<meta property="og:image" content="https://csn.damyoung.cn/image-20210126192620148.png">
 <meta property="article:published_time" content="2020-11-17T12:34:55.000Z">
-<meta property="article:modified_time" content="2020-12-21T13:14:01.221Z">
+<meta property="article:modified_time" content="2021-01-26T11:54:07.986Z">
 <meta property="article:author" content="dmYang">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="springboot">
@@ -236,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-21 21:14:01" itemprop="dateModified" datetime="2020-12-21T21:14:01+08:00">2020-12-21</time>
+                <time title="修改时间：2021-01-26 19:54:07" itemprop="dateModified" datetime="2021-01-26T19:54:07+08:00">2021-01-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,14 +262,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>18k</span>
+              <span>20k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>16 分钟</span>
+              <span>18 分钟</span>
             </span>
 
         </div>
@@ -540,6 +541,124 @@
 <h2 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableScheduling</span> <span class="comment">//开启定时任务功能 </span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//cron表达式，秒 分 时  日 月 week</span></span><br><span class="line"><span class="comment">//代表每分钟 4-40执行</span></span><br><span class="line"><span class="meta">@Scheduled(cron = &quot;4-40 * * * * ？&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">task2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    log.info(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 每隔俩秒</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Scheduled(fixedRate = 1000)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">task1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;--- hello ----&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="6、SpringBoot-Actuator"><a href="#6、SpringBoot-Actuator" class="headerlink" title="6、SpringBoot Actuator"></a>6、SpringBoot Actuator</h1><blockquote>
+<p>程序监控器</p>
+<p>Springboot Actuator可以监控和管理springboot应用，比如健康检查、审计、统计、Http追踪</p>
+</blockquote>
+<p>Actuator同时还可以与<strong>外部应用监控系统</strong>整合，比如 <code>Prometheus</code>,<code>Graphite</code>,<code>DataDog</code>,<code>Influx</code>，这些系统提供了非常好的仪表盘、图标、分析和告警等功能，使得可以通过统一的接口轻松监控和管理应用</p>
+<p>Actuator使用<code>Micrometer</code>来整合外部应用监控系统</p>
+<h2 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h2><p>创建Springboot项目</p>
+<h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="编写配置"><a href="#编写配置" class="headerlink" title="编写配置"></a>编写配置</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8001</span></span><br><span class="line">  </span><br><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line"><span class="comment"># 默认只暴露health,info端点 用 &quot;*&quot; 可以包含暴露全部endpoint</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">&quot;*&quot;</span></span><br><span class="line"><span class="comment"># 其他endpoints都是打开的,除了 shutdown 端点</span></span><br><span class="line">  <span class="attr">endpoint:</span></span><br><span class="line">    <span class="attr">shutdown:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">health:</span></span><br><span class="line"><span class="comment"># 获得健康检查中所有指标的详细信息</span></span><br><span class="line">      <span class="attr">show-details:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="启动项目访问web"><a href="#启动项目访问web" class="headerlink" title="启动项目访问web"></a>启动项目访问web</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="http://localhost:8001/actuator/">http://localhost:8001/actuator/</a></p>
+</blockquote>
+<p><img src="https://csn.damyoung.cn/image-20210126192620148.png" alt="image-20210126192620148"></p>
+<h2 id="监控创建"><a href="#监控创建" class="headerlink" title="监控创建"></a>监控创建</h2><p>Actuator用了 <code>endpoint</code>来暴露HTTP或者JWT来监控和管理应用，这些 <code>endpoints</code>也需要通过HTTP或者JMX暴露出来，使得它们能被远程进入</p>
+<p>打开 <a target="_blank" rel="noopener" href="http://localhost:8081/actuator/health">http://localhost:8081/actuator/health</a> 来访问</p>
+<p>状态将是<code>up</code> 应用是健康，应用不健康会显示 <code>down</code></p>
+<h3 id="endpoints"><a href="#endpoints" class="headerlink" title="endpoints"></a>endpoints</h3><table>
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>auditevents</code></td>
+<td align="left">公开当前应用程序的审核事件信息。需要一个<code>AuditEventRepository</code>豆。</td>
+</tr>
+<tr>
+<td align="left"><code>beans</code></td>
+<td align="left">显示应用程序中所有Spring Bean的完整列表。</td>
+</tr>
+<tr>
+<td align="left"><code>caches</code></td>
+<td align="left">公开可用的缓存。</td>
+</tr>
+<tr>
+<td align="left"><code>conditions</code></td>
+<td align="left">显示在配置和自动配置类上评估的条件以及它们匹配或不匹配的原因。</td>
+</tr>
+<tr>
+<td align="left"><code>configprops</code></td>
+<td align="left">显示所有的整理列表<code>@ConfigurationProperties</code>。</td>
+</tr>
+<tr>
+<td align="left"><code>env</code></td>
+<td align="left">公开Spring的属性<code>ConfigurableEnvironment</code>。</td>
+</tr>
+<tr>
+<td align="left"><code>flyway</code></td>
+<td align="left">显示所有已应用的Flyway数据库迁移。需要一个或多个<code>Flyway</code>豆。</td>
+</tr>
+<tr>
+<td align="left"><code>health</code></td>
+<td align="left">显示应用程序运行状况信息。</td>
+</tr>
+<tr>
+<td align="left"><code>httptrace</code></td>
+<td align="left">显示HTTP跟踪信息（默认情况下，最近100个HTTP请求-响应交换）。需要一个<code>HttpTraceRepository</code>豆。</td>
+</tr>
+<tr>
+<td align="left"><code>info</code></td>
+<td align="left">显示任意应用程序信息。</td>
+</tr>
+<tr>
+<td align="left"><code>integrationgraph</code></td>
+<td align="left">显示Spring Integration图。需要对的依赖<code>spring-integration-core</code>。</td>
+</tr>
+<tr>
+<td align="left"><code>loggers</code></td>
+<td align="left">显示和修改应用程序中记录器的配置。</td>
+</tr>
+<tr>
+<td align="left"><code>liquibase</code></td>
+<td align="left">显示已应用的所有Liquibase数据库迁移。需要一个或多个<code>Liquibase</code>豆。</td>
+</tr>
+<tr>
+<td align="left"><code>metrics</code></td>
+<td align="left">显示当前应用程序的“指标”信息。</td>
+</tr>
+<tr>
+<td align="left"><code>mappings</code></td>
+<td align="left">显示所有<code>@RequestMapping</code>路径的整理列表。</td>
+</tr>
+<tr>
+<td align="left"><code>scheduledtasks</code></td>
+<td align="left">显示应用程序中的计划任务。</td>
+</tr>
+<tr>
+<td align="left"><code>sessions</code></td>
+<td align="left">允许从Spring Session支持的会话存储中检索和删除用户会话。需要使用Spring Session的基于Servlet的Web应用程序。</td>
+</tr>
+<tr>
+<td align="left"><code>shutdown</code></td>
+<td align="left">使应用程序正常关闭。默认禁用。</td>
+</tr>
+<tr>
+<td align="left"><code>startup</code></td>
+<td align="left">显示由收集的启动步骤数据<code>ApplicationStartup</code>。需要使用<code>SpringApplication</code>进行配置<code>BufferingApplicationStartup</code>。</td>
+</tr>
+<tr>
+<td align="left"><code>threaddump</code></td>
+<td align="left">执行线程转储。</td>
+</tr>
+</tbody></table>
+<h3 id="打开和关闭Actuator-Endpoints"><a href="#打开和关闭Actuator-Endpoints" class="headerlink" title="打开和关闭Actuator Endpoints"></a>打开和关闭Actuator Endpoints</h3><p>默认上述所有的endpoints都是打开的，除了<code>shutdown</code> endpoint</p>
+<p>通过设置<code>management.endpoint.&lt;id&gt;.enabled to true or false</code>(<code>id</code>是endpoint的id)来决定打开还是关闭一个actuator endpoint。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">management.endpoint.shutdown.enabled</span>=<span class="string">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="暴露Actuator-Endpoints"><a href="#暴露Actuator-Endpoints" class="headerlink" title="暴露Actuator Endpoints"></a>暴露Actuator Endpoints</h3><p>通过HTTP暴露的只有<code>health</code>和<code>info</code>。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">management.endpoints.web.exposure.include</span>= <span class="string">&quot;*&quot;</span></span><br><span class="line"><span class="comment">#management.endpoints.web.exposure.include= health,info</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="显示详细的健康信息"><a href="#显示详细的健康信息" class="headerlink" title="显示详细的健康信息"></a>显示详细的健康信息</h3><p><code>health</code> endpoint只展示了简单的<code>UP</code>和<code>DOWN</code>状态。为了获得健康检查中所有指标的详细信息，</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">management.endpoint.health.show-details</span>=<span class="string">always</span></span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -640,7 +759,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">1、简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot%E4%B8%BB%E7%A8%8B%E5%BA%8F%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">SpringBoot主程序类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Boot-Maven-plugin"><span class="nav-number">1.2.</span> <span class="nav-text">Spring Boot Maven plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">启动器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.4.</span> <span class="nav-text">注解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">2、配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#YAML%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">YAML语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.1.1.</span> <span class="nav-text">格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map"><span class="nav-number">2.1.2.</span> <span class="nav-text">Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List"><span class="nav-number">2.1.3.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.4.</span> <span class="nav-text">属性文件配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3%E3%80%81%E6%95%B4%E5%90%88"><span class="nav-number">3.</span> <span class="nav-text">3、整合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E5%90%88MyBatis"><span class="nav-number">3.1.</span> <span class="nav-text">整合MyBatis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E6%95%B4%E5%90%88"><span class="nav-number">3.1.1.</span> <span class="nav-text">简单整合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B"><span class="nav-number">3.1.2.</span> <span class="nav-text">逆向工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6"><span class="nav-number">3.1.3.</span> <span class="nav-text">分页插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E5%90%88Redis"><span class="nav-number">3.2.</span> <span class="nav-text">整合Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E5%90%88SpringData-JPA"><span class="nav-number">3.3.</span> <span class="nav-text">整合SpringData JPA</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4%E3%80%81%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">4、使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3"><span class="nav-number">4.1.</span> <span class="nav-text">自定义注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">异常处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%87%E9%9D%A2"><span class="nav-number">4.3.</span> <span class="nav-text">切面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="nav-number">4.4.</span> <span class="nav-text">拦截器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">4.5.</span> <span class="nav-text">过滤器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5%E3%80%81%E4%BB%BB%E5%8A%A1"><span class="nav-number">5.</span> <span class="nav-text">5、任务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1"><span class="nav-number">5.1.</span> <span class="nav-text">异步任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81"><span class="nav-number">5.2.</span> <span class="nav-text">邮件发送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">5.3.</span> <span class="nav-text">定时任务</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">1、简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot%E4%B8%BB%E7%A8%8B%E5%BA%8F%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">SpringBoot主程序类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Boot-Maven-plugin"><span class="nav-number">1.2.</span> <span class="nav-text">Spring Boot Maven plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">启动器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.4.</span> <span class="nav-text">注解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">2、配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#YAML%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">YAML语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.1.1.</span> <span class="nav-text">格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map"><span class="nav-number">2.1.2.</span> <span class="nav-text">Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List"><span class="nav-number">2.1.3.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.4.</span> <span class="nav-text">属性文件配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3%E3%80%81%E6%95%B4%E5%90%88"><span class="nav-number">3.</span> <span class="nav-text">3、整合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E5%90%88MyBatis"><span class="nav-number">3.1.</span> <span class="nav-text">整合MyBatis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E6%95%B4%E5%90%88"><span class="nav-number">3.1.1.</span> <span class="nav-text">简单整合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B"><span class="nav-number">3.1.2.</span> <span class="nav-text">逆向工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6"><span class="nav-number">3.1.3.</span> <span class="nav-text">分页插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E5%90%88Redis"><span class="nav-number">3.2.</span> <span class="nav-text">整合Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E5%90%88SpringData-JPA"><span class="nav-number">3.3.</span> <span class="nav-text">整合SpringData JPA</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4%E3%80%81%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">4、使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3"><span class="nav-number">4.1.</span> <span class="nav-text">自定义注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">异常处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%87%E9%9D%A2"><span class="nav-number">4.3.</span> <span class="nav-text">切面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="nav-number">4.4.</span> <span class="nav-text">拦截器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">4.5.</span> <span class="nav-text">过滤器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5%E3%80%81%E4%BB%BB%E5%8A%A1"><span class="nav-number">5.</span> <span class="nav-text">5、任务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1"><span class="nav-number">5.1.</span> <span class="nav-text">异步任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81"><span class="nav-number">5.2.</span> <span class="nav-text">邮件发送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">5.3.</span> <span class="nav-text">定时任务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6%E3%80%81SpringBoot-Actuator"><span class="nav-number">6.</span> <span class="nav-text">6、SpringBoot Actuator</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B"><span class="nav-number">6.1.</span> <span class="nav-text">实现流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="nav-number">6.1.1.</span> <span class="nav-text">引入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E9%85%8D%E7%BD%AE"><span class="nav-number">6.1.2.</span> <span class="nav-text">编写配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE%E8%AE%BF%E9%97%AEweb"><span class="nav-number">6.1.3.</span> <span class="nav-text">启动项目访问web</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7%E5%88%9B%E5%BB%BA"><span class="nav-number">6.2.</span> <span class="nav-text">监控创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#endpoints"><span class="nav-number">6.2.1.</span> <span class="nav-text">endpoints</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E5%92%8C%E5%85%B3%E9%97%ADActuator-Endpoints"><span class="nav-number">6.2.2.</span> <span class="nav-text">打开和关闭Actuator Endpoints</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9A%B4%E9%9C%B2Actuator-Endpoints"><span class="nav-number">6.2.3.</span> <span class="nav-text">暴露Actuator Endpoints</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E8%AF%A6%E7%BB%86%E7%9A%84%E5%81%A5%E5%BA%B7%E4%BF%A1%E6%81%AF"><span class="nav-number">6.2.4.</span> <span class="nav-text">显示详细的健康信息</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -654,20 +773,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -707,12 +826,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.1m</span>
+    <span title="站点总字数">556k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:31</span>
+    <span title="站点阅读时长">8:26</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
     <br/>
